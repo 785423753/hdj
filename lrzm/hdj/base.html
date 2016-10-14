@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/static/laydate/laydate.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/index.css">
+</head>
+{% block style %}
+{% endblock %}
+<body>
+<div class='left' style=''>
+    <div class='left-title'><h4 style='color:white;padding-left: 20px'>活动家数据可视化</h4></div>
+    <div class='left-item-bottom'>
+        <h4 class='left-item-title'><span class="glyphicon glyphicon-new-window" aria-hidden="" style='margin-right:8px;'></span>编辑可视化</h4>
+        <ul>
+            <li><a href="#">编辑可视化数据</a></li>
+            <li><a href="#" >编辑数据及对比</a></li>
+        </ul>
+    </div>
+    <div class='left-item-bottom'>
+        <h4 class='left-item-title'><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>流量可视化</h4>
+        <ul >
+            <li><a href="#" >流量分布图</a></li>
+            <li ><a href="#">单场会议流量分布图</a></li>
+            <li ><a href="#">流量渠道</a></li>
+        </ul>
+    </div>
+    <div class='left-item-bottom'>
+        <h4 class='left-item-title'><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>订单可视化</h4>
+        <ul>
+            <li><a href="http://vision.huodongjia.com/showordermain/">订单交易对比</a></li>
+            <li><a href="#">每月订单祥情</a></li>
+            <li><a href="#">商务合作数据</a></li>
+        </ul>
+    </div>
+    <div class='left-item-bottom'>
+        <h4 class='left-item-title'><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>订单分析</h4>
+        <ul>
+            <li><a href="/showorder/analyse/">订单详情</a></li>
+            <li><a href="/showorder/trend/">订单趋势</a></li>
+            <li><a href="/showorder/top/">订单排行</a></li>
+        </ul>
+    </div>
+</div>
+{% block right %}
+{% endblock %}
+</body>
+<script src="/static/js/echarts.js"></script>
+<script src="/static/js/roma.js"></script>
+{% block script %}
+{% endblock %}
+</html>

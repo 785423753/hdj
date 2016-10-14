@@ -1,0 +1,43 @@
+{% extends "wapSponsorList.html" %}
+{% block container %}
+<!--主办方列表-->
+<div class="venue_list row">
+    {% if sponsors|length == 0%}
+    <p class="text-center" style="margin-top: 50px">对不起,没有搜索到相关信息,请换一个关键词搜索</p>
+    {% else %}
+    {% for sp in sponsors %}
+    <div class="venue col-sm-12 col-xs-12">
+        <div class="col-sm-5 col-xs-5" style="padding: 0 10px">
+            <a href="/sponsor-{{sp.id }}.html">
+                {% if sp.pic__urls %}
+                <img width="130"  class="img-responsive img-rounded" src="{{ sp.pic__server__name}}{{sp.pic__urls}}" alt="{{sp.name }}"/>
+                {% else %}
+                <img width="130" class="img-responsive img-rounded" src="http://pic.huodongjia.com/static/images/sponsor_default.jpg" alt="{{sp.name}}"/>
+                {% endif %}
+            </a></div>
+        <div class="col-sm-7 col-xs-7" style="padding: 0 10px">
+            <a href="/sponsor-{{sp.id }}.html">
+                <h2 style='color: #000'>{{sp.name}}</h2>
+                <p>会场介绍：{{sp.intro}}</p>
+            </a>
+        </div>
+        <div class="message text-right"><span class="fa fa-paper-plane">{% if sp.count %}{{sp.count}}{% else %}0{% endif %}</span>
+            <span class="fa fa-heart">{% if sp.like_count %}{{sp.like_count}}{% else %}0{% endif %}人</span></div>
+    </div>
+    {% endfor%}
+    {% endif %}
+</div>
+<!--footer-->
+<footer {% if data|length == 0 %} style="width: 100%;position: fixed;bottom: 0"{% endif %}>
+    <a href="http://m.huodongjia.com/">首页</a>&gt;<h1 style="display: inline;"><a href="http://m.huodongjia.com/listsponsor/" style="color: #000;font-size: 14px">会议主办方</a></h1>
+    <hr style="margin:4px 0;border-top: 1px solid rgba(215, 215, 215, 0.57)"/>
+    <ul>
+        <li class=""><a href="http://www.huodongjia.com/?mobile" rel="nofollow"><span class="fa fa-desktop"></span>电脑端</a></li>
+        <li class=""><a class="appdownload" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.dahuodong.veryevent" rel="nofollow" >下载APP</a></li>
+        <li class=""><a href="http://m.huodongjia.com/about/">关于我们</a></li>
+    </ul>
+    <div class="text-center">CopyRight 活动家 huodongjia.com</div>
+</footer>
+{% endblock %}
+
+

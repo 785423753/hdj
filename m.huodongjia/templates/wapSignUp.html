@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{seo.title}}</title>
+    <meta name="description" content="{{seo.description}}" />
+    <meta name="keywords" content="{{seo.keywords}}" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/x-icon" href="http://www.huodongjia.com/favicon.ico" media="screen" />
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/wapSignUp.css"/>
+    <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/head.css">
+    <!--百度统计代码-->
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+          var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?7dce5762be86c04d74cdf23183cc9558";
+              var s = document.getElementsByTagName("script")[0]; 
+                s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    <style>
+        .change_number{margin: auto}
+        .change_number td{
+            border:1px solid #333;
+            height: 25px;
+        }
+        .change_number input{
+            width: 30px;
+            border: none;
+            background: none;
+            text-align: center;
+            height: 25px;
+            padding: 0;
+            margin: 0;
+            top:0;
+        }
+        .add, .sub {
+             width:auto;
+             height: auto;
+             border: none;
+             font-size: 16px;
+             text-align: center;
+             line-height: normal;
+             color: #000;
+             display: inline-grid;
+             border-radius: 0px;
+             cursor: pointer;
+            padding:0 5px;
+        }
+    </style>
+</head>
+<body>
+<header style="padding: 0;border: none">
+    <table>
+        <tr>
+            <td class="left"><a href="javascript:history.back(-1)">&#xe601;</a></td>
+            <td style="line-height: 45px;font-size: 18px;">会议门票</td>
+            <td class="right"><a href="/" style="font-size: 36px;">&#xe600;</a></td>
+        </tr>
+    </table>
+</header>
+<div class="row event">
+    <div class="col-sm-5 col-xs-5 img"><img class="img-responsive" width="100%" src="{{event.event_img.0.server__name}}{{event.event_img.0.urls}}" alt=""/></div>
+    <p>{{event.event_name}}</p>
+    <span class="event_city">{{event.event_city_info.0.district_name}}</span><span class="event_time">{{event.event_begin_time|date:'Y-m-d'}}</span>
+</div>
+<!--门票类型-->
+<div class="content">
+    {% for price in event.event_price_unit %}
+        <div class="row normal" data-id="{{price.id}}" data-parice="{{price.price}}" data-pariceClass="{{price.Currency__sign}}" data-limit="{% if price.limit_people %}{{price.limit_people}}{% else%}1{%endif%}">
+            <p class="page-header" >{{price.property}}</p>
+            <div class="topic" style="display: block;">
+                <h3>{{price.Currency__sign}}{{price.price}}</h3>
+                <span style="color: #9F9F9F">截止报名时间:{{price.end_time|date:'Y-m-d'}}</span>
+            </div>
+            <div class="detail" style="display: none;">
+                <div class="col-sm-6 col-xs-6 ">
+                    <p class="info">单价:</p>
+                    <p style="font-size: 22px">{{event_price_unit_sign}}{{price.price}}</p>
+                </div>
+                <div class="col-sm-6 col-xs-6 ">
+                    <p class="info">数量:</p>
+                    <p>
+                    <table  class="change_number" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td class="sub">—</td>
+                            <td><input type="text" disabled="disabled" name="number" class="number"  value="0"></td>
+                            <td class="add">+</td>
+                        </tr>
+                    </table>
+                    </p>
+                </div>
+                <div class="explain" >
+                    <p style=" margin-bottom: 5px;"><span class="fee"></span>费用说明</p>
+                    <p style="margin: 0;text-indent: 2em" >{{price.content}}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    
+</div>
+<!--门票类型-->
+<footer>
+    <form action="/dosignup/{{event_id}}/" method="post" id="signupform">
+        {% csrf_token %}
+        <input type="hidden" name="event_id" value="{{event_id}}"/>
+        <input type="hidden" name="number" value=""/>
+        <input type="hidden" name="price" value=""/>
+        <input type="hidden" name="all_price" value="" />
+        <input type="hidden" name="property" value=""/>
+        <input type="hidden" name="price_id" value=""/>
+        <div class="colo-sm-6 col-xs-6 money">总金额: <span style="color:red;font-size: 18px;position: absolute; margin-left: 5px;"></span></div>
+    <div class="colo-sm-6 col-xs-6 next"><button type="submit" style="border: none;outline: none;background: none">下一步</button></div>
+    </form>
+</footer>
+</body>
+<script src="/static/wapstatic/js/jquery-1.8.3.min.js"></script>
+<script>
+    function stopEventBubble(event){
+        var e=event || window.event;
+
+        if (e && e.stopPropagation){
+            e.stopPropagation();
+        }
+        else{
+            e.cancelBubble=true;
+        }
+    }
+    $("input[name='price'],input[name='number']").val("")
+    if("{{price_unit_info.0.price}}"<1){
+        $(".money span").text("")
+    }else{
+        $(".money span").text("")
+    }
+    $(".normal").on('click', function () {
+        var limit=$(this).data('limit')
+//        if($(this).find(".detail").css("display")=="none"){
+            $(this).find(".number").val(limit)
+//        }
+        $('.normal').removeClass('active').css({border:"1px solid #D7D7D7"})
+        $(this).addClass('active').css({border:"1px solid rgb(62, 168, 244)"});
+
+        $(this).find(".topic").slideUp().next(".detail").slideDown()
+        $(this).siblings().find(".topic").slideDown().next(".detail").slideUp().next(".number").val(1);
+        var s = $(this).find(".number");
+        var property = $(this).find(".page-header").text();
+        var parice = $(this).data("parice"),price_id = $(this).data("id");
+        var pariceC = $(this).data("pariceclass");
+        $(".money span").text(pariceC+""+(parseInt(s.val())*parice).toFixed(2))
+        $("input[name='number']").val(parseInt(s.val()))
+        $("input[name='price']").val(parice)
+        $("input[name='all_price']").val((parseInt(s.val())*parice).toFixed(2))
+        $("input[name='property']").val(property)
+        $("input[name='price_id']").val(price_id)
+        $(this).css({border:"1px solid #3EA8F4"})
+
+    })
+    $(".normal .sub").on('click', function (e) {
+        var limit=$('.active').data('limit')
+        var s = $(this).parents(".normal").find(".number");
+        var parice = $(this).parents(".normal").data("parice");
+        var pariceC = $(this).parents(".normal").data("pariceclass");
+        if(s.val()>limit){
+            s.val(s.val()-1)
+        }
+        $(".money span").text(pariceC+""+(parseInt(s.val())*parice).toFixed(2))
+        $("input[name='number']").val(parseInt(s.val()))
+        $("input[name='all_price']").val((parseInt(s.val())*parice).toFixed(2))
+        stopEventBubble(e)
+    })
+    $(".normal .add").on('click', function (e) {
+        var parice = $(this).parents(".normal").data("parice");
+        var pariceC = $(this).parents(".normal").data("pariceclass");
+        var s = $(this).parents(".normal").find(".number");
+        s.val(parseInt(s.val())+1)
+        $(".money span").text(pariceC+""+(parseInt(s.val())*parice).toFixed(2))
+//        $(".money span").text(pariceC+""+parseInt(s.val())*parice+".00")
+        $("input[name='number']").val(parseInt(s.val()))
+        $("input[name='all_price']").val((parseInt(s.val())*parice).toFixed(2))
+        stopEventBubble(e)
+    })
+ 
+    $("#signupform").submit(function(){
+        if($("input[name='price']").val()==''){
+                alert("请选择票价")
+                return(false)
+        }
+    })
+    //    test
+</script>
+</html>

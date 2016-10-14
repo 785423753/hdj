@@ -1,0 +1,122 @@
+
+<div class="container myContainer" style="margin-top: 1em;">
+	<div class="row">
+		<ul class="list-inline navigationUlist">
+			<li style="padding-right: 0;"><a href="/">首页></a></li>
+			<li style="padding-left: 0;">搜索</li>
+		</ul>
+	</div>
+	<div class="row">
+		<div class="col-md-7 col-xs-12">
+			<form role="form" class="myForm" action="/search/" method="get"
+				style="margin-bottom: 2em; border-radius: 0px; line-height: 35px; text-align: left;">
+				<label class="sr-only" for="itemCode">请输入活动关键词 </label> <input
+					type="text" class="form-control" placeholder="请输入活动关键词"
+					name="keyword">
+				<button class="btn btn-info centerSearchIcon" type="submit">搜索</button>
+			</form>
+		</div>
+	</div>
+	{% if error_msg %}
+	<div class="row">
+		<div class="col-sm-6">
+			<span>{{error_msg}}</span>
+		</div>
+	</div>
+	{% endif %} {% if message %}
+	<div class="row">
+		<div class="col-sm-6" style="margin-top: 2em;">
+			<span style="font-weight: bold; font-size: 18px;">{{message}}</span>
+		</div>
+	</div>
+	{% endif %} {% if list %} {% for event in list %}
+	<div class="row">
+		<div class="col-md-10 col-offset-md-1">
+			<div class="listRow clearfix" style="margin-left: 0;">
+				<div class="col-sm-6 col-md-5 imgAreas">
+					<a href="/event-{{event.event_id}}.html" target="_blank"> <img
+						src="{{event.event_img}}" class="listPic"
+						alt="{{event.event_name}}">
+					</a> {% ifequal event.event_price_model 3%} <span
+						class="crowdingSpanCro"></span> {% endifequal %} {% ifequal
+					event.event_price_model 2%} <span class="crowdingSpanChu"></span>
+					{% endifequal %} {% ifnotequal event.event_discount_price '' %} <span
+						class="crowdingSpanDis"></span> {% endifnotequal %}
+				</div>
+				<div class="col-sm-6 col-md-7 description">
+					<div class="row">
+						<div class="col-sm-8 col-md-9  description_left"
+							style="padding-left: 6px;">
+							<h1 class="yahei">
+								<a href="/event-{{event.event_id}}.html" target="_blank"
+									style="color: #2c3e50;">{{event.event_name}}</a>
+							</h1>
+							<ul>
+								<li>{% if event.event_islongtime %}
+									时&nbsp;&nbsp;&nbsp;&nbsp;间:&nbsp;&nbsp;常年 {% else %}
+									时&nbsp;&nbsp;&nbsp;&nbsp;间:&nbsp;&nbsp;{{event.event_begin_time}}{%
+									ifnotequal event.event_begin_time
+									event.event_end_time%}&nbsp;至&nbsp;{{event.event_end_time}}{%endifnotequal%}
+									{% endif %}</li>
+								<li>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址:&nbsp;&nbsp;<a
+									href="/{{event.district_title}}/" class="cityLink"
+									target="_blank">{{event.district_name}}</a> {% if
+									event.event_venue %},{{event.event_venue}} {% endif %}{% if
+									event.event_address %},{{event.event_address}} {% endif %}
+								</li> {% if event.event_tag %}
+								<li>活动标签:&nbsp;{% for tag in event.event_tag %} <a
+									href="/tag/?keyword={{tag}}" class="glyphiconWord">{{tag}}</a>{%
+									if not forloop.last%},{% endif %}{% endfor %}
+								</li> {% endif %}
+							</ul>
+							<h5>亲，为了能及时出票，请提前预定购买哦</h5>
+							<span class="inline_span"> <span
+								class="glyphicon glyphicon-user"></span> <span
+								style="color: #f26c4f; display: inline-block; margin-right: 2em;"
+								class="canjiaNum">236</span> <span
+								class="glyphicon glyphicon-heart inline_span"
+								style="position: relative; top: 2px; margin-right: 6px; color: #b5b5b5;"></span>
+								<span
+								style="color: #f26c4f; display: inline-block; margin-right: 2em;"
+								class="likeNum"></span>
+							</span>
+						</div>
+						<div class="col-sm-4 col-md-3 description_right">
+							<!-- <span class="listRowPrice">￥</span> -->
+							{% if event.event_discount_price %} <span
+								class="picPrice listRowPrice"
+								data-priceStyle="{{event.event_price_unit}}">{{event.event_discount_price}}</span>
+							{% else %} <span class="picPrice listRowPrice"
+								data-priceStyle="{{event.event_price_unit}}">{{event.event_price}}</span>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endfor %} {% endif %}
+	<div class="paginationWrapper">
+		{% autoescape off %}
+		<ul class="pagination dhd_pagination list-inline">
+			{% ifnotequal firstPage False%}
+			<li><a href="{{firstPage.pageurl}}">首页</a></li> {% endifnotequal %}
+			{% if pageList %} {% for page in pageList %} {% ifequal page.flag
+			True%}
+			<li><a href="{{page.pageurl}}" class="currentPage">{{page.page}}</a>
+			<li>{% else %}
+			<li><a href="{{page.pageurl}}">{{page.page}}</a>
+			<li>{% endifequal %} {% endfor %} {% endif %} {% if countpage %}
+				{% ifnotequal lastPage False%}
+			<li
+				style="color: #428bca; font-size: 2em; position: relative; bottom: .6em;">...</li>
+			<li><a href="{{lastPage.pageurl}}">最后一页</a></li> {% endifnotequal %}
+			{% endif %} {% ifnotequal nextPage False%}
+			<li><a href="{{nextPage.pageurl}}">下一页</a>
+			<li>{% endifnotequal %}
+		</ul>
+		{% endautoescape %}
+	</div>
+</div>
+
+</div>

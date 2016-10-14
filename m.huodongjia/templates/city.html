@@ -1,0 +1,42 @@
+{% extends "m_model.html" %}
+{% block meta %}
+<meta name="description" content="想知道哪些城市的活动最多最热门吗？赶紧来活动家手机站看看吧。活动家为您提供热门城市活动，让您了解活动是在哪些城市进行，还有同城活动查询、门票预订、报名参加，服务热线:400-003-3879" />
+<meta name="keywords" content="热门城市,热门活动,同城活动,活动家"/>
+<title>热门城市活动_活动家</title>
+{% endblock %}
+{% block cssStyle %}
+{% endblock %}
+{% block container %}
+<div class="container">
+{% block header %}
+     <div class="header">
+    <div class="icon-left"><a href="javascript:;" onClick="javascript :history.back(-1);"><i class="iconfont">&#xe66b;</i></a></div>
+    <h2>选择城市</h2>
+     </div>
+{% endblock %}
+{% block Navlist %}{% endblock %}
+{% block content %}
+<div id="cityMap">
+    <ul class="internal">
+        <p>国内热门 </p>
+        {% for ci in city_Nav %}
+        {% if  forloop.last %}
+    </ul>
+    <ul class="abroad ">
+        <p>国外热门</p>
+        {% for c in ci.child|slice:":9"%}
+        <li><a href="/{{c.title}}/" style="color:#333;font-size: 0.9em">{{c.district_name}}</a></li>
+        {% endfor %}
+        {% else %}
+        {% for c in ci.child|slice:":8"%}
+        <li><a href="/{{c.title}}/" style="color:#333;font-size: 0.9em">{{c.district_name}}</a></li>
+        {% endfor %}
+        {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+    </div>
+{% endblock %}
+
+{% block footerjs %}{% endblock %}

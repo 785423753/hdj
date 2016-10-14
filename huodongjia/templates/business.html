@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/bootstrap.min.css">
+</head>
+<style>
+    body{
+        font-family:"微软雅黑";
+    }
+    header{
+        width: 100%;
+        height: 50px;
+        background: #2D2D2D;
+    }
+    h3{
+        color: #52B0CC;
+        font-weight: bolder;
+        margin: 20px 0;
+    }
+    table{
+        border: 1px solid #CBCBCB;
+        border-radius: 5px;
+    }
+    table td{
+        height: 50px;
+        width:25%;
+        text-align: center;
+        font-size: 16px;
+        color: #2B2B2B;
+    }
+    table tr td:nth-child(odd){
+        background: #EEEEEE;
+    }
+    #Form{
+        width: 80%;
+        margin: 50px  auto 0;
+    }
+    input,textarea{
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        /*-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);*/
+        /*box-shadow: inset 0 1px 1px rgba(0,0,0,.075);*/
+        -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        margin-bottom: 20px;
+        resize: none;
+    }
+    #Form>label{
+        color: #52B0CC;
+        font-size: 18px;
+        font-weight: normal;
+        width: 15% !important;
+        text-align: right;
+        padding-right: 25px !important;
+    }
+    .linkways{
+        padding: 0;
+    }
+    .linkways input{
+        width: 35%;
+        margin-right: 10px;
+    }
+    .linkways label{
+        width: 7%;
+        text-align: left;
+        color: #868686;
+        font-size: 16px;
+        font-weight: normal;
+    }
+    .consociation{
+        padding: 0;
+    }
+    .consociation label{
+      font-size: 16px;
+        color: #868686;
+        font-weight: normal;
+        padding-right: 15px;
+    }
+    .consociation input{
+        margin-right: 10px;
+    }
+    .consociation>div{
+        width: 100%;
+        padding: 15px;
+        background: #F5F5F5;
+        margin: 15px 0 30px;
+        font-size: 14px;
+    }
+    #post{
+        width: 300px;
+        height: 45px;
+        border: none;
+        color: #fff;
+        border-radius: 5px;
+        background: #5AAFCC;
+        font-size: 18px;
+        display: block;
+        margin: 15px auto;
+    }
+    #post:hover{
+        background: #529fba;
+    }
+    input[type="text"]:focus,textarea:focus{border-color:rgba(102,175,233,.6) !important;box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6) !important;outline: none}
+</style>
+<body>
+<header></header>
+<div class="container business">
+    <h3>商务洽谈</h3>
+    <table border="1" cellpadding="0" >
+        <tr>
+            <td>会议标题</td>
+            <td>{{event.event_name}}</td>
+            <td>ID</td>
+            <td>{{ event.id }}</td>
+        </tr>
+        <tr>
+            <td>会议时间</td>
+            <td>{{event.begin_name}}</td>
+            <td>主办城市</td>
+            <td>{{event.event_city_info.0.district_name}}</td>
+        </tr>
+        <tr>
+            <td>信息来源</td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td>主办方</td>
+            <td colspan="3">{% for sponsor in event.event_sponsor %}{{ sponsor.ns_name }}{% endfor %}
+            </td>
+        </tr>
+    </table>
+    <form id="Form" action="">
+        <label class="col-sm-2">名片：</label><textarea class="col-sm-10 " name="" id="card" rows="5"></textarea>
+        <label class="col-sm-2">联系方式:<br/><span style="color: #D4D4D4;font-size: 16px">（选填）</span></label>
+        <div class="linkways col-sm-10">
+            <label>QQ</label><input type="text" id="QQ"/>
+            <label>电话</label><input type="text" id="phone"/><br/>
+            <label>微信</label><input type="text" id="weixin"/>
+            <label>邮件</label><input type="text" id="email"/>
+        </div>
+        <label class="col-sm-2">洽谈结果：</label>
+        <div class="col-sm-10 consociation" >
+            <label><input type="radio" name="teamwork"/><span>重点合作</span></label>
+            <label><input type="radio" name="teamwork"/><span>同意发布</span></label>
+            <div>
+                <label><input type="checkbox"/><span>媒体合作</span></label>
+            </div>
+        </div>
+        <label class="col-sm-2">备注信息：</label><textarea class="col-sm-10 " name="" id="mark" rows="5"></textarea>
+        <button type="button" id="post">确认</button>
+    </form>
+</div>
+</body>
+<script src="http://pic.huodongjia.com/static/js/jquery-1.8.3.min.js"></script>
+</html>

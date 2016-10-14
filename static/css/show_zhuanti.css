@@ -1,0 +1,574 @@
+.mainWrapper{
+    background-color: #fff;
+    font-family: "microsoft yahei";
+}
+h1{
+    margin: 0px;
+}
+/*头部大图*/
+.header_imgH470>img{
+    width: 100%;
+}
+.header_top {
+    text-align: center;
+    position: relative;
+    height: 450px;
+    width: 100%;
+    font-family: "microsoft yahei";
+}
+.header_top img{
+    width: 100%;
+    height: 450px;
+}
+.head_body {
+    display: table-cell;
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.head_position{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    display: table;
+}
+.head_body h1 {
+    font-size: 3.5em;
+    color: #ffffff;
+    width: 93%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.head_body p {
+    font-size: 2em;
+    color: #ffffff;
+    letter-spacing: 1em;
+}
+
+.head_body .city {
+    font-size: 1.3em;
+    letter-spacing: 0em;
+}
+
+.head_body .city a{
+    color: #fff;
+}
+
+.head_body .h_time {
+    font-size: 1.3em;
+    letter-spacing: 0em;
+    margin-top: 2.5em;
+}
+/*end*/
+/*侧边导航栏*/
+#head_nav{
+    position: fixed;
+    left: 7%;
+      top: 57%;
+      z-index: 999;
+}
+#head_nav ul{
+        list-style: none;
+    padding: 0px;
+    margin:0px;
+}
+#head_nav li a{
+    width: 15px;
+  height: 30px;
+  background: url(../images/circule.png) no-repeat left 10px;
+  display: block;
+  position: relative;
+  background-size: 100%;
+}
+#head_nav .active a {
+  background: url(../images/circule-active.png) no-repeat left 10px;
+  text-decoration: none;
+animation: myfirst 1s;
+-moz-animation: myfirst 1s; /* Firefox */
+-webkit-animation: myfirst 1s;  /* Safari 和 Chrome */
+-o-animation: myfirst 1s;   /* Opera */
+margin-bottom: 92px;
+  background-size: 100%;
+}
+@keyframes myfirst
+{
+from {margin-bottom: 0px;}
+to {margin-bottom: 92px;}
+}
+
+@-moz-keyframes myfirst /* Firefox */
+{
+from {margin-bottom: 0px;}
+to {margin-bottom: 92px;}
+}
+
+@-webkit-keyframes myfirst /* Safari 和 Chrome */
+{
+from {margin-bottom: 0px;}
+to {margin-bottom: 92px;}
+}
+
+@-o-keyframes myfirst /* Opera */
+{
+from {margin-bottom: 0px;}
+to {margin-bottom: 92px;}
+}
+@keyframes liner_first
+{
+from {height: 0px;}
+to {height: 100px;}
+}
+
+@-moz-keyframes liner_first /* Firefox */
+{
+from {height: 0px;}
+to {height: 100px;}
+}
+
+@-webkit-keyframes liner_first /* Safari 和 Chrome */
+{
+from {height: 0px;}
+to {height: 100px;}
+}
+
+@-o-keyframes liner_first /* Opera */
+{
+from {height: 0px;}
+to {height: 100px;}
+}
+#head_nav .active .penel-road,#head_nav .active .penel-div,#head_nav .active .sanjiao{
+  display: block;
+}
+#head_nav .active .penel-road{
+    animation: liner_first 1s;
+    -moz-animation: liner_first 1s; /* Firefox */
+    -webkit-animation: liner_first 1s;  /* Safari 和 Chrome */
+    -o-animation: liner_first 1s;   /* Opera */
+}
+#head_nav .sanjiao {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8px;
+  border-color: transparent #565b61 transparent transparent;
+  position: absolute;
+  left: 11px;
+  top: 12px;
+  display: none;
+}
+#head_nav .penel-div {
+  width: 115px;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+  font-size: 12px;
+  display: none;
+  background: #565b61;
+  color: #ffffff;
+  margin-left: 27px;
+  position: relative;
+  top: -4px;
+}
+#head_nav .penel-road {
+  width: 2px;
+  height: 100px;
+  background: url(../images/circule-road.png) repeat-y left center;
+  position: absolute;
+  margin-left: 7px;
+  display: none;
+  margin-top: -16px;
+}
+/*面包屑导航栏*/
+.nav_header{
+    height: auto;
+    margin-top: 2em;
+    line-height: 0px;
+}
+.ul_right{
+    margin-top: -1em;
+    float: right;
+    font-family: "microsoft yahei";
+}
+.ul_right a{
+    margin-left: 11px;
+}
+/*.ul_right li{
+    margin-right: 15px;
+    height: 25px;
+    line-height: 36px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    float: left;
+    list-style: none;
+}
+.ul_right_li_1,.ul_right_li_2,.ul_right_li_3,.ul_right_li_2_fan{
+    background: url("http://pic.huodongjia.com/static/images/event_img.gif") no-repeat;
+    display: inline-block;
+    width: 40px;
+    height: 36px;
+    float: left;
+}
+.ul_right_li_1{
+    background-position: 0px;
+}
+.ul_right_li_2{
+    background-position: -108px;
+}
+.ul_right_li_2_fan{
+    background-position: -72px;
+}
+.ul_right_li_3{
+    background-position: -35px;
+    margin-right: 0px;
+}*/
+.ul_left {
+    font-family: "microsoft yahei";
+    margin-left: 0px;
+}
+.ul_left li{
+    display: inline-block;
+    color:#b0b0b0 !important;
+}
+.ul_left li a{
+    display: inline-block;
+    color:#b0b0b0 !important;
+    line-height: 20px;
+}
+.ul_left .navigationUlist_last{
+    width: 200px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #333 !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.hidden-md{
+    width: 250px;
+}
+.content_head{
+    background-color: #99cc00;
+}
+.content_head h3{
+    width: 100%;
+    color: #ffffff;
+    padding: .4em 0em;
+    text-align: center;
+    background-color: #99cc00;
+}
+.zt_footer{
+    height:8em;
+    margin-top: 3em;
+    font-family: "microsoft yahei";
+}
+.zt_footer .recommend img{
+    width: 100%;
+    position: relative;
+}
+
+.zt_footer .recommend{
+    padding: 0px 4.5px;
+}
+
+.zt_footer .recommend  table p{
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient: vertical;
+}
+.recommend_body {
+    background-color: #000;
+    opacity: .5;
+    filter: alpha(opacity=50);
+}
+.recommend_body table{
+    width: 100%;
+    height: 100%;
+}
+table p{
+    margin: 0 0;
+    line-height: 1.43;
+}
+.div_text{
+    width: 100%;
+    padding: 0 10px;
+    position: absolute;
+    bottom: 0;
+    color:#fff;
+    height: 50px;
+    line-height: 0px;
+}
+.div_text table {
+    width: 100%;
+    height: 100%;
+}
+.content_body{
+    padding-top: 2em;
+    line-height: 30px;
+    font-family: "microsoft yahei";
+    font-size: 16px;
+    text-align: center;
+}
+.content_body  table{
+    margin:  0 auto;
+}
+.content_people table{
+    width: 100%;
+}
+.content_body img{
+    margin:  0 auto;
+
+}
+.content_menpiao{
+    display: table;
+}
+.content_head_info table{
+    width: 100%;
+}
+.tag{
+    font-family: "microsoft yahei";
+    height: auto;
+    margin-top: 5em;
+}
+.tag ul{
+    line-height: 26px;
+    padding: 0;
+}
+.tag span{
+    font-size: 14px;
+    line-height:40px;
+}
+.tag ul li{
+    display: inline-block;
+    width: auto;
+    height: 26px;
+    background-color: #eee;
+    border-radius: 3px;
+    font-size: 14px;
+    color: #5f5f5f;
+    text-align: center;
+    margin-left: 3px;
+    margin-top: 15px;
+    padding: 0 12px;
+}
+/*留言咨询界面*/
+.message_popup{
+    width:500px;
+    clear: both;
+    margin: 0 auto;
+    -webkit-box-shadow: 0px 0px 0px #eee;
+    -moz-box-shadow: 0px 0px 0px #eee;
+    box-shadow: 0px 1px 4px #000;
+    border-radius: 5px;
+    overflow: hidden;
+    display: none;
+    position: fixed;
+    background-color: #fff;
+    z-index: 999;
+}
+.message_popup h4{
+    display: block;
+    background-color: #3366CC;
+    padding: .7em 10px;
+    color: #fff;
+    margin: 0px;
+    font-size: 17px;
+}
+.message_popup p{
+    margin: 1em 0;
+}
+.message_popup label{
+    font-weight: 400;
+}
+.message_popup textarea{
+    display: inline-block;
+    resize: none
+}
+.message_popup ul{
+    padding: 0px;
+}
+.message_popup>div{
+    padding-left: 3.7em;
+}
+.message_popup ul li{
+    margin-bottom: 1em;
+    list-style: none outside none;
+}
+.message_popup ul li input{
+    height: 2.2em;
+    border: 1px solid #b8b8b8;
+    border-radius: 5px;
+    width: 200px;
+    margin-bottom: 1em;
+}
+.message_popup ul li textarea{
+    border: 1px solid #b8b8b8;
+    border-radius: 5px;
+}
+.message_popup .captcha_btn{
+    display: inline-block;
+    text-align: center;
+    padding: 4px 10px;
+    font-size: 14px;
+    color: #646464;
+    border-radius: 3px;
+    background: url(http://pic.huodongjia.com/static/images/btn-bg.png)!important;
+    background-size: 100%;
+    margin-left: 10px;
+    border: 1px solid #c8c8c8;
+    cursor: pointer;
+}
+.message_popup .captcha_btn:hover{
+    text-decoration: none;
+    background: #dedede!important;
+    color: #646464;
+    text-decoration: none;
+}
+.clearDiv{
+    float: right;
+}
+.message_popup button{
+    background-color: #FF9933;
+    color: #ffffff;
+    font-size:17px;
+    border-radius: 5px;
+    padding: .3em 3em;
+    border: none;
+    display: block;
+    margin: 0 auto 2em auto;
+}
+.xing{
+    color: red;
+}
+@media (max-width: 1366px){
+    .zt_footer .recommend .recommend_body{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 50px;
+        color: #ffffff !important;
+        filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false);
+    }
+    .zt_footer .recommend img{
+        width: 100%;
+        position: relative;
+    }
+}
+@media (min-width:1400px){
+    .zt_footer .recommend img{
+        width: 100%;
+        position: relative;
+    }
+    .zt_footer .recommend .recommend_body{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 50px;
+        color: #ffffff !important;
+        filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false);
+    }
+}
+/*侧边*/
+.backTop {
+    display: none;
+    font-size: 30px;
+    background: url("http://pic.huodongjia.com/static/images/btn.png") no-repeat 0 -140px;
+    *filter: progid: DXImageTransform . Microsoft . gradient(startColorstr = #88000000, endColorstr = #88000000);
+    _background: url("http://pic.huodongjia.com/static/images/btn.png") no-repeat 0 140px !important;
+    color: #fff;
+    cursor: pointer;
+    position: fixed;
+    _position: absolute;
+    right: 4%;
+    bottom: 117px;
+    width: 60px;
+    height: 50px;
+    text-align: center;
+    z-index: 10000;
+    _border: 1px solid #000;
+    _border-top: 0
+}
+
+/*.APP {*/
+    /*display: none;*/
+    /*background: url("http://pic.huodongjia.com/static/images/btn.jpg") no-repeat 0 -140px;*/
+    /**filter: progid: DXImageTransform . Microsoft . gradient(startColorstr = #88000000, endColorstr = #88000000);*/
+    /*_background: url("http://pic.huodongjia.com/static/images/btn.jpg") no-repeat 0 -140px !important;*/
+    /*cursor: pointer;*/
+    /*position: fixed;*/
+    /*_position: absolute;*/
+    /*bottom: 188px;*/
+    /*right: 2%;*/
+    /*width: 72px;*/
+    /*height: 68px;*/
+    /*z-index: 10000;*/
+    /*_border: 1px solid #000;*/
+    /*_border-bottom: 0*/
+/*}*/
+
+/*.phone {*/
+    /*display: none;*/
+    /*background: #fbb01f url("http://pic.huodongjia.com/static/images/btn.png") no-repeat right -70px;*/
+    /**filter: progid: DXImageTransform . Microsoft . gradient(startColorstr = #88000000, endColorstr = #88000000);*/
+    /*_background: #fbb01f url("http://pic.huodongjia.com/static/images/btn.png") no-repeat 0 -70px !important;*/
+    /*cursor: pointer;*/
+    /*position: fixed;*/
+    /*_position: absolute;*/
+    /*bottom: 188px;*/
+    /*right: 2%;*/
+    /*width: 60px;*/
+    /*height: 50px;*/
+    /*z-index: 10000;*/
+    /*_border: 1px solid #000;*/
+    /*_border-bottom: 0;*/
+    /*line-height: 67px;*/
+    /*font-size: 20px;*/
+    /*color: #fff;*/
+    /*padding-left: 10px*/
+/*}*/
+
+.new_weixing {
+    display: none;
+/*    background: #7eafef url("http://pic.huodongjia.com/static/images/btn.png") no-repeat right -65px;
+    *filter: progid: DXImageTransform . Microsoft . gradient(startColorstr = #88000000, endColorstr = #88000000);
+    _background: #7eafef url("http://pic.huodongjia.com/static/images/btn.png") no-repeat right 65px !important;*/
+    cursor: pointer;
+    position: fixed;
+    _position: absolute;
+    bottom: 285px;
+    right: 2%;
+    width: 140px;
+    height: 50px;
+    z-index: 10000;
+    _border: 1px solid #000;
+    _border-bottom: 0;
+    text-align: center;
+        color: #000;
+}
+.dahuodong ins#qiao-icon-wrap{bottom:329px;right:2%}
+.fanli{
+    cursor: pointer;
+    position: fixed;
+    _position: absolute;
+    bottom: 406px;
+    right: 2%;
+    z-index: 10000;
+}
+.fanli img{
+    width: 60px;
+}
+.col-lg-1.col-md-1.col-xs-1.col-sm-1.enroll {
+    position: fixed;
+    right: 1%;
+    top: 100px;
+}
+.bdsharebuttonbox span{
+  float: left;
+  line-height: 24px;
+  height: 24px;
+  margin: 6px 6px 6px 0;
+  font-size: 17px;
+}

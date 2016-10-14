@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/static/laydate/laydate.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/base.css">
+</head>
+<style>
+    .content{
+        height: 600px;
+    }
+    .content .part{
+        text-align: center;
+        margin:10px 1%;
+        border:1px solid #141E42;
+        background: rgba(13, 22, 55, 0.8);
+    }
+    table{
+        width:100%;
+    }
+    td{
+        padding: 13px 0;
+    }
+    .title td,.spon td{
+        width: 33%;
+        color: #5C7EC5;
+        background: rgba(19, 32, 77, 0.81);
+        cursor: pointer;
+    }
+   .title .choose,.spon .choose{
+        background: none;
+    }
+   .top,.spon_top{
+       opacity: 0;
+       position: absolute;
+   }
+    .top td{
+        text-align: left;
+        padding-left: 5%;
+    }
+    .top td,.spon_top td{
+        width: 2%;
+        color: #F6F4F6;
+        font-size: 14px;
+    }
+    .top tr td:nth-child(2){
+        width: 13%;
+    }
+    .spon_top td{
+        text-align: left;
+        padding-left: 15px;
+    }
+    .top tr:nth-child(even),.spon_top tr:nth-child(even){
+        background: rgba(14, 26, 64, 0.8);
+    }
+    .top tr span{
+        border-radius: 4px;
+        padding:2px 7px;
+        font-size: 12px;
+    }
+    .active{
+        transition: all 1s linear;
+        opacity:1;
+    }
+</style>
+<body>
+<canvas class="bg"></canvas>
+<div class="head">
+    <span class="logo">可视化管理</span>
+    <ul>
+        <li data-url="zonglan_1.png" data-old="zonglan.png"><a href="/" title="总览图"><img src="http://pic.huodongjia.com/static/vision/images/zonglan.png" alt=""></a></li>
+        <li class="order" data-url="dingdan_1.png" data-old="dingdan.png">
+            <a class="act" href="/newordervis/salesanalysis/" title="订单可视化"><img src="http://pic.huodongjia.com/static/vision/images/dingdan.png" alt=""></a>
+        </li>
+        <li data-url="bianji_1.png" data-old="bianji.png"><a href="/neweventvis/showevents/" title="编辑可视化"><img src="http://pic.huodongjia.com/static/vision/images/bianji.png" alt=""></a></li>
+        <li class="operate" data-url="qita_1.png" data-old="qita.png">
+            <a href="/newoperation/op_datas/" title="运营推广数据可视化"><img src="http://pic.huodongjia.com/static/vision/images/qita.png" alt=""></a>
+        </li>
+        <li data-url="app_1.png" data-old="app.png"><a href="/newordervis/app/" title="活动家APP"><img src="http://pic.huodongjia.com/static/vision/images/app.png" alt=""></a></li>
+    </ul>
+</div>
+<div class="menue">
+    <a  href="/newordervis/salesanalysis/">销售额对比分析</a><a href="/newordervis/top20/">销售榜单分析</a>
+    <a  href="/newordervis/contrastwithpast/">历届会议对比</a><a class="choose"  href="/newordervis/bizcoopanalysis/">商务合作分析</a><a href="/newordervis/order_source/">其他维度分析</a>
+</div>
+<div class='content'>
+    <div class="part" style="width: 68%">
+        <table class="title"><tr><td class="choose">成交订单TOP10</td><td>举办会议TOP10</td><td>佣金比TOP10</td></tr></table>
+        <table width="100%" class="active top">
+            <tr><td>排名</td><td>主办方</td><td>订单数</td><td>销售额</td></tr>
+            {% for sp1 in top10_by_orders %}
+                <tr>
+                    <td><span>{{ forloop.counter }}</span></td>
+                    <td>{{ sp1.name }}</td>
+                    <td>{{ sp1.order_amount }}</td>
+                    <td>￥{{ sp1.sale_info_relate_us }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <table class="top">
+            <tr><td>排名</td><td>主办方</td><td>会议量</td><td>订单数</td></tr>
+            {% for sp2 in top10_by_events %}
+                <tr>
+                    <td><span>{{ forloop.counter }}</span></td>
+                    <td>{{ sp2.name }}</td>
+                    <td>{{ sp2.event_count }}</td>
+                    <td>￥{{ sp2.order_amount }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <table class="top">
+            <tr><td>排名</td><td>主办方</td><td>佣金比</td><td>订单数</td></tr>
+            {% for sp3 in top10_by_commission %}
+                <tr>
+                    <td><span>{{ forloop.counter }}</span></td>
+                    <td>{{ sp3.name }}</td>
+                    <td>{{ sp3.value|first }}</td>
+                    <td>{{ sp3.value|last }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="part" style="width: 28%">
+        <table class="spon"><tr><td class="choose">不合作主办方</td><td>合作无佣金主办方</td></tr></table>
+        <table class="active spon_top">
+            {% for sp4 in sponsor_not_coop %}
+                <tr>
+                    <td>{{ sp4 }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <table class="spon_top">
+            {% for sp5 in no_commission_sponsor %}
+                <tr>
+                    <td>{{ sp5 }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+</body>
+<script src="/static/js/canvas.js"></script>
+<script>
+    var height=$('html').height()
+    $('.bg').css({height:height+'px'})
+    $('.head ul li a').hover(
+            function(){
+                var url1=$(this).parent().data('url')
+                $(this).find('img').attr('src',"http://pic.huodongjia.com/static/vision/images/"+url1)
+            },
+            function(){
+                var url2=$(this).parent().data('old')
+                $(this).find('img').attr('src',"http://pic.huodongjia.com/static/vision/images/"+url2)
+            }
+    )
+    $('.part').css({height:$('.top tr').height()*12+'px'})
+    $('.top').each(function(){
+        $($(this).find('span')[0]).css({background:'#E75453'})
+        $($(this).find('span')[1]).css({background:'#E2622A'})
+        $($(this).find('span')[2]).css({background:'#E5A14F'})
+    })
+    $('.title td').click(function () {
+        var _index=$(this).index()
+        $('.title td').removeClass('choose')
+        $(this).addClass('choose')
+        $('.top').removeClass('active')
+        $('.top').eq(_index).addClass('active')
+    })
+    $('.spon td').click(function () {
+        var _index=$(this).index()
+        $('.spon td').removeClass('choose')
+        $(this).addClass('choose')
+        $('.spon_top').removeClass('active')
+        $('.spon_top').eq(_index).addClass('active')
+    })
+</script>
+</html>

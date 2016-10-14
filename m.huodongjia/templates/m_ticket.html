@@ -1,0 +1,84 @@
+{% extends "m_model.html" %}
+{% block meta %}
+<title>活动家-亚洲最大的活动网聚合平台</title>
+<meta name="description" content="活动家，亚洲最大的活动网聚合平台，为您提供海量会议,公开课,会展,极限运动,当地体验,夜生活,演出折扣票,同城活动查询,特色旅游，门票预订,报名,参加活动,请上活动家手机站！服务热线:400-003-3879" />
+<meta name="keywords" content="活动,活动网,线下活动,会议网,同城活动" />
+{% endblock %}
+{% block myStyle %}
+<link rel="stylesheet" type="text/css" href="http://pic.huodongjia.com/static/css/sweet-alert.css">
+{% endblock %}
+{% block request %}
+{% endblock %}
+{% block container %}
+<section class="ticket">
+<header>
+    <a href="{{event.event_url}}"><i class="iconfont">&#xf006b;</i></a>
+    <h2>会议门票</h2>
+</header>
+<section  class="col-sm-12 col-xs-12 check_meeting">
+    <dl>
+        <dt>
+            <a href="{{event.event_url}}" target="_blank">
+                <img src="{{event.event_img}}" alt="{{event.event_name}}" style="width: 130px;height: 90px;">
+            </a>
+        </dt>
+        <dd>
+            <ul>
+                <a href="{{event.event_url}}" target="_blank">
+                    <h3 class="pic-opa-title">{{event.event_name}}</h3>
+                </a>
+                <label class="home-time">{{event.event_begin_time}}</label>
+                <label class="home-city"><a href="/{{event.district_title}}/" style="color:#b5b5b5;" target="_blank">{{event.district_name}}</a></label>
+            </ul>
+        </dd>
+    </dl>
+</section>
+<form action="/order/{{event.event_id}}/" method="post" id="price_form">
+    {% for p in event.price_unit_info %}
+<setion class="col-xs-12 check {% if forloop.last %}checkeds{% endif %}">
+    <div class="check_boder">
+    <div class="price_type">
+        <div class="col-sm-12 price_content">
+            <h2>{%if p.property%}{{p.property}}{%else%}会务费{%endif%}</h2>
+            <p>报名截止:{% if event.event_islongtime %}长期{% else %}{{p.end_time}}{% endif %}</p><a class="open">{%if p.content%}展开<i class="iconfont" style="font-size:1.2em">&#xe62b;</i>{%endif%}</a>
+            <hr/>
+            <div class="content" style="display: none" data="{{p.content}}">
+                {{p.content}}
+            </div>
+        </div>
+    </div>
+    <div class="form_number">
+        <div class="borer_top"></div>
+        <div class="col-sm-12 price_content">
+            <p class="sums_price">{{event.event_price_unit_sign}}{{p.price}}</p>
+            <hr/>
+            <input type="hidden" class="return_price" data-return="{{p.price_return}}" data-sign="{{event.event_price_unit_sign}}">
+            <input type="hidden" class="price" value="{{p.price}}" data-price="{{p.price}}" data-priceType="{{event.event_price_unit}}" data-sign="{{event.event_price_unit_sign}}"/>
+            <label for="number">请选择数量：</label>
+            <div class="number"><i class="number_old" {% ifequal p.status 1 %}{%else%}disabled="true"{%endifequal%}>-</i><input id="number" readonly="readonly"  value="0" type="text"/><i class="number_add">+</i></div>
+            <div class="fanli">
+                <span></span>
+            </div>
+        </div>
+    </div>
+    </div>
+</setion>
+    {%endfor%}
+    <setion class="col-xs-12 white" style="height:60px;"></setion>
+    <setion class="col-xs-12 click_submit">
+        <a>去付款</a>
+    </setion>
+    <input type="hidden" class="hide_price" name="price" value="">
+    <input type="hidden" class="order-number" name="number" value="">
+    <input type="hidden" class="returnprice" name="returnprice" value="">
+    <input type="hidden" value="{{ event.event_id }}" name="event_id"/>
+    <input type="hidden" name="event_name" value="{{ event.event_name }}"/>
+</form>
+        </section>
+{%endblock%}
+<script type="text/javascript" src="http://pic.huodongjia.com/static/js/m_event.js"></script>
+{% block myscript %}
+<script>
+   ticket();
+</script>
+{% endblock %}

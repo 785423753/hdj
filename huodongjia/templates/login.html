@@ -1,0 +1,186 @@
+{% extends "admin/base_site.html" %}
+
+<!-- LOADING -->
+{% load url from future %}
+{% load i18n grp_tags %}
+
+<!-- BODYCLASS -->
+{% block bodyclass %}grp-login{% endblock %}
+
+<!-- EXTRAHEAD-->
+{% block extrahead %}
+    {{ block.super }}
+    <script type="text/javascript">
+        (function($) {
+            $(window).load(function(){ $('#id_username').focus(); });
+        })(grp.jQuery);
+    </script>
+{% endblock %}
+
+<!-- CONTENT -->
+{% block content %}
+<style>
+    body{
+        width: 100%;
+        /*background: url("http://pic.huodongjia.com/static/images/bejing.jpg") no-repeat;*/
+    }
+    input{
+        width:250px !important;
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+        height: 35px !important;
+        padding: 6px 12px !important;
+        font-weight: normal !important;
+        position: relative;
+        z-index: 10;
+        float: right;
+    }
+    input:focus{
+        box-shadow: none !important;
+    }
+    .grp-module{
+        background: #fff;
+    }
+    .grp-row{
+        border: none !important;
+        background: #fff !important;
+    }
+    label{
+        width: 30px;
+        height: 33px;
+        border-radius: 2px;
+        background-color: #f7f7f7;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        position: relative;
+        top: 2px;
+        left: 6px;
+        border: 1px solid #ccc;
+    }
+    body.grp-login .grp-module-login {
+         background:none !important;
+    }
+    body.grp-login .grp-module-login .grp-module {
+        border-top: 1px solid #ccc;
+        padding: 20px !important;
+    }
+    body.grp-login .grp-module-login .grp-module .grp-row {
+         /*padding-bottom: 5px;*/
+    }
+    .button{
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        text-align: center;
+        white-space: nowrap;
+        cursor: pointer;
+        border-radius: 4px;
+        background-color: #1caf9a;
+        border-color: #17a08c;
+        width: 92%;
+        height: 35px;
+        margin-left: 16px;
+        margin-top: 10px;
+    }
+    .button:hover{
+        background-color: #17a08c;
+        border-color: #119380;
+        color: #fff;
+    }
+    .grp-current-page{
+        font-size: 21px;
+        position: relative;
+        line-height: 2;
+        left: 14px;
+        z-index: 9999;
+    }
+    body.grp-login .grp-module-login .grp-module .grp-row.grp-error-row {
+        margin-top: 15px;
+        width: 92%;
+        margin-left: 15px;
+    }
+    .grp-row ul.errorlist li {
+        padding: 5px 0 !important;
+    }
+    .img{
+        margin-right: 50px;
+    }
+    .signup-footer {
+        border-top: 1px solid #ddd;
+        margin-top: 30px;
+        padding-top: 10px;
+        font-size: 12px;
+        clear: both;
+        position: relative;
+        top: 10px;
+    }
+</style>
+<div style="width: 800px;margin: 7% auto">
+    <div class="g-d-c g-d-10 img">
+        <span style="font-size: 25px;line-height: 30px">admin</span>
+        <img width="100%" height="250" src="http://pic.huodongjia.com/static/images/vision_main_for_login.png">
+    </div>
+    <div class="g-d-c g-d-10 g-centered" style="width: 349px;margin:0;float: left;">
+        <form action="{{ app_path }}" method="post">{% csrf_token %}
+            <fieldset class="grp-module grp-module-login">
+                <!--<h1>-->
+                    <!--<span class="grp-admin-title">{% if grappelli_admin_title %}{{ grappelli_admin_title }}{% else %}{% get_admin_title %}{% endif %}</span>-->
+                <!--</h1>-->
+                <div class="grp-module">
+                    <span class="grp-current-page">{% trans "Login" %}</span>
+                    {% if form.errors and not form.non_field_errors and not form.this_is_the_login_form.errors %}
+                        <div class="grp-row grp-error-row">
+                            <p class="errornote">{% if form.errors.items|length == 1 %}{% trans "Please correct the error below." %}{% else %}{% trans "Please correct the errors below." %}{% endif %}</p>
+                        </div>
+                    {% endif %}
+                    {% if form.non_field_errors or form.this_is_the_login_form.errors %}
+                        <div class="grp-row grp-error-row">
+                            {% for error in form.non_field_errors|add:form.this_is_the_login_form.errors %}
+                                <p class="errornote">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if error_message %}
+                        <div class="grp-row grp-error-row">
+                            <p class="errornote">{{ error_message }}</p>
+                        </div>
+                    {% endif %}
+
+                    <div class="grp-row{% if form.username.errors %} grp-errors{% endif %}">
+                        <label for="id_username" class="required" style="text-align: center;line-height: 2.5"><img src="http://pic.huodongjia.com/static/images/user.png"/></label>
+                        <!--<div class="g-d-c g-d-2 " >{{ form.username.label }}</div>-->
+                        <input  type="text" name="username" id="id_username" placeholder="username" />
+                        {% if not form.this_is_the_login_form.errors %}{{ form.username.errors }}{% endif %}
+                    </div>
+                    <div class="grp-row grp-connected{% if form.password.errors %} grp-errors{% endif %}">
+                        <label for="id_password" class="required" style="text-align: center;line-height: 2.5"><img src="http://pic.huodongjia.com/static/images/passw.png"/></label>
+                        <input type="password" name="password" id="id_password" placeholder="password" />
+                        <input type="hidden" name="this_is_the_login_form" value="1" />
+                        <input type="hidden" name="next" value="{{ next }}" />
+                        {% if not form.this_is_the_login_form.errors %}{{ form.password.errors }}{% endif %}
+                        {% url 'admin_password_reset' as password_reset_url %}
+                    </div>
+                    {% if password_reset_url %}
+                        <div class="grp-row">
+                            <p class="grp-description" style="font-size: 11px; line-height: 13px; margin-top: 2px;"><a href="{{ password_reset_url }}">{% trans 'Forgotten your password or username?' %}</a></p>
+                        </div>
+                    {% endif %}
+                    <button class="button">{% trans 'Log in' %}</button>
+                    <!--<input type="submit" class="grp-button" value="{% trans 'Log in' %}" />-->
+                </div>
+            </fieldset>
+
+        </form>
+    </div>
+    <div class="signup-footer">
+        <div >
+            &copy;2014. All Rights Reserved.yunshuhailiang
+        </div>
+        <div style="float: right;">
+            Created By: <a href="http://huodongjia.com/" target="_blank">huodongjia</a>
+        </div>
+    </div>
+</div>
+<!--//test-->
+{% endblock %}

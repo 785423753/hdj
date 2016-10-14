@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/static/laydate/laydate.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/base.css">
+</head>
+<style>
+    .content .part{
+        width: 99%;
+        background: rgba(13, 22, 55, 0.65);
+        margin: .5%;
+    }
+    .content .part>div{
+        height: 300px;
+    }
+    .part>p{
+        color: #fff;
+        text-align: left;
+        padding:10px 30px;
+        font-size: 16px;
+    }
+    .part>.dd,.part>.source{
+        float: right;
+        width: 50% !important;
+        color: #3FA0F1;
+        line-height: 25px;
+        padding: 10% 5%;
+    }
+    .part>.source{
+        padding:4% 2%;
+    }
+    .dd p{
+        color: #6FE1EF;
+        line-height: 3;
+    }
+    .source span{
+        display: inline-block;
+        color: #6F7899;
+        margin-bottom: 10px;
+        margin-right: 15px;
+        width: 150px;
+    }
+    .source span font{
+        color: #3FA0F1;
+    }
+    .source img{
+        margin-right: 10px;
+    }
+    .source>div{
+        display: none;
+    }
+    .source>.hdj{
+        display: block;
+    }
+</style>
+<body>
+<canvas class="bg"></canvas>
+<div class="head">
+    <span class="logo">可视化管理</span>
+    <ul>
+        <li data-url="zonglan_1.png" data-old="zonglan.png"><a href="/" title="总览图"><img src="http://pic.huodongjia.com/static/vision/images/zonglan.png" alt=""></a></li>
+        <li class="order" data-url="dingdan_1.png" data-old="dingdan.png">
+            <a class="act" title="订单可视化" href="/newordervis/salesanalysis/"><img src="http://pic.huodongjia.com/static/vision/images/dingdan_1.png" alt=""></a>
+        </li>
+        <li data-url="bianji_1.png" data-old="bianji.png"><a href="/neweventvis/showevents/" title="编辑可视化"><img src="http://pic.huodongjia.com/static/vision/images/bianji.png" alt=""></a></li>
+        <li class="operate" data-url="qita_1.png" data-old="qita.png">
+            <a href="/newoperation/op_datas/" title="运营推广数据可视化"><img src="http://pic.huodongjia.com/static/vision/images/qita.png" alt=""></a>
+            <!--<div class="menue" ><a href="">订单来源渠道</a><a href="">订单来源渠道</a><a href="">订单来源渠道</a></div>-->
+        </li>
+        <li data-url="app_1.png" data-old="app.png"><a href="/newordervis/app/" title="活动家APP"><img src="http://pic.huodongjia.com/static/vision/images/app.png" alt=""></a></li>
+    </ul>
+</div>
+<div class="menue">
+    <a  href="/newordervis/salesanalysis/">销售额对比分析</a><a  href="/newordervis/top20/">销售榜单分析</a>
+    <a href="/newordervis/contrastwithpast/">历届会议对比</a><a href="/newordervis/bizcoopanalysis/">商务合作分析</a><a class="choose" href="/newordervis/order_source/">其他维度分析</a>
+</div>
+<div class='content'>
+
+    <div class="part"><p>订单来源分析</p>
+        <div class="source">
+            <div class="hdj">
+                <span>订单来源：<font class="name">活动家</font></span><br>
+                <span>支付方式</span><br>
+                <span><img width="30" src="http://pic.huodongjia.com/static/vision/images/zfb.png" alt="">支付宝：<font>{{site_source.活动家.alipay}}</font></span>
+                <span><img  width="30" src="http://pic.huodongjia.com/static/vision/images/wx.png" alt="">微信：<font>{{site_source.活动家.weixin}}</font></span>
+                <br> <span><img width="30" src="http://pic.huodongjia.com/static/vision/images/wy.png" alt="">网银：<font>{{site_source.活动家.wangyin}}</font></span>
+                <span><img width="30" src="http://pic.huodongjia.com/static/vision/images/zz.png" alt="">对公转账：<font>{{site_source.活动家.duigong}}</font></span><br>
+                <span>其他：<font>{{site_source.活动家. }}</font></span>
+            </div>
+            <div class="fourone">
+                <span>订单来源：<font class="name">41会议</font></span><br>
+                <span>支付方式</span><br>
+                <span><img width="30" src="http://pic.huodongjia.com/static/vision/images/zfb.png" alt="">支付宝：<font>{{site_source.41会议.alipay}}</font></span>
+                <span><img  width="30" src="http://pic.huodongjia.com/static/vision/images/wx.png" alt="">微信：<font>{{site_source.41会议.weixin}}</font></span>
+                <br> <span><img width="30" src="http://pic.huodongjia.com/static/vision/images/wy.png" alt="">网银：<font>{{site_source.41会议.wangyin}}</font></span>
+            </div>
+            <div class="app">
+                <span>订单来源：<font class="name">app</font></span><br>
+                <span>支付方式</span><br>
+                <span><img width="30" src="http://pic.huodongjia.com/static/vision/images/zfb.png" alt="">支付宝：<font>{{site_source.app.alipay}}</font></span>
+                <span><img  width="30" src="http://pic.huodongjia.com/static/vision/images/wx.png" alt="">微信：<font>{{site_source.app.weixin}}</font></span>
+            </div>
+            <div class="life">
+                <span>订单来源：<font class="name">life app</font></span><br>
+                <span>支付方式</span><br>
+                <span><img width="30" src="http://pic.huodongjia.com/static/vision/images/zfb.png" alt="">支付宝：<font>{{site_source.lifeapp.alipay}}</font></span>
+                <span><img  width="30" src="http://pic.huodongjia.com/static/vision/images/wx.png" alt="">微信：<font>{{site_source.lifeapp.weixin}}</font></span>
+            </div>
+            <div class="mpw">
+                <span>订单来源：<font class="name">名片王</font></span><br>
+                <span>支付方式</span><br>
+                 <span>其他：<font>{{site_source.名片王. }}</font></span>
+            </div>
+            <div class="other">
+                <span>订单来源：<font class="name">其他</font></span><br>
+                <span>支付方式</span><br>
+                <span><img width="30" src="http://pic.huodongjia.com/static/vision/images/zfb.png" alt="">支付宝：<font>{{site_source.其他.alipay}}</font></span>
+                <span><img  width="30" src="http://pic.huodongjia.com/static/vision/images/wx.png" alt="">微信：<font>{{site_source.其他.weixin}}</font></span>
+                <br> <span><img width="30" src="http://pic.huodongjia.com/static/vision/images/wy.png" alt="">网银：<font>{{site_source.其他.wangyin}}</font></span>
+                <span>其他：<font>{{site_source.其他. }}</font></span>
+            </div>
+            <div class="wap">
+                <span>订单来源：<font class="name">wap</font></span><br>
+                <span>支付方式</span><br>
+                <span><img width="30" src="http://pic.huodongjia.com/static/vision/images/zfb.png" alt="">支付宝：<font>{{site_source.wap.alipay}}</font></span>
+                <span><img  width="30" src="http://pic.huodongjia.com/static/vision/images/wx.png" alt="">微信：<font>{{site_source.wap.weixin}}</font></span>
+                <br> <span><img width="30" src="http://pic.huodongjia.com/static/vision/images/wy.png" alt="">网银：<font>{{site_source.wap.wangyin}}</font></span>
+                <span>其他：<font>{{site_source.wap. }}</font></span>
+            </div>
+        </div>
+        <div id="event_1" style="width: 50%"></div>
+    </div>
+    <div class="part" style="width: 49%;">
+        <p>支付比例</p>
+        <div class="dd"><span>支付订单：{{pay_orders_cnt}}</span><br><span>未支付订单：{{not_pay_orders_cnt}}</span><p>成交率：{{pay_percent}}%</p></div>
+        <div id="event_2" style="width: 50%">
+        </div>
+    </div>
+    <div class="part" style="width: 49%;">
+        <p>支付方式比例</p>
+        <div id="event_3">
+        </div>
+    </div>
+    <p style="clear: both"></p>
+</div>
+{{total_source.1.cnt}}
+</body>
+<script src="/static/js/echarts.js"></script>
+<script src="/static/js/dark.js"></script>
+<script src="/static/js/other.js"></script>
+<script src="/static/js/canvas.js"></script>
+<script src="http://echarts.baidu.com/build/dist/echarts.js "></script>
+<script>
+    require.config({
+        paths: {
+            echarts: 'http://echarts.baidu.com/build/dist/'
+        }
+    });
+    require(
+            [
+                'echarts',
+                'echarts/theme/macarons',
+                'echarts/chart/line',
+                'echarts/chart/bar',
+                'echarts/chart/pie',
+                'echarts/chart/map',
+            ],
+            function (ec,theme) {
+                var myChart1 = echarts.init(document.getElementById('event_1'),'dark');
+                var option1 = {
+                    backgroundColor: 'rgba(0,0,0,0)',//背景色
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    calculable : true,
+                    series : [
+                        {
+                            name:'支付比例',
+                            type:'pie',
+                            radius : ['45%', '65%'],
+                            itemStyle:{
+                                normal:{
+                                    label:{
+                                        show:true,
+                                        formatter: "{b} : {d}%"
+                                    }
+                                }
+                            },
+                            data:[
+                                {value:'{{total_source.0.cnt}}', name:'其他',index:5,itemStyle: {normal: {color:'#D8C55E'}}},
+                                {value:'{{total_source.4.cnt}}', name:'life app',index:3,itemStyle: {normal: {color:'#B5C334'}}},
+                                {value:'{{total_source.3.cnt}}', name:'wap',index:6,itemStyle: {normal: {color:'#67AEEC'}}},
+                                {value:'{{total_source.1.cnt}}'.replace(/,/, ""), name:'活动家',index:0,itemStyle: {normal: {color:'#DD5F6A'}}},
+                                {value:'{{total_source.6.cnt}}', name:'41会议',index:1,itemStyle: {normal: {color:'#E28566'}}},
+                                {value:'{{total_source.2.cnt}}', name:'APP',index:2,itemStyle: {normal: {color:'#45E3EA'}}},
+                                {value:'{{total_source.5.cnt}}', name:'名片王',index:4,itemStyle: {normal: {color:'#1790CF'}}},
+                            ]
+                        }
+                    ]
+                };
+                var ecConfig = require('echarts/config');
+                myChart1.on(ecConfig.EVENT.CLICK, function (param){
+                    var _index = param.data.index
+                    $('.source>div').hide()
+                    $('.source>div').eq(_index).show()
+                })
+                myChart1.setOption(option1);
+                $(window).resize(function () {
+                    myChart1.resize();
+                })
+            }
+    );
+
+</script>
+</html>

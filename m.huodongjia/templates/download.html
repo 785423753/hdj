@@ -1,0 +1,95 @@
+{% extends 'base.html'%}
+{% block addstyle %}
+<link rel="stylesheet" type="text/css" href="http://pic.huodongjia.com/static/css/app_down.css">
+{% endblock %}
+{% block content %}
+<div class="top">
+	<img class="bg" src="http://pic.huodongjia.com/static/images/app_huodongjia.png" alt="活动家">
+	<div class="dow">
+		<p>下载活动家App，实时查看行业最新动态！</p>
+		<ul>
+			<li><a class="ios" target="_blank"><i class="icon iconfont11">&#xe65a;</i>&nbsp;&nbsp;iPhone下载</a></li>
+			<li><a class="android" target="_blank"><i class="icon iconfont11">&#xe659;</i>&nbsp;&nbsp;Android下载</a></li>
+		</ul>
+		<div class="erweima">
+			<img width="125" src="http://pic.huodongjia.com/static/images/huodongjia1755171747.png" class="weixingImg" alt="活动家微信二维码">
+		</div>
+	</div>
+</div>
+	<div class="container">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 center">
+			<ul>
+				<li class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+					<img class="col-lg-3 col-md-3 col-sm-5 col-xs-5" src="http://pic.huodongjia.com/static/images/app_huo_1.jpg" alt="活动家">
+					<div class="col-lg-9 col-md-9 col-sm-7 col-xs-7">
+						<h1>会议</h1>
+						<p>会议查询：分类、城市、时间，更有精细专业分类，查询更精准！</p>
+					</div>
+				</li>
+				<li class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+					<img class="col-lg-3 col-md-3 col-sm-5 col-xs-5" src="http://pic.huodongjia.com/static/images/app_huo_2.jpg" alt="活动家">
+					<div class="col-lg-9 col-md-9 col-sm-7 col-xs-7">
+						<h1>优惠</h1>
+						<p>长期提供：优惠折扣、现金返现！低价参与 高质量会议，更舒心！</p>
+					</div>
+				</li>
+				<li class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+					<img class="col-lg-3 col-md-3 col-sm-5 col-xs-5" src="http://pic.huodongjia.com/static/images/app_huo_3.jpg" alt="活动家">
+					<div class="col-lg-9 col-md-9 col-sm-7 col-xs-7">
+						<h1>干货</h1>
+						<p>独创会议报告、精品演讲、行业前沿分享，实时分享，跟紧业内行情！</p>
+					</div>
+				</li>
+				<li class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+					<img class="col-lg-3 col-md-3 col-sm-5 col-xs-5" src="http://pic.huodongjia.com/static/images/app_huo_4.png" alt="活动家">
+					<div class="col-lg-9 col-md-9 col-sm-7 col-xs-7">
+						<h1>分享</h1>
+						<p>支持微博、微信、朋友圈一键分享，更添加 邮件分享，及时共享会议信息！ </p>
+					</div>
+				</li>
+			</ul>
+
+		</div>
+	</div>
+{% endblock %}
+{% block js %}
+<script>
+	var browser={
+		versions:function(){
+			var u = navigator.userAgent, app = navigator.appVersion;
+			return {
+				trident: u.indexOf('Trident') > -1,
+				presto: u.indexOf('Presto') > -1,
+				webKit: u.indexOf('AppleWebKit') > -1,
+				gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1,
+				mobile: !!u.match(/AppleWebKit.*Mobile.*/),
+				ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+				android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1,
+				iPhone: u.indexOf('iPhone') > -1 ,
+				iPad: u.indexOf('iPad') > -1,
+				webApp: u.indexOf('Safari') == -1
+			}
+		}(),
+		language:(navigator.browserLanguage || navigator.language).toLowerCase()
+	};
+
+
+	$(".dow .ios").on("click", function () {
+		if(/MicroMessenger/i.test(navigator.userAgent)) {
+			//window.location = "http://www.huodongjia.com/theme/qrcodedownload.html";
+			$(this).attr("href","https://itunes.apple.com/cn/app/da-huo-dong/id731753448?l=en&mt=8")
+		}else{
+			$(this).attr("href","https://itunes.apple.com/cn/app/da-huo-dong/id731753448?l=en&mt=8")
+		}
+	});
+
+	$(".dow .android").on("click", function () {
+		if(/MicroMessenger/i.test(navigator.userAgent)) {
+			//window.location = "http://www.huodongjia.com/theme/qrcodedownload.html";
+			$(this).attr("href","http://app.mi.com/detail/64258");
+		}else{
+			$(this).attr("href","http://app.mi.com/detail/64258");
+		}
+	});
+</script>
+{% endblock %}

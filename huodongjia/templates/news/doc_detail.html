@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% block addstyle %}
+<link rel="stylesheet" href="/ganhuo/static/css/scroll.css">
+{% endblock %}
+{% block banner%}
+{% endblock %}
+{% block content%}
+<div class="content container">
+    <div class="bread_nav"><a href="/">首页</a>&gt;<a href="/dj/ganhuo.mpy">会议干货</a>&gt;<a href="/dj/ganhuo_listdocs.mpy">会议文档</a>&gt;<h1 style="color: #666">{{doc.name}}</h1></div>
+    <div class="doc_browse">
+        <iframe id="doc" src="{{doc.urls}}"  width="860" height="600"></iframe>
+        <div class="wrapper">
+            <div id="container">
+                <div class="parent">
+                    <ul>
+                        <li class="doc_title">{{doc.name}}</li>
+                        {% for doc in viewer_right_docs %}
+                        <li class="doc_list">
+                            <div class="doc_img"><a href="/dj/ganhuo_doc_{{doc.id}}.mpy"><img width="110" height="68" src="http://pic.huodongjia.com/event/2016-07-01/1467359655.91.jpg!hdj123" alt=""></a></div>
+                            <div class="doc_name"><p><a href="/dj/ganhuo_doc_{{doc.id}}.mpy">{{doc.name}}</a></p><span><font class="news_font">&#xe60b;</font>{% if doc.visit %}{{doc.visit}}{% else %}0{% endif %}次</span></div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="adhibition">
+            <table width="100%">
+                <tr>
+                    <td class="adhibition_left"><h1>{{doc.name}}</h1><p><span>所属会议：<a target="_blank" href="http://www.huodongjia.com/event-{{doc.event_info.0.event_id}}.html">{{doc.event_info.0.name}}</a></span><span>会议地点：<a target="_blank" href="http://www.huodongjia.com/{{doc.event_info.0.city_ename}}/">{{doc.event_info.0.city_name}}</a></span></p></td>
+                    <td class="doc_download"><a href="{{doc.urls}}"><span class="news_font">&#xe604;</span><br>下载</a></td>
+                    <td class="doc_download"><a href=""><span class="news_font">&#xe608;</span><br>手机看</a></td>
+                    <td class="doc_share">
+                        <div class="bdsharebuttonbox">
+                            <a style="position:relative;top: -2px;cursor: pointer;" class="bds_weixin news_font" data-cmd="weixin" title="分享到微信">&#xe603;</a>
+                            <a style="position:relative;top: -2px" href="http://connect.qq.com/widget/shareqq/index.html?title={{doc.name}}&url=http://news.huodongjia.com/dj/ganhuo_doc_539.mpy" target="_blank" class="bds_sqq news_font" data-cmd="sqq" title="分享到QQ好友">&#xe606;</a>
+                            <a href="http://v.t.sina.com.cn/share/share.php?title={{doc.name}}&url=http://news.huodongjia.com/dj/ganhuo_doc_{{doc.id}}.mpy" target="_blank" class="bds_tsina news_font" data-cmd="tsina" title="分享到新浪微博">&#xe60c;</a>
+                            <a href="http://tieba.baidu.com/f/commit/share/openShareApi?title={{doc.name}}&url=http://news.huodongjia.com/dj/ganhuo_doc_{{doc.id}}.mpy" target="_blank" class="bds_tieba news_font" data-cmd="tieba" title="分享到百度贴吧">&#xe60f;</a>
+                            <a href="http://www.douban.com/recommend/?title={{doc.name}}&url=http://news.huodongjia.com/dj/ganhuo_doc_{{doc.id}}.mpy" target="_blank" class="bds_douban news_font" data-cmd="douban" title="分享到豆瓣网">&#xe60e;</a><br>
+                            <!--<span style="line-height: 2.6;">分享:</span>-->
+                        </div>
+                    </td>
+                    <td>{% if doc.visit %}{{doc.visit}}{% else %}0{% endif %}次 <br>浏览次数</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="left">
+        <h2>文档简介</h2>
+        <div class="introduce">
+            <p>{{doc.intro}}</p>
+            <table><tr>
+                <td class="like"><span class="news_font">&#xe611;</span><br>有用（5）</td>
+                <td class="common"><span class="news_font">&#xe607;</span><br>觉得不错（5）</td>
+                <td class="bad"><span class="news_font">&#xe60d;</span><br>没有价值（5）</td>
+            </tr></table>
+        </div>
+        <h2>相关文档</h2>
+        <ul class="ppt_list">
+            {% for doc in relevant_docs %}
+            <li>
+                <h3><a href="/dj/ganhuo_doc_{{doc.id}}.mpy" target="_blank">
+                    {% ifequal doc.suffix ".docx" %}
+                    <span class="news_font docx">&#xe602;</span>
+                    {% endifequal %}
+                    {% ifequal doc.suffix ".ppt" %}
+                    <span class="news_font ppt">&#xe600;</span>
+                    {% endifequal %}
+                    {% ifequal doc.suffix ".pdf" %}
+                    <span class="news_font pdf">&#xe601;</span>
+                    {% endifequal %}
+                    {{doc.name}}</a></h3>
+                <p class="des">{{doc.intro}}</p>
+                <p class="down"><span class="tag">it互联网</span><span class="download"><a target="_blank" href="{{doc.urls}}">下载</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a target="_blank" href="/dj/ganhuo_doc_{{doc.id}}.mpy">在线阅读</a></span></p>
+            </li>
+            {% endfor %}
+        </ul>
+        <h2>最新会议文档</h2>
+        <ul class="upcoming upcoming_doc">
+            {% for doc in newly_docs %}
+            <li><a href="/dj/ganhuo_doc_{{doc.id}}.mpy" target="_blank">
+                {% ifequal doc.suffix ".docx" %}
+                <span class="news_font docx">&#xe602;</span>
+                {% endifequal %}
+                {% ifequal doc.suffix ".ppt" %}
+                <span class="news_font ppt">&#xe600;</span>
+                {% endifequal %}
+                {% ifequal doc.suffix ".pdf" %}
+                <span class="news_font pdf">&#xe601;</span>
+                {% endifequal %}
+                {{doc.name}}</a></li>
+            {% endfor %}
+
+        </ul>
+    </div>
+    <div class="right">
+        <h2>相关会议推荐<a href="">更多</a></h2>
+        <ul class="upcoming upcoming_event">
+            <li class="choose">
+                <a href="">2016第六届产品创新高峰论坛</a>
+                <div class="detail"><a class="event_img" href=""><img width="85" height="55" src="http://pic.huodongjia.com/event/2016-09-19/1474252969.88.jpg!list223139" alt=""></a>
+                    <span><a href="">成都</a><br>2016-09-15</span></div>
+            </li>
+            <li>
+                <a href="">2016第六届产品创新高峰论坛</a>
+                <div class="detail"><a class="event_img" href=""><img width="85" height="55" src="http://pic.huodongjia.com/event/2016-09-19/1474252969.88.jpg!list223139" alt=""></a>
+                    <span><a href="">成都</a><br>2016-09-15</span></div>
+            </li>
+            <li>
+                <a href="">2016第六届产品创新高峰论坛</a>
+                <div class="detail"><a class="event_img" href=""><img width="85" height="55" src="http://pic.huodongjia.com/event/2016-09-19/1474252969.88.jpg!list223139" alt=""></a>
+                    <span><a href="">成都</a><br>2016-09-15</span></div>
+            </li>
+            <li>
+                <a href="">2016第六届产品创新高峰论坛</a>
+                <div class="detail"><a class="event_img" href=""><img width="85" height="55" src="http://pic.huodongjia.com/event/2016-09-19/1474252969.88.jpg!list223139" alt=""></a>
+                    <span><a href="">成都</a><br>2016-09-15</span></div>
+            </li>
+        </ul>
+        <h2>会议视频 <a href="/dj/ganhuo_listvideos.mpy" target="_blank">更多</a></h2>
+        <ul class="upcoming video">
+            {% for video in hot_videos|slice:'5' %}
+            {% if forloop.first %}
+            <li>
+                <div class="video_img"><a target="_blank" href="/dj/ganhuo_video_{{video.id}}.mpy"><img width="256" height="160" src="{{video.video_img}}" alt="{{video.name}}"><div class="play"><span class="news_font">&#xe605;</span></div></a></div>
+                <p class="video_name"><a target="_blank" href="/dj/ganhuo_video_{{video.id}}.mpy">{{video.name}}</a></p>
+            </li>
+            {% else %}
+            <li><p class="video_name"><a target="_blank" href="/dj/ganhuo_video_{{video.id}}.mpy"><span class="news_font">&#xe605;</span>{{video.name}}</a></p></li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="Qrcode">
+        <p>分享到微信 <span class="close">×</span></p>
+        <div id="Qrcode"></div>
+        <p style="color: #666">
+            打开微信，点击底部的“发现”，<br>
+            使用“扫一扫”即可将网页分享至朋友圈。
+        </p>
+    </div>
+</div>
+{{request.path}}
+{% endblock %}
+{% block js %}
+<script src="/ganhuo/static/js/scroll.js"></script>
+<script src="/ganhuo/static/js/jquery.qrcode.min.js"></script>
+<script>
+    var this_url=window.location.href
+    if ((navigator.userAgent.indexOf('MSIE') >= 0)
+            && (navigator.userAgent.indexOf('Opera') < 0)){
+        $('#Qrcode').qrcode({width: 180, height: 180, text:this_url ,render:"table"});
+    }else{
+        $('#Qrcode').qrcode({width: 180, height: 180, text:this_url,render:"canvas"});
+    }
+    $('.bds_weixin').on('click',function(){
+        $('.Qrcode').fadeIn()
+        $("html,body").animate({scrollTop: 0})
+    })
+    $('.close').on('click',function(){
+        $('.Qrcode').fadeOut()
+    })
+</script>
+{% endblock %}

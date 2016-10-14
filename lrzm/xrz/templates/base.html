@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <title>小日子数据可视化</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="http://pic.huodongjia.com/static/js/jquery-1.8.3.min.js"></script>
+    <script src="../static/laydate/laydate.js"></script>
+    <!-- 百度echart插件 -->
+    <!-- 自定义css和js -->
+    <link rel="stylesheet" type="text/css" href="../static/css/index.css">
+</head>
+{% block mystyle %}
+<style>
+    #download,#down,#shop,#city{
+        width: 100%;
+        height: 250px;
+    }
+    .right>div{
+        height:300px;
+        border:1px solid rgba(86, 85, 85, 0.74);
+        margin-top: 15px;
+        padding: 0;
+    }
+    .right ul{width: 100%}
+    .right li{list-style: none; float: left;}
+    .new li{
+        width: 33.33%;
+        height: 150px;
+        border:1px solid rgba(86, 85, 85, 0.74);
+        text-align: center;
+    }
+    .new li p{
+        line-height: 3;
+    }
+    .new li span{
+        font-size: 2em;
+        font-family: "EURASIA";
+        letter-spacing: 1px;
+        color: #F5786F;
+    }
+    .attention{
+        padding:0 15px;
+    }
+    .attention li{
+        width: 47%;
+        margin-right: 3%;
+        border-bottom:1px solid rgba(86, 85, 85, 0.74);
+        height: 45px;
+        line-height: 60px;
+        color: #D8CECE;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .interact li{
+        width: 50%;
+        height: 100px;
+    }
+    .interact li p{
+        line-height: 2;
+    }
+    #browse{
+        width: 100%;
+        height: 100%;
+    }
+
+</style>
+{% endblock %}
+<body>
+<div class='col-sm-2 left'>
+    <ul>
+        <li style="text-align: center;padding: 15px">小日子数据可视化</li>
+        <li><a href="/"><span class="icon">&#xe60d;</span>总表</a></li>
+        <li><a href="/dataofmonth/"><span class="icon">&#xe613;</span>月度数据</a></li>
+        <li><a href="/dataofshops/"><span class="icon">&#xe603;</span>小店分析</a></li>
+        <li><a href="/articlevision/"><span class="icon">&#xe60e;</span>美文分析</a></li>
+        <li><a href="/themevision/"><span class="icon">&#xe606;</span>专题分析</a></li>
+        <li><a href="/everydaytopic/"><span class="icon">&#xe600;</span>美天分析</a></li>
+        <!--<li><a href=""><span class="icon">&#xe610;</span>成交分析</a></li>-->
+        <li><a href="/dataofusers/"><span class="icon">&#xe602;</span>用户信息</a></li>
+        <li><a href="/logout/"><span class="icon">&#xe605;</span>退出登录</a></li>
+    </ul>
+</div>
+{% block right %}
+<div  class='col-sm-10 right'>
+    <div class="col-lg-3 col-xs-6"><p>下载总量</p><div id="download"></div></div>
+    <div class="col-lg-5 col-xs-6" style="border: none;">
+        <ul class="new">
+            <li><p>昨日新增下载</p><span>{{ret.1.values.0.new_add}}</span></li>
+            <li><p>店铺总数</p><span>{{ret.1.values.2.total}}</span></li>
+            <li><p>文章总数</p><span>{{ret.1.values.3.total}}</span></li>
+            <li><p>昨日新增注册</p><span>{{ret.1.values.1.new_add}}</span></li>
+            <li><p>昨日新增店铺</p><span>{{ret.1.values.2.new_add}}</span></li>
+            <li><p>昨日新增文章</p><span>{{ret.1.values.3.new_add}}</span></li>
+        </ul>
+    </div>
+    <div class="col-lg-4 col-xs-6">
+        <p>最受关注店铺</p>
+        <ul class="attention">
+            {% for i in ret.3.values %}
+            <li>{{i.name}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col-lg-3 col-xs-6" style="border: none;">
+        <ul class="new interact">
+            <li style="width: 100%;line-height: 3"><p style="display: inline-block">总浏览量</p><span>{{ret.1.values.4.total}}</span></li>
+            <!--<li><p>昨日浏览</p><span>{{ret.1.values.4.new_add}}</span></li>-->
+            <li><p>总收藏量</p><span>{{ret.1.values.5.total}}</span></li>
+            <li><p>昨日收藏</p><span>{{ret.1.values.5.new_add}}</span></li>
+            <li><p>总签到量</p><span>{{ret.1.values.6.total}}</span></li>
+            <li><p>昨日签到</p><span>{{ret.1.values.6.new_add}}</span></li>
+        </ul>
+    </div>
+    <div class="col-lg-5 col-xs-6" ><div id="browse"></div></div>
+    <div class="col-lg-4 col-xs-6">
+        <p>最受关注文章</p>
+        <ul class="attention">
+            {% for i in ret.4.values %}
+            <li>{{i.title}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col-lg-3 col-xs-12"><p>小店分布</p><div id="city"></div></div>
+    <div class="col-lg-5 col-xs-6" ><p>店铺分类</p><div id="shop"></div></div>
+    <div class="col-lg-4 col-xs-6" ><p>下载量详情</p><div id="down"></div></div>
+</div>
+{% endblock %}
+</body>
+<script src="/static/js/echarts.min.js"></script>
+<script src="/static/js/infographic.js"></script>
+<script src="/static/js/china.js"></script>
+<script src="/static/js/dark.js"></script>
+<script>
+    $('.left ul li a').each(function(){
+        if($(this).attr('href')==window.location.pathname){
+            $(this).addClass('choose')
+        }
+    })
+</script>
+{% block myscript %}
+<script src="/static/js/base.js"></script>
+<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+<script>
+    require.config({
+        paths: {
+            echarts: 'http://echarts.baidu.com/build/dist/'
+        }
+    });
+    require(
+            [
+                'echarts',
+                'echarts/theme/macarons',
+                'echarts/chart/line',
+                'echarts/chart/bar',
+                'echarts/chart/pie',
+                'echarts/chart/map',
+            ],
+            function (ec,theme) {
+                // 基于准备好的dom，初始化echarts图表)
+                var myChart5 = ec.init(document.getElementById('city'),'');
+                var Data=[],Coord={}
+                {% for i in ret.5.values %}
+                Data.push({name: "{{i.name}}", value: '{{i.amount}}'})
+                Coord['{{i.name}}']=['{{i.location.lng}}','{{i.location.lat}}']
+                {% endfor %}
+                var option5 = {
+                    tooltip : {
+                        trigger: 'item'
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        x:'left',
+                        data:['pm2.5'],
+                        show:false
+                    },
+                    series : [
+                        {
+                            name: '小店分布',
+                            type: 'map',
+                            mapType: 'china',
+                            hoverable: false,
+                            roam:false,
+                            data : [],
+                            itemStyle:{
+                                normal:{
+                                    color:'#323C48',
+                                    borderColor: '#21252B',
+                                }
+                            },
+                            markPoint : {
+                                symbolSize: 2,       // 标注大小，半宽（半径）参数，当图形为方向或菱形则总宽度为symbolSize * 2
+                                effect : {
+                                    show: true
+                                },
+                                itemStyle: {
+                                    normal: {
+                                        color:'rgba(4, 123, 245, 0.84)',
+                                        label:{
+                                            show:false
+                                        }
+                                    },
+                                    emphasis:{
+                                        label:{
+                                            show:false
+                                        }
+                                    }
+                                },
+                                data : Data
+                            },
+                            geoCoord: Coord
+                        },
+                    ]
+                };
+                myChart5.setOption(option5);
+                $(window).resize(function () {
+                    myChart5.resize();
+                })
+            }
+    );
+</script>
+{% endblock %}
+</html>

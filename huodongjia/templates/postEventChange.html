@@ -1,0 +1,355 @@
+{% extends 'base.html' %}
+{% block addstyle %}
+  <script src="http://pic.huodongjia.com/static/js/goog/base.js"></script>
+  <script>
+    goog.require('goog.ui.ac.Remote');
+  </script>
+  <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/acdemo.css">
+  <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/autocomplete.css">
+    <link rel="stylesheet" type='text/css' href='http://pic.huodongjia.com/static/css/postEventChange.css' />
+    <link rel="stylesheet" type="text/css" href="http://pic.huodongjia.com/static/css/sweet-alert.css">
+<style>
+    .attention {
+        width: 433px;
+        line-height: 21px;
+        margin: 0px auto 25px;
+        line-height: 24px;
+        font-size: 14px;
+        float: none;
+        padding: 0;
+    }
+    .attention span {
+        font-size: 16px;
+        line-height: 38px;
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+    }
+
+</style>
+{% endblock %}
+{% block content %}
+<div class="container content">
+    <p class="bread_nav"><a href="">首页> </a><a href="" style="color: #7F8796;">活动发布</a></p>
+    <div class="col-sm-12 col-xs-12 content_left">
+        <p class="attention">
+            <span>活动发布注意事项：</span><br/>
+            1、免费发布<font style="color: red;font-size: 16px">仅支持收费的商务会议</font>，不支持免费活动发布；<br/>
+            2、活动发布前，请在活动家网站先搜索该会议是否存在；<br/>
+            3、禁止发布与会议无关的活动，一经发现，立即删除。
+        </p>
+        <!--会议信息    -->
+        <p class="info_title"><span>会议基本信息</span></p>
+        <div class="event_info">
+            <input type="hidden" value={{ event.event_id }} id="event_id">
+            <label for="title"><font>*</font>会议标题</label><input class="mes" id="title" type="text" value="{{ event.event_name }}" />
+            <label for="scale" style="width: 50px">规模</label><input class="mes" id="scale" type="text" value="{{ event.event_scale }}"/><br/>
+            <label for="start_day"><font>*</font>活动时间</label><input class="mes" id="start_day"   type="text" value="{{ event.event_begin_time|date:'Y-m-d H:i' }}"/>
+            <!--<div class="start_time"><img src="http://pic.huodongjia.com/static/images/time(1).png" alt=""/><select id="start_time" class="mes"></select></div>-->
+            <span class="zhi"></span>
+            <input id="end_day" class="mes"  type="text" value="{{ event.event_end_time|date:'Y-m-d H:i' }}"/>
+            <!--<div class="end_time"><img src="http://pic.huodongjia.com/static/images/time(1).png" alt=""/><select id="end_time" class="mes"></select></div> -->
+            <br/>
+            <label><font>*</font>活动地点</label><select class="mes" id="province">
+                    {% for province in provinces %}
+                        {% if province.id == event_province_id %} 
+                            <option selected="selected" value="{{ province.id }}"> 
+                        {% else %}
+                            <option value="{{ province.id }}">
+                        {% endif %}
+                            {{ province.district_name }}
+                            </option>
+                    {% endfor %}
+                </select><select class="mes" id="city">
+                        {% for city in cities %}
+                            {% if city.district_id == event.event_city_info.0.district_id %}
+                                <option selected="selected" value="{{ city.district_id }}">
+                            {% else %}
+                                <option value="{{ city.district_id }}">
+                            {% endif %}
+                            {{ city.district_name }}
+                        </option>
+                        {% endfor %}
+                    </select><input class="mes" id="address" type="text" placeholder="请输入会议场馆" value="{{ event.event_venue_info.0.title }}"/><br/>
+            <label style="float: left"><font>*</font>会议详情</label>
+            <div class="event_all">
+                {% for par in event.event_paragraph_info %}
+                <div class="event_para">
+                    <p class="event_item" >{{ par.name}}</p>
+                        {% if par.name == '会议嘉宾'%}
+                            {% if event.event_guest %}
+                                <div class="event_content event_guest">
+                                {% for guest in event.event_guest %}
+                                <div class='guest'>
+                                    <div class='photo'>
+                                        <input type='hidden' class='guest_id' value='{{guest.id}}'/>
+                                        <input type='hidden' class='img_id' value=''/>
+                                        <img width='100' height="100" src='{{ guest.img__server__name}}{{ guest.img__urls }}'/>
+                                        <p><font class="name gues_mes">{{ guest.name }}</font><br/><span ><font class='company gues_mes'>{{ guest.company__name }}</font><br/><font class='job gues_mes'>{{ guest.job__name }}</font></span></p>
+                                    </div>
+                                    <div class='guest_des'>
+                                        <span>演讲主题：<font class="theme gues_mes">{{ guest.lecture.name }}</font></span><br/>
+                                        <span>嘉宾介绍：</span><span style='width: 81%' class="guest_intro gues_mes">{{ guest.intro }}</span>
+                                    </div>
+                                    <p class='change'><span class='edit' onclick='Edit(this)'><font class="myfont">&#xe601;</font>编辑</span><span class='edit' onclick='Delete(this)'><font class="myfont">&#xf0002;</font>删除</span></p>
+                                </div>
+                                {% endfor %}
+                                <div class="change_div">
+                                    <div class="col-sm-4 col-xs-4">
+                                        <div class="head_photo"><img width="100%" /></div>
+                                        <p class="file" style=""><span>请上传一张150*150嘉宾头像</span><br/>
+                                            <input type="text"  id="textfield" placeholder="上传" /></p>
+                                        <input type="hidden" id="img_id"/>
+                                        <input type="hidden" id="guest_id"/>
+                                    </div>
+                                    <div class="col-sm-8 col-xs-8 message">
+                                        <span>姓名</span><input id="name" type="text"/><span>职位</span><input id="job" type="text"/><br/>
+                                        <span>公司</span><input id="company" type="text"/><span>演讲主题</span><input id="theme" type="text"/>
+                                    </div>
+                                    <div class="col-sm-12 col-xs-12">
+                                        <span class="intro">嘉宾介绍</span>
+                                        <textarea  id="intro" rows="5"></textarea>
+                                        <button class="guest_save" onclick="gues_save()">保存</button><span onclick="gues_delete()" class="delete">取消</span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% else %}
+                                 <div class="event_content" contenteditable="true">{{par.txt|safe}}</div>
+                            {% endif %}
+                        {% else %}
+                            <div class="event_content" contenteditable="true">{{par.txt|safe}}</div>
+                        {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            <label style="float: left"><font>*</font>会议分类</label>
+            <ul class="all_cat">
+                {% for cat in main_cats %}
+                    {% if cat.id == event.event_cat_info.0.id%}
+                    <li title="{{cat.id}}" class="active_cat">{{ cat.name }}</li>
+                    {% else %}
+                    <li title="{{cat.id}}" >{{ cat.name }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <div class="event_tag">
+                {% for tag in tags %}
+                <label><input {% if tag.id in event_tag_ids %}checked="checked"{% endif %} class="event_cat_tag" value="{{ tag.id }}" type="checkbox"/><span>{{ tag.name }}</span></label>
+                {% endfor %}
+            </div>
+            <label><font>*</font>活动费用</label>
+            <label class="fee"><input type="radio" name="fee" id="fee" {% if event.event_price_unit %}checked="checked"{% endif %}/><span>收费票</span></label>
+            <label class="fee"><input type="radio" name="fee" id="free" {% if not event.event_price_unit %}checked="checked"{% endif %}/><span>免费票</span></label><br/>
+            <table class="ticket" style="display: {% if event.event_price_unit %}table{% else %}none{% endif %};">
+                <tr class="t_head">
+                    <td>票价类型</td>
+                    <td>单价（元）</td>
+                    <td>报名截止时间</td>
+                    <td style="width: 38%">费用说明</td>
+                    <td style="width: 10%"></td>
+                </tr>
+                {% for price in event.event_price_unit %}
+                <tr class="project">
+                    <td>{{ price.property }}</td>
+                    <td>{{ price.price }}</td>
+                    <td>{{ price.end_time|date:"Y-m-d H:i" }}</td>
+                    <td style="width: 38%">{{ price.content }}</td>
+                    <td style="width: 10%;padding:10px 0;">
+                    <span class="edit" onclick="change(this)"><font class="myfont">&#xe601;</font>编辑</span><p></p>
+                        <span class="edit" onclick="expurgate(this)"><font class="myfont">&#xf0002;</font>删除</span></td></tr>
+                {% endfor %}
+                <tr class="add" style="width: 100%">
+                    <td colspan="6">
+                        <div class="add_div">
+                            <div class="add_div_div">
+                                <label for="serve">费用说明</label><br/>
+                                <textarea id="serve" placeholder="费用提供的服务"></textarea>
+                                <button class="cancel" type="button">取消</button><button class="save" type="button" >保存</button>
+                            </div>
+                            <label for="Fee_name">票价类型</label><input id="Fee_name" type="text" value="会务费"/><br/>
+                            <label for="deadline">报名截止时间</label><input  id="deadline"  type="text"/><br/>
+                            <label for="price" >单价（元）</label><input id="price"  placeholder="请填写数字" type="text"/><br/>
+                            <span style="margin-left: 17%">（免费请填数字0）</span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <label>发票</label>
+            <label class="invoice"><input type="radio" name="pathway" value="0" {% if event.event_bill_type == 0 %}checked="checked"{% endif %}/><span>会前快递</span></label>
+            <label class="invoice"><input type="radio" name="pathway" value="1" {% if event.event_bill_type == 1 %}checked="checked"{% endif %} /><span>现场领取</span></label>
+            <label class="invoice"><input type="radio" name="pathway"  value="2" {% if event.event_bill_type == 2 %}checked="checked"{% endif %}/><span>会后快递</span></label><br/>
+            <label style="position:relative;top: -25px;">参会凭证</label>
+            <div style="width: 68%;display: inline-block;">
+                <label class="proof">
+                <input type="checkbox" name="evidence" value="1" {% if '1' in event.event_attend_certf %}checked="checked"{% endif %}/><span>凭活动家报名成功后的短信</span></label>
+                <label class="proof"><input type="checkbox" name="evidence" value="2" {% if '2' in event.event_attend_certf %}checked="checked"{% endif %} /><span>现场签到（凭参会者姓名签到）</span></label>
+                <label class="proof"><input type="checkbox" name="evidence" value="3" {% if '3' in event.event_attend_certf %}checked="checked"{% endif %} /><span>电子票</span></label>
+                <label class="proof"><input type="checkbox" name="evidence" value="4" {% if '4' in event.event_attend_certf %}checked="checked"{% endif %} /><span>纸质门票</span></label>
+                <label class="proof"><input type="checkbox" name="evidence" value="5" {% if '5' in event.event_attend_certf %}checked="checked"{% endif %} /><span>邮件或短信确认通知参会</span></label>
+            </div>
+        </div>
+        <!--主办方信息-->
+        <p class="info_title"><span>主办方信息</span></p>
+        <div class="spon_info">
+            <label for="sponsor"><font>*</font>主办单位</label>
+                <input class="mes" id="sponsor" value="{{ sponsor_names }}" type="text" disabled="disabled"/>
+            <span>多个主办方请用逗号"，"隔开</span><br/>
+            <label for="phone"><font>*</font>手机号码</label>
+                <input class="mes" id="phone" type="text" value="{{ event.from_info.tel }}" disabled="disabled"/>
+            <span>用于接受活动审核通知和用户报名通知</span><br/>
+            <label for="email"><font>*</font>邮箱地址</label>
+                <input class="mes" id="email" type="text" value="{{ event.from_info.email }}" disabled="disabled"/>
+            <span>用于接受活动审核通知和用户报名通知</span><br/>
+            <label style="width:auto;padding-left: 100px">
+                <input value="{{ event.from_info.url}}" id="charge" type="checkbox" disabled="disabled"/>
+            <span style="color: #7D8393;">我要付费推广（或加活动家营销QQ2098529914了解具体推广形式）</span></label>
+            <br/><button id="post">提交</button><button id="preview">预览</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script src="http://pic.huodongjia.com/static/js/laydate/laydate.js"></script>
+<script src="http://pic.huodongjia.com/static/js/sweet-alert.min.js"></script>
+<script src="http://pic.huodongjia.com/static/js/dropzone.js"></script>
+<script src="http://pic.huodongjia.com/static/js/postEventChange.js"></script>
+<script>
+var flg=0;
+var parent;
+$(".all_cat li").click(function () {
+    $(".all_cat li").removeClass("active_cat")
+    $(this).addClass("active_cat")
+})
+//保存
+function gues_save() {
+    var name=$("#name").val()
+    var job=$("#job").val()
+    var company=$("#company").val()
+    var theme=$("#theme").val()
+    var intro=$("#intro").val()
+    var img_src=$(".head_photo img").attr("src")
+    var _html="<div class='guest'><div class='photo'><input type='hidden' class='img_id' value='"+$("#img_id").val()+"'/><input type='hidden' class='guest_id' value='"+$("#guest_id").val()+"'/><img width='100' height='100' src='"+img_src+"'/>" +
+            "<p><font class='name gues_mes'>"+name+"</font><br/><span><font class='company gues_mes'>"+company+"</font><br/><font class='job gues_mes'>"+job+"</font></span></p></div><div class='guest_des'>" +
+            "<span>演讲主题：<font class='theme gues_mes'>"+theme+"</font></span><br/><span>嘉宾介绍：</span><span class='guest_intro gues_mes' style='width: 81%'>"+intro+"</span></div>" +
+            "<p class='change'><span class='edit' onclick='Edit(this)'><font class='myfont'>&#xe601;</font>编辑</span><span class='edit' onclick='Delete(this)'><font class='myfont'>&#xf0002;</font>删除</span></p></div>"
+    if(name==""){
+        $("#name").addClass("not")
+    }else {
+        $("#name").removeClass("not")
+        if(flg==0){
+            $(".change_div").before(_html)
+        }else if(flg==1){
+            $(parent).replaceWith(_html)
+            flg=0
+        }
+        $("#img_id").attr("value","")
+        $(".change_div input").attr("value","")
+        $(".change_div textarea").attr("value","")
+        $(".head_photo img").attr("src","")
+    }
+    var _div=$(".change_div").clone(true,true)
+    $(".change_div").remove()
+    var i=$(".guest").length
+    $($(".guest")[i-1]).after(_div)
+    upimg()
+}
+//取消
+function gues_delete () {
+     if(flg==1){
+        $(parent).show()
+         flg=0
+    }
+    $(".change_div input").attr("value","")
+    $(".change_div textarea").attr("value","")
+    var _div=$(".change_div").clone(true,true)
+    $(".change_div").remove()
+    var i=$(".guest").length
+    $($(".guest")[i-1]).after(_div)
+    upimg()
+}
+//修改
+function Edit(obj){
+    if(flg==1){
+        swal("请先保存")
+        return false
+    }
+    flg=1
+    parent=$(obj).parent().parent()
+    var name=$(parent).find(".name").text()
+    var job=$(parent).find(".job").text()
+    var company=$(parent).find(".company").text()
+    var theme=$(parent).find(".theme").text()
+    var guest_intro=$(parent).find(".guest_intro").text()
+    var img_src=$(parent).find(".photo").find("img").attr("src")
+    var img_id=$(parent).find(".photo").find(".img_id").val()
+    var guest_id=$(parent).find(".photo").find(".guest_id").val()
+    console.log(guest_id)
+    $("#name").attr("value",name)
+    $("#company").attr("value",company)
+    $("#theme").attr("value",theme)
+    $("#intro").attr("value",guest_intro)
+    $("#job").attr("value",job)
+    $(".head_photo img").attr("src",img_src)
+    $("#img_id").attr("value",img_id)
+    $("#guest_id").attr("value",guest_id)
+    var _div=$(".change_div").clone(true,true)
+    $(".change_div").remove()
+    $(parent).after(_div)
+    $(parent).hide()
+    Dropzone.autoDiscover = false;
+    upimg()
+}
+//删除
+function Delete(obj){
+    $(obj).parent().parent().remove()
+}
+    //上传图片
+upimg();
+function upimg(){
+    Dropzone.autoDiscover = false;
+    var myDropzone = new Dropzone("input#textfield", {
+        url: "/guest/upload/", paramName: "img", addRemoveLinks: true, success: function (data) {
+            var responseObject = JSON.parse(data.xhr.responseText);
+            if (responseObject.code==1) {
+                $(".head_photo img").attr("src",responseObject.url)
+                $("#img_id").attr("value",responseObject.img_id)
+                console.log(img_id)
+            }
+        }
+    });
+    myDropzone.on('error', function (file) {
+        swal("上传失败！")
+    });
+}
+
+
+//
+//function ajaxFileUpload() {
+//    $.ajaxFileUpload
+//    (
+//            {
+//                url: '/guest/upload/', //用于文件上传的服务器端请求地址
+//                secureuri: false, //是否需要安全协议，一般设置为false
+//                fileElementId: 'textfield', //文件上传域的ID
+//                dataType: 'json', //返回值类型 一般设置为json
+//                success: function (data, status)  //服务器成功响应处理函数
+//                {
+//                    $("#img1").attr("src", data.imgurl);
+//                    if (typeof (data.error) != 'undefined') {
+//                        if (data.error != '') {
+//                            alert(data.error);
+//                        } else {
+//                            alert(data.msg);
+//                        }
+//                    }
+//                },
+//                error: function (data, status, e)//服务器响应失败处理函数
+//                {
+//                    alert(e);
+//                }
+//            }
+//    )
+//    return false;
+//}
+</script>
+{% endblock %}

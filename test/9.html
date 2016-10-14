@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+    body {
+        font-family: "Open Sans";
+        line-height: 1.618em;
+        color: #444;
+        overflow-y: scroll;
+    }
+    .wrapper {
+        max-width: 50rem;
+        width: 100%;
+        margin: 1rem auto;
+        text-align: center;
+        z-index: -1;
+    }
+    .rotate {
+        display: none;
+    }
+    .rotate-label {
+        display: inline-block;
+        margin-left: 0.5rem;
+        background: #2980b9;
+        color: #fff;
+        border-radius: 0.5rem;
+        padding: 0.25rem 0.5rem;
+        cursor: pointer;
+        transition: all 0.25s;
+    }
+    .rotate:checked + .rotate-label {
+        background: #3498db;
+    }
+    .perspective {
+        position: relative;
+        z-index: -1;
+        perspective: 2000px;
+        perspective-origin: 25rem -150px;
+    }
+    .cube {
+        position: relative;
+        width: 400px;
+        margin: 3.5rem auto;
+        transform-style: preserve-3d;
+        transition: all 0.5s;
+    }
+    .cube div {
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        opacity: 0.95;
+    }
+    .cube img {
+        max-height: 100%;
+        max-width: 100%;
+    }
+    #rotate:checked ~ .perspective > .cube {
+        /*animation: rotate 10s infinite linear;*/
+    }
+
+    .front {
+        transform: translateZ(200px);
+        transform-origin: center center;
+    }
+    .back {
+        transform: translateZ(-200px) rotateY(180deg);
+    }
+    .left {
+        transform: rotateY(270deg) translateX(-200px);
+        transform-origin: center left;
+    }
+    .right {
+        transform: rotateY(-270deg) translateX(200px);
+        transform-origin: top right;
+    }
+    .top {
+        transform: rotateX(90deg) translateY(-200px);
+        transform-origin: top center;
+    }
+    .bottom {
+        transform: rotateX(-90deg) translateY(200px);
+        transform-origin: bottom center;
+    }
+    @keyframes rotate {
+        from {
+            transform: rotateY(0deg);
+        }
+        to {
+            transform: rotateY(360deg);
+        }
+    }
+    .test{
+        width: 200px;
+        height: 200px;
+        background: #eedd82;
+        transform: rotateX(90deg) translateY(-200px);
+        transform-origin: top center;
+    }
+
+</style>
+<body>
+<div class="wrapper">
+
+    <!-- Note: Safari doesn't support restarting the automated rotation once stopped, and neither Chrome nor Safari support a nice transition from animation to a single side. Firefox does both things very well. -->
+
+    <input type="radio" name="rotate-switches" id="rotate" checked class="rotate">
+    <label for="rotate" class="rotate-label">Auto</label>
+
+
+    <div class="perspective">
+
+        <div class="cube">
+            <!--<div class="test"></div>-->
+            <div class="front">
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/KvXaLU9.jpg">
+            </div>
+            <!--<div class="back">-->
+                <!--<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/BidkJi1.jpg">-->
+            <!--</div>-->
+            <!--<div class="top">-->
+                <!--<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/cJhZD8u.jpg">-->
+            <!--</div>-->
+            <!--<div class="bottom">-->
+                <!--<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/fnPnoxH.jpg">-->
+            <!--</div>-->
+            <!--<div class="left">-->
+                <!--<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/FyVATby.jpg">-->
+            <!--</div>-->
+            <!--<div class="right">-->
+                <!--<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/WkBpzLf.jpg">-->
+            <!--</div>-->
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>

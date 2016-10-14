@@ -1,0 +1,107 @@
+{% extends "m_model.html" %}
+{% block meta %}
+<meta name="description" content="活动订单查询，来这里查询您在活动家报名参加活动的订单情况，了解最新进展。服务热线:400-003-3879 活动家（m.huodongjia.com）" />
+<meta name="keywords" content="活动查询,热门活动,同城活动,活动家"/>
+<title>活动订单查询_活动家</title>
+<style>
+    @font-face {
+        font-family: 'iconfont';
+        src: url('http://pic.huodongjia.com/static/css/m_iconfont.ttf');
+    }
+    .Iconfont {
+        font-family: "iconfont" !important;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-stroke-width: .2px;
+        -moz-osx-font-smoothing: grayscale;
+        color: #36c;
+        font-size:2.3em;
+        float: left;
+    }
+</style>
+{% endblock %}
+{% block container %}
+<div class="container_search">
+{% block header %}
+    <header class="header" style="width: 100%;float: right;padding: 0 10px;border-bottom: 1px solid  rgba(215, 215, 215, 0.51);    margin-bottom: 10px;">
+
+        <a href="/" style="float: right;position: relative;top: -8px;"><span class="myfont home" >&#xe626;</span></a>
+        <a  href="javascript:history.go(-1)"><i class="Iconfont" style="color: #36c">&#xe74e;</i></a>
+        <h2 style="color: #36c">订单查询</h2>
+    </header>
+{% endblock %}
+<div class="center" style="clear: both;background: #FFF">
+    <!--form-->
+    <form action="/searchorder/" method="get" class="myForm" id="muform_seach">
+        <input type="search" class="find form-control"  name="order_search" placeholder="请输入手机号码或订单号">
+        <a  href="javascript:validate()"  style="color: #ddd"><i class="iconfont forsearch" type="submit">&#xe61b;</i></a>
+    </form>
+    <ul class="orderlist">
+        {% for order in order_list %}
+        <li>
+            <table  cellspacing="0" >
+                <thead>
+                <tr>
+                    <th><span class="orderflag">
+                             {% ifequal order.order_pay_status 0 %}
+                      未支付
+                      {% endifequal %}
+
+                      {% ifequal order.order_pay_status 20 %}
+
+											已支付
+                       {% endifequal %}
+
+                      {% ifequal order.order_pay_status 30 %}
+                        退款
+                      {% endifequal %}
+                        </span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><p class="ordernum"style="color:#333">订单号:{{order.order_number}}</p>
+                        <p class="ordertime">付款时间:{{order.order_paytime}}</p></td>
+                </tr>
+                <tr>
+                    <td >
+                        <div class="search-big-div">
+                            <div class="search-big-div-info">
+                                <p class="search-big-div-info-title"><a href="/event-{{order.event_id}}.html"  style="color:#4d4d4d;">{{order.event_name}}</a> </p>
+                                <p class="search-big-div-info-city">地点：{{order.city_title}}</p>
+                                <span class="search-money">{{order.order_price}}元</span>
+                                <span class="number">{{order.order_amount}}张</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="all">合计：<b>{{order.order_totalpay}}元</b></span>
+                        {% ifequal order.order_pay_status 0 %}
+                        <a  type="button" class="flag" href="/upgrade/{{order.order_number}}/{{order.order_totalpay}}/{{order.event_name}}">现在支付</a>
+                        {% endifequal %}
+                    </td>
+                </tr>
+                <tr>
+                    <td >
+                        <p class="contact" style="color:#333;">联系人：{{order.order_user_name}}</p>
+                        <p class="phonenum" style="color:#333;">联系号码：{{order.order_tel}}</p>
+                        <p class="address" style="color:#333;">联系地址：{{order.order_address}}</p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+</div>
+{% endblock %}
+
+{% block myscript %}
+<script>
+    if(/MicroMessenger/i.test(navigator.userAgent)){
+        $(".flag").attr("href","m.huodongjia.com/weixin/js_api_call.php?order_number={{order.order_number}}")
+    }
+</script>
+{% endblock %}

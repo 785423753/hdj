@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="http://pic.huodongjia.com/static/css/sweet-alert.css">
+</head>
+<style>
+    body{
+        font-family:"微软雅黑";
+    }
+    header{
+        width: 100%;
+        height: 50px;
+        background: #2D2D2D;
+    }
+    h3{
+        color: #52B0CC;
+        font-weight: bolder;
+        margin: 20px 0;
+    }
+    table{
+        border: 1px solid #CBCBCB;
+        border-radius: 5px;
+        width: 100%;
+    }
+    table td{
+        height: 50px;
+        text-align: center;
+        font-size: 16px;
+        color: rgba(43, 43, 43, 0.77);
+        border: 1px solid #CBCBCB;
+        width: 25%;
+        padding: 10px;
+    }
+    table tr td:nth-child(odd){
+        background: #EEEEEE;
+    }
+    table tr td:nth-child(even){
+       font-size: 14px;
+    }
+    #Form{
+        width: 80%;
+        margin: 50px  auto 0;
+    }
+    input,textarea{
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        /*-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);*/
+        /*box-shadow: inset 0 1px 1px rgba(0,0,0,.075);*/
+        -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        margin-bottom: 20px;
+        resize: none;
+    }
+    #Form>label{
+        color: #52B0CC;
+        font-size: 18px;
+        font-weight: normal;
+        width: 15% !important;
+        text-align: right;
+        padding-right: 25px !important;
+    }
+    .linkways{
+        padding: 0;
+    }
+    .linkways input{
+        width: 35%;
+        margin-right: 10px;
+    }
+    .linkways label{
+        width: 7%;
+        text-align: left;
+        color: #868686;
+        font-size: 16px;
+        font-weight: normal;
+    }
+    .consociation{
+        padding: 0;
+    }
+    .consociation label{
+      font-size: 16px;
+        color: #868686;
+        font-weight: normal;
+        padding-right: 15px;
+    }
+    .consociation input{
+        margin-right: 10px;
+    }
+    .consociation>div{
+        width: 100%;
+        padding: 15px;
+        background: #F5F5F5;
+        margin: 15px 0 30px;
+        font-size: 14px;
+        min-height: 57px;
+    }
+    #post{
+        width: 300px;
+        height: 45px;
+        border: none;
+        color: #fff;
+        border-radius: 5px;
+        background: #5AAFCC;
+        font-size: 18px;
+        display: block;
+        margin: 15px auto;
+        outline: none;
+    }
+    #post:hover{
+        background: #529fba;
+    }
+    .consociation>div>label{
+        font-size: 14px;
+    }
+    input[type="text"]:focus,textarea:focus{border-color:rgba(102,175,233,.6) !important;box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6) !important;outline: none}
+</style>
+<body>
+<header></header>
+<div class="container business">
+    <h3>商务洽谈</h3>
+    <table border="1" cellpadding="0" >
+        <tr>
+            <td>会议标题</td>
+            <td>{{event.event_name}}</td>
+            <td>ID</td>
+            <td>{{ event.id }}</td>
+        </tr>
+        <tr>
+            <td>会议时间</td>
+            <td>{{event.begin_name}}</td>
+            <td>主办城市</td>
+            <td>{{event.event_city_info.0.district_name}}</td>
+        </tr>
+        <tr>
+            <td>信息来源</td>
+            <td colspan="3">{% autoescape on %}{{info|safe}}{% endautoescape %}</td>
+        </tr>
+        <tr>
+            <td>主办方</td>
+            <td colspan="3">
+                {% for sponsor in event.event_sponsor %}
+                {{ sponsor.ns_name }}
+                {% if not forloop.last %}
+                ,
+                {% endif %}
+                {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <td>历史洽谈记录</td>
+            <td colspan="3">
+                {{history}}
+            </td>
+        </tr>
+    </table>
+    <form id="Form" action="">
+        <input type="hidden" id="e_id" value="{{event.id}}"/>
+        <label class="col-sm-2">名片：</label><textarea class="col-sm-10 " name="" id="card" rows="5">{{ card_info }}</textarea>
+        <label class="col-sm-2">联系方式:<br/><span style="color: #D4D4D4;font-size: 16px">（选填）</span></label>
+        <div class="linkways col-sm-10">
+            <label>QQ</label><input type="text" id="QQ" {% if 'QQ' in ctype_dict %}value="{{ctype_dict.QQ}}"{% endif %}/>
+            <label>电话</label><input type="text" id="telephone" {% if 'telephone' in ctype_dict %}value="{{ctype_dict.telephone}}"{% endif %}/><br/>
+            <label>微信</label><input type="text" id="wechat" {% if 'wechat' in ctype_dict %}value="{{ctype_dict.wechat}}"{% endif %}/>
+            <label>邮件</label><input type="text" id="email" {% if 'email' in ctype_dict %}value="{{ctype_dict.email}}"{% endif %}/>
+        </div>
+        <label class="col-sm-2">洽谈结果：</label>
+        <div class="col-sm-10 consociation" >
+            {% for choice in nego_choices %}
+            <label><input type="radio" value="{{choice.0}}" {% if choice.0 == now_status  %}checked="checked"{% endif %} name="teamwork"/><span>{{choice.1}}</span></label>
+            {% endfor %}
+            <div>
+                {% for r in reason %}
+                <label><input class="reason"  onchange="myfocus(this)" type="checkbox" {% if r.id in this_reason  %}checked="checked"{% endif %}  value="{{r.id}}"/><span>{{r.reason}}</span></label>
+                    {% if forloop.last %}
+                        {% if charge %}
+                        <input style="margin:0;" placeholder="请输入佣金比" id="charge" type="text" value="{{charge}}">     
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+
+            </div>
+        </div>
+        <label class="col-sm-2">备注信息：</label><textarea class="col-sm-10 " name="" id="mark" rows="5">{{ remark }}</textarea>
+        <button type="button" id="post">确认</button>
+    </form>
+</div>
+</body>
+<script src="http://pic.huodongjia.com/static/js/jquery-1.8.3.min.js"></script>
+<script src="http://pic.huodongjia.com/static/js/sweet-alert.min.js"></script>
+<script>
+    $("input[name='teamwork']").focus(function () {
+        var id=$(this).val()
+        $.ajax({
+            url:"/business/ajax_change_status/?status_id="+id,
+            type:"get",
+            dataType:'text',
+            success: function (data) {
+                $(".consociation>div").html(data)
+            }
+        })
+    })
+    function myfocus(obj){
+        if($(obj).val()==10||$(obj).val()==23){
+            if($(obj).attr("checked")=="checked"){
+                $(".consociation>div").append("<input style='margin:0;' type='text' placeholder='请输入佣金比' id='charge'/>")
+            }else{
+                $("#charge").remove()
+            }
+        }
+    }
+    $("#post").click(function () {
+        var contacts={}
+        var reason=new Array()
+        $(".linkways input").each(function (i) {
+            contacts[$(".linkways input")[i].id]=$(".linkways input")[i].value
+        })
+        $(".reason").each(function (i) {
+            if($($(".reason")[i]).attr("checked")=="checked"){
+                reason.push($(".reason")[i].value)
+            }
+       })
+        console.log(reason)
+        $.ajax({
+            url:"/business/save/",
+            type:"post",
+            dataType:'json',
+            data:{
+                id:$("#e_id").val(),
+                co_status:$("input[name='teamwork']:checked").val(),
+                remark:$("#mark").val(),
+                card_info:$("#card").val(),
+                reasons:JSON.stringify(reason),
+                charge:$("#charge").val(),
+                contacts:JSON.stringify(contacts)
+            },
+            success: function (data) {
+               if(data.code==1){
+                   $(".confirm").hide()
+                   swal("success","修改成功！","success")
+                   setTimeout(function () {
+                       $(".confirm").click()
+                   },1500)
+               }
+            }
+        })
+    })
+</script>
+</html>

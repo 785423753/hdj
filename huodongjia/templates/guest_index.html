@@ -1,0 +1,18 @@
+{% load page_nav %}
+{%for guest in guests %}
+<div class="col-sm-2 col-xs-2 guest">
+    <a target="_blank" href="/guest-{{ guest.id|encodeid }}.html" rel="nofollow">
+        <div class="gues_pic">
+            {% if guest.img__urls %}
+            <img  src="{{ guest.img__server__name  }}{{ guest.img__urls }}" alt="邀请{{ guest.name }}出席会议"/>
+            {% else %}
+            <img src="http://pic.huodongjia.com/static/images/guest_default.jpg" alt="邀请{{ guest.name }}出席会议"/>
+            {% endif %}
+        </div>
+    </a>
+    <p><a style="color: #000 !important;" target="_blank" href="/guest-{{ guest.id|encodeid }}.html">{{ guest.name }} </a><br/><span>{{guest.company__name}}</span><br/><span>{{ guest.job__name }}</span></p>
+</div>
+<script>
+    $(".gues_pic").css({"height":$(".gues_pic").width()})
+</script>
+{% endfor %}

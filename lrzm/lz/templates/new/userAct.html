@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style>
+    .select {
+        left: 10%;
+        top: 28px;
+    }
+    @media (max-width:768px) {
+        .select {
+            top: 63px;
+        }
+        .set{
+            display: block;
+        }
+    }
+</style>
+{% endblock %}
+{% block right %}
+<div class='col-sm-10 col-xs-12 right' style=''>
+    <h2 align='center'>用户行为分析</h2>
+    <div class="select"><input value="2016-04-01" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="start_time">至
+        <input value="2016-04-10" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="end_time"><button>确定</button></div>
+    <div class="right_bottom" style="width:90%;height: 500px;margin:50px auto">
+        <div class="set"><span>有操作行为：<font class="all"></font></span><br><span>收藏：<font class="collect"></font></span><br><span>下订单：<font class="order"></font></span><br><span>留言：<font class="con"></font></span></div>
+        <div id='right_curveoforder_1' style="width: 95%;height: 430px;position: absolute;bottom: 0px"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<script src="../static/js/userAct.js"></script>
+{% endblock %}

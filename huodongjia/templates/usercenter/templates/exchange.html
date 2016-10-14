@@ -1,0 +1,155 @@
+<html xmlns:wb="http://open.weibo.com/wb">
+<head>
+    <meta charset="UTF-8">
+    <title>积分兑换门票_活动家</title>
+    <meta name="keywords" content="积分，门票，活动家" />
+    <meta name="description" content="活动家积分兑换门票活动。找会议，上活动家！" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="http://pic.huodongjia.com/static/css/sweet-alert.css">
+    <link href="http://pic.huodongjia.com/static/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/usercenter/css/index.css"/>
+    <!--[if lt IE 9]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <link href="http://pic.huodongjia.com/static/css/non-responsive.css?t=20151030.css" rel="stylesheet">
+    <![endif]-->
+</head>
+<body id="integral">
+<div class="user" style="text-align: left;margin-top: 0">
+    <div class="userNumber" style="+width: 48%;+float: left">
+        <p style="font-size: 16px">您好，亲爱的{{ login_user.name }}</p>
+        {#兑换#}
+        <p style="font-size: 16px">你的积分为： <span class="userIntegral">{{credit_value_sum}}</span> 分<a href=""><span class="iconfont" style="color:#bdbdbd">&#xe607;</span>刷新</a>
+        </p>
+        {#End of 兑换#}
+    </div>
+    <div style=" display: inline-block;+width: 50%;+float: left;+padding-top: 50px">
+        <div class="progressBar">
+            <div class="currentProgress progress-bar progress-bar-info" role="progressbar"
+                 aria-valuenow="{{credit_value_sum}}" aria-valuemin="0" aria-valuemax="{{base_progress_value}}">
+            </div>
+        </div>
+    </div>
+    {#End of 兑换#}
+    {% if gain_gifts %}
+    <div class="myGit">
+        <p class="myGitName">已兑换</p>
+        {%for a in gain_gifts%}
+        <div class="gitEvent" >
+            <img width="209px" height="147px" src="{{ a.gift.pic_url }}" alt="{{a.gift.name}}"/>
+
+            <div>
+                <p class="gitName">{{a.gift.name}}</p>
+                <!--<p style="margin-bottom: 2px;">数量：{{ a.quantity }}</p>-->
+                <!--<p style="margin-bottom: 2px;">票价:<font style="text-decoration: line-through">￥{{ a.gift.price }}</font></p>-->
+                <!--<p style="margin-bottom: 2px;" class="getInteg">兑换积分:{{ a.gift.credit }}</p>-->
+
+                <!--<p style="margin-bottom: 2px;">地点：{{ a.gift.city }}</p>-->
+
+                <!--<p style="margin-bottom: 2px;">到期时间：{{a.gift.expired_time|date:"Y-m-d" }}</p>-->
+
+            </div>
+        </div>
+        {% endfor %}
+        <div style="clear: both;"></div>
+    </div>
+    {% endif %}
+</div>
+<div class="integralExchange" >
+    <h2>积分兑换</h2>
+    <div class="nameBottomList"></div>
+    {#礼品展示#}
+    <div style="max-height: 439px;overflow: hidden" class="ExchangeTicketMain">
+        {% for gift in gifts %}
+        <div class="ExchangeTickets" data-id="{{ gift.id }}">
+            <div class="ExchangeTicketsImg">
+                <img width="198px" height="124px" src="{{ gift.pic_url }}" alt="{{ gift.name }}"/>
+                <!--<span class="t_city">{{ gift.city }}</span>-->
+                <!--<span class="t_time">{{gift.expired_time|date:"Y-m-d" }}</span>-->
+            </div>
+            <p class="ExchangeTicketsName" style="margin: 5px 0">{{ gift.name }}</p>
+
+            <!--<p class="ExchangeTicketsPrice">票价：<font style="text-decoration: line-through">￥{{ gift.price }}</font></p>-->
+
+            <p class="ExchangeTicketsNumber">所需积分：<span>{{ gift.credit }}</span> <a>立即兑换</a></p>
+        </div>
+    {% endfor %}
+    <div style="clear: both;"></div>
+    </div>
+    <div class="pageNumber">
+
+    </div>
+    {#End of 礼品展示#}
+</div>
+
+{% ifequal paid_status 1%}
+
+{% endifequal %}
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://pic.huodongjia.com/static/js/jquery-1.8.3.min.js"></script>
+<script src="http://pic.huodongjia.com/static/js/sweet-alert.min.js"></script>
+<script src="http://pic.huodongjia.com/static/js/clamp.min.js"></script>
+
+<script type="text/javascript" charset="utf-8">
+    var current = $(".currentProgress").attr("aria-valuenow")
+    var currentMax = $(".currentProgress").attr("aria-valuemax")
+    var currentb = (current / currentMax) * 100
+    if (currentb > 100) {
+        currentb = 100;
+    }
+    $(".currentProgress").width(currentb + "%")
+    $(".ExchangeTickets").each(function (index) {
+        var $this = $(this)
+        if ((index + 1) % 4 == 0) {
+            $this.addClass("ExchangeTicketsLest");
+        }
+    })
+    var giftPage =Math.ceil(($(".ExchangeTickets").length/8));
+    for(var i=1;i<=giftPage;i++){
+        if(i==1){
+            $(".pageNumber").append("<a class='active'>"+i +"</a>")
+        }else{
+            $(".pageNumber").append("<a>"+i +"</a>")
+        }
+    }
+    $(".pageNumber a").on("click", function () {
+        $(this).addClass("active").siblings().removeClass("active")
+        $(".ExchangeTicketMain").animate({
+            scrollTop:439*($(this).index())
+        })
+    })
+
+    $(".ExchangeTicketsNumber a").on('click', function () {
+        var gift_id = $(this).parents('.ExchangeTickets').attr("data-id");
+        var gift_name = $(this).parent().parent().find('.ExchangeTicketsName').text(),usrsGift=$(".userIntegral").text(),eventGift=$(this).parents(".ExchangeTicketsNumber").find("span").text();
+        var option;
+        if(parseInt(usrsGift)>parseInt(eventGift)){
+        option = {
+            images: "success",
+            title: "兑换成功",
+            tips: "恭喜你获得<span style='color: #e65052;'>" + gift_name + "</span>门票一张。",
+            fromView: true,
+            eventName:gift_name,
+            userGift:"你当前积分：<span style='color: #e65052;'>"+usrsGift+"</span><span class='iconfont' style='color:#bdbdbd'>&#xe607;</span>",
+            eventGift:"所需积分：<span style='color: #e65052;'>"+eventGift+"</span>",
+            eventId:gift_id,
+            telephone:'{{telephone}}'
+
+        }
+        }else{
+            option = {
+                images: "error",
+                title: "兑换失败",
+                tips: "您的积分不足。",
+                fromView: false
+            }
+        }
+        top.frames.$("form").attr({"data-name": gift_name});
+        top.frames.userPopup(option);
+    });
+
+</script>
+</body>
+</html>

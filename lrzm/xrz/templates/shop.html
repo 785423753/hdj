@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+{% block mystyle %}
+<style>
+    #l-map{height:100%;width:78%;float:left;border-right:2px solid #bcbcbc;}
+    #r-result{height:100%;width:20%;float:left;}
+    .right>div{
+        margin: 10px 0;
+    }
+    .right>div>div{
+        width: 100%;
+        height: 300px;
+    }
+    .line{
+        clear: both;
+        border-bottom: 1px solid gray;
+        margin: 10px 0;
+        width: 96%;
+        margin-left: 2%;
+    }
+</style>
+{% endblock %}
+{% block right %}
+<div  class='col-sm-10 right'>
+    <div class="select">
+        <select name="" id="city_id">
+            <option value="">选择城市</option>
+            {% for i in ret.0.value %}
+            <option value="{{i.id}}">{{i.name}}</option>
+            {% endfor %}
+        </select>
+        <input value="{{ret.2.date.0}}" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="start_time">至
+        <input value='{{ret.2.date.1}}' onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="end_time"><button>确定</button>
+    </div>
+    <div class="col-sm-6 col-xs-12"><p>小店数量</p><div id="shop"></div></div>
+    <div class="col-sm-6 col-xs-12"><p>小店关注度</p><div id="attention"></div></div>
+    <div class="col-sm-12 col-xs-12"><p>新增小店分类</p><div id="industry"></div></div>
+    <div class="col-sm-12 col-xs-12">
+        <p>热门小店top10</p>
+        <table>
+            <tr><td></td><td>小店名称</td><td>所属城市</td><td>所属类别</td></tr>
+            {% for i in ret.5.value %}
+            <tr><td><span>{{ i.rank }}</span></td><td>{{i.name}}</td><td>{{i.city}}</td><td>{% for tag in i.tag %}{{tag}} {% endfor %}</td></tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-sm-5 col-xs-12"><p>小店分布</p><div id="city" style="height: 400px"></div></div>
+    <div class="col-sm-7 col-xs-12"><p>城市商圈分布</p><div id="map" style="height: 400px;"></div></div>
+
+</div>
+{% endblock %}
+{% block myscript %}
+<script src="/static/js/shop.js"></script>
+<script src="http://echarts.baidu.com/build/dist/echarts.js "></script>
+<script>
+    require.config({
+        paths: {
+            echarts: 'http://echarts.baidu.com/build/dist/'
+        }
+    });
+    require(
+            [
+                'echarts',
+                'echarts/theme/infographic',
+                'echarts/chart/line',
+                'echarts/chart/bar',
+                'echarts/chart/force',
+                'echarts/chart/map',
+            ],
+            function (ec,theme) {
+                // 基于准备好的dom，初始化echarts图表)
+                var Data=[],Coord={}
+                {% for i in ret.1.value %}
+                Data.push({name: "{{i.name}}", value: '{{i.amount}}'})
+                Coord['{{i.name}}']=['{{i.location.lng}}','{{i.location.lat}}']
+                {% endfor %}
+                var myChart5 = ec.init(document.getElementById('city'),'');
+                var myChart = ec.init(document.getElementById('map'),'infographic');
+                myChart5.setOption({
+                    tooltip : {
+                        trigger: 'item'
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        x:'left',
+                        data:['pm2.5'],
+                        show:false
+                    },
+                    series : [
+                        {
+                            name: '城市分布',
+                            type: 'map',
+                            mapType: 'china',
+                            hoverable: false,
+                            mapLocation:{x:'5%',y:'center'},
+                            roam:false,
+                            data : [],
+                            itemStyle:{
+                                normal:{
+                                    color:'#0E162D',
+                                    borderColor: '#6291E7',
+                                }
+                            },
+                            markPoint : {
+                                symbolSize: 2,       // 标注大小，半宽（半径）参数，当图形为方向或菱形则总宽度为symbolSize * 2
+                                effect : {
+                                    show: true
+                                },
+                                itemStyle: {
+                                    normal: {
+                                        color:'rgba(4, 123, 245, 0.84)',
+                                        label:{
+                                            show:false
+                                        }
+                                    },
+                                    emphasis:{
+                                        label:{
+                                            show:false
+                                        }
+                                    }
+                                },
+                                data : Data
+                            },
+                            geoCoord: Coord
+                        },
+                    ]
+                });
+                $('.select button').click(function () {
+                    centre()
+                })
+                centre()
+                function centre() {
+                    var city_id = $('#city_id').val()
+                    $.get('/dataofshops/?json=1', {city: city_id}, function (data) {
+                        var Node=[]
+                        for(var i in data[6].value){
+                            var lab=''
+                            for(var j in data[6].value[i].value){
+                                lab+='\n'+data[6].value[i].value[j].name+'（'+data[6].value[i].value[j].value+'）'
+                            }
+                            Node.push({name:data[6].value[i].name,label:data[6].value[i].name+lab})
+                        }
+                        myChart.setOption({
+                            backgroundColor:'#333',
+                            tooltip : {
+                                trigger: 'item',
+                                formatter: '{a} : {b}'
+                            },
+                            series : [
+                                {
+                                    type:'force',
+                                    name : "城市商圈分布",
+                                    ribbonType: false,
+                                    itemStyle: {
+                                        normal: {
+                                            label: {
+                                                show: true,
+                                                textStyle: {
+                                                    color: '#fff'
+                                                }
+                                            },
+                                            nodeStyle : {
+                                                brushType : 'both',
+                                                borderWidth : 0
+                                            },
+                                        },
+                                        emphasis: {
+                                            label: {
+                                                show: false,
+                                            },
+                                            nodeStyle : {
+                                                borderWidth : 1
+                                            },
+                                            linkStyle : {}
+                                        }
+                                    },
+                                    useWorker: false,
+                                    symbolSize:60,
+                                    gravity:2.5,
+                                    scaling: 1.1,
+                                    roam: 'move',
+                                    nodes:Node,
+                                    links : []
+                                }
+                            ]
+                        });
+                    })
+                }
+                $(window).resize(function () {
+                    myChart5.resize();
+                    myChart.resize();
+                })
+            }
+    );
+</script>
+{% endblock %}

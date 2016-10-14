@@ -1,0 +1,204 @@
+.container_details .center .orderlist{
+    margin-top: 5px;
+    width: 100%;
+    height: auto;
+}
+
+.container_details .center ul li{
+    margin-top: 10px;
+}
+.container_details .center .orderlist table{
+    width:94%;
+    height: auto;
+    border-bottom: 1px solid #e8e8e8;
+    border-right:1px solid #e8e8e8 ;
+    margin-left: 2%;
+    border-left:1px solid #e8e8e8 ;
+    margin-top: 10px;
+}
+.container_details .center .orderlist table td{
+    border-top: 1px solid #e8e8e8;
+}
+.container_details .center .orderlist table th{
+    height: 35px;
+    width: 100%;
+    background-color: #fcf4f4;
+}
+.container_details .center .orderlist table tr{
+    width: 100%;
+    line-height: 28px;
+}
+.container_details .center .orderlist table .orderflag{
+    float: left;
+    margin-left: 5%;
+    color: #ee1c48;
+    font-size: 0.9em;
+}
+.container_details .center .orderlist table  .ordernum{
+    margin-left: 2%;
+    color: #4e4e4e;
+    font-size: 0.75em;
+}
+.container_details .center .orderlist table .ordertime{
+    margin-left: 2%;
+    color: #4e4e4e;
+    font-size: 0.75em;
+}
+
+
+.container_details .center .orderlist table .all{
+    margin-left: 2%;
+    color: #767676;
+    font-size: 0.8em;
+}
+.container_details .center .orderlist table b{
+    font-size: 1.3em;
+    color: #ee1c48;
+}
+
+.container_details .center .orderlist table .flag{
+    float: right;
+    margin-right: 6%;
+    color: #ee1c48;
+    font-size: 0.8em;
+}
+.container_details .center .orderlist table .contact{
+    margin-left: 2%;
+    color: #4e4e4e;
+    font-size: 0.8em;
+
+}
+.container_details .center .orderlist table .address{
+    margin-left: 2%;
+    color: #4e4e4e;
+    font-size: 0.8em;
+    width: 80%;
+}
+.container_details .center .orderlist table  .phonenum{
+    margin-left: 2%;
+    color: #4e4e4e;
+    font-size: 0.8em;
+}
+.container_details .big-div{
+    width: 100%;
+    height:auto;
+    vertical-align: middle;
+}
+
+.container_details .big-div .big-div-info{
+    width: 100%;
+    height: auto;
+    margin-left: 3%;
+    margin-top: 12px;
+
+}
+.container_details .big-div .big-div-info .big-div-info-title{
+    color: #333;
+    font-size: 0.82em;
+    width: 90%;
+    font-weight: bold;
+    margin-top:-10px;
+    margin-left: -1%;
+}
+.container_details .big-div .big-div-info .big-div-info-time{
+    color: #888282;
+    font-size:0.75em;
+    margin-left: 5%;
+    margin-top: 5px;
+    width:95% ;
+    word-break:keep-all;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    vertical-align: middle;
+
+}
+.container_details .big-div .big-div-info .big-div-info-city{
+    color: #888282;
+    font-size: 0.75em;
+    margin-left: 6%;
+    width:90% ;
+    word-break:keep-all;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    vertical-align: middle;
+
+}
+
+.container_details .big-div .big-div-info .money{
+    float: right;
+    margin-right: 5%;
+    color: #767676;
+    font-weight: bold;
+    margin-top: -15px;
+    font-size: 0.875em;
+}
+.container_details .big-div .big-div-info .number{
+    margin-left: 82%;
+    color: #8e8989;
+    font-weight: bold;
+    margin-top: 1px;
+    font-size: 0.875em;
+}
+.container_details .text-center{
+    margin-top: 8px;
+    margin-bottom:1em;
+    margin-left: 3%;
+    background-color:#fff;
+    color: #ffffff;
+    height: 120px;
+}
+.container_details .text-center-info{
+    margin-top: 9px;
+}
+.container_details .text-center-contact{
+    width: 89%;
+    color:#333;
+    font-size: 0.8em;
+    margin-left: 2%;
+    line-height: 5;
+    margin-top: -45px;
+}
+.container_details .text-center h4{
+    font-size: 0.9em;
+}
+.container_details .text-center h5{
+    font-size: 0.9em;
+    color:#333;
+    margin-top: 1px;
+}
+.container_details .text-center .h5-2{
+    font-size: 0.9em;
+    color:#333;
+    margin-top: -18px;
+}
+.container_details #surePay{
+    display: block;
+    background-color: #ee1c48;
+    color: #ffffff;
+    font-size: 0.875em;
+    width:90px;
+    height: 30px;
+    border-radius: 3px;
+    line-height:30px;
+    border: none;
+    text-align: center;
+    margin: 30px auto;
+}
+.container_details .remark-div{
+    width:96%;
+    height:auto;
+    margin-left: 2%;
+    min-height: 29px;
+    border-left:1px solid #e8e8e8;
+    border-right: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+}
+.container_details .remark{
+    width: 85%;
+    margin-left: 2%;
+    color: #4e4e4e;
+    font-size: 0.8em;
+    vertical-align: middle;
+}

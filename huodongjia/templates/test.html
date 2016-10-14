@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta http-equiv=Content-Type content="text/html;charset=utf-8">
+    <meta name="format-detection" content="telephone=no" />
+    <meta charset="utf-8">
+    <title>Map</title>
+
+</head>
+<body>
+<button id="save_btn">关闭</button>
+</body>
+<script src="http://pic.huodongjia.com/static/js/jquery-1.8.3.min.js"></script>
+<script>
+
+    $('#save_btn').click(function(){
+        if(window.opener != self){
+            window.parent.close()
+        }
+    })
+</script>
+</html>

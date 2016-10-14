@@ -1,0 +1,60 @@
+User-agent: *
+Disallow:/member/*
+Disallow:/order/*
+Disallow:/searchorder/*
+Disallow:/article/*
+Disallow:/return_url/*
+Disallow:/notify_url/*
+Disallow:/bankpay/*
+Disallow:/submitorder/*
+Disallow:/admin/*
+Disallow:/upgrade/*
+Disallow:/get_check_code_image/*
+Disallow:/showorder/*
+Disallow:/None/*
+Disallow:/False/*
+Disallow:/change/*
+Disallow:/*.htc$
+Disallow:/nc/*
+Disallow:/meeting/1/*
+Disallow:/dazaifu//*
+Disallow:/beijing/38/*
+Disallow:/beijing//*
+Disallow:/chongqin/*
+Disallow:/hongkong/48/*
+Disallow:/hongkong/53/*
+Disallow:/shanghai/28/*
+Disallow:/shanghai/65/*
+Disallow:/wuhan/50/*
+Disallow:/guangzhou/59/*
+Disallow:/shenyang/44/*
+Disallow:/zc/*
+Disallow:/lincang/*
+Disallow:/ticket/*
+Disallow:/js/all/*
+Disallow:/css/all/*
+Disallow:/*.htm$
+Disallow:/*.html2015$
+
+
+User-agent: YisouSpider
+Disallow:/
+
+User-agent: wget
+Disallow:/
+
+User-agent: Wget
+Disallow:/
+
+User-agent: MJ12bot
+Disallow:/
+
+User-agent: YYSpider
+Disallow:/
+
+User-agent: YRSpider
+Disallow:/
+
+User-agent: Aboundexbot
+Disallow: /
+

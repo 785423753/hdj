@@ -1,0 +1,160 @@
+﻿{% extends 'base.html' %}
+{% block addstyle %}
+<link rel="stylesheet" href="http://pic.huodongjia.com/static/css/eventSignup.css"/>
+<style>
+    body{+position: relative;+padding-bottom: 500px;}
+    .footer{+position: absolute;+bottom:0;}
+    #ApplyForm span{color: #646464;float: left;width: 72px;padding-right: 15px;text-align: right;font-size: 16px}
+    #ApplyForm span font{color: #E44E4F;}
+    .process{
+        float: left;
+        margin-left: 12%;
+        background: #F5F5F5;
+        font-size: 14px;
+        color: #646464;
+        line-height: 25px;
+        padding: 15px 20px;
+        border-radius: 5px;
+    }
+    #checkcode {
+        width: 200px !important;
+    }
+    #ApplyForm input[type="text"],#ApplyForm textarea{width: 360px}
+</style>
+{%endblock%}
+{%block content %}
+
+<div class="container content">
+    <p class="form_title" style="text-align: left!important;"> 联系人信息 <br/><span>多人参会客服直接与您确认其他人参会信息</span><font class="change">资料修改</font></p>
+    {% csrf_token %}
+    <form id="ApplyForm"  action="" style="width: 500px;float: left">
+        <span><font>*</font>姓名</span><input type="text"  id="name" placeholder="输入姓名"/><br/>
+        <span><font>*</font>手机号</span><input type="text"  id="phone" placeholder="手机号码"/><br/>
+        <span><font>*</font>邮箱</span><input type="text"  id="email" placeholder="常用邮箱"/><br/>
+        <span>单位</span><input type="text"  id="company" /><br/>
+        <span>职位</span><input type="text"  id="job" /><br/>
+        <span>验证码</span><input type="text" name="checkcode" id="checkcode" placeholder="输入验证码" data-captchaflag="false"/>
+        <img onclick="this.setAttribute('src','/get_check_code_image/?nocache='+Math.random());" src="/get_check_code_image/" alt="CheckCode" height="37" width="138" id="cap_img"><br/>
+        <span>备注</span><textarea name="" id="mark"  rows="5" placeholder="如需增值税发票和其它事项请在此备注"></textarea>
+        <label for="invoice" style="margin-left: 65px"><input id="invoice" type="checkbox"/>我需要发票</label>
+        <div class="invoice" style="padding-left: 65px">
+            <input type="text" id="invoice_title" placeholder="发票抬头"/>
+            <input type="text" id="email_addr" placeholder="邮寄地址"/>
+        </div>
+        <br/>
+        <button style="margin-left: 65px;margin-bottom: 20px;width: 360px" type="button" id="save">保存</button>
+    </form>
+
+    <div class="linkman" style="width: 50%">
+        <span class="link_name">姓名：<label></label></span> <span class="link_phone">手机号：<label></label></span><br/>
+        <span class="link_email">邮箱：<label></label></span><br/>
+        <span class="link_company">单位：<label>无</label></span><br/>
+        <span class="link_job">职位：<label>无</label></span><br/>
+        <span class="link_mark">备注：<label>无</label></span><br/>
+        <span class="Hide" style="display: none;">发票信息：<label>不需要发票</label></span>
+        <span class="link_invoice_title">发票抬头：<label>无</label></span><br/>
+        <span class="link_email_addr">邮寄地址：<label>无</label></span><br/>
+    </div>
+    <div class="process">
+        报名流程 <br>
+        1、信息填写； <br>
+        2、提交订单并支付；<br>
+        3、客服将在2小时内（工作日）与您确认参会者信息；<br>
+        4、届时将为您提供参会凭证和相关发票报销；<br>
+        &nbsp;如有其它问题请致电客服：028-69761252。
+    </div>
+    <div class="content_bottom">
+      <div class="pay_way">
+        <p>支付方式</p>
+          <input type="hidden" id="payway" value="支付宝"/>
+        <ul class="ways">
+            <li title="支付宝" lang="alipay" class="way"><span class="active"><font class="myfont">&#xe60a;</font>支付宝</span></li>
+            <li title="微信支付" lang="weixin" class="way"><span><img src="http://pic.huodongjia.com/static/images/weixin1.png" alt=""/>微信支付</span></li>
+            <li title="网银支付" lang="wangyin" class="wangyin"><span>网银支付</span></li>
+            <li title="对公转账" lang="duigong" class="way"><span>对公转账</span></li>
+            <div class="card" style="height: 228px">
+                <ul>
+                    <li class="choose_card">选择银行卡：<span>(已选择：中国工商银行)</span></li>
+                    <li class="choosed"><img lang="ICBCB2C" src="http://pic.huodongjia.com/static/images/gongshang.jpg" alt="中国工商银行"/><img class="xuanzhong" src="/static/images/xuanzhong.png" alt=""/></li>
+                    <li ><img lang="CMB" src="http://pic.huodongjia.com/static/images/zhaoshang.jpg" alt="招商银行"/></li>
+                    <li ><img lang="BOCB2C" src="http://pic.huodongjia.com/static/images/zhongguo.jpg" alt="中国银行"/></li>
+                    <li ><img lang="CCB" src="http://pic.huodongjia.com/static/images/jiahang.jpg" alt="中国建设银行"/></li>
+                    <li ><img lang="ABC" src="http://pic.huodongjia.com/static/images/nongye.jpg" alt="中国农业银行"/></li>
+                    <li ><img lang="SPDB" src="http://pic.huodongjia.com/static/images/pufa.jpg" alt="浦发银行"/></li>
+                    <li ><img lang="CIB" src="http://pic.huodongjia.com/static/images/xingye.jpg" alt="兴业银行"/></li>
+                    <li ><img lang="GDB" src="http://pic.huodongjia.com/static/images/guangfa.jpg" alt="广东发展银行"/></li>
+                    <li ><img lang="FDB" src="http://pic.huodongjia.com/static/images/fuzhen.jpg" alt="富滇银行"/></li>
+                    <li ><img lang="HZCBB2C" src="http://pic.huodongjia.com/static/images/hangzhou.jpg" alt="杭州银行"/></li>
+                    <li ><img lang="SHBANK" src="http://pic.huodongjia.com/static/images/shanghai.jpg" alt="上海银行"/></li>
+                    <li ><img lang="NBBANK" src="http://pic.huodongjia.com/static/images/ningbo.jpg" alt="宁波银行"/></li>
+                    <li ><img lang="SPABANK" src="http://pic.huodongjia.com/static/images/pingan.jpg" alt="平安银行"/></li>
+                    <li ><img lang="POSTGC" src="http://pic.huodongjia.com/static/images/youzheng.jpg" alt="中国邮政储蓄银行"/></li>
+                </ul>
+            </div>
+        </ul>
+    </div>
+      <div class="order">
+          <p>确认订单信息</p>
+          <ul class="order_detail row">
+              <li class="col-sm-6 col-xs-6">会议名称</li>
+              <li class="col-sm-2 col-xs-2">单价</li>
+              <li class="col-sm-2 col-xs-2">数量</li>
+              <li class="col-sm-2 col-xs-2">小计</li>
+          </ul>
+          <ul class="order_detail order_details row">
+              <li class="col-sm-6 col-xs-6 event_name">
+                  <div style="width: 33%;"><img width="100%" src="{{event.0.event_img.0.server__name}}{{event.0.event_img.0.urls}}" alt=""/></div>
+                  <div><p>{{event.0.event_name}}</p><span>时间：{{event.0.event_begin_time|date:'Y-m-d'}} 至 {{event.0.event_end_time|date:'Y-m-d'}} <br/>地点：{{event.0.event_city_info.0.district_name}}</span></div>
+              </li>
+              <li class="col-sm-2 col-xs-2">{{Currency__sign}}{{order_price}}</li>
+              <li class="col-sm-2 col-xs-2">{{order_amount}}张</li>
+              <li class="col-sm-2 col-xs-2 total">{{Currency__sign}}</li>
+          </ul>
+      </div>
+        <!--<p style="text-align: right;margin: 15px 0 0;color: #7B8493;">温馨提示：返现将在3-5个工作日内返回到你指定的账户。</p>-->
+    </div>
+    <div class="post_order">
+        <div class="col-sm-6 sol-xs-6" style='position:relative;'>
+            <div class='back'></div>
+            <form id="messageForm" method="post" action="/submitorder/">
+                {% csrf_token %}
+                联系人：<input  type="text" name="name" class="username"/>联系电话：<input  type="text" name="phone" class="phonenumber"/><br/>
+                邮箱：<input  type="text" name="email" class="email"/><br/>
+                支付方式：<input  type="text" class="pay"/>
+                <input type="hidden"  name="pay_way" id="ways">
+                <input type="hidden"  id="bank" name="bank"/>
+                <input type="hidden"  id="price_id" name="price_id"  value="{{price_id}}"/>
+                <input type="hidden"  id="event_id" name="event_id" value="{{event_id}}"/>
+                <input type="hidden"  id="event_name" name="event_name" value="{{event_name}}"/>
+                <input type="hidden"  id="price" name="price" value="{{order_price}}"/>
+                <input type="hidden"  id="amount" name="amount" value="{{order_amount}}"/>
+                <input type="hidden" class="company" name='company' value="">
+                <input type="hidden" class="job" name="job" value="">
+                <input type="hidden" class="mark" name="remark" value="">
+                <input type="hidden" class="invoice" name="invoice">
+                <input type="hidden" class="invoice_title" name="invoice_title" value="">
+                <input type="hidden" class="invoice_addr" name="invoice_addr" value="">
+            </form>
+          </div>
+        <div class="col-sm-6 col-xs-6 text-right">共{{order_amount}}张，应付金额：<font class="total">{{Currency__sign}}</font><button id="post_order">提交订单</button></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block baiduautopush %}
+{% endblock %}
+
+{% block js %}
+<!--[if lte IE 7]>
+<script src="http://pic.huodongjia.com/static/js/ieSignup.js"></script>
+<![endif]-->
+
+<!--[if !IE]><!-->
+<script src="http://pic.huodongjia.com/static/js/eventSignup.js?t={{now}}.js" ></script>
+<!--<![endif]-->
+
+<!--[if gte IE 8]>
+<script src="http://pic.huodongjia.com/static/js/eventSignup.js?t={{now}}.js" ></script>
+<![endif]-->
+
+{% endblock %}

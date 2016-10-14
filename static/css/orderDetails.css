@@ -1,0 +1,166 @@
+/*全局设置*/
+.mainWrapper{
+    background-color: #f4f3f3;
+}
+.row{
+    margin-right:0px;
+    margin-left: 0px;
+}
+#container_body{
+    background-color:#fff;
+    border: 1px solid #ddd;
+    margin-top: 2.5em;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-bottom: 5em;
+    border-radius: 2px;
+}
+/*头部设置*/
+.huodongjia_info{
+    margin-top: 3em;
+
+}
+.huodongjia_info>div>p{
+    margin-top: 20px;
+}
+.huodongjia_info hr{
+    margin: 0;
+}
+/*表格*/
+.middle_table{
+    margin-top: 30px;
+}
+.middle_table table{
+    text-align: center;
+}
+.middle_table table thead{
+    background: #ff9933;
+    color: #fff;
+    font-size: 1.13em;
+}
+.middle_table>table>thead>tr{
+    height: 50px;
+}
+.middle_table>table>thead>tr>th{
+    text-align: center;
+    font-size: 15px;
+}
+.middle_table>table>thead>tr>td{
+    border-right: 1px solid #ffeab8;
+    width:15%;
+}
+.middle_table table tbody{
+    background: #f4f3f3;
+}
+.middle_table>table>thead>tr>.td-first{
+    text-align: center;
+}
+.middle_table .td-first{
+    padding-left: 20px;
+    width:27% !important;
+    text-align: left;
+}
+.middle_table .td-first img,.middle_table .td-first div{
+    display: inline-block;
+    vertical-align: text-top;
+}
+.middle_table .td-first h4{
+    font-size: 14px;
+}
+.middle_table .td-first p{
+    font-size: 12px;
+    color: #9e9da0;
+}
+.middle_table .perch{
+    width: 7.8%;
+    border: none;
+}
+/*表格下方提示*/
+.eg{
+    margin-top: 15px;
+}
+.eg p{
+    float: right;
+}
+.eg span{
+    color: red;
+}
+.eg>p>span{
+    font-size: 20px;
+    font-weight: bold;
+}
+.eg>p>.ply_pirce{
+    color: #ff9400;
+}
+/*报名须知和付款方式*/
+.apply_ply h4{
+    margin-top: 30px;
+    font-weight: 500;
+    color: #000000;
+}
+.apply_ply p{
+    color: #9e9da0;
+}
+/*确定部分*/
+.payIamge{
+    background-repeat: no-repeat;
+    height: 50px;
+    display:inline-block;
+    width: 91%;
+    position: relative;
+    top: 25px;
+    padding: 0;
+}
+.payIamges{
+    background-repeat: no-repeat;
+    height: 50px;
+    display:inline-block;
+    width: 91%;
+    position: relative;
+    top: 28px;
+    padding: 0;
+    left: 3%;
+}
+.paymentOrder{
+    display: block;
+    width: 220px;
+    height: 45px;
+    line-height: 45px;
+    padding: 0px;
+    margin: 0 auto;
+    margin-top: 8em;
+    background-color: #ff9933 !important;
+}
+.payIamges[for=zfb]{
+    background-image: url("../images/zfb.jpg");
+    background-repeat: no-repeat;
+    top: 33px;
+}
+.payIamges[for=weixin]{
+    background-image: url("../images/deta_weixin.png");
+    background-repeat: no-repeat;
+}
+.payIamge[for=ICBC]{background-image: url("../images/ICBC.jpg");}
+.payIamge[for=CMB]{background-image: url("../images/CMB.jpg");}
+.payIamge[for=BOCB2C]{background-image: url("../images/BOCB2C.jpg");}
+.payIamge[for=CCB]{background-image: url("../images/CCB.jpg");}
+.payIamge[for=ABC]{background-image: url("../images/ABC.jpg");}
+.payIamge[for=SPDB]{background-image: url("../images/SPDB.jpg");}
+.payIamge[for=CIB]{background-image: url("../images/CIB.jpg");}
+.payIamge[for=GDB]{background-image: url("../images/GDB.jpg");}
+.payIamge[for=SHBANK]{background-image: url("../images/SHBANK.jpg");}
+.payIamge[for=FDB]{background-image: url("../images/FDB.jpg");}
+.payIamge[for=HZCBB2C]{background-image: url("../images/HZCBB2C.jpg");}
+.payIamge[for=NBBANK]{background-image: url("../images/NBBANK.png");}
+.payIamge[for=SPABANK]{background-image: url("../images/SPABANK.jpg");}
+.payIamge[for=POSTGC]{background-image: url("../images/POSTGC.jpg");}
+#zhuan{
+    margin-top: 2em;
+}
+
+.payIamge[for=zhuan]{
+    font-size: 16px;
+}
+.blanks{
+    margin-top: 1em;
+}

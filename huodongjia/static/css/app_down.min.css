@@ -1,0 +1,32 @@
+@font-face{font-family:'iconfont11';src:url('http://pic.huodongjia.com/static/css/list-iconfont/css/iconfont.eot');src:url('http://pic.huodongjia.com/static/css/list-iconfont/iconfont.eot?#iefix') format('embedded-opentype'),url('http://pic.huodongjia.com/static/list-iconfont/iconfont.woff') format('woff'),url('http://pic.huodongjia.com/static/css/list-iconfont/iconfont.ttf') format('truetype'),url('http://pic.huodongjia.com/static/css/list-iconfont/iconfont.svg#iconfont') format('svg')}
+.iconfont11{font-family:"iconfont11";font-style:normal}
+body{min-width:320px}
+.top{width:100%;height:100%;position:relative}
+.top .bg{width:100%;height:100%}
+.top .dow{position:absolute;margin-top:-18%;margin-left:24%;width:auto;height:auto;display:table}
+.top .dow p{font-size:20px;color:#fff}
+.top .dow ul{padding:0;margin-top:45px}
+.top .dow ul li{list-style:none;margin-top:12px;width:145px;text-align:center}
+.top .dow ul li a{color:#fff;font-size:16px;display:block;border-radius:5px}
+.top .dow ul li a:hover{text-decoration:none}
+.ios{background-color:#ff9c00}
+.android{background-color:#38bf8b}
+.top .dow ul li i{color:#fff;font-size:28px}
+.top .erweima{float:left;margin-left:165px;margin-top:-106px}
+.center{height:auto}
+.center ul{padding:0;margin-top:80px}
+.center ul li{display:inline-block;margin-top:30px;height:152px;padding:0}
+.center ul li h1{font-size:24px;margin-top:8px}
+.center ul li img{width:100px;padding:0}
+.center ul li div{padding:0;margin-top:5px}
+@media(max-width:768px){.top .dow p{display:none}
+.center ul li img{width:90px;padding:0}
+.top .dow{position:inherit;margin:0 auto}
+.center ul li{margin-top:5px}
+.center ul{margin-top:60px}
+}
+@media(min-width:768px) and (max-width:992px){.top .dow p{font-size:14px;color:#fff}
+.center ul li img{width:90px;padding:0}
+}
+@media(min-width:992px) and (max-width:1200px){.top .dow p{font-size:14px;color:#fff}
+}

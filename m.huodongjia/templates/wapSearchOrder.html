@@ -1,0 +1,101 @@
+{% extends "wapModel.html" %}
+{% block meta %}
+<meta name="description" content="活动订单查询，来这里查询您在活动家报名参加活动的订单情况，了解最新进展。服务热线:400-003-3879 活动家（m.huodongjia.com）" />
+<meta name="keywords" content="活动查询,热门活动,同城活动,活动家"/>
+<title>活动订单查询_活动家</title>
+{% endblock %}
+{% block container %}
+<style>
+    .container_search header a{float: none}
+</style>
+<div class="container_search">
+{% block header %}
+
+    <header style="padding: 0;border: none;line-height: normal;display: block;">
+        <table>
+            <tr>
+                <td class="left"><a href="javascript:history.back(-1)">&#xe601;</a></td>
+                <td style="line-height: 45px;font-size: 18px;">订单查询</td>
+                <td class="right"><a href="/" style="font-size: 36px;">&#xe600;</a></td>
+            </tr>
+        </table>
+    </header>
+{% endblock %}
+<div class="center" style="clear: both;background: #FFF">
+    <!--form-->
+    <form action="/searchorder/" method="get" class="myForm" id="muform_seach">
+        <input type="search" class="find form-control"  name="order_search" placeholder="请输入手机号码或订单号">
+        <a  href="javascript:validate()"  style="color: #ddd"><i class="iconfont forsearch" type="submit">&#xe61b;</i></a>
+    </form>
+    <ul class="orderlist">
+        {% for order in order_list %}
+        <li>
+            <table  cellspacing="0" >
+                <thead>
+                <tr>
+                    <th><span class="orderflag">
+                             {% ifequal order.order_pay_status 0 %}
+                      未支付
+                      {% endifequal %}
+
+                      {% ifequal order.order_pay_status 20 %}
+
+											已支付
+                       {% endifequal %}
+
+                      {% ifequal order.order_pay_status 30 %}
+                        退款
+                      {% endifequal %}
+                        </span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><p class="ordernum"style="color:#333">订单号:{{order.order_number}}</p>
+                        <p class="ordertime">付款时间:{{order.order_paytime}}</p></td>
+                </tr>
+                <tr>
+                    <td >
+                        <div class="search-big-div">
+                            <div class="search-big-div-info">
+                                <p class="search-big-div-info-title"><a href="/event-{{order.event_id}}.html"  style="color:#4d4d4d;">{{order.event_name}}</a> </p>
+                                <p class="search-big-div-info-city">地点：{{order.city_title}}</p>
+                                <span class="search-money">{{order.order_price}}元</span>
+                                <span class="number">{{order.order_amount}}张</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="all">合计：<b>{{order.order_totalpay}}元</b></span>
+                        {% ifequal order.order_pay_status 0 %}
+                        <a title="{{order.order_number}}" data-total_pay="{{order.order_totalpay}}" data-property="{{order.event_name}}" type="button" class="flag" href="/upgrade/{{order.order_number}}/{{order.order_totalpay}}/{{order.event_name}}">现在支付</a>
+                        {% endifequal %}
+                    </td>
+                </tr>
+                <tr>
+                    <td >
+                        <p class="contact" style="color:#333;">联系人：{{order.order_user_name}}</p>
+                        <p class="phonenum" style="color:#333;">联系号码：{{order.order_tel}}</p>
+                        <p class="address" style="color:#333;">联系地址：{{order.order_address}}</p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+</div>
+{% endblock %}
+
+{% block footerjs %}
+<script>
+    if(/MicroMessenger/i.test(navigator.userAgent)){
+        $('.flag').each(function () {
+            $(this).attr("href","/weixin/pay/redirect_to_wxjspay/?order_num="+$(this).attr('title')+"&totalpay="+$(this).data('total_pay')+"&property=")
+        })
+
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>邀请函</title>
+</head>
+<style>
+    body{
+        margin: 0;
+        padding: 0;
+        font-family: "微软雅黑";
+    }
+    .main{
+        background: #FFF;
+        width: 970px;
+        margin: 0 auto;
+        position: relative;
+    }
+    .head_img{
+        position: absolute;
+        top: 0;
+    }
+    .content_top{
+        padding: 112px 18% 0;
+    }
+    .iv{
+        float: left;
+    }
+    .title{
+        display: inline-block;
+        width: 65%;
+        height: 60px;
+        margin: 0;
+        font-size: 26px;
+        margin-top: 53px;
+        float: left;
+        font-weight: normal;
+        color: #1B52A5;
+        padding-left: 20px;
+        text-align: center;
+    }
+    .content{
+        clear: both;
+        padding:40px 80px;
+        color: #000;
+        font-size: 16px;
+        line-height: 25px;
+    }
+    .meeting_content{
+        padding:0px  0px;
+    }
+    .meeting_content p{
+        /*text-indent: 2em;*/
+    }
+    .meeting_content img{
+        display: block;
+        margin: 0 auto;
+    }
+    .meeting{
+        width: 100%;
+        background: #FCF6EA;
+        border-radius: 3px;
+    }
+    .meeting h3{
+        color: #fff;
+        display: inline-block;
+        background: #1C50A3;
+        border-radius: 3px;
+        margin: 0;
+        font-weight: normal;
+        font-size: 23px;
+        padding: 7px 10px;
+    }
+    .guest{
+        width: 100%;
+        padding: 30px 0;
+    }
+    .gues_mes{
+        width: 24%;
+        display: inline-block;
+        text-align: center;
+        padding: 20px 0;
+    }
+    .gues_mes p{
+        margin: 0;
+        overflow: hidden;
+        -ms-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100%;
+    }
+    .gues_pic{
+        width: 150px;
+        height: 150px;
+        overflow: hidden;
+        border-radius: 150px;
+        margin: 0 auto 5px;
+    }
+    .gues_pic img{
+        width: 100%;
+    }
+    .footer{
+        text-align: right;
+        position: relative;
+    }
+    .footer p{
+        color: #165FAC;
+        font-size: 18px;
+        line-height: 30px;
+        text-align: center;
+        display: inline-block;
+    }
+    .usn{
+        display: inline-block;
+        width: 100px;
+        border-bottom: 1px solid #353338;
+        text-align: center;
+    }
+    .footer img{
+        position: absolute;
+        right: 5%;
+        top: -17px;
+    }
+    .meetingBgs img{
+        width: 100% !important;
+    }
+    a {
+        text-decoration:none;
+        color:#000;
+        cursor:default;
+    }
+    table {
+        width:100% !important;
+    }
+</style>
+<body>
+<div class="main">
+    <img class="head_img" width="100%" src="http://pic.huodongjia.com/static/images/dingbu.png" alt=""/>
+   <div class="content_top">
+    <img class="iv" src="http://pic.huodongjia.com/static/images/yaoqing.png" alt=""/>
+    <h1 class="title">{{event.event_name}}</h1>
+   </div>
+    <div class="content">
+       <p>尊敬的<span class="usn">&nbsp;</span>先生/女士，您好！</p>
+       <div class="meeting_content">{{event.event_name}}将于{{ event.event_begin_time|date:'Y'}}年{{ event.event_begin_time|date:'m'}}月在{{event.event_city_info.0.district_name}}召开。</div>
+       {% for par in event.event_paragraph_info %}
+       {% if par.txt != '' %}
+        {% if par.name %}
+        <div class="meetingBgs">
+            <div class="meetingBgs_name" id="meeting_{{forloop.counter}}">
+                <h3>{{par.name}}</h3>
+            </div>
+            {% if par.name == '会议嘉宾'%}
+            {% if event.event_guest %}
+            <div class="meeting_content">
+                {% for guest in event.event_guest %}
+                <div class="gues_mes">
+                    <div class="gues_pic">
+                        {% if guest.img__urls %}
+                        <img alt="{{ guest.job__name }}{{ guest.name }}" src={{ guest.img__server__name}}{{ guest.img__urls }} />
+                        {% else %}
+                        <img width="100%" src="http://pic.huodongjia.com/static/images/event_default.jpg" alt="{{event.event_name}}"/>
+                        {% endif %}
+
+                    </div>
+                    <p>{{ guest.name }}</p>
+                    <p class="gues_company">{{ guest.company__name }}</p>
+                    <p class="gues_job">{{ guest.job__name }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="meeting_content">{{par.txt|safe}}</div>
+            {% endif %}
+            {% else %}
+            <div class="meeting_content">{{par.txt|safe}}</div>
+            {% endif %}
+        </div>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+        <div class="footer">
+            <img src="http://www.huodongjia.com/static/images/yinzhang.png"/>
+            <p>活动家 <br/>成都云数海量智能科技有限公司 <br/>{{ event.gen_date }}</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% if seo %}{{ seo.title }}{% else %}{{head.title}}{% endif %}</title>
+    <meta name="keywords" content="{% if seo %}{{ seo.keywords }}{% else %}{{head.keywords}}{% endif %}"/>
+    <meta name="description" content="{% if seo %}{{ seo.description }}{% else %}{{head.description}}{% endif %}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta property="wb:webmaster" content="f8b759b681dff9f2" />
+    <link rel="shortcut icon" type="image/x-icon" href="http://www.huodongjia.com/favicon.ico" media="screen" />
+    <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/hdj.min.css">
+    {%block add_st%}<link rel="alternate" media="only screen and(max-width: 640px)" href="http://m.huodongjia.com{{request.get_full_path}}" >{%endblock%}
+    {% block addstyle %}{% endblock %}
+    <!--[if !IE]><!-->
+    <script type='text/javascript'>
+        var _vds = _vds || [];
+        window._vds = _vds;
+        (function(){
+            _vds.push(['setAccountId', 'bfcde55a34679bc9']);
+            (function() {
+                var vds = document.createElement('script');
+                vds.type='text/javascript';
+                vds.async = true;
+                vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(vds, s);
+            })();
+        })();
+    </script>
+    <!--<![endif]-->
+    <!--[if gte IE 8]>
+    <script type='text/javascript'>
+        var _vds = _vds || [];
+        window._vds = _vds;
+        (function(){
+            _vds.push(['setAccountId', 'bfcde55a34679bc9']);
+            (function() {
+                var vds = document.createElement('script');
+                vds.type='text/javascript';
+                vds.async = true;
+                vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(vds, s);
+            })();
+        })();
+    </script>
+    <![endif]-->
+</head>
+<body>
+<div class="nav">
+    <div class="container" >
+       <div class="col-sm-3 col-xs-3">
+           {% if index %}<h1 style="margin: 11px 0"><a href="/"><img  width="251" height="35" src="/static/images/newhdj_logo(1).png" alt="找会议，上活动家"/></a></h1>{% else %}
+           <span style="margin: 11px 0"><a  href="/"><img  height="35"   width="251" src="/static/images/newhdj_logo(1).png" alt="找会议，上活动家"/></a></span>{% endif %}
+       </div>
+        <div class="col-sm-9 col-xs-9 menus">
+            <ul>
+                <li style="width:30px;"></li>
+                <li class="menue  business"><a target="_blank" href="/business/">商务会议 <span class="tb_font">&#xe606;</span></a><div class="business_menue"></div></li>
+                <li class="menue"><a href="http://news.huodongjia.com/" target="_blank">会议资讯</a></li>
+                <li class="menue"><a href="/guest/" target="_blank" >演讲经纪</a></li>
+                <li class="postevent"><a href="/postevent/"  target="_blank">免费发布活动</a></li>
+                <li class="search" ><form action="/search/"><input name="keyword" type="text" placeholder="输入您要找的会议"/><span class="m-search m_iconfont">&#xe607;</span></form></li>
+                <li class="ordersearch"><a href="/searchorder/" target="_blank" style="font-size: 14px">订单查询</a></li>
+                <li class="login">
+                    <a href="/usercenter/login/" rel="nofollow">{% if request.session.usercenter_user %}<img style="border-radius: 16px;" width="32px" height="32px" src='{{  request.session.usercenter_user.avatar }}' />{% else %}<span class="Login" style="font-size: 14px">登录</span>{% endif %}</a>
+                    <ol>
+                        <li><a href="/usercenter/index/" rel="nofollow">我的积分</a></li>
+                        <li><a href="/usercenter/index/?ind=showorder" rel="nofollow">我的订单</a></li>
+                        <li><a href="/usercenter/index/?ind=myevent" rel="nofollow">我的发布</a></li>
+                        <li><a href="/usercenter/index/?ind=showcollection" rel="nofollow">我的收藏</a></li>{% if request.session.usercenter_user %}<li class="exit"><a href="/usercenter/logout/"  rel="nofollow">退出</a></li>{% endif %}
+                    </ol>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% block banner%}
+{% endblock %}
+{% block content%}
+{% endblock %}
+<div class="footer">
+    <div class="container">
+        <br style="clear: both">
+       <div class="col-sm-2 col-xs-2 footer1">
+           <ul style="padding: 0">
+               <li class="title">关于我们</li>
+               <li><a href="/contactus/" rel="nofollow">关于活动家</a></li>
+               <li><a href="/mediareport/" rel="nofollow">媒体报道</a></li>
+               <li><a href="/friendLinks/" rel="nofollow">友情链接</a></li>
+               <li><a href="/app/" target="_blank" rel="nofollow">APP下载</a></li>
+               <li><a href="/law/" target="_blank" rel="nofollow">免责声明</a></li>
+           </ul>
+       </div>
+        <div class="col-sm-2 col-xs-2 footer1">
+            <ul>
+                <li class="title">更多服务</li>
+                <li><a href="/business/" target="_blank" rel="nofollow">商务会议</a></li>
+                <li><a href="/guest/" target="_blank" rel="nofollow">出席嘉宾</a></li>
+                <li><a href="/listsponsor/" target="_blank" rel="nofollow">会议主办方</a></li>
+                <li><a href="/listvenue/" target="_blank" rel="nofollow">会议场地</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-4 col-xs-4 footer1 contact">
+            <ul>
+                <li class="title">联系我们</li>
+                <li class="call_serve"></li>
+                <li style="line-height: 17px;position: relative;">
+                    <div class="kefu"></div>
+                    <span class="erweima"></span><a style="font-size: 14px;display: inline-block;">活动家微信客服 <br/>（微信号：hdjkefu）</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-2 col-xs-2 footer1 weixin">
+            <p>活动家微信</p>
+            <span class="wxchat"></span>
+            <p style="color: #A0A8B7;font-size: 12px;padding: 5px">优质会议及时推荐，查 <br/>询会议更方便</p>
+        </div>
+        <div class="col-sm-2 col-xs-2 footer1 weixin">
+            <p>APP下载</p>
+            <span class="APP_erweima"></span>
+            <p style="color: #A0A8B7;font-size: 12px;padding: 5px">下载活动家APP，随 <br/>时随地方便报名参会</p>
+        </div>
+        <div class="introduce">
+            <p>活动家介绍：<br/>
+            {{ seo.intro }}
+            </p>
+            <p>热门关键词：<br/>
+            <a href="/tag/2561/">互联网金融</a>  <a href="/tag/969/">大数据</a>  <a href="/tag/805/">创业</a>  <a href="/tag/4710/">智能硬件</a>  <a href="/tag/902/">投融资</a>  <a href="/tag/3758/">金融创新</a>  <a href="/tag/2379/">移动医疗</a>  <a href="/tag/4341/">健康产业</a>  <a href="/tag/459/">医疗器械</a>  <a href="/tag/1018/">环保</a>  <a href="/tag/4070/">石墨烯</a>  <a href="/tag/3189/">幼教</a>  <a href="/tag/4331/">养猪</a>  <a href="/tag/4765/">苗木</a>  <a href="/tag/2676/">无人机</a>  <a href="/tag/5512/">商业地产</a>  <a href="/tag/2610/">新媒体</a>  <a href="/tag/3363/">零售业</a>  <a href="/tag/980/">物流</a>  <a href="/tag/3372/">企业家</a></p>
+            {% block seo_fridendly_link %}
+            {% if site_links %}
+            <p>友情链接：<br/>
+            {% for link in site_links %}
+                <a href="{{ link.url }}" target="_blank">{{ link.name }}</a>
+            {% endfor%}
+            {% endif %}
+            {% endblock %}
+            <hr style="border-top: 1px solid #4B4F52;"/>
+            <p class="text-center">CopyRight <a rel="nofollow" target="_blank" href="http://www.huodongjia.com/">活动家</a> huodongjia.com <a rel="nofollow" target="_blank" href="http://www.miibeian.gov.cn/">蜀ICP备13006805号-5</a>,增值电信业务经营许可证编号川B2-20130143</p>
+        </div>
+    </div>
+</div>
+</body>
+<!--百度统计代码-->
+<script>
+    var host = "www.huodongjia.com";if(window.location.host==host){
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?388950f5fe8dce1409ec7843101f9730";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    }
+</script>
+{% block baiduautopush %}
+<!--百度页面访问自动推送-->
+<script>
+    var host = "www.huodongjia.com";
+    if(window.location.host==host){
+        (function(){
+            var bp = document.createElement('script');
+            bp.src = '//push.zhanzhang.baidu.com/push.js';
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+        <!---->
+        (function(){
+            var src = document.location.protocol +'//js.passport.qihucdn.com/11.0.1.js?bc6e333c247b87d154a2b11caf40aa0a';
+            document.write('<script src="' + src + '" id="sozz"><\/script>');
+        })();
+    }
+</script>
+<!---->
+{% endblock %}
+<script src="http://pic.huodongjia.com/static/js/huodongjia.js"></script>
+<script src="http://pic.huodongjia.com/static/js/index.min.js"></script>
+<script>
+    var _menue="<div class='col-sm-12 col-xs-12 industry'>按行业</div>{% for cat in main_cats %}" +
+            "<div class='col-sm-3 col-xs-3 '><a target='_blank' href='/{{ cat.ename }}/'>{{ cat.name }}</a></div>{% endfor %}" +
+            "<div class='col-sm-12 col-xs-12 time'><span class='col-sm-3 col-xs-3'>按时间</span><span class='col-sm-3 col-xs-3'><a target='_blank'href='/business/13/'>最近一周</a></span>" +
+            " <span class='col-sm-3 col-xs-3'><a target='_blank' href='/business/14/'>最近一月</a></span><span class='col-sm-3 col-xs-3'><a target='_blank' href='/business/15/'>最近三月</a></span></div>" +
+            "<div class='col-sm-12 col-xs-12 city'>按城市</div>{% for city in main_cities %}" +
+            "<div class='col-sm-2 col-xs-2 '><a target='_blank' href='/{{ city.title }}/'>{{ city.district_name }}</a></div>{% endfor %}"
+    var business_menue=$(".business_menue")
+        business_menue.html(_menue)
+    $(".business").hover(function () {
+        business_menue.fadeIn(10)
+    }, function () {
+        business_menue.fadeOut(10)
+    })
+</script>
+{% block js %}
+{% endblock %}
+</html>

@@ -1,0 +1,57 @@
+{% extends "base.html"%}
+{% block content %}
+<style>
+	.text_404{
+		font-size: 24px;
+		color: #1375D8;
+		font-weight: 600;
+		margin: 25px auto 20px;
+	}
+	.reason{
+		display: inline-block;
+		text-align: left;
+		color: #BAC0CC;
+		font-size: 12px;
+	}
+	.home_404{
+		color: #fff;
+	}
+	.home_404 button{
+		width: 120px;
+		height: 33px;
+		border: none;
+		outline: none;
+		background-color: #54A1F1;
+		border-radius:5px;
+		margin:10px 0 35px;
+	}
+	.interest_404{
+		color: #7C8395;
+		display: inline-block;
+		width: 460px;
+	}
+	.interest_404 span{
+		line-height: 30px;
+	}
+	.interest_404 a{
+		display:inline-block;
+		width: 75px;
+		line-height: 25px;
+	}
+</style>
+<div class="container" style="padding: 30px 0;text-align: center;background: #FFF;margin: 20px auto">
+	<img src="/static/images/404.png" alt="">
+	<p class="text_404">非常抱歉，您访问的页面不存在</p>
+	<p class="reason">
+		原因1：该活动还未成功发布。<br/>
+		原因2：您可能输入了错误的网址。<br/>
+		原因3：该页面被删除或移动。
+	</p><br/>
+	<a class="home_404" href="/"><button>返回首页</button></a><br/>
+	<p class="interest_404"><span>这些商务会议你是否感兴趣？</span><br/>
+		<a href="/it/">IT互联网</a><a href="/medical/">医疗行业</a>	<a href="/energy/">能源化工</a><a href="/finance/">金融财经</a>
+		<a href="/agricultur/">农业牧渔</a><a title="edutrain" href="/edutrain/">教育培训</a>
+		<a  href="/manufact/">加工制造</a><a href="/realestate/">地产建筑</a><a href="/culmedia/">文化传媒</a>
+		<a  href="/servindust/">服务行业</a><a href="/tralogist/">交通物流</a><a href="/trade/">其他行业</a></p>
+</div>
+{% endblock %}

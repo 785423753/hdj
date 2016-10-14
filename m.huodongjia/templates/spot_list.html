@@ -1,0 +1,146 @@
+{% extends "categoryListTemplate.html" %}
+{% block myContainer %}myContainer{% endblock%}
+{% block list_left %}
+ {% autoescape off %}
+      <div class="col-md-2 visible-md visible-lg" id="spotList">
+      <ul>
+          {% for first in catUrlLv1 %}
+            <li {% ifequal  first.ename cat %}class="selected"{% endifequal %} ><a href="{{first.caturl}}" style="font-size:18px;color:#000;">{{first.catname}}</a>
+              <ul> 
+                
+	            {% for second in first.child%}
+	              <li {% ifequal  second.ename cat %}class="selected"{% endifequal %} ><span class="slideLi">+</span><a href="{{second.caturl}}">{{second.catname}}</a>
+	                <ul  style="margin-top:0;">
+			            {% for third in second.child%}
+			              <li {% ifequal second.ename cat %}class="selected"{% endifequal %}  ><a href="{{third.caturl}}">{{third.catname}}</a></li>
+			            {% endfor %}
+		              </ul>
+		          </li>
+		         {% endfor %}
+		      </ul>
+            </li>
+          {% endfor %}
+      </ul>
+      </div>
+      <div class="col-md-10" id="tabDiv" style="margin-top:0;">
+        <ul class="nav nav-tabs visible-xs visible-sm" style="margin-bottom:.5em;margin-top:1em;">
+          <li class="active"><h2 href="#metting" data-toggle="tab">会议</h2></li>
+          <li><h2 href="#training" data-toggle="tab">公开课</h2></li>
+          <li><h2 href="#51" data-toggle="tab">讲座沙龙</h2></li>
+        </ul>
+        <div class="tab-content visible-xs visible-sm tab-content-category" style="margin-bottom:1em;">
+          {% for first in catUrlLv1 %}
+            <div class="tab-pane fade" id="{{first.ename}}">
+              <ul class="list-inline"> 
+                {% for second in first.child%}
+                  <li>
+                    <a href="{{second.caturl}}">{{second.ename}}</a>
+                  </li>
+               {% endfor %}
+              </ul>
+            </div>
+          {% endfor %}
+      </div>
+      {% endautoescape %}
+      {% if navigationList %}
+      <ul class="list-inline navigationUlist clearfix" style="margin-left:0;margin-top:9px;background-color:transparent;">
+		{% for navigation in navigationList %}
+		    {% if forloop.last%}
+			<li style="padding-left:0;"><h1 style="font-size: 14px;line-height: 1.43;margin: 0px;"><a href="{{navigation.caturl}}">{{navigation.catname}}</a></h1></li>
+			{% else %}
+			<li style="padding-right:0;"><a href="{{navigation.caturl}}">{{navigation.catname}}</a>></li>
+			{% endif %}
+		{% endfor %}
+		</ul>
+	{% endif %}
+      
+
+
+{% endblock%}
+
+
+{% block prouductArea %}
+      <div class="row">
+        <div class="spotTip">
+          足不出户，看遍会议 – “在现场”根据与会人士分享信息，快速、准确、全面的出具会议报告。
+        </div>  
+      </div>
+ {% if list %}
+   {% for event in list %}
+      <div class="row">
+        <div class="listRow clearfix">
+          <div class="col-sm-6 col-md-5 imgAreas">
+           <a href="/spot/{{event.spot_id}}.html" target="_blank"> <img src="{{event.spot_img_url}}" class="listPic" alt="{{event.spot_name}}"></a>
+
+          </div>
+        <div class="col-sm-6 col-md-7 description">
+          <div class="row">
+           <a href="/spot/{{event.spot_id}}.html" target="_blank" style="color:#2c3e50;font-size: 1.8em">{{event.spot_name}}</a>
+
+            <ul>
+              <li>报告时间:&nbsp;{{event.spot_begin_time}}~{{event.spot_end_time}}</li>
+              {% if event.event_address %}
+              <li>
+                城市:&nbsp;<span class="adress">
+                {% for item in event.spot_city %}
+                  <a href="/list?city={{event.district_title}}&cat={{event.cat_ename}}"  class="cityLink">{{item.district_name}}</a>&nbsp;&nbsp;&nbsp;
+                {% endfor %}
+                </span>
+              </li>
+              {% endif %}           
+              <li>标签:&nbsp;
+                {% for item in event.spot_cat.all  %}
+                  <a   href="/spot/{% if item.cat_ename %}{{item.cat_ename}}{% else %}{{item.cat_id}}{% endif %}/" class="glyphiconWord">{{ item }}</a>{% if not forloop.last%},{% endif %}
+                {% endfor %}
+              </li>
+            </ul>
+            <div class="clearfix;">
+              <div style="float:left;">
+                <blockquote>
+                  <p style="font-size:16px;">
+                    {% autoescape off %}
+                    <span class="icon-quote-left" style="color:#999;"></span>&nbsp;&nbsp;{{event.spot_desc}}&nbsp;&nbsp;<span class="icon-quote-right" style="color:#999;"></span>
+                    {% endautoescape %}
+                  </p>
+                  <small style="text-align:right;">
+                      {{event.spot_name}}
+                  </small>
+                </blockquote>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>        
+   {% endfor %}
+ {% endif %}
+   <div class="paginationWrapper">
+   {% autoescape off %}
+      <ul class="pagination dhd_pagination list-inline">
+        {% ifnotequal firstPage 'false'%} 
+          <li><a href="{{firstPage}}">首页</a></li>
+          {% endifnotequal %}
+        {% if pageList %}
+            {% for page in pageList %}
+              {% ifequal page.flag "true"%}
+                <li><a href="{{page.pageurl}}" class="currentPage">{{page.page}}</a><li>
+              {% else %}
+               <li><a href="{{page.pageurl}}">{{page.page}}</a><li>
+              {% endifequal %}
+            {% endfor %}
+         {% endif %}
+
+         {% if countpage %}
+            {% ifnotequal lastPage 'false'%}
+            <li style="color:#428bca;font-size:2em;position: relative;bottom: .6em;">...</li>
+            {% endifnotequal %}
+          {% endif %}
+          {% ifnotequal nextPage 'false'%}
+             <li><a href="{{nextPage}}">下一页</a><li>
+             <li><a href="{{lastPage}}">最后一页</a></li>
+          {% endifnotequal %}
+         </ul>
+          {% endautoescape %}
+   </div>
+</div></div></div>
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends "m_model.html" %}
+{% block link_seo %}
+<link rel="canonical" href="http://www.huodongjia.com{{request_path}}"/>
+{% endblock%}
+{% block container %}
+<div class="container" id="list_con">
+    <section class="black-div"></section>
+        <header class="col-sm-12 col-xs-12 list-header">
+            <a href="/"><span class="myfont home">&#xe626;</span></a>
+            <h1 style="padding:0;" class="header_list">
+                <span>&nbsp;&nbsp;商务会议</span>
+            </h1>
+            <i class=" iconfont list_seach header_seachs search_img list_seachs" style="float: none;position: relative; left: 23%;color: #36c;top: 3px;;">&#xe61b;</i>
+            <span class="myfont cat" style="position: relative;top: -4px;left: -7px">&#xe648;</span>
+        </header>
+
+    <div class="bg"></div>
+    <section class="hidden-cat">
+        <ul>
+            <li class="col-sm-12 col-xs-12" style="color: #FA9D42;padding: 10px 0"><h4>商务会议</h4></li>
+            {% for cat in cat_nu %}
+            <li class="col-sm-3 col-xs-3"><a href="{{cat.url}}">{{cat.name}}</a></li>
+            {% endfor %}
+        </ul>
+        <ul>
+            <li class="col-sm-12 col-xs-12" style="color: #FA9D42;padding: 10px 0"><h4>更多服务</h4></li>
+            <li class="col-sm-3 col-xs-3"><a href="/postevent/">活动发布</a></li>
+            <li class="col-sm-3 col-xs-3"><a href="/searchorder/">订单查询</a></li>
+            <li class="col-sm-3 col-xs-4"><a href="/listsponsor/">会议主办方</a></li>
+            <li class="col-sm-3 col-xs-3"><a href="/listvenue/">会议场地</a></li>
+        </ul>
+
+    </section>
+    <section class="col-sm-12 col-xs-12 list-seacher" >
+        <form action="/tag/" method="get" class="myForm" rel="nofollow">
+            <a  href="javascript:validate()"  style="color: #ddd"><i class="col-sm-1 col-xs-1 iconfont list_seach">&#xe61b;</i></a>
+            <input type="search" class="form-control" name="keyword" placeholder="请输入关键词">
+        </form>
+    </section>
+    <!--分类-->
+        <article class="col-sm-12 col-xs-12" id="list_nav">
+
+        </article>
+    <!---meeting list-->
+        {% for event in list%}
+        <section  class="col-sm-12 col-xs-12 meeting" data-href="{{event.event_id}}" data-page="{% for b in pageList %}{% ifequal b.flag 'true'%}{{b.page}}{%endifequal%}{%endfor%}">
+            <dl>
+                <dt>
+                    <img src="{{event.event_img}}"  alt="{{event.event_name}}" >
+                </dt>
+                <dd>
+                    <a href="/event-{{event.event_id}}.html"><h3 class="pic-opa-title" {% if event.cat_name or event.event_venue.venue_title %}{% endif %}>{{event.event_name}}</h3></a>
+                    {% if event.price_unit_info  %}
+                    <span class="home-money " data-price="{{event.price_unit_info.0.price}}" data-priceType="{{event.event_price_unit}}" data-price_return="{{event.price_unit_info.0.price_return}}">{{event.price_unit_info.0.price}}{{event.event_price_unit}}</span>
+                    {% else %}
+                    <span class="home-money">{{event.event_price_model_str}}</span>
+                    {% endif %}
+                    <label class="home-time">{{event.event_begin_time}}{% ifnotequal event.event_begin_time event.event_end_time%}{%endifnotequal%}&nbsp;&nbsp;|</label>
+                    <a class="home-city" style="margin-top:79px" href="/{{event.district_title}}/business/">{{event.district_name}}</a>
+                </dd>
+            </dl>
+        </section>
+        {% endfor %}
+    </div>
+    <input value="{{ajax_city}}" class="h_city" type="hidden"/>
+    <input value="{{ajax_cat}}" class="h_cat" type="hidden"/>
+    <input value="{{ajax_month}}" class="h_month" type="hidden"/>
+    <input value="{{ajax_tag}}" class="h_tag" type="hidden"/>
+    <input value="{{ajax_tag}}" class="page" type="hidden"/>
+    <section  id="loading">
+        <span>加载中</span>
+        <img src="http://pic.huodongjia.com/static/images/2222023L0-8.gif" style="width:45px;height: 45px" alt="活动家">
+    </section>
+    <section id="loadings" style="display: none;text-align: center;">
+            <span>已加载完成！</span>
+    </section>
+    <section  style="text-align: center;bottom:0">
+        <span>CopyRight 活动家 huodongjia.com<a href="http://m.huodongjia.com/about/" class="about" rel="nofollow"> | 关于我们</a></span>
+    </section>
+<div class="top_back"><span style="line-height: 0;" class="fa fa-chevron-up"></span></div>
+{% endblock %}
+{% block footerjs%}
+<script type="text/javascript">
+    var html = "";
+    html+='<nav class="col-sm-12 col-xs-12 list-nav"><ul class="list_btn"><li data-value="month">';
+    html+='{% if current_month %}{% ifnotequal current_month "不限" %}<span style="color:#36C;">{{current_month}}</span>{%else%}月份{%endifnotequal%}{%else%}月份{%endif%}<i class="iconfont">&#xe62b;</i><section class="month"><section><ul class="month_ul">{%for a in month_nu%} <li><a href="{{a.url|safe}}">{{a.name|safe}}</a></li>{%endfor%} </ul></section></section></li><li data-value="list_city">';
+    html+=' {% if current_city %}{% ifnotequal current_city "不限" %}<span style="color:#36C;">{{current_city}}</span>{%else%}城市{%endifnotequal%}{%else%}城市{%endif%}<i class="iconfont">&#xe62b;</i> <section  class="list_city"> <section> <ul class="city_ul">{%for a in city_nu.0%}<li><a href="{{a.url|safe}}">{{a.name|safe}}</a></li> {%endfor%}{%for a in city_nu.1%}<li><a  data-py="{{a.title|safe}}"  href="{{a.url|safe}}" data-city="false">{{a.name|safe}}</a></li>{%endfor%}</ul><ul class="cityPY"><li><b class="glyphicon glyphicon-star-empty"></b></li></ul></section></section></li><li data-value="list_class">';
+    html+='<span style="color:#36C;" id="cat_li" >{%ifequal current_tag "不限" %}分类{%else%}{{current_tag}}{%endifequal%}</span><i class="iconfont">&#xe62b;</i><section class="list_class" id="list_class1" data-value="{{current_catid}}"><section><ul class="cat_ul" style="background-color: #E8E8E8;height:100%">{% for cat in cat_nu%}{% if forloop.first %}<li><a href="{{cat.url|safe}}" >{{ cat.name|safe}}</a></li>{%else%}<li><a id="{{cat.id|safe}}" >{{ cat.name|safe}}</a></li>{% endif%}{% endfor %}</ul></section></section>';
+    html+='<section class="list_class" id="list_class2" ><section><div>{% for cat in cat_nu%}<ul class="hidden_tag" id="tag_{{cat.id}}" style="display: none"><li><a href="{{cat.url|safe}}">不限</a></li>{% for tag in cat.tag %}<li><a href="{{cat.url|safe}}?tag={{ tag.name|safe}}">{{ tag.name|safe}}</a></li>{% endfor %}</ul>{% endfor %}</section></section></li></ul></nav>';
+    $("#list_nav").html(html)
+    $(".header_seachs").click(function (){
+        $(".list-seacher").slideToggle();
+    });
+    $(window).scroll(function () {
+        var sTop=document.documentElement.scrollTop+document.body.scrollTop;
+        var top=$(".top_back")[0];
+        if(sTop>10) {
+            top.style.bottom = "20px"
+        }else{
+            top.style.bottom = "-40px"
+        }
+    });
+    //    回到顶部
+    $(".top_back").click(function(){
+        $('html, body').animate({scrollTop: 0},500);
+    })
+</script>
+<script type="text/javascript" src="/static/wapstatic/mobile/m_list.js"></script>
+{%endblock%}

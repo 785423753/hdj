@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>舞动的数字</title>
+    <style>
+        canvas {
+            /*background-color: #3c3c3c;*/
+            display: block;
+            margin: 50px auto;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            /*margin:50px auto ;*/
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas" width="920" height="400">
+    你的浏览器不支持CANVAS,请更新浏览器到最新的版本或者更换浏览器。
+</canvas>
+</body>
+<script>
+    var canvas=document.getElementById("canvas");
+    var context =canvas.getContext("2d");//利用getcontext声明我们的是一个2d的内容
+    context.beginPath();
+    context.arc(100,100,50,0,360,false);//这个是画圆形的，其里面的两个参数分别代表x y轴,半径开始位置，false是指画的方向是逆时针的方向
+    // context.strokeStyle="red";//实心的
+    // context.stroke();//这个是画线条的
+    context.fillStyle=color();
+    context.fill();
+    context.closePath();//结束路径
+    // color();
+    //下面是生成随机颜色的方法
+    function color() {
+        var _color= Math.ceil(Math.random()*16777215).toString(16);//1-16进制最大值之间的数字 之间的随机数值；
+ console.log(_color);
+        for(var i=_color.length;i<6;i++){
+            _color+="0"+_color;
+        }
+        return"#"+ _color;
+    }
+</script>
+</html>

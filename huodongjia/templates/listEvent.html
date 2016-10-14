@@ -1,0 +1,303 @@
+{% extends 'base.html' %}
+{% load page_nav %}
+{% block headseo %}
+    <title>{{headseo.title}}</title>
+    <meta name="description" content="{{headseo.description}}" />
+    <meta name="keywords" content="{{headseo.keywords}}" />
+{% endblock %}
+{% block addstyle %}
+    <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/businessList.min.css"/>
+    <meta name="mobile-agent" http-equiv="mobile-agent" content="format=html5;url=http://m.huodongjia.com{{request.get_full_path}}" />
+<style>
+    .and span{  display: block;  width: 18px;  height: 22px;  background: url("http://pic.huodongjia.com/static/images/hdj_allbgs.png") no-repeat 0px -148px;  }
+    .apple span{  display: block;  width: 18px;  height: 22px;  background: url("http://pic.huodongjia.com/static/images/hdj_allbgs.png") no-repeat 0px -501px;  }
+    .ewm{  width: 112px;  height: 112px;   background: url("http://pic.huodongjia.com/static/images/hdj_allbgs.png") no-repeat 0px -270px;  }
+    .deserve_event{
+        padding: 10px 15px;
+    }
+    .deserve_event li{
+        list-style: none;
+        padding: 5px 0;
+        border-bottom:1px solid #E6E4EF;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .deserve_event li a{
+        color: #3B99F0;
+        font-size: 14px;
+    }
+</style>
+{% endblock %}
+{% block banner %}
+<div class="banner">
+    <div class="big_box">
+        <div class="review_box">
+            {% for ad in advert_list %}
+            <a href="{{ ad.url }}" target="_blank" rel="nofollow"><img width="1200" height="300" src="{{ad.pic__server__name}}{{ad.pic__urls}}!hdj123" alt="{{ad.title}}"></a>
+            {% endfor %}
+            {% for ad in advert_list|slice:'0:2' %}
+            <a href="{{ ad.url }}" target="_blank" rel="nofollow"><img width="1200" height="300" src="{{ad.pic__server__name}}{{ad.pic__urls}}!hdj123" alt="{{ad.title}}"></a>
+            {% endfor %}
+        </div>
+        <div class="prev"><a></a></div>
+        <div class="next"><a></a></div>
+    </div>
+</div>
+{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="container">
+        <div class="bread_nav"><a href="/" target='_blank'>首页</a>&gt;<a href="/business/" target="_blank">商务会议</a>
+            {% if industry_url != 'business' or city_url or month_url %}<h1>&gt;<a href="/{%if city_url %}{{ city_url }}/{% endif %}{%if industry_url %}{{ industry_url }}/{% endif %}{%if month_url %}{{ month_url }}/{% endif %}"  style="color: #858B9A">{{ month_name }}{{ city_name }}{{ cat_name }}会议</a></h1>{% endif %}
+        </div>
+        <div class=" content_right">
+            <div class="all_events" style="float: left;margin-top: 80px">
+             {% if events %}
+                {% for event in events %}
+                    {% if not event %}{% if not forloop.last %}{% if events|length > 1%}<p class='past'><span>下面是已成功举办的会议</span></p>
+                    {% else %}<!--<p class='past'><span>很抱歉！没有相关的会议，请重设筛选条件！</span></p>-->{% endif %}{% endif %}
+                <br style='clear: both'/>
+             {% else %}
+                    <div class='col-sm-12 col-xs-12 meeting_list' data-href="{{event.event_url}}">
+                        <div class='col-sm-3 col-xs-3'>
+                            <a href='{{event.event_url}}' target="_blank" >
+                                {% if event.event_img.0.urls %}<img width='223' height="139" src='{{event.event_img.0.server__name}}{{event.event_img.0.urls}}!hdj123' alt='{{event.event_name}}'/>
+                                {% else %}<img width='223' height="139"  src='http://pic.huodongjia.com/static/images/event_default.jpg' alt='{{event.event_name}}'/>{% endif %}
+                            </a>
+                        </div>
+                        <div class='col-sm-7 col-xs-7 detail' >
+                            <h3 class='meeting_name'><a href="{{event.event_url}}" target="_blank">{{event.event_name}}</a></h3>
+                            <p class='meeting_tag'>{% for tag in event.event_tag_info %}<a target="_blank" href='/tag/{{tag.id}}/'>{{tag.name}}</a>{% endfor %}</p>
+                            <p class='meeting_des'>概述:{{event.event_intro}}</p>
+                            <p class='addr'>
+                                <span><a href='/{{event.event_city_info.0.title}}/' target="_blank"><font class='m_iconfont'>&#xe609;</font>{{event.event_city_info.0.district_name}}</a></span>
+                                <span><font style='color: #8C8C8C;font-size: 16px;' class='m_iconfont'>&#xe608;&nbsp;</font>{{event.event_begin_time|date:'Y-m-d'}}</span>
+                            </p>
+                    </div>
+                        {% ifequal event.event_price_type 6 %}  <!--标准-->
+                        {% if event.event_price_unit|length == 0 or not event.event_price_valid %}
+                        <div class="col-sm-2 col-xs-2 price text-center">
+                            <p style="line-height: 80px"><span>截止</span></p>
+                            <p>关注：{{event.visit}}人气</p>
+                        </div>
+                        {% else %}
+                        <div class="col-sm-2 col-xs-2 price text-center">
+                            <p>{% if event.event_price_unit.0.fake_original_price %}限时优惠{% endif %} <br/><span>{{event.event_price_unit.0.Currency__sign}}{{event.event_price_unit.0.price}}</span><br/>
+                                {% if event.event_price_unit.0.fake_original_price %}<font style="text-decoration: line-through">原价：{{event.event_price_unit.0.Currency__sign}}{{event.event_price_unit.0.fake_original_price}}</font>{% endif %}
+                            </p>
+                            <p>关注：{{event.visit}}人气</p>
+                        </div>
+                        {% endif %}
+                        {% endifequal %}
+                        {% ifequal event.event_price_type 4 %}  <!--免费-->
+                        <div class="col-sm-2 col-xs-2 price text-center">
+                            <p style="line-height: 80px"><span>免费</span></p>
+                            <p>关注：{{event.visit}}人气</p>
+                        </div>
+                        {% endifequal %}
+                        {% ifequal event.event_price_type 5 %}  <!--待定-->
+                        <div class="col-sm-2 col-xs-2 price text-center">
+                            <p style="line-height: 80px"><span>待定</span></p>
+                            <p>关注：{{event.visit}}人气</p>
+                        </div>
+                        {% endifequal %}
+                        {% ifequal event.event_price_type 7 %}  <!--待定-->
+                        <div class="col-sm-2 col-xs-2 price text-center">
+                            <p style="line-height: 80px"><span>待定</span></p>
+                            <p>关注：{{event.visit}}人气</p>
+                        </div>
+                        {% endifequal %}
+                        {% ifequal event.event_price_type 9 %}  <!--待定-->
+                        <div class="col-sm-2 col-xs-2 price text-center">
+                            <p style="line-height: 80px"><span>待定</span></p>
+                            <p>关注：{{event.visit}}人气</p>
+                        </div>
+                        {% endifequal %}
+                </div>
+                {% endif %}
+                {% endfor %}
+             {% else %}
+                <p class='past'><span>暂无符合要求的会议，为您推荐相关会议</span></p>
+                <br style='clear: both'/>
+                {% for event in recommend %}
+                <div class='col-sm-12 col-xs-12 meeting_list' data-href="{{event.event_url}}">
+                    <div class='col-sm-3 col-xs-3'>
+                        <a href='{{event.event_url}}' target="_blank" >
+                            {% if event.event_img.0.urls %}<img width='223' height="139"  src='{{event.event_img.0.server__name}}{{event.event_img.0.urls}}!hdj123' alt='{{event.event_name}}'/>
+                            {% else %}<img width='223' height="139"  src='http://pic.huodongjia.com/static/images/event_default.jpg' alt='{{event.event_name}}'/>{% endif %}
+                        </a>
+                    </div>
+                    <div class='col-sm-7 col-xs-7 detail' >
+                        <h3 class='meeting_name'><a href="{{event.event_url}}" target="_blank">{{event.event_name}}</a></h3>
+                        <p class='meeting_tag'>
+                            {% for tag in event.event_tag_info %}
+                            <a target="_blank" href='/tag/{{tag.id}}/'>{{tag.name}}</a>
+                            {% endfor %}
+                        </p>
+                        <p class='meeting_des'>概述:{{event.event_intro}}</p>
+                        <p class='addr'>
+                            <span><a href='/{{event.event_city_info.0.title}}/' target="_blank"><font class='m_iconfont'>&#xe609;</font>{{event.event_city_info.0.district_name}}</a></span>
+                            <span><font style='color: #8C8C8C;font-size: 16px;' class='m_iconfont'>&#xe608;&nbsp;</font>{{event.event_begin_time|date:'Y-m-d'}}</span>
+                        </p>
+                    </div>
+                    {% ifequal event.event_price_type 6 %}  <!--标准-->
+                    {% if event.event_price_unit|length == 0 or not event.event_price_valid %}
+                    <div class="col-sm-2 col-xs-2 price text-center">
+                        <p style="line-height: 80px"><span>截止</span></p>
+                        <p>关注：{{event.visit}}人气</p>
+                    </div>
+                    {% else %}
+                    <div class="col-sm-2 col-xs-2 price text-center">
+                        <p>{% if event.event_price_unit.0.fake_original_price %}限时优惠{% endif %} <br/><span>{{event.event_price_unit.0.Currency__sign}}{{event.event_price_unit.0.price}}</span><br/>
+                            {% if event.event_price_unit.0.fake_original_price %}
+                            <font style="text-decoration: line-through">原价：{{event.event_price_unit.0.Currency__sign}}{{event.event_price_unit.0.fake_original_price}}</font>
+                            {% endif %}
+                        </p>
+                        <p>关注：{{event.visit}}人气</p>
+                    </div>
+                    {% endif %}
+                    {% endifequal %}
+                    {% ifequal event.event_price_type 4 %}  <!--免费-->
+                    <div class="col-sm-2 col-xs-2 price text-center">
+                        <p style="line-height: 80px"><span>免费</span></p>
+                        <p>关注：{{event.visit}}人气</p>
+                    </div>
+                    {% endifequal %}
+                    {% ifequal event.event_price_type 5 %}  <!--待定-->
+                    <div class="col-sm-2 col-xs-2 price text-center">
+                        <p style="line-height: 80px"><span>待定</span></p>
+                        <p>关注：{{event.visit}}人气</p>
+                    </div>
+                    {% endifequal %}
+                    {% ifequal event.event_price_type 7 %}  <!--待定-->
+                    <div class="col-sm-2 col-xs-2 price text-center">
+                        <p style="line-height: 80px"><span>待定</span></p>
+                        <p>关注：{{event.visit}}人气</p>
+                    </div>
+                    {% endifequal %}
+                    {% ifequal event.event_price_type 9 %}  <!--待定-->
+                    <div class="col-sm-2 col-xs-2 price text-center">
+                        <p style="line-height: 80px"><span>待定</span></p>
+                        <p>关注：{{event.visit}}人气</p>
+                    </div>
+                    {% endifequal %}
+                </div>
+                {% endfor %}
+             {% endif %}
+            </div>
+            <div class="title">
+                <div class="col-sm-3 col-xs-3 classify">行业 <input lang="{{industry_url}}" class="in" type="button" value="{% if cat_name %}{{cat_name}}{% else%}不限{% endif %}"/>
+                    <img width="11" height="8" src="/static/images/jiantou.png"/>
+                    <ul class="meeting_cat">
+                        <li><a href="/{% if city_url %}{{city_url}}/{%endif%}business/" title="business">不限</a></li>
+                        {% for cat in industry %}<li><a title="{{cat.ename}}" href="/{% if city_url %}{{city_url}}/{%endif%}{{cat.ename}}/{% if month_url %}{{month_url}}/{%endif%}">{{cat.name}}</a></li>{% endfor %}
+                    </ul>
+                </div>
+                <div class="col-sm-3 col-xs-3 all_city">城市 <input type="button" lang="{{city_url}}"  value="{% if city_name %}{{city_name}}{% else%}不限{% endif %}"/>
+                    <img width="11" height="8" src="/static/images/jiantou.png"/>
+                    <ul class="cities">
+                        <li class="hot_city"><a href="/{%if industry_url%}{{industry_url}}/{%else%}business/{% endif %}">不限</a></li>
+                        <li class="letter">
+                            {% for city in city%}<a title="{{city.title}}" href="/{{city.title}}/{% if industry_url %}{{ industry_url }}/{%endif%}{% if month_url %}{{month_url}}/{%endif%}">{{city.district_name}}</a>{% endfor %}
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 col-xs-4 m_time">时间 <input name="time"  type="button" value="{% if month_name %}{{month_name}}{% else%}不限{% endif %}"/>
+                    <span class="calendar"><span class="tb_font">&#xe604;</span>&nbsp;&nbsp;<span class="day">日历</span> <input id="start_time" class="e_val laydate-icon" name="start_time"  type="text"/></span>
+                    <img width="11" height="8" src="/static/images/jiantou.png"/>
+                    <ul class="meeting_time">
+                        <li class="rencent">
+                            <a class="{% if month_url %}{% else %}select{% endif %}" href="/{% if city_url %}{{city_url}}/{%endif%}{% if industry_url %}{{ industry_url }}/{%endif%}">不限</a>
+                            <a title="13" href="/{% if city_url %}{{city_url}}/{%endif%}{% if industry_url %}{{ industry_url }}/{%endif%}13/">最近一周</a>
+                            <a title="14" href="/{% if city_url %}{{city_url}}/{%endif%}{% if industry_url %}{{ industry_url }}/{%endif%}14/">最近一月</a><a title="15" href="/{% if city_url %}{{city_url}}/{%endif%}{% if industry_url %}{{ industry_url }}/{%endif%}15/">最近三月</a>
+                        </li>
+                        {% for month in months %}
+                        <li>
+                            <span>{{month.0}}年</span>
+                            {% for mon in month.1 %}<a title="{{mon}}"  href="/{% if city_url %}{{city_url}}/{%endif%}{% if industry_url %}{{ industry_url }}/{%endif%}{{mon}}/">{{mon}}月</a>{% endfor %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-sm-2 col-xs-2 hot_rec"><button class="hot choose">热门</button><button class="recommend ">推荐</button></div>
+            </div>
+        </div>
+        <div class=" content_left" >
+            <div class="fixed_div">
+            <button class="email_take"><span class="m_iconfont" style="margin-right: 6px;font-size: 23px">&#xe606;</span>邮件订阅</button>
+            <img width="11" height="8" class="img" src="/static/images/jiantou.png"/>
+            {% csrf_token %}
+            <form id="emailTakeForm" action="">
+                <span class="xing" style="top: 83px;">*</span><select name="industry" id="industry">
+                        <option value="">请选择关注的行业</option>
+                        {% for cat in industry %}
+                        <option value="{{cat.id}}">{{cat.name}}</option>
+                        {% endfor %}
+                  </select>
+                    <span class="xing">*</span><input type="text" name="email" id="email" placeholder="邮箱地址"/>
+                   <input type="text" name="company"  placeholder="单位名称"/>
+                    <input type="text" name="position" placeholder="行业关键词"/>
+                <img id="codeImg" width="97" height="34" style="float: right" onclick="this.setAttribute('src','/get_check_code_image/?nocache='+Math.random());" src=""/>
+                    <input type="text" name="checkcode" id="checkcode" placeholder="验证码"/>
+                    <p style="color: #BEC4D4;">完整填写更利于精准推荐</p>
+                    <button class="post" type="button">立即订阅</button>
+                </form>
+            <div class="hot_theme">
+                <p>热门标签</p>
+                    <div id="hot_tags" class="jqcloud" style="padding: 10px;">
+                        {% for tag in tags_cloud%}
+                        <span><a target="_blank" href="/tag/{{tag.tag__id}}/" lang="{{tag.cnt }}">{{tag.tag__name}}</a></span>
+                        {% endfor %}
+                    </div>
+            </div>
+            <div class="hot_theme">
+                 <p>值得参加的会议</p>
+                <ul class="deserve_event">
+                    {% for recommen in recommend_for_list_seo %}
+                    <li><a target='_blank' href='{{recommen.event_url}}'>{{recommen.event_name}}</a></li>
+                    {% endfor %}
+                </ul>
+                </div>
+            <div class="hot_theme">
+                <p>热门嘉宾</p>
+                <div id="hot_guests" class="jqcloud">
+                    {% for guest in guests%}
+                    <span><a target="_blank" href='/guest-{{guest.guest__id|encodeid}}.html' lang="{{guest.cnt}}">{{guest.guest__name}}</a></span>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="app_down">
+                <div class="text-center">
+                    <p>下载活动家APP找会议更方便</p>
+                    <p style="color: #BCC2D2;font-size: 12px;margin-bottom:3px;">点击下载</p>
+                    <a class="and" style="margin-right: 8px" rel="nofollow" href="http://pic.huodongjia.com/app/hdj2015917.apk"><span></span></a>
+                    <a class="apple" rel="nofollow" href="https://itunes.apple.com/cn/app/huo-dong-jia-hui-yi-zhan-hui/id731753448?mt=8"><span></span></a>
+                </div>
+                <div class="ewm"></div>
+            </div>
+            </div>
+            </div>
+    </div>
+</div>
+<div class="pagination">
+    <ul>
+        {% ifnotequal firstPage 'false'%}<li><a href="{{firstPage}}">首页</a></li>{% endifnotequal %}
+        {% for page in pageList%}
+            {% if page.flag == 'true' %}<li class="page_active"><a href="{{page.pageurl}}">{{page.page}}</a></li>
+             {%else%}<li><a href="{{page.pageurl}}" >{{page.page}}</a></li>{%endif%}
+        {% endfor %}
+        {% ifnotequal nextPage 'false'%}                      
+             <li><a href="{{nextPage}}">下一页</a></li>
+        {% endifnotequal %} 
+    </ul>
+</div>
+{% endblock %}
+{% block js %}
+<!--[if lt IE 9]>
+<script src="http://pic.huodongjia.com/static/js/html5shiv.min.js"></script>
+<![endif]-->
+<script src="http://pic.huodongjia.com/static/js/laydate/laydate.js"></script>
+<script src="http://pic.huodongjia.com/static/js/list_event.js"></script>
+{% endblock %}

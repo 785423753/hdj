@@ -1,0 +1,23 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+.allborder {
+  border: 1px solid red;
+}
+.div {
+  width: 100vw;
+  height: 100vh;
+  background-color: #4D926F;
+  border: 1px solid red;
+}
+.div1 {
+  width: 50vw;
+  height: 50vh;
+  color: #b3f8d5;
+  border: 1px solid red;
+}
+.div2 {
+  width: 100px;
+  border: 1px solid blue;
+}

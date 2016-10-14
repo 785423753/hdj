@@ -1,0 +1,81 @@
+{% extends "m_model.html" %}
+{% block meta %}
+<title>活动家-亚洲最大的活动网聚合平台</title>
+<meta name="description" content="活动家，亚洲最大的活动网聚合平台，为您提供海量会议,公开课,会展,极限运动,当地体验,夜生活,演出折扣票,同城活动查询,特色旅游，门票预订,报名,参加活动,请上活动家手机站！服务热线:400-003-3879" />
+<meta name="keywords" content="活动,活动网,线下活动,会议网,同城活动" />
+{% endblock %}
+{% block cssStyle %}
+<style>
+    @font-face {
+        font-family: 'Iconfont';
+        src: url('http://pic.huodongjia.com/static/css/m_iconfont.ttf');
+    }
+    .Iconfont {
+        font-family: "Iconfont" !important;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-stroke-width: .2px;
+        -moz-osx-font-smoothing: grayscale;
+        color: #36c;
+        font-size:2.3em !important;
+        float: left;
+    }
+    .header{
+        width: 100%;height: 45px;border-bottom: 1px solid #eee;text-align: center;line-height: 45px;padding: 0 10px;background: #fff
+    }
+    .header .title{
+        font-size: 18px;color: #36c;position: relative;top: 3px;
+    }
+</style>
+{% endblock %}
+{% block container %}
+<section class="container_not">
+    <div class="header">
+        <span class="myfont menue cat" style="line-height:.5">&#xe648;</span>
+        <a  href="javascript:history.go(-1)"><i class="Iconfont" style="color: #36c;">&#xe74e;</i></a>
+        <span class="title" >搜索结果</span>
+    </div>
+    <section class="col-sm-12 col-xs-12 hidden-div">
+        <ul>
+            <li><a>找会议</a></li>
+            <li><a>会议主办方</a></li>
+            <li><a>会议场馆</a></li>
+            <li><a>会议嘉宾</a></li>
+            <li><a>活动发布</a></li>
+        </ul>
+    </section>
+{% block content %}
+<section class="hidden-cat">
+        <ul>
+            <li class="col-sm-12 col-xs-12" style="color: #FA9D42;padding:0"><h4>商务会议</h4></li>
+            <li class="col-sm-3 col-xs-3"><a href="/it/">IT互联网</a></li>
+            <li class="col-sm-3 col-xs-3"><a href="/finance/">金融财经</a></li>
+            <li class="col-sm-3 col-xs-3"><a href="/medical/">医疗医学</a></li>
+            <li class="col-sm-3 col-xs-3"><a href="/energy/">能源化工</a></li>
+            <li class="col-sm-3 col-xs-3"><a href="/agricultur/">农业牧渔</a></li>
+            <li class="col-sm-3 col-xs-3"><a href="/trade/">行业会议</a></li>
+            <li class="col-sm-3 col-xs-3"><a href="/salon/">讲座沙龙</a></li>
+        </ul>
+        <ul>
+            <li class="col-sm-12 col-xs-12" style="color: #FA9D42;padding: 0"><h4>更多服务</h4></li>
+            <li class="col-sm-3 col-xs-3"><a href="/postevent/">活动发布</a></li>
+            <li class="col-sm-3 col-xs-3"><a href="/searchorder/">订单查询</a></li>
+            <li class="col-sm-3 col-xs-3"><a href="/listvenue/">会议场地</a></li>
+            <li class="col-sm-3 col-xs-4"><a href="/listsponsor/">会议主办方</a></li>
+        </ul>
+    </section>
+<div class="bg"></div>
+<div content="center">
+    <section class="col-sm-12 col-xs-12 list-seacher" style="display: block">
+        <form action="/tag/" method="get" class="myForm" rel="nofollow">
+            <a  href="javascript:validate()"  style="color: #ddd"><i class="col-sm-1 col-xs-1 iconfont list_seach">&#xe61b;</i></a>
+            <input type="search" class="form-control" name="keyword" placeholder="请输入关键词">
+        </form>
+    </section>
+    <div class="center-info">
+        <p class="sorry"><img src="http://pic.huodongjia.com/static/images/iconfont-tanhao.png"  class="cry" alt="活动家手机站-专业商务会议网">&nbsp;&nbsp;找不到活动，请修改搜索关键字</p>
+    </div>
+</div>
+{% endblock %}
+ </section>
+{% endblock %}

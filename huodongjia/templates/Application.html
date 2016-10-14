@@ -1,0 +1,301 @@
+﻿{% extends "base.html" %}
+{% block addstyle %}
+<style>
+    #member{
+        -webkit-box-shadow: 0 0 7px 0px rgba(175, 173, 173, 0.28);
+        -moz-box-shadow: 0 0 7px 0px rgba(175, 173, 173, 0.28);
+        box-shadow: 0 0 7px 0px rgba(175, 173, 173, 0.28);
+        padding: 20px 30px;
+        margin: 50px auto;
+        border-radius: 5px;
+        text-align: center;
+        background: #FFFFFF;
+        color: #000;
+    }
+    #member h2{
+        font-size: 24px;
+        margin: 20px 0;
+    }
+    p{margin: 0}
+    .tips{
+        line-height: 30px;
+        font-size: 14px;
+    }
+    #member form{text-align: justify;margin-top: 20px}
+    #member .title{
+        font-size: 16px;
+        padding-bottom: 5px;
+        border-bottom:2px solid #000;
+        margin: auto;
+        width: 70%;
+    }
+    .info{
+        width: 55%;
+        margin: 40px auto;
+    }
+    .info td{
+        height: 60px;
+        line-height: 40px;
+        position: relative;
+    }
+    .info tr td:first-child{
+        text-align: right;
+        color: #000;
+        padding-right: 30px;
+        width: 110px;
+    }
+    .info tr td:first-child::before{
+        content: '*';
+        color: red;
+        padding-right: 3px;
+    }
+    #member input,#member select{
+        border: none;
+        outline: none;
+        border-bottom: 1px solid #999;
+        width: 100%;
+        height:40px;
+        padding-left: 5px;
+    }
+    #member button{
+        width: 300px;
+        height: 50px;
+        display: block;
+        margin: 10px auto;
+        border:none;
+        background: #000;
+        color: #fff;
+        outline: none;
+        transition: all .3s linear;
+    }
+    #member button:hover{
+        background: rgba(0, 0, 0, 0.7);
+    }
+    .red{  border-color: red !important;}
+    @font-face {
+        font-family: 's_iconfont';
+        src: url('//at.alicdn.com/t/font_1467972585_9737506.eot'); /* IE9*/
+        src: url('//at.alicdn.com/t/font_1467972585_9737506.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+        url('//at.alicdn.com/t/font_1467972585_9737506.woff') format('woff'), /* chrome、firefox */
+        url('//at.alicdn.com/t/font_1467972585_9737506.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+        url('//at.alicdn.com/t/font_1467972585_9737506.svg#iconfont') format('svg'); /* iOS 4.1- */
+    }
+    #member .fa{
+        font-family: 's_iconfont';
+        position: absolute;
+        font-size: 1em;
+        color: #000;
+        right: 2px;
+        background: #FFF;
+        top: 20px
+    }
+    #codeImg{
+        float: right;
+        width: 33%;
+        height: 42px;
+    }
+    #member #checkcode{width: 60%}
+    input[type='text']:focus,textarea:focus,select:focus{border-color:#000 !important;box-shadow:inset 0 1px 1px rgba(0,0,0,0),0 0 8px rgba(102,175,233,0) !important;outline: none}
+    @media (max-width:1200px) {
+        #member{
+            width: 80% !important;
+        }
+        .info{width: 90%}
+    }
+    @media (max-width:760px) {
+        .footer .container{ width: 100% !important;  }
+        .info{width: 98%}
+        #member{padding: 0;width: 100% !important;margin: 15px auto; }
+        .introduce p, .introduce p a {font-size: 12px;line-height: 20px;margin-bottom: 5px;  }
+        .info tr td:first-child{padding-right: 8px;  width: 85px;  }
+        .tips{font-size: 12px;line-height: 20px;  }
+        #tips input{font-size: 12px}
+        iframe{  display: none !important;}
+        #member .title{width: 95%}
+    .nav,.nav .container{width: 100% !important;}
+    .nav ul,.footer1{display: none}
+    }
+</style>
+<link rel="stylesheet" type="text/css" href="http://pic.huodongjia.com/static/css/sweet-alert.css">
+<script src="http://pic.huodongjia.com/static/js/sweet-alert.min.js"></script>
+{% endblock %}
+{% block content%}
+<div class="container" id="member">
+    <h2>申请会员</h2>
+    <p class="tips">提示：会员仅限本人，不作其他用途，不可转让，持有人会籍资格终止后其会员权益即自行失效。 <br>活动家保留随时更改会员结构、优惠及其他项目的最终权力。</p>
+    <form action="" id="application">
+        {% csrf_token %}
+        <p class="title">基本信息</p>
+        <table class="info">
+            <tr><td>姓名</td><td><input placeholder="输入姓名" name="name" type="text"></td></tr>
+            <tr><td>性别</td><td>
+                <select  name="sex"><option value="">选择性别</option><option value="0">女</option><option value="1">男</option></select>
+                <span class="fa">&#xe600;</span></td></tr>
+            <tr><td>年龄</td><td>
+                <select name="age">
+                    <option value="">选择年龄段</option>
+                    <option  value="&lt;26"> &lt;26 </option>
+                    <option value="26~35">26~35</option>
+                    <option value="36~45">36~45</option>
+                    <option value="&gt;46">&gt;46</option>
+                </select>
+                <span class="fa">&#xe600;</span></td></tr>
+            <tr><td>学历/学位</td><td>
+                <select name="education" id="">
+                    <option value="">选择学历</option>
+                    <option value="专科">专科</option>
+                    <option value="本科">本科</option>
+                    <option value="硕士">硕士</option>
+                    <option value="博士">博士</option>
+                </select>
+                <span class="fa">&#xe600;</span></td></tr>
+            <tr><td>手机</td><td><input id="phone" placeholder="输入手机号" name="telephone" type="text"></td></tr>
+            <tr><td>电子邮箱</td><td><input id="email" placeholder="输入您的邮箱" name="email" type="text"></td></tr>
+            <tr><td>企业名称</td><td><input placeholder="您的单位名称" name="company" type="text"></td></tr>
+            <tr><td>职位</td><td><input placeholder="职位名称" name="job" type="text"></td></tr>
+            <tr><td>所在行业</td><td>
+                <select name="industry" id="industry">
+                    <option value="">公司行业</option>
+                    <option value="0">IT互联网</option>
+                    <option value="1">医疗医学</option>
+                    <option value="2">能源化工</option>
+                    <option value="3">金融财经</option>
+                    <option value="4">农林牧渔</option>
+                    <option value="5">教育培训</option>
+                    <option value="6">加工制造</option>
+                    <option value="7">地产建筑</option>
+                    <option value="8">文化传媒</option>
+                    <option value="9">服务行业</option>
+                    <option value="10">交通物流</option>
+                    <option value="11">其它行业</option>
+                </select>
+                <span class="fa">&#xe600;</span></td></tr>
+        </table>
+        <p class="title">公司信息</p>
+        <table class="info">
+            <tr><td>类型</td><td>
+                <select  name="company_type">
+                    <option value="">选择类型</option>
+                    <option value="1">国有企业</option>
+                    <option value="2">外资企业（含合资）</option>
+                    <option value="3">民营或集体所有制企业</option>
+                    <option value="4">公用事业</option>
+                    <option value="5">政府机构/科研组织/协会</option>
+                    <option value="6">股份制企业</option>
+                    <option value="7">其他</option>
+                </select>
+                <span class="fa">&#xe600;</span></td></tr>
+            <tr><td>公司规模</td><td>
+                <select name="company_size">
+                    <option value="">选择规模</option>
+                    <option value="1-99">1-99</option>
+                    <option value="100-499">100-499</option>
+                    <option value="500-1000">500-1000</option>
+                    <option value="000-4999">1000-4999</option>
+                    <option value="5000-9999">5000-9999</option>
+                    <option value="10,000-49,999">10,000-49,999</option>
+                    <option value="500,000以上">500,000以上</option>
+                </select>
+                <span class="fa">&#xe600;</span></td></tr>
+            <tr><td>验证码</td>
+                <td>
+                    <input data-captchaflag="false" id="checkcode" placeholder="输入验证码" name="checkcode" type="text">
+                    <img id="codeImg" onclick="this.setAttribute('src','/get_check_code_image/?nocache='+Math.random());" src="/get_check_code_image/">
+                </td>
+            </tr>
+        </table>
+        <button type="button" id="apply">提交申请</button>
+    </form>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    $('select').each(function(){
+        if($(this).val()==''){
+            $(this).css({color:'#999'})
+        }
+    })
+    $('select').change(function(){
+        if($(this).val()==''){
+            $(this).css({color:'#999'})
+        }else {
+            $(this).css({color:'#000'})
+        }
+    })
+    //验证
+    $("#checkcode").on('blur', function () {
+        var csrf = document.getElementsByName('csrfmiddlewaretoken')[0];
+        var captcha = $("#checkcode").val();
+        var submitflag = true;
+        $.ajax({
+            url: "/verify_captcha/",
+            dataType: "json",
+            type: "post",
+            async: false,
+            data: {
+                csrfmiddlewaretoken: csrf.value,
+                captcha: captcha
+            },
+            success: function (data) {
+                if (data.flag == 'false') {
+                    $("#checkcode").attr({"data-captchaflag":false}).addClass('red')
+                    $("#cap_img").click()
+                }else{
+                    $("#checkcode").attr({"data-captchaflag":true}).remove('red')
+                }
+            }
+        });
+    })
+    $('#telephone').on('blur',function(){
+        if(!$(this).val().replace(/[ ]/g,"").match(/0?(13|14|15|18|17)[0-9]{9}/)){
+            $(this).addClass('red')
+        }else{
+            $(this).removeClass('red')
+        }
+    })
+    $('#email').on('blur',function(){
+        if(!$(this).val().match(/\w+((-w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+/)){
+            $(this).addClass('red')
+        }else{
+            $(this).removeClass('red')
+        }
+    })
+    $('#apply').click(function () {
+        $('input,select').each(function(){
+            if($(this).val()==''){
+                $(this).addClass('red')
+            }else{
+                $(this).removeClass('red')
+            }
+        })
+        var Data=$('#application').serialize()
+        if($('#member .red').length==0){
+            $.ajax({
+                url:'/applymember/',
+                data:Data,
+                dataType:'json',
+                type:'post',
+                async:false,
+                beforeSend: function () {
+                    // 禁用按钮防止重复提交
+                    $("#apply").attr("disabled", "disabled").val('正在提交...')
+                },
+                success: function (data) {
+                    $("#apply").removeAttr("disabled").val('提交申请')
+                    if(data.code==1){
+                        $.get('/async_sendmail/',{},function(){})
+                        swal('提交成功，我们将在一个工作日内为您审核并联系您.')
+                        $('.confirm').click(function(){
+                            window.location.href= window.location.href
+                        })
+                    }else{
+                        swal('提交失败！')
+                    }
+                }
+            })
+        }else {
+            swal('请完整填写信息！')
+        }
+    })
+</script>
+{% endblock %}

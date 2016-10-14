@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <!-- // <script src="http://pic.huodongjia.com/static/js/jquery-1.8.3.min.js"></script> -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="../static/laydate/laydate.js"></script>
+    <!-- 百度echart插件 -->
+    <!-- 自定义css和js -->
+    <link rel="stylesheet" type="text/css" href="../static/css/index.css">
+    <style>
+        select{
+            position: absolute;
+            right: 10%;
+            top: 30px;
+            width: 100px;
+            height: 30px;
+            outline: none;
+            border: 2px solid #D48265;
+            color: #736C6C;
+            z-index:9;
+        }
+        .select {
+            left: 10%;
+            top: 53px;
+        }
+        .set{
+            text-align: left;
+            right: 5px;
+        }
+        @media (max-width:1750px) {
+            #right_curveoforder_1{
+                width: 95% !important;
+            }
+        }
+        @media (max-width:1200px) {
+            .set{
+                right: 0px;
+            }
+        }
+        @media (max-width:768px) {
+            .set{
+                display: none;
+            }
+            #right_curveoforder_1{
+                width: 100% !important;
+                /*color: rgba(253, 253, 253, 0.76)*/
+            }
+        }
+
+    </style>
+</head>
+<body>
+<div class='container main'>
+    <div class='row'>
+        <!-- 左侧控制面板开始 -->
+        <div class='col-sm-2 left' style=''>
+            <div class='text-center left-title'><h4 style='color:white;'>懒人周末可视化数据</h4></div>
+            <div class='left-item-top'>
+                <h4 class='left-item-title'><a href="/lrzm/templates/index.html"><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>总表</a></h4>
+            </div>
+            <div class='left-item-middle'>
+                <h4 class='left-item-title'><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>用户分析</h4>
+                <ul class="menue" style='margin-left:20px;'>
+                    <li><a href="/lrzm/templates/userDownload.html" class='left-item-option'>下载用户</a></li>
+                    <li><a href="/lrzm/templates/userSign.html" class='left-item-option'>注册用户</a></li>
+                    <li><a href="/lrzm/templates/userAct.html" class='left-item-option'>有操作行为用户</a></li>
+                    <li><a href="/lrzm/templates/usreProperty.html" class='left-item-option'>用户属性</a></li>
+                </ul>
+            </div>
+            <div class='left-item-bottom'>
+                <h4 class='left-item-title'><a href=""><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>订单分析</a></h4>
+            </div>
+            <div class='left-item-bottom'>
+                <h4 class='left-item-title'><a href=""><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>商家及活动分析</a></h4>
+            </div>
+            <div class='left-item-bottom'>
+                <h4 class='left-item-title'><a href=""><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>活动类别及标签分析</a></h4>
+            </div>
+            <div class='left-item-bottom'>
+                <h4 class='left-item-title'><a href=""><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>语义分析</a></h4>
+            </div>
+        </div>
+        <!-- 左侧控制面板结束 -->
+        <!-- 右侧祥情开始 -->
+        <div class='col-sm-10 col-xs-12 right' style=''>
+            <div class="right_bottom" style="width: 100%;height: 590px;">
+                <h2 align='center'>每日订单</h2>
+                <div class="select"><input value="2016-04-01" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="start_time">至
+                    <input value="2016-04-20" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="end_time"><button>确定</button></div>
+                <div class="set"><span>订单总量：<font class="order"></font></span><br><span>订单金额：<font class="money"></font></span><br><span>退款金额：<font class="refunds"></font></span></div>
+                <div id='right_curveoforder_1' style="width: 100%;height: 500px;position: absolute;bottom: 0"></div>
+            </div>
+            <div class="right_bottom" style="width: 100%;height: 550px;">
+                <h2 align='center'>订单总量</h2>
+                <div id='right_curveoforder_2' style="width: 100%;height: 500px;"></div>
+            </div>
+            <div class="right_bottom" style="width: 100%;height: 550px;">
+                <h2 align='center'>上周同期对比（订单额）</h2>
+                <div id='right_curveoforder_3' style="width: 100%;height: 500px;"></div>
+            </div>
+            <div class="right_bottom" style="width: 100%;height: 550px;">
+                <h2 align='center'>成交价格段</h2>
+                <div class="set"><span>平均价格：<font class="avg"></font></span></div>
+                <div id='right_curveoforder_4' style="width: 95%;height: 500px;"></div>
+            </div>
+            <div class="right_bottom" style="width: 100%;height: 550px;">
+                <h2 align='center'>城市订单额对比</h2>
+                <div id='right_curveoforder_5' style="width: 100%;height: 500px;"></div>
+            </div>
+        </div>
+        <!-- 右侧祥情结束 -->
+    </div>
+</div>
+</body>
+<script src="../static/echarts-2.2.7/build/dist/echarts.js"></script>
+<script src="../static/js/dark.js"></script>
+<script src="../static/js/order_1.js"></script>
+<script src="../static/js/order_3.js"></script>
+<script src="../static/js/order_4.js"></script>
+<script src="../static/js/order_2.js"></script>
+<script src="http://echarts.baidu.com/build/dist/echarts.js "></script>
+<script type="text/javascript">
+    // 路径配置
+    require.config({
+        paths: {
+            echarts: 'http://echarts.baidu.com/build/dist'
+        }
+    });
+    require(
+            [
+                'echarts',
+                'echarts/theme/macarons',
+                'echarts/chart/map'
+            ],
+            function (ec,theme) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('right_curveoforder_5'),theme);
+                city();
+                function city() {
+                    var start_day=$('#start_time').val(),end_day=$('#end_time').val()
+                    $.ajax({
+                        url: 'http://218.244.137.196:5000/json/city_money',
+                        dataType: 'json',
+                        data:{
+                            start_day:start_day,
+                            end_day:end_day
+                        },
+                        type: 'get',
+                        async: false,
+                        success: function (data) {
+                            var data_geoCoord={},data_val=new Array(),data_top=new Array()
+                            for(var i=0;i<data.city.length;i++){
+                                data_geoCoord[data.city[i].city]=[data.city[i].location.lon,data.city[i].location.lat]
+                                data_val.push({'name':data.city[i].city,value:data.city[i].value})
+                            }
+                            for(var i=0;i<data.top.length;i++){
+                                console.log(data.top[i].value)
+                                data_top.push({'name':data.top[i].city,value:data.top[i].value})
+                            }
+                            var max=data.top[0].value
+                            var option = {
+                                tooltip : {
+                                    trigger: 'item'
+                                },
+                                dataRange: {
+                                    min : 0,
+                                    max : max,
+                                    calculable : true,
+                                    textStyle:{
+                                        color:'#fff'
+                                    },
+                                    color: ['maroon','purple','red','orange','yellow']
+                                },
+                                series : [
+                                    {
+                                        name: '全国城市订单额',
+                                        type: 'map',
+                                        mapType: 'china',
+                                        hoverable: false,
+                                        roam:false,
+                                        itemStyle:{
+                                            normal:{
+                                                label:{
+                                                    show:true,
+                                                    textStyle:{
+                                                        color:'rgba(253, 253, 253, 0.76)'
+                                                    },
+                                                },
+                                                borderColor:'rgba(100,149,237,1)',
+                                                borderWidth:1.5,
+                                                color:'#333'
+                                            }
+                                        },
+                                        data : [],
+                                        markPoint : {
+                                            symbolSize: 5,       // 标注大小，半宽（半径）参数，当图形为方向或菱形则总宽度为symbolSize * 2
+                                            itemStyle: {
+                                                normal: {
+                                                    borderColor: '#87cefa',
+                                                    borderWidth: 1,            // 标注边线线宽，单位px，默认为1
+                                                    label: {
+                                                        show: false
+                                                    }
+                                                },
+                                                emphasis: {
+                                                    borderColor: '#1e90ff',
+                                                    borderWidth: 5,
+                                                    label: {
+                                                        show: false
+                                                    }
+                                                }
+                                            },
+                                            data : data_val
+                                        },
+                                        geoCoord: data_geoCoord
+                                    },
+                                    {
+                                        name: 'Top5',
+                                        type: 'map',
+                                        mapType: 'china',
+                                        data:[],
+                                        markPoint : {
+                                            symbol:'emptyCircle',
+                                            symbolSize : function (v){
+                                                    return  v/100+10
+                                            },
+                                            effect : {
+                                                show: true,
+                                                shadowBlur : 0
+                                            },
+                                            itemStyle:{
+                                                normal:{
+                                                    label:{show:false}
+                                                }
+                                            },
+                                            data : data_top
+                                        }
+                                    }
+                                ]
+                            };
+                            myChart.setOption(option);
+                        }
+                    })
+                }
+                // 为echarts对象加载数据
+
+                window.onresize = myChart.resize;
+                $('.select button').on('click',function(){
+                    city();
+                })
+            }
+    );
+
+</script>
+</html>

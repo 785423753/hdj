@@ -1,0 +1,32 @@
+.mainWrapper{background-color:#fff;font-family:"microsoft yahei"}
+.container{min-width:992px;font-family:"microsoft yahei"}
+.spon_header{position:relative;height:auto;padding:0}
+.banner{width:100%;background:#DBE1ED}
+.banner img{width:100%}
+.ul_left{margin-top:1em;cursor:pointer}
+.ul_left li{display:inline-block;color:#b0b0b0!important}
+.ul_left li a{display:inline-block;color:#b0b0b0!important}
+.ul_left li h1{font-size:14px;line-height:1.4px;color:#333!important}
+.content{height:auto;padding-bottom:35px;background:#FFF}
+.content .meeasge_div{height:auto;padding:0}
+.content .meeasge_div .pic{text-align:center}
+.content .meeasge_div .pic img{width:80%;height:80%;border-radius:50%}
+.content .meeasge_div p{line-height:18px;margin-top:12px;font-size:15px;color:#545C70}
+.content .meeasge_div .guestName{font-size:1.3em;color:#000;padding-right:15px}
+.content .meeasge_div .intro{line-height:25px;color:#545C70;font-size:15px}
+.content .meeasge_div .intro br{line-height:45px}
+.content .meeasge_div .intro .more{color:#1f6ddd;cursor:pointer;float:right;margin-right:2%}
+.content .meeasge_div .hr{background-color:#ddd;height:1px;margin-bottom:50px;margin-top:30px}
+.mustFill{color:red;font-size:.875em}
+.content .meeasge_form{padding:0}
+.content .meeasge_form div{margin-top:30px}
+.content .meeasge_form .info{margin-top:-30px;text-align:center}
+.content .meeasge_form label{color:#6c6c6c;font-weight:inherit;font-size:16px;width:21%;padding-right:10px;text-align:right}
+.content .meeasge_form input{outline:0;border:1px solid #ddd;background:#FCFCFC;padding-left:10px;width:70%;margin-top:20px;height:40px;border-radius:5px}
+.content .meeasge_form textarea{border-radius:5px;outline:0;border:1px solid #ddd;background:#FCFCFC;padding:7px;width:70%;margin-top:20px;resize:none}
+.content .meeasge_form a{border:0;border-radius:5px;cursor:pointer;width:20%;padding:10px}
+.content .meeasge_form a:hover{text-decoration:none;background-color:#5581c0}
+.TestGetCode{padding:5px 15px;background-color:#4495E6;text-align:center;margin-left:29px;border-radius:5px;color:#fff;line-height:32px!important;cursor:pointer}
+#send_message{background-color:#54A1F1;color:#fff;width:70%;margin-left:21%;text-align:center;font-size:16px;margin-top:20px;line-height:25px;display:block}
+#send_message:hover{background-color:#4c93dc}
+#guest{width:70%;margin:0 auto}

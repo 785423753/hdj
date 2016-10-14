@@ -1,0 +1,26 @@
+您还有{{ pay_orders | length }}场活动没有付款，可以获得{{pay_orders_totalvalue}}积分
+<div style="background-color:#f5f5f5;padding: 10px;">
+<table width="100%">
+    {% for a in pay_orders %}
+    <tr>
+        <td width="160px">
+            <img src="{{a.img}}" width="160px" height="100px" alt="{{a.name}}"/>
+        </td>
+        <td width="260px" style="padding: 10px">
+            <p class="gite_name">{{a.name}}</p>
+            <p>地址：{{a.city}}</p>
+            <p>时间：{{a.begin_time|date:"Y-m-d" }}</p>
+        </td>
+        <td width="160px">
+            金额：{{a.total_price}}
+        </td>
+        <td width="160px">
+            积分：{{a.order_credit}}
+        </td>
+        <td>
+            <a target="_blank" style="width: 70px;height: 24px;border-radius: 5px;line-height: 24px;background-color:#559cf4;color: #fff;display: block;text-align: center" href="/orderdetail/{{a.id}}">去支付</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+</div>

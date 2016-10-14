@@ -1,0 +1,62 @@
+<nav  class="col-sm-12 col-xs-12 list-nav">
+    <ul class="list_btn">
+        <li data-value="month">{% if current_month %}{% ifnotequal current_month '不限' %}<span style="color:#36C;">{{current_month}}</span>{%else%}月份{%endifnotequal%}{%else%}月份{%endif%}<i class="iconfont">&#xe62b;</i>
+            <section class="month">
+                <section>
+                    <ul class="month_ul">
+                        {%for a in month_nu%}
+                        <li><a href="{{a.url|safe}}">{{a.name|safe}}</a></li>
+                        {%endfor%}
+                    </ul>
+                </section>
+            </section>
+        </li>
+        <li data-value="list_city">{% if current_city %}{% ifnotequal current_city '不限' %}<span style="color:#36C;">{{current_city}}</span>{%else%}城市{%endifnotequal%}{%else%}城市{%endif%}<i class="iconfont">&#xe62b;</i>
+            <section  class="list_city">
+                <section>
+                    <ul class="city_ul">
+                        {%for a in city_nu.0%}
+                        <li><a href="{{a.url|safe}}">{{a.name|safe}}</a></li>
+                        {%endfor%}
+                        {%for a in city_nu.1%}
+                        <li><a  data-py="{{a.title|safe}}"  href="{{a.url|safe}}" data-city="false">{{a.name|safe}}</a></li>
+                        {%endfor%}
+                    </ul>
+
+                    <ul class="cityPY">
+                        <li><b class="glyphicon glyphicon-star-empty"></b></li>
+                    </ul>
+                </section>
+            </section>
+        </li>
+        <li data-value="list_class">
+            <span style="color:#36C;" id="cat_li" >{%ifequal current_tag '不限' %}分类{%else%}{{current_tag}}{%endifequal%}</span><i class="iconfont">&#xe62b;</i>
+            <section class="list_class" id="list_class1" data-value="{{current_catid}}">
+                <section>
+                    <ul class="cat_ul" style="background-color: #E8E8E8;height:100%">
+                        {% for cat in cat_nu%}
+                        {% if forloop.first %}
+                        <li><a href="{{cat.url|safe}}" >{{ cat.name|safe}}</a></li>
+                        {%else%}
+                        <li><a id="{{cat.id|safe}}" >{{ cat.name|safe}}</a></li>
+                        {% endif%}
+                        {% endfor %}
+                    </ul>
+                </section>
+            </section>
+            <section class="list_class" id="list_class2" >
+                <section>
+                    <div>
+                        {% for cat in cat_nu%}
+                        <ul class="hidden_tag" id="tag_{{cat.id}}" style="display: none">
+                            <li><a href="{{cat.url|safe}}">不限</a></li>
+                            {% for tag in cat.tag %}
+                            <li><a href="{{cat.url|safe}}?tag={{ tag.name|safe}}">{{ tag.name|safe}}</a></li>
+                            {% endfor %}
+                        </ul>
+                        {% endfor %}
+                </section>
+            </section>
+        </li>
+    </ul>
+</nav>

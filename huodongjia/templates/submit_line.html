@@ -1,0 +1,10 @@
+{% load i18n %}
+<footer class="grp-module grp-submit-row grp-fixed-footer">
+    <header style="display:none"><h1>Submit Options</h1></header>
+    <ul>
+            <li class="grp-float-left"><a href="delete/" class="grp-button grp-delete-link">{% trans "Delete" %}</a></li>
+        	<li><input type="button" value="废弃" name="_continue" class="grp-button grp-default" style="border-color:#d43f3a;color:white;background:#d9534f;" id="discart_event" /></li>
+        	<li><input type="button" value="保存并继续编辑" class="grp-button" id="save_edit_event" /></li>
+        	<li><input type="button" value="保存并发布" class="grp-button" id="save_publish_event" /></li>
+    </ul>
+</footer>

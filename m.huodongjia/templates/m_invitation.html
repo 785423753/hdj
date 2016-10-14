@@ -1,0 +1,42 @@
+{% extends "m_model.html" %}
+{% block container %}
+<section class="col-sm-12 col-xs-12 Invitation">
+    <article class="Invitation_info">
+        <ul>
+            <li>
+                <a href="/m/event-{{event.event_id}}.html" target="_blank">
+                    <h3 class="pic-opa-titles" {% if event.cat_name or event.event_venue.venue_title %}{% endif %}>{{event.event_name}}</h3>
+                </a>
+            </li>
+            <li>
+                <p class="h_time" data-state="0">时间:{{event.ymd_time}}</p>
+            </li>
+            <li>
+                <p class="city">地点：<a href="/{{event.district_title}}/" target="_blank">{{event.district_name}}</a></p>
+            </li>
+        </ul>
+    </article>
+    <article class="Invitation_but">
+        <a href="/m/event-{{event.event_id}}.html" class="buy">立即购买</a>
+    </article>
+</section>
+{% endblock %}
+{% block footerjs %}
+<script type="text/javascript" src="http://pic.huodongjia.com/static/js/jquery-1.8.3.min.js?t=201410181.js"></script>
+<script type="text/javascript" src="http://pic.huodongjia.com/static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://pic1.qkan.com/static/js/new_mobile.js"></script>
+<script src="http://pic.huodongjia.com/static/js/m_all.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".Invitation_info").animate({
+            marginTop:'52%',
+            opacity:'1'
+        },1200,function() {
+            $(".Invitation_but").animate({
+                opacity: '1'
+            })
+        });
+    });
+</script>
+{% endblock %}
+

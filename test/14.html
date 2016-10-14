@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://pic.huodongjia.com/static/js/jquery-1.8.3.min.js"></script>
+</head>
+<style>
+    body{
+        padding: 0;
+        margin: 0;
+        text-align: center;
+    }
+    .box{
+        width: 420px;
+        margin: 100px auto;
+        border: 2px solid yellow;
+        height: 350px;
+        position: relative;
+        z-index:10;
+        padding: 10px 0;
+        overflow: hidden;
+    }
+.review_box{
+    width: 2940px;
+    position: relative;
+    left: -420px;
+    transition: all .3s ease-out;
+}
+    .review_box div{
+        position: relative;
+        float: left;
+        width: 420px;
+    }
+    .review_box div img{
+    width: 100%;
+}
+    .next,.prev{
+        width: 100px;
+        height: 50px;
+        display: inline-block;
+        cursor: pointer;
+        color: #000;
+    }
+</style>
+<body>
+<div class="box">
+    <div class="review_box">
+        <div><img src="./Image/a1.png" alt=""></div>
+        <div><img src="./Image/a2.png" alt=""></div>
+        <div><img src="./Image/a3.png" alt=""></div>
+        <div><img src="./Image/a4.png" alt=""></div>
+        <div><img src="./Image/a5.png" alt=""></div>
+        <div><img src="./Image/a1.png" alt=""></div>
+        <div><img src="./Image/a2.png" alt=""></div>
+    </div>
+</div>
+<div class="prev">prev</div><div class="next">next</div>
+
+
+
+<script>
+
+
+    var bannerIndex= 1,length=parseInt($('.review_box div').length)-1
+    function next(){
+        bannerIndex++
+        var left=parseInt($('.review_box').css('left'))
+        $('.review_box').css({
+            left:"-"+bannerIndex*420+"px",transition:"all .3s ease"
+        })
+        if(bannerIndex>=length){
+            bannerIndex=1
+            setTimeout(function () {
+                $('.review_box').css({
+                    left:"-"+bannerIndex*420+"px",transition:"all 0s ease"
+                })
+            },500)
+
+        }
+    }
+    function prev(){
+        bannerIndex--
+        var left=parseInt($('.review_box').css('left'))
+        $('.review_box').css({
+            left:"-"+bannerIndex*420+"px",transition:"all .3s ease"
+        })
+        if(bannerIndex<=0){
+            bannerIndex=length-1
+            setTimeout(function () {
+                $('.review_box').css({
+                    left:"-"+bannerIndex*420+"px",transition:"all 0s ease"
+                })
+            },500)
+        }
+    }
+$('.next').click(function () {
+    next()
+})
+$('.prev').click(function () {
+    prev()
+})
+    var time=setInterval(function(){
+        next()
+    },2000)
+
+
+</script>
+</body>
+</html>

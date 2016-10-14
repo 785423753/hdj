@@ -1,0 +1,244 @@
+/*参加报名页面*/
+@font-face {
+    font-family: "myFont";
+    src: url("iconfont.ttf");
+}
+@font-face {
+    font-family: 'iconfont';
+    src: url('http://pic.huodongjia.com/static/css/mobile_icon/iconfont.eot');
+    src: url('http://pic.huodongjia.com/static/css/mobile_icon/iconfont.eot?#iefix') format('embedded-opentype'), url('http://pic.huodongjia.com/static/css/mobile_icon/iconfont.woff') format('woff'), url('http://pic.huodongjia.com/static/css/mobile_icon/iconfont.ttf') format('truetype'), url('http://pic.huodongjia.com/static/css/mobile_icon/iconfont.svg#iconfont') format('svg')
+}
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 24px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: .2px;
+    -moz-osx-font-smoothing: grayscale;
+    color: #36c;
+}
+body{
+    background: #F0F0F0;
+    font-family: "微软雅黑";
+}
+header {
+    padding:10px 15px;
+    background: #36c;
+    color: #fff;
+    text-align: center;
+    line-height: 1;
+}
+.myfont{
+    font-family: "myFont";
+    font-size: 2.3em;
+    float: left;
+    color: #fff;
+}
+.apply{
+    line-height: 1;
+    font-size: 21px;position: relative;
+    top: 5px;
+}
+.event{
+    width: 100%;
+    border-top: 1px solid #E5E5E5;
+    clear: both;
+    background: #FFF;
+    margin: 0 !important;
+    position: relative;
+}
+.event .img{
+    padding: 10px;
+}
+.event_name {
+    height: 100%;
+    padding: 10px;
+}
+.event_city{
+    position: absolute;
+    bottom: 10px;
+    left: 42%;
+}
+.event_time{
+    float: right;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+.event p{
+    font-size: 17px;
+    height: 47px;
+    overflow: hidden;
+    margin: 10px;
+}
+.content{
+    width: 100%;
+    text-align: center;
+    padding: 5px 10px 50px;
+}
+.normal{
+    border: 1px solid #D7D7D7;
+    border-radius: 5px;
+    margin: 0;
+    background: #FFFFFF;
+    padding: 8px 0 2px;
+    margin: 5px 0 10px;
+}
+input[name="number"]{
+    width: 26px ; ;
+    height: 26px ;
+    background: #FFFFFF;
+    border-radius: 5px;
+    margin: 0 10px;
+    border: 2px solid #D7D7D7 ;
+    box-shadow: none ;
+    position: relative;
+    top: -2px;
+    padding-left:5px ;
+}
+.add,.sub{
+    width: 26px ;
+    height: 26px;
+    border: 2px solid #D7D7D7;
+    font-size: 25px;
+    text-align: center;
+    line-height: 19px;
+    color: #D7D7D7;
+    display: inline-block;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.page-header{
+    margin: 0px !important ;
+    font-size: 18px;
+    clear: both;
+}
+.normal .info{
+    color: #A0A0A0;
+    line-height: 3;
+}
+.explain{
+    background: #F7F7F7;clear: both;
+    text-align: left;
+    color: #999999;
+    padding:8px 10px;
+}
+.fee{
+    font-family: "myFont";
+    color: #999999;
+    font-size: 21px;
+}
+h3{
+    line-height: 1;
+}
+.common{
+    border: 1px solid #1161AC;
+
+}
+.detail{
+    display: none;
+}
+.topic{
+    padding-bottom: 6px;
+}
+footer{
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+.money {
+    height: 50px;
+    line-height: 50px;
+    font-size: 15px;
+    background: #FFF;
+    color: #A0A0A0;
+    border-top: 1px solid #DDDDDD;
+}
+.next{
+    height: 50px;
+    background: #3EA8F4;
+    color: #fff;
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+}
+.eventAddr {
+    position: absolute;
+    left: 45%;
+    bottom: 10px;
+    color: #9F9F9F;
+}
+/*//付款页面*/
+ul{
+    width: 100%;
+    padding: 0 10px 20px;
+    float: left;
+    background: #FFF;
+}
+ul li{
+    float: left;
+    width: 50%;
+    color: #9D9D9D;
+    list-style: none;
+    line-height: 2;
+    font-size: 17px;
+}
+ul li span{
+    color: #000;
+}
+form .content input[type="text"]{
+    width: 100%;
+    height: 40px;
+    border:none;
+    border-radius: 5px;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    padding-left: 10px;
+    font-size: 16px;
+}
+.checkcode{
+    float: left;
+    width: 28%;
+    height: 40px;
+    margin-left: 2%;
+    line-height: 2;
+    border: 1px solid #D7D7D7;
+}
+input[name="checkcode"]{
+    width: 70% !important ;
+    float: left;
+}
+input[type="radio"]{
+   margin-bottom: 10px !important ;
+}
+.pay_way{
+    width: 100%;
+    background: #FFF;
+    float: left;
+    padding: 10px 15px;
+    color: #9D9D9D;
+    font-size: 16px;
+}
+.pay_way div{
+    padding: 0;
+}
+.way{
+    margin-bottom: 20px;
+}
+.pay_way .inform{
+    font-size: 15px;
+    padding: 10px 0 0px;
+    line-height: 1.7;
+}
+#post{
+    width: 100%;
+    height: 45px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    background: #3EA8F4;
+}
+.invoiceDiv{
+    display: none;
+}

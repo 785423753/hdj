@@ -1,0 +1,503 @@
+{% extends "admin/base_site.html" %}
+
+<!-- LOADING -->
+{% load url from future %}
+{% load admin_list i18n grp_tags admin_urls %}
+
+<!-- STYLESHEETS -->
+{% block stylesheets %}
+    {{ block.super }}
+    {{ media.css }}
+    <!--自定义样式-->
+    <link href="http://pic.huodongjia.com/static/js/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="http://pic.huodongjia.com/static/css/bootstrap.min.css" />
+    <style type='text/css'>
+        .grp-pulldown-content ul li{
+            float:left;
+        } 
+        .Wdate{background: #fff url("/static/myadmin/images/datePicker.gif") no-repeat right !important;}
+    </style>
+
+<style>
+.btn {
+        width: 52px;
+            height: 32px;
+}
+
+.informModal{
+        top:25%;
+}
+.informModal .modal-dialog{
+        width: 400px;
+}
+.informModal .modal-header{
+        border-radius: 5px;
+            background-color: #eee;
+}
+.informModal .modal-body{
+        height: auto;
+            min-height: 40px;
+}
+.msg-content{
+        word-wrap: break-word;
+        word-break: normal;
+        min-height: 83px;
+        height: auto;
+        outline: medium none #B6B2B2;
+        border: thin solid #B6B2B2;
+        border-radius: 3px;
+        margin: 0px;
+        padding: 5px;
+        font-size: 15px;
+        color: #666;
+        line-height: 1.3;
+        box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.15) inset;
+}
+.failed-informModal{
+    top: 8%;
+}
+.grp-pulldown-content ul li{
+    display:inline-block;
+}
+    select{
+        height:30px;
+    }
+    input{
+        height:30px !important;
+    }
+    .search_but{
+        background-color: #59afcc!important;
+        background-image: none;
+        color: white;
+        margin: 0 0 0 0;
+        width: 90px;
+        height: 28px;
+        margin-left: 10px;
+        margin-top: 1px;
+    }
+.search_but:hover{
+    background-color: #fff !important;
+    color: #59afcc;
+    border:1px solid #59afcc !important;
+}
+.btn-inform-sponsor .failed-btn-inform-sponsor{
+        width: 48px;
+}
+td{ 
+        text-align: center;
+}
+img.img-inform-sponsor{
+        vertical-align: middle;
+}
+</style>
+{% endblock %}
+
+<!-- JAVASCRIPTS -->
+{% block javascripts %}
+    <script src="/static/myadmin/js/jquery.js"></script>
+    <script src="http://pic.huodongjia.com/static/js/WdatePicker.js"></script>
+    {{ block.super }}
+    {{ media.js }}
+    {% if cl.formset or action_form %}
+        {% url 'admin:jsi18n' as jsi18nurl %}
+        <script type="text/javascript" src="{{ jsi18nurl|default:'../../jsi18n/'}}"></script>
+    {% endif %}
+    {% if action_form %}
+        <script type="text/javascript" charset="utf-8">
+            (function($) {
+                $(document).ready(function() {
+                    $("tr input.action-select").actions();
+                });
+            })(grp.jQuery);
+        </script>
+    {% endif %}
+    {% if cl.formset %}
+        <script type="text/javascript" charset="utf-8">
+            (function($) {
+                $(document).ready(function() {
+                    grappelli.initDateAndTimePicker();
+                    var prefix = "form";
+                    var related_lookup_fields_fk = {% get_related_lookup_fields_fk cl.model_admin %};
+                    var related_lookup_fields_m2m = {% get_related_lookup_fields_m2m cl.model_admin %};
+                    var related_lookup_fields_generic = {% get_related_lookup_fields_generic cl.model_admin %};
+                    var autocomplete_fields_fk = {% get_autocomplete_lookup_fields_fk cl.model_admin %};
+                    var autocomplete_fields_m2m = {% get_autocomplete_lookup_fields_m2m cl.model_admin %};
+                    var autocomplete_fields_generic = {% get_autocomplete_lookup_fields_generic cl.model_admin %};
+                    $.each(related_lookup_fields_fk, function() {
+                        $("div.grp-changelist-results")
+                        .find("input[name^='" + prefix + "'][name$='" + this + "']")
+                        .grp_related_fk({lookup_url:"{% url 'grp_related_lookup' %}"});
+                    });
+                    $.each(related_lookup_fields_m2m, function() {
+                        $("div.grp-changelist-results")
+                        .find("input[name^='" + prefix + "'][name$='" + this + "']")
+                        .grp_related_m2m({lookup_url:"{% url 'grp_m2m_lookup' %}"});
+                    });
+                    $.each(related_lookup_fields_generic, function() {
+                        var content_type = this[0],
+                            object_id = this[1];
+                        $("div.grp-changelist-results")
+                        .find("input[name^='" + prefix + "'][name$='" + this[1] + "']")
+                        .each(function() {
+                            var ct_id = "#id_" + prefix + "-" + $(this).attr("id").split("-")[1] + "-" + content_type,
+                                obj_id = "#id_" + prefix + "-" + $(this).attr("id").split("-")[1] + "-" + object_id;
+                            $(this).grp_related_generic({content_type:ct_id, object_id:obj_id, lookup_url:"{% url 'grp_related_lookup' %}"});
+                        });
+                    });
+                    $.each(autocomplete_fields_fk, function() {
+                        $("div.grp-changelist-results")
+                        .find("input[name^='" + prefix + "'][name$='" + this + "']")
+                        .each(function() {
+                            $(this).grp_autocomplete_fk({
+                                lookup_url:"{% url 'grp_related_lookup' %}",
+                                autocomplete_lookup_url:"{% url 'grp_autocomplete_lookup' %}"
+                            });
+                        });
+                    });
+                    $.each(autocomplete_fields_m2m, function() {
+                        $("div.grp-changelist-results")
+                        .find("input[name^='" + prefix + "'][name$='" + this + "']")
+                        .each(function() {
+                            $(this).grp_autocomplete_m2m({
+                                lookup_url:"{% url 'grp_m2m_lookup' %}",
+                                autocomplete_lookup_url:"{% url 'grp_autocomplete_lookup' %}"
+                            });
+                        });
+                    });
+                    $.each(autocomplete_fields_generic, function() {
+                        var content_type = this[0],
+                            object_id = this[1];
+                        $("div.grp-changelist-results")
+                        .find("input[name^='" + prefix + "'][name$='" + this[1] + "']")
+                        .each(function() {
+                            var i = $(this).attr("id").match(/-\d+-/);
+                            if (i) {
+                                var ct_id = "#id_" + prefix + i[0] + content_type,
+                                    obj_id = "#id_" + prefix + i[0] + object_id;
+                                $(this).grp_autocomplete_generic({
+                                    content_type:ct_id,
+                                    object_id:obj_id,
+                                    lookup_url:"{% url 'grp_related_lookup' %}",
+                                    autocomplete_lookup_url:"{% url 'grp_autocomplete_lookup' %}"
+                                });
+                            }
+                        });
+                    });
+                    // reset actions select box
+                    $('.grp-changelist-actions select').val(-1);
+                    // find errors and move (because errors should be below form elements)
+                    $("ul.errorlist").each(function() {
+                        $(this).parents("td").append($(this));
+                    });
+                    // HACK: get rid of currently/change with URL–fields. F**K!!!
+                    $('p.url').each(function() {
+                        $(this).find("a").remove();
+                        var text = $(this).html();
+                        text = text.replace(/^\w*: /, "");
+                        text = text.replace(/<br>.*: /, "");
+                        $(this).html(text);
+                    });
+                });
+            })(grp.jQuery);
+        </script>
+    {% endif %}
+    <script type="text/javascript" charset="utf-8">
+        (function($) {
+            $(document).ready(function() {
+                grappelli.initSearchbar();
+                grappelli.initFilter();
+            });
+        })(grp.jQuery);
+    </script>
+{% endblock %}
+
+<!-- COLTYPE/BODYCLASS-- >
+{% block bodyclass %}grp-change-list{% endblock %}
+{% block content-class %}{% endblock %}
+
+<!-- BREADCRUMBS -- >
+{% block breadcrumbs %}
+    {% if not is_popup %}
+        <ul class="grp-horizontal-list">
+            <li><a href="{% url 'admin:index' %}">{% trans "Home" %}</a></li>
+            <li><a href="{% url 'admin:app_list' app_label=cl.opts.app_label %}">{% trans app_label|capfirst|escape %}</a></li>
+            <li>{{ cl.opts.verbose_name_plural|capfirst }}</li>
+        </ul>
+    {% endif %}
+{% endblock %}
+
+<!-- CONTENT-TITLE -->
+{% block content_title %}
+    <h1>{{ cl.opts.verbose_name_plural|capfirst }}</h1>
+{% endblock %}
+
+<!-- OBJECT-TOOLS -->
+{% block object-tools %}
+    {% if has_add_permission %}
+        <ul class="grp-object-tools">
+            {% block object-tools-items %}
+                <li><a href="{% url cl.opts|admin_urlname:'add' %}{% if is_popup %}?_popup=1{% endif %}" class="grp-add-link grp-state-focus">{% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}</a></li>
+            {% endblock %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+<!-- CONTENT -->
+{% block content %}
+    {% if cl.search_fields or cl.has_filters or cl.date_hierarchy %}
+        <div class="grp-module">
+            <div class="grp-row">
+                <div id="grp-filters" style="width:100% !important;" class="g-d-6 g-d-l">
+                            <div class="grp-filter" style="height:auto;">
+                                <div class="grp-pulldown-container">
+                                    <!--<a href="javascript://" class="grp-button grp-pulldown-handler">{% trans 'Filter' %}</a>-->
+                                    <div class="grp-pulldown-content" style="">
+                                        <ul>
+                                            <li>
+                                                <div class="grp-module">
+                                                    <div class="grp-row">
+                                                        <label style="display:inline-block;">开始时间:</label>
+                                                        <input type="text" class="Wdate"  id="select_begin_time"  name="begin_time" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd 00:00:00'})" style="width:70%;"/>
+                                                    </div> 
+                                                </div> 
+                                            </li>
+                                            <li>
+                                                <div class="grp-module">
+                                                    <div class="grp-row">
+                                                        <label style="display:inline-block;">结束时间:</label>
+                                                        <input type="text" class="Wdate"  id="select_end_time"  name="end_time"  onFocus="WdatePicker({dateFmt:'yyyy-MM-dd 00:00:00'})" style="width:70%;"/>
+                                                    </div> 
+                                                </div> 
+                                            </li>
+                                            <li>
+                                                <div class="grp-module">
+                                                    <div class="grp-row">
+                                                        <a class="grp-button grp-default" id="event_time_filter" style="color:white;margin:-2px -10px;padding:5px 10px;">搜索</a>
+                                                    </div> 
+                                                </div> 
+                                            </li>
+                                            <!--搜索时间-->
+                                            <script>
+                                                var url = window.location.href;
+                                                var begin_reg = /begin_time__gte=([\w=\-%:]+)/;
+                                                var end_reg = /begin_time__lte=([\w=\-%:]+)/;
+                                                var begin_val = begin_reg.exec(url);
+                                                var end_val = end_reg.exec(url);
+                                                if(begin_val)
+                                                    $("#select_begin_time").val(begin_val[1].replace('%20', ' '));
+                                                if(end_val)
+                                                    $("#select_end_time").val(end_val[1].replace('%20', ' '));
+                                                $('#event_time_filter').click(function(){
+                                                    var begin_time = $('#select_begin_time').val(); var end_time = $('#select_end_time').val();
+                                                    console.log(begin_time,22222)
+                                                    console.log(end_time,33333)
+                                                    var filter_time_str = '?begin_time__gte='+begin_time+'&begin_time__lte='+end_time;
+                                                    console.log(filter_time_str,111111111111)
+                                                    $('#event_time_filter').attr('href',filter_time_str);
+                                                    console.log($('div'))
+                                                });
+                                            </script>
+                                            <div style="clear:both;height:0px;"></div>
+                                        </ul>
+                                        <div style="clear:both;height:0px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+            </div>
+            <div class="grp-row">
+                <div id="grp-filters" style="width:100% !important;" class="g-d-6 g-d-l">
+                    <div class="grp-filter" style="height:auto;">
+                        <div class="grp-pulldown-container">
+                            <div class="grp-pulldown-content" style="">
+                                <ul>
+                                    <li>
+                                        <div class="grp-module">
+                                            <div class="grp-row">
+                                                <label style="display:inline-block;">上传推广信息:</label>
+                                                <form action="/spread/uploadspreadinfo/" method="post" enctype="multipart/form-data"><input type="file" name="uploadFile" /><input type="submit" class="grp-button grp-default" value="提交"/></form>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <div style="clear:both;height:0px;"></div>
+                                </ul>
+                                <div style="clear:both;height:0px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grp-row" >
+                <!-- FILTERS -->
+                {% if cl.has_filters %}
+                    {% block filters %}
+                        <div id="grp-filters" style="width:100% !important;" class="g-d-6 g-d-l">
+                            <div class="grp-filter" style="height:auto;">
+                                <div class="grp-pulldown-container">
+                                    <!--<a href="javascript://" class="grp-button grp-pulldown-handler">{% trans 'Filter' %}</a>-->
+                                    <div class="grp-pulldown-content" style="">
+                                        <ul>
+                                            {% for spec in cl.filter_specs %}
+                                            <li>{% admin_list_filter cl spec %}</li>
+                                            {% endfor %}
+                                            <div style="clear:both;height:0px;"></div>
+                                        </ul>
+                                        <div style="clear:both;height:0px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endblock %}
+                {% endif %}
+                <!--FILTER结束-->
+                <div style="clear:both;height:0px;"></div>
+            </div>
+
+            <div class="grp-row">
+                <div class="l-2cr-fluid {% if cl.has_filters and cl.search_fields %}l-d-12{% else %}{% if cl.has_filters or cl.search_fields %}l-d-6{% endif %}{% endif %}">
+                    {% if cl.has_filters or cl.search_fields %}
+                        {% block aside %}
+                            <aside class="c-1">
+                                <header style="display:none"><h1>{% if cl.search_fields %}Search{% if cl.has_filters %} &amp; {% endif %}{% endif %}{% if cl.has_filters %}Filters{% endif %}</h1></header>
+                                <!-- SEARCH -->
+                                {% if cl.search_fields %}
+                                    {% block search %}
+                                        <div id="search" class="g-d-6 g-d-f">
+                                            {% search_form cl %}
+                                        </div>
+                                    {% endblock %}
+                                {% endif %}
+                                <!-- FILTERS -->
+                                <!---->
+                            </aside>
+                        {% endblock %}
+                    {% endif %}
+                    {% block pagination_top %}
+                        <div class="c-2">
+                            <!-- PAGINATION TOP -->
+                            {% pagination cl %}
+                        </div>
+                    {% endblock %}
+
+                </div>
+            </div>
+            <!-- DATE HIERARCHY -->
+            {% block date_hierarchy %}
+                {% if cl.date_hierarchy %}{% date_hierarchy cl %}{% endif %}
+            {% endblock %}
+        </div>
+    {% endif %}
+    <form id="grp-changelist-form" action="" method="post"{% if cl.formset.is_multipart %} enctype="multipart/form-data"{% endif %}>{% csrf_token %}
+        <section id="grp-changelist" class="{% if cl.list_editable %} grp-editable{% endif %}">
+            <header style="display:none"><h1>Results</h1></header>
+            <!-- POPUP -->
+            {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
+            <!-- ERRORS -->
+            {% if cl.formset.errors %}
+                <p class="errornote">
+                    {% if cl.formset.total_error_count == 1 %}{% trans "Please correct the error below." %}{% else %}{% trans "Please correct the errors below." %}{% endif %}
+                </p>
+                {{ cl.formset.non_form_errors }}
+            {% endif %}
+            <!-- MANAGEMENT FORM -->
+            {% if cl.formset %}
+                {{ cl.formset.management_form }}
+            {% endif %}
+            <!-- CHANGELIST-RESULTS -->
+            {% block result_list_neweventtable %}
+                {% result_list_neweventtable cl %}
+            {% endblock %}
+        </section>
+        <!-- PAGINATION BOTTOM -->
+        {% if not cl.result_count == 0 %}
+            {% block pagination_bottom %}
+                <div class="grp-module">
+                    <div class="grp-row">{% pagination cl %}</div>
+                </div>
+            {% endblock %}
+        {% endif %}
+        <!-- SUBMIT ROW -->
+        {% if cl.formset or action_form %}
+            <footer id="submit" class="grp-module grp-submit-row grp-fixed-footer">
+                <header style="display:none"><h1>Submit Options</h1></header>
+                <ul>
+                    {% if action_form %}<li class="grp-float-left grp-changelist-actions">{% admin_actions %}</li>{% endif %}
+                    {% if cl.formset %}<li><input type="submit" class="grp-button grp-default" name="_save" value="{% trans "Save" %}"/></li>{% endif %}
+                </ul>
+            </footer>
+        {% endif %}
+    </form>
+
+
+
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript">
+        //通知主办方
+        $(".btn-inform-sponsor").on('click', function(event){
+            var msg = '您提交的活动已通过审核，如需合作和修改内容，请加商务Q：2105324129，查看活动详情请点击：'
+            var url = $(this).attr("data-url");
+            var tel = $(this).attr("data-tel");
+            var id = $(this).attr("data-id");
+            $(".informModal .msg-content").html(msg + url);
+            $(".informModal input.inform-tel").val(tel);
+            $(".informModal input.inform-id").val(id);
+            $('.informModal').css('display', 'block');
+            $('.informModal').addClass('in');
+        });
+        $('.inform-confirm').on('click', function(){
+            var msg = $(".informModal .msg-content").html()
+            var tel = $(".informModal input.inform-tel").val()
+            var id = $(".informModal input.inform-id").val()
+            $.ajax({
+                url: '/admin/event/neweventtable/inform_sponsor/',    
+                type: 'GET',
+                data: {
+                'msg': msg,
+                'tel': tel,
+                'event_id': id,
+                },
+                dataType: "JSON",
+                success: function(data, status){
+                if (data.code == 1)
+                    alert("发送成功");
+                else
+                    alert("发送失败");
+                $('.informModal').css('display', 'none');
+                }
+            });
+        });
+        $(".failed-btn-inform-sponsor").on('click', function(event){
+            $("input.event-id").val($(this).attr("data-id"));
+            $('.failed-informModal').css('display', 'block');
+            $('.failed-informModal').addClass('in');
+        });
+        $('.failed-inform-confirm').on('click', function(){
+                var id = $("input.event-id").val();
+                var failed_info = $(":radio:checked").val();
+                if($(":radio:checked").val() == -1)
+                    failed_info  = $(".other-failed-info").val();
+
+            $.ajax({
+                url: '/admin/event/neweventtable/failed_inform_sponsor/',    
+                type: 'GET',
+                data: {
+                    'id': id,
+                    'failed_info': failed_info
+                },
+                dataType: "JSON",
+                success: function(data, status){
+                if (data.code == 1)
+                    alert("保存成功");
+                else
+                    alert("保存失败");
+                $('.failed-informModal').css('display', 'none');
+                }
+            });
+        });
+        $(".btn-close, button.close").on('click', function(){
+            $('.informModal').css('display', 'none');
+            $('.failed-informModal').css('display', 'none');
+        });
+</script>
+{% endblock %}

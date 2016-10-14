@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+</head>
+<style>
+    #div1{ width: 100px; height: 100px; background-color: #4D4D4D; position: absolute; cursor: pointer; -webkit-box-shadow: 3px 3px 0px 3px #C7C7C7; box-shadow: 3px 3px 3px 0px #C7C7C7; }
+    #parent{ width: 500px; height: 500px; border: 1px solid #CDCDCD; position: relative; margin: 0 auto; background-color: #F4F4F4; }
+</style>
+
+<body>
+<div id="parent">
+    <div id="div1"></div>
+</div>
+
+</body>
+<script src="http://pic.huodongjia.com/static/js/jquery-1.8.3.min.js"></script>
+<script>
+    window.onload = function (){
+        var div1=document.getElementById("div1"),parent=document.getElementById("parent")
+        var sent={
+            l:0,
+            t:0,
+            r:parent.offsetWidth-div1.offsetWidth,
+            b:parent.offsetHeight-div1.offsetHeight
+        }
+        drag(div1,sent)
+    }
+    function drag(obj,sent){
+        var l=sent.l,t=sent.t,r=sent.r,b=sent.b
+        obj.onmousedown = function (ev){
+            var oEvent = ev || event;
+            var sentX = oEvent.clientX - obj.offsetLeft;
+            var sentY = oEvent.clientY - obj.offsetTop;
+            console.log(sentX)
+            document.onmousemove = function (ev){
+                var oEvent = ev || event;
+
+                var slideLeft = oEvent.clientX - sentX;
+                var slideTop = oEvent.clientY - sentY;
+
+                if(slideLeft <= l){
+                    slideLeft = l;
+                }
+                if(slideLeft >= r){
+                    slideLeft = r;
+                }
+                if(slideTop <= t){
+                    slideTop = t;
+                }
+                if(slideTop >= b){
+                    slideTop = b;
+                }
+
+                obj.style.left = slideLeft + 'px';
+                obj.style.top = slideTop + 'px';
+            }
+
+            document.onmouseup = function (){
+                document.onmousemove = null;
+                document.onmouseup = null;
+            }
+
+            return false;
+        }
+    }
+
+
+
+</script>
+</html>

@@ -1,0 +1,72 @@
+@font-face {font-family: 'tb_iconfont';
+    src: url('http://pic.huodongjia.com/static/css/tb_font/iconfont.eot'); /* IE9*/
+    src: url('http://pic.huodongjia.com/static/css/tb_font/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('http://pic.huodongjia.com/static/css/tb_font/iconfont.woff') format('woff'), /* chrome、firefox */
+    url('http://pic.huodongjia.com/static/css/tb_font/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('http://pic.huodongjia.com/static/css/tb_font/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+.call_serve{
+    line-height: 17px;
+    margin: 15px 0;
+    width: 170px;
+    height: 40px;
+    background: url("http://pic.huodongjia.com/static/images/hdj_allbgs.png") no-repeat 0px -597px;
+}
+.kefu{
+    width: 96px;
+    height: 101px;
+    background: url("http://pic.huodongjia.com/static/images/hdj_allbgs.png") no-repeat 0px -456px;
+}
+.erweima{
+    width: 18px;
+    height: 18px;
+    background: url("http://pic.huodongjia.com/static/images/hdj_allbgs.png") no-repeat 0px -557px;
+}
+.wxchat,.APP_erweima{
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background: url("http://pic.huodongjia.com/static/images/hdj_allbgs.png") no-repeat 0px -19px;
+}
+.APP_erweima{
+    background: url("http://pic.huodongjia.com/static/images/hdj_allbgs.png") no-repeat 0px -260px;
+}
+.tb_font{
+    font-family: 'tb_iconfont';
+}
+.business .tb_font{
+    position: absolute;
+    top:4px;
+}
+.calendar .tb_font{
+    position: relative;
+    top:-2px;
+}
+.bdsharebuttonbox .tb_font{
+    font-size: 31px;
+    padding: 0;
+    position: relative;
+    top: 3px;
+}
+.loginBtn .tb_font{
+    font-size: 38px !important;
+}
+.bdsharebuttonbox .bds_weixin,.t_wx{
+    color: #0FCE6E !important;
+}
+.bdsharebuttonbox .bds_sqq,.t_qq{
+    color: #56ABE4 !important;
+}
+.bdsharebuttonbox .bds_tsina,.t_sina{
+    color: #EA4E35 !important;
+}
+.collect .tb_font{
+    font-size: 24px;
+}
+.share>div{
+    height: 55px !important;
+    line-height: 55px !important;
+}
+.share>.collect{
+    line-height: 50px !important;
+}

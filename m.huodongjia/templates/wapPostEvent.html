@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/head.css">
+    {% include 'seo_base.html' %}
+    <style>
+        body{
+            background: #F0F0F0;
+            margin: 0;
+            font-family: "微软雅黑";
+        }
+
+
+
+        .apply{
+            line-height: 30px;
+            font-size: 21px;position: relative;
+            top: 3px;
+        }
+        .text-center{
+            margin-top: 150px;
+            color: #666666;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        /*footer*/
+        #footer{
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            border-top: 1px solid #E2E2E2;
+            padding:10px;
+        }
+        #footer,#footer a{
+            text-align: center;
+            color: #aaaaaa;
+        }
+        #footer>ul{
+            padding: 0px;
+            display: inline-block;
+            margin: 10px auto;
+        }
+        #footer>ul>li{
+            text-align: center;
+            display: inline-block;
+            list-style: none;
+        }
+        #footer>ul>li+li{
+            margin-left: 30px;
+        }
+
+    </style>
+</head>
+<body>
+<header style="padding: 0;border: none">
+    <table>
+        <tr>
+            <td class="left"><a href="javascript:history.back(-1)">&#xe601;</a></td>
+            <td style="line-height: 45px;font-size: 18px;">活动发布</td>
+            <td class="right"><a href="/" style="font-size: 36px;">&#xe600;</a></td>
+        </tr>
+    </table>
+</header>
+<div class="text-center">
+<p>活动发布请用电脑访问</p>
+<p style="color: #2C66EB">huodongjia.com</p>
+<p>谢谢合作</p>
+</div>
+<div id="footer">
+    <ul>
+        <li class=""><a href="http://www.huodongjia.com/?mobile"><span class="fa fa-desktop"></span>电脑端</a></li>
+        <li class=""><a class="appdownload" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.dahuodong.veryevent">下载APP</a></li>
+        <li class=""><a href="/about/">关于我们</a></li>
+    </ul>
+    <p>CopyRight 活动家 huodongjia.com</p>
+</div>
+</body>
+</html>

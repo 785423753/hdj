@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block style %}
+<style>
+    .select {
+        left: 5%;
+        top: 17px;
+    }
+    table{
+        /*background: #fff;*/
+        color: #000;
+        margin: auto;
+        width: 90%;
+    }
+    table tr:first-child{
+        background: #DCE6F1 !important;
+        color: #444040;
+    }
+    table tr td{
+        text-align: center;
+        padding: 10px 20px;
+        border:1px solid #D8D6D6;
+        /*width: 5%;*/
+    }
+</style>
+{% endblock %}
+{% block right %}
+<div class='right'  style="">
+    <div class="right_bottom" style="width: 100%;margin:20px auto;padding-bottom: 15px">
+        <div class="select"><input value="{{top_orders.0.stime}}" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="start_time">至
+            <input value="{{top_orders.0.etime}}" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="end_time"><button>确定</button></div>
+        <p align="center" style="font-size: 15px;padding: 10px 20px 0;margin-top: 50px">订单量top15</p>
+        <table>
+            <tr><td></td><td>活动名称</td><td>订单金额</td><td>订单量</td></tr>
+            {% for i in top_orders.1 %}
+            <tr><td>{{forloop.counter}}</td><td>{{i.event_name}}</td><td>{{i.total_pay}}</td><td>{{i.order_amount}}</td></tr>
+            {% endfor %}
+        </table>
+        <p align="center"  style="font-size: 15px;padding: 10px 20px 0">订单额top15</p>
+        <table>
+            <tr><td></td><td>活动名称</td><td>订单金额</td><td>订单量</td></tr>
+            {% for i in top_orders.2 %}
+            <tr><td>{{forloop.counter}}</td><td>{{i.event_name}}</td><td>{{i.total_pay}}</td><td>{{i.order_amount}}</td></tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</div>
+{% endblock %}
+{% block script %}
+<script>
+    if(window.location.search){
+        var start=window.location.search.split('=')[1].split('&')[0],end=window.location.search.split('=')[2]
+        $('#start_time').val(start)
+        $('#end_time').val(end)
+    }
+    $('.select button').click(function () {
+        var start_day=$('#start_time').val(),end_day=$('#end_time').val()
+        window.location.href='/showorder/top/?start_time='+start_day+'&end_time='+end_day
+    })
+</script>
+{% endblock %}
+
+
+
+

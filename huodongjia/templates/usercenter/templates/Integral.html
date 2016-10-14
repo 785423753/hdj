@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+    <!--<script src="http://huodongjia-yun.b0.upaiyun.com/static/css/all.min.css?t=20151027.css"></script>-->
+    <link rel="stylesheet" href="/static/css/index.css"/>
+</head>
+<body id="integral">
+<div class="user">
+    <div class="userNumber">
+    {% if telephone %}
+    <p>您好，亲爱的<span>{{ telephone }}</span></p>
+    {% else %}
+    <p>您好，亲爱的{{ user.name }}</p>
+    {% endif %}
+    {#兑换#}
+    {% if exchange_status == 0 %}
+        <div class="progressBar">
+            <div class="currentProgress progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: {{ exchange_percent }}%">
+            </div>
+        </div>
+        <p>您还差<span class="userIntegral">{{exchange_d_value}}</span>分可以兑换一张门票<a href="">刷新</a></p>
+    {% elif exchange_status == 1 %}
+    <p>您可以兑换一张门票</p>
+    {% else %}
+    <p>抱歉，暂时没有礼品可以兑换</p>
+    {% endif %}
+    {#End of 兑换#}
+<div class="getIntegral">
+    <p>
+        快速获得积分:
+    </p>
+    <div class="getIntegralRule">
+            <p>1.将以下会议分享到社交平台，每分享一场可获得<span>5</span>个积分(不可重复分享哦!) <a href="">换一换</a></p>
+    {#分享以下活动送积分#}
+    {% for event in events %}
+    {# {{event.event_id}} #}
+            <div class="shareEvent">
+                <img width="198px" height="124px" src="{{event.event_img}}" alt=""/>
+                <p>{{event.event_name}}</p>
+                <p class="shareMain">分享：<i class="fa fa-weixin"></i> <i class="fa fa-weibo"></i></p>
+            </div>    
+    {% endfor %}
+    {#End of 分享以下活动送积分#}
+     <div class="shareEvent shareEventLast">
+                <img width="198px" height="124px" src="http://huodongjia-yun.b0.upaiyun.com/event/2015-10-14/event1444801067.69.jpg" alt=""/>
+
+                <p>2015航空航天数字化测量技术解决方案研讨会</p>
+
+                <p class="shareMain">分享：<i class="fa fa-weixin"></i> <i class="fa fa-weibo"></i></p>
+            </div>
+        <p>2.将你发现的有价值的会议，通过活动发布提交给我们，审核通过后可获得20个积分。去 <a href="">发布活动</a></p>
+        <p>3.通过购买会议门票获得积分，你的积分是支付会议门票金额的10%，即如果支付1000元的会议门票，可获得100个积分。</p>
+    </div>
+
+
+    {% if paid_status == 0 %}
+        {# 没有未付款订单，展示热门活动 #}
+        {% include 'uc_hotevents.html' %}
+    {% else %}
+        {# 有未付款的订单，展示需要付款的活动 #}
+        {% include 'uc_orderpay.html' %}
+    {% endif %}
+</div>
+<div class="integralExchange">
+    <h2>积分兑换门票</h2>
+    <div class="nameBottomList"></div>
+    <ul class="exchangeClass">
+        <li class="active">小型现场</li>
+        <li>演唱会</li>
+        <li>音乐会</li>
+        <li>话剧</li>
+        <li>舞蹈</li>
+        <li>儿童亲子</li>
+        <li>戏曲综艺</li>
+    </ul>
+    {#礼品展示#}
+    {% for gift in gifts %}
+    <div class="ExchangeTickets">
+        <div class="ExchangeTicketsImg">
+            <img width="198px" height="124px" src="{{ gift.pic_url }}" alt=""/>
+            <span class="t_city">厦门</span>
+            <span class="t_time">2015-10-25</span>
+        </div>
+        <p class="ExchangeTicketsName">{{ gift.name }}</p>
+        <p class="ExchangeTicketsPrice">票价：<span>￥{{ gift.price }}</span></p>
+        <p class="ExchangeTicketsNumber">所需积分：<span>{{ gift.credit }}</span> <a href="">立即兑换</a></p>
+    </div>
+    {% endfor %}
+    {#End of 礼品展示#}
+</div>
+</body>
+</html>

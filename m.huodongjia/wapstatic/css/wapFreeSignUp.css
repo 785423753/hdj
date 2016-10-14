@@ -1,0 +1,99 @@
+@font-face {
+    font-family: "myFont";
+    src: url("iconfont.ttf");
+}
+@font-face {
+    font-family: 'iconfont';
+    src: url('http://pic.huodongjia.com/static/css/mobile_icon/iconfont.eot');
+    src: url('http://pic.huodongjia.com/static/css/mobile_icon/iconfont.eot?#iefix') format('embedded-opentype'), url('http://pic.huodongjia.com/static/css/mobile_icon/iconfont.woff') format('woff'), url('http://pic.huodongjia.com/static/css/mobile_icon/iconfont.ttf') format('truetype'), url('http://pic.huodongjia.com/static/css/mobile_icon/iconfont.svg#iconfont') format('svg')
+}
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 24px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: .2px;
+    -moz-osx-font-smoothing: grayscale;
+    color: #36c;
+}
+body{
+    background: #F0F0F0;
+    font-family: "微软雅黑";
+}
+header {
+    padding:10px 15px;
+    background: #fff;
+    color: #1161AC;
+    text-align: center;
+    line-height: 1;
+}
+.myfont{
+    font-family: "myFont";
+    font-size: 2em;
+    float: left;
+    color: #36c;
+}
+.apply{
+    line-height: 1;
+    font-size: 21px;position: relative;
+    top: 3px;
+}
+.content{
+    padding: 15px;
+}
+.meeting_name {
+    color: #000;
+    font-size: 22px;
+    line-height: 1;
+}
+.addr{
+    font-size: 16px;
+    line-height: 1;
+}
+hr{
+    border: 1px solid #E5E5E5;
+    margin: 5px 0;
+}
+input{
+    width: 100%;
+    height: 50px;
+    border:none;
+    border-radius: 5px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+    margin-top: 15px;
+    padding-left: 10px;
+    font-size: 18px;
+    outline: none;
+}
+form{
+    text-align: right;
+}
+form span{
+    color: #999999;
+    line-height: 3;
+}
+.post{
+    width: 100%;
+    height: 55px;
+    background: #599BF9;
+    border: none;
+    border-radius:5px;
+    color:#fff;
+    font-size: 23px;
+}
+.tanchuang{
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: 200px;
+    z-index: 10;
+}
+.tanchuang div{
+    width: 60%;
+    height: auto;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 0 1px 1px rgba(140, 140, 140, 0.55);
+    background: #F0F0F0;
+    display: none;
+}

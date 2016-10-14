@@ -1,0 +1,996 @@
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class='container' style='margin-top:40px;'>
+		<div class='text-right' id='close_trace_order'>
+			<a href='#'>
+				<img src="http://pic.huodongjia.com/static/images/trace_order_close.png">
+			</a>
+		</div>
+		<script type="text/javascript">
+		  	$('#close_trace_order').click(function(){
+		  		$(window.parent.document).find("#trace_order_div").hide();
+		  		window.location.reload();
+		  	});
+		 </script>
+		<h1 class="bg-info">订单:<span class="order_id_for_trace_order">{{order_id}}</span>
+		<div class='btn-group' style='float:right;margin-top:3px;'>
+			<button class='btn btn-warning dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'>
+				通知财务 <span class='caret'></span>
+			</button>
+			<ul class='dropdown-menu'>
+                {% for user in financial_user%}
+                <li><a href="#" class="tell_accountant" data="{{user.userid}}">{{user.first_name}}</a></li>
+                {% endfor%}
+			</ul>
+		</div>
+		</h1>
+	</div>
+	<!-- 通知财务 -->
+	<script type="text/javascript">
+		$('.tell_accountant').each(function(){
+			$(this).click(function(){
+				var accountant_id = $(this).attr('data');
+				var order_id = $(this).parents('.container').find('.order_id_for_trace_order').text();
+				$.get('/financial/addbalance/',{accountant_id:accountant_id,order_id:order_id},function(data){
+					if(data.code==2){
+						alert('已通知');
+					}else if(data.code==1){
+						alert('成功');
+					}else{
+						alert('失败');
+					}
+					console.log(data);
+				});
+				console.log($(this).attr('data'));
+				console.log($(this).parents('.container').find('.order_id_for_trace_order').text());
+			});
+		});
+	</script>
+    <div class='container'>
+
+    	{% ifequal is_change 0 %}
+		<form action='/businesstalk/dotraceorder/{{order_id}}/' method='post' class="">
+		<!-- <form action='' method='post' class=""> -->
+			{% csrf_token%}
+			<!-- 佣金 -->
+		  <div class="form-group">
+		    <label for="exampleInputName2">有无佣金</label>
+		    <select class="form-control commission_status_chose" name="commission_status" >
+                <option value="0">无佣金</option>
+                <option value="1">有佣金</option>
+            </select>
+		  </div>
+		  <!-- 返现 -->
+		  <div class="form-group">
+		    <label for="">是否返现</label>
+		    <select class="form-control is_return_cash_chose" name="is_return_cash">
+                <option value="0">无返现</option>
+                <option value="1">有返现</option>
+            </select>
+		  </div>
+
+		  <!-- 发票 -->
+		  <div class="form-group form-inline">
+		    <label for="">是否开发票</label>
+		    <select class="form-control is_bill_select" name="is_bill">
+                <option value="0">不开发票</option>
+                <option value="1">给客户开发票</option>
+                <option value="2">给主办方开发票</option>
+            </select>
+		  </div>
+		  <!-- 添加发票信息 -->
+		  <div class='form-group container_for_add_bill_info'>
+		  	
+		  </div>
+
+		  <div class="form-group">
+		    <label for="exampleInputName2">是否本人参会</label>
+		    <select class="form-control is_onself_chose" name="is_onself">
+                <option value="1">本人参会</option>
+                <option value="0">非把本人参会</option>
+            </select>
+		  </div>
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">参会者职务</label>
+		    <input type="text" class="form-control" id="exampleInputEmail1" name='attendee_job' placeholder="请输入参会者职务">
+		  </div>
+		  <div class="form-group">
+		    <label for="exampleInputName2">是否会前咨询</label>
+		    <select class="form-control is_consult_chose" name="is_consult">
+                <option value="0">未咨询</option>
+                <option value="1">电话400咨询</option>
+            </select>
+		  </div>
+		  <div class="form-group">
+		    <label for="exampleInputName2">是否回访</label>
+		    <select class="form-control is_visit_chose" name="is_visit">
+                <option value="0">未回访</option>
+                <option value="1">已回访</option>
+            </select>
+		  </div>
+		  <input class="form-control" type="hidden" id="bill_info_for_balance_bill" name="bill_info_json"/>
+		  <button type="submit" class="btn btn-info" style='width:100%;' id="btn_submit_for_traceorder">确定</button>
+		  <button id='close' type="button" class="btn btn-danger" style='width:100%;'>关闭</button> 
+		  <script type="text/javascript">
+		  	$('#close').click(function(){
+		  		$(window.parent.document).find("#trace_order_div").hide();
+		  		window.location.reload();
+		  	});
+		  </script>
+		</form>
+		<!-- 佣金信息 -->
+		<div style='margin-top:10px;display:none;' id='div_for_commission_status'>
+		  <div class='form-group'>
+		  		<input type='text' class='form-control' placeholder='请输入佣金' name='commission' value='{{commission}}' />
+		  </div>
+
+		  <div class='form-group'>
+		    <label for=''>佣金结算状态</label>
+		    <select class='form-control commission_pay_status_chose' name='commission_pay_status'>
+		    	<option value='0'>会后结算</option>
+	            <option value='1'>已结算</option>
+	        </select>
+		  </div>
+	  	</div>
+	  	<!-- 有反现的子选项 -->
+	  	<div style='margin-top:10px;display:none;' id='div_for_is_return_cash'>
+			  <div class='form-group'>
+			  		<input type='text' class='form-control' placeholder='请输入返现金额' name='return_cash' value="{{order_data.order_return_cash}}"/>
+			  </div>
+
+			  <div class="form-group">
+			    <label for="">返现状态</label>
+			    <select class="form-control is_return_cash_select" name="return_cash_pay_status">
+			    	<option value="0">会后结算</option>
+			    	<option value="1">已结算</option>
+	            </select>
+			  </div>
+		</div>
+		<!-- 是否有发票的子选项 -->
+		<select style='display:none;' class="form-control is_bill_note_chose" id='is_bill_note_chose' name="is_bill_note_chose">
+            <option value="0">主办方不给我们开发票</option>
+            <option value="1">主办方会给我们开发票</option>
+        </select>
+        <!-- 添加发票信息 -->
+        <!-- 给客户开发票主办方不给我们开发票 -->
+        <table class='table' id="tbl_add_bill_info_01" style="display:none;">
+	  		<thead>
+		  		<tr>
+		  			<th>开发票方</th>
+		  			<th>收发票方</th>
+		  			<th>发票金额</th>
+		  			<th>发票抬头</th>
+		  			<th>备注信息</th>
+		  			<th>操作</th>
+		  		</tr>
+	  		</thead>
+	  		<tbody>
+	  			<tr>
+	  				<td>
+	  					<select class="form-control" name="bill_from">
+	  						<option value='0'>云数海量</option>
+	  						<option value='1'>主办方</option>
+	  					</select>
+	  				</td>
+	  				<td>
+	  					<select class="form-control" name="bill_to">
+	  						<option value='0'>客户</option>
+	  						<option value='1'>主办方</option>
+	  					</select>
+	  				</td>
+	  				<td>
+	  					<!-- 发票金额 -->
+	  					<input class="form-control" type="text" value="{{order_data.order_totalpay}}" name="bill_money"/>
+	  				</td>
+	  				<td>
+	  					<!-- 发票抬头 -->
+	  					<input class="form-control" type="text" value="{{order_data.order_text}}" name="bill_header"/>
+	  				</td>
+	  				<td>
+	  					<input class="form-control" type="text" name="bill_remark"/>
+	  				</td>
+	  				<td>
+	  					<label style='' class='label_bill_status' id=''>
+				          <input type="checkbox" class='bill_status'  name='bill_status'>已给客户开发票
+				        </label>
+	  				</td>
+	  			</tr>
+	  		</tbody>
+	  	</table>
+	  	<!-- 给客户开发票主办方要给我们开发票 -->
+        <table class='table' id="tbl_add_bill_info_02" style="display:none;">
+	  		<thead>
+		  		<tr>
+		  			<th>开发票方</th>
+		  			<th>收发票方</th>
+		  			<th>发票金额</th>
+		  			<th>发票抬头</th>
+		  			<th>备注信息</th>
+		  			<th>操作</th>
+		  		</tr>
+	  		</thead>
+	  		<tbody>
+	  			<tr>
+	  				<td>
+	  					<select class="form-control" name="bill_from">
+	  						<option value='0'>云数海量</option>
+	  						<option value='1'>主办方</option>
+	  					</select>
+	  				</td>
+	  				<td>
+	  					<select class="form-control" name="bill_to">
+	  						<option value='0'>客户</option>
+	  						<option value='1'>主办方</option>
+	  					</select>
+	  				</td>
+	  				<td>
+	  					<!-- 发票金额 -->
+	  					<input class="form-control" type="text" value="{{order_data.order_totalpay}}" name="bill_money"/>
+	  				</td>
+	  				<td>
+	  					<!-- 发票抬头 -->
+	  					<input class="form-control" type="text" value="{{order_data.order_text}}" name="bill_header"/>
+	  				</td>
+	  				<td>
+	  					<input class="form-control" type="text" name="bill_remark"/>
+	  				</td>
+	  				<td>
+	  					<label style='' class='label_bill_status' id=''>
+				          <input type="checkbox" class='bill_status' name='bill_status'>已给客户开发票
+				        </label>
+	  				</td>
+	  			</tr>
+	  			<tr>
+	  				<td>
+	  					<select class="form-control" name="bill_from">
+	  						<option value='1'>主办方</option>
+	  						<option value='0'>云数海量</option>
+	  					</select>
+	  				</td>
+	  				<td>
+	  					<select class="form-control" name="bill_to">
+	  						<option value='0'>云数海量</option>
+	  						<option value='1'>客户</option>
+	  					</select>
+	  				</td>
+	  				<td>
+	  					<input class="form-control" type="text" name="bill_money"/>
+	  				</td>
+	  				<td>
+	  					<input class="form-control" type="text" name="bill_header"/>
+	  				</td>
+	  				<td>
+	  					<input class="form-control" type="text" name="bill_remark"/>
+	  				</td>
+	  				<td>
+	  					<label style='' class='label_bill_status' id='label_bill_status'>
+				          <input type="checkbox" class='bill_status' name='bill_status'>已收到主办方发票
+				        </label>
+	  				</td>
+	  			</tr>
+	  		</tbody>
+	  	</table>
+        
+        <!-- 给主办方开发票 -->
+        <table class='table' id="tbl_add_bill_info_03" style="display:none;">
+	  		<thead>
+		  		<tr>
+		  			<th>开发票方</th>
+		  			<th>收发票方</th>
+		  			<th>发票金额</th>
+		  			<th>发票抬头</th>
+		  			<th>备注信息</th>
+		  			<th>操作</th>
+		  		</tr>
+	  		</thead>
+	  		<tbody>
+	  			<tr>
+	  				<td>
+	  					<select class="form-control" name="bill_from">
+	  						<option value='0'>云数海量</option>
+	  						<option value='1'>主办方</option>
+	  					</select>
+	  				</td>
+	  				<td>
+	  					<select class="form-control" name="bill_to">
+	  						<option value='1'>主办方</option>
+	  						<option value='0'>客户</option>
+	  						
+	  					</select>
+	  				</td>
+	  				<td>
+	  					<input class="form-control" type="text" name="bill_money"/>
+	  				</td>
+	  				<td>
+	  					<input class="form-control" type="text" name="bill_header"/>
+	  				</td>
+	  				<td>
+	  					<input class="form-control" type="text" name="bill_remark"/>
+	  				</td>
+	  				<td>
+	  					<label style='' class='label_bill_status' id=''>
+				          <input type="checkbox" class='bill_status' name='bill_status'>已给主办方开发票
+				        </label>
+	  				</td>
+	  			</tr>
+	  		</tbody>
+	  	</table>
+
+	  	<script type="text/javascript">
+	  		//是否有佣金
+	  		$('.commission_status_chose').change(function(){
+				if($(this).val()==0){
+					$('.commission_status_chose').next().remove();
+				}else{
+					$('.commission_status_chose').after($('#div_for_commission_status').prop('outerHTML'));
+					$('.commission_status_chose').next().show();
+				}
+			});
+			
+			//是否有反现
+			$('.is_return_cash_chose').change(function(){
+				if($(this).val()==0){
+					$('.is_return_cash_chose').next('#div_for_is_return_cash').remove();
+				}else{
+					$('.is_return_cash_chose').after($('#div_for_is_return_cash').prop('outerHTML'));
+					$('.is_return_cash_chose').next().show();
+				}
+			});
+			// 根据订单有无反现来决定要不要显示反现选项
+			if({{order_data.order_return_cash}}!=null){
+        		$('.is_return_cash_chose').find('option[value=1]').attr('selected','selected');
+        		$('.is_return_cash_chose').after($('#div_for_is_return_cash').prop('outerHTML'));
+				$('.is_return_cash_chose').next().show();
+	        }
+			
+			//是否要开发票
+			$('.is_bill_select').change(function(){
+				// 点击不开发票
+				if($(this).val()==0){
+					// 隐藏不开发票补充明选项
+					$('.is_bill_select').next('#is_bill_note_chose').remove();
+					// 隐藏添加发票表格
+					$(".container_for_add_bill_info").html("");
+				// 选择给客户开发票
+				}else if($(this).val()==1){
+					// 默认主办方不给我们开发票
+					$(".container_for_add_bill_info").html("");
+					$('.is_bill_select').after($("#is_bill_note_chose").prop("outerHTML"));
+					$(".is_bill_select").next("#is_bill_note_chose").show();
+					$(".container_for_add_bill_info").append($("#tbl_add_bill_info_01").prop("outerHTML"));
+					$('.container_for_add_bill_info').find('#tbl_add_bill_info_01').show();
+					// 如果选择了主办要要给我们开发票
+					$(".is_bill_note_chose").change(function(){
+						if($(this).val()==1){
+							$(".container_for_add_bill_info").html("");
+							$(".container_for_add_bill_info").append($("#tbl_add_bill_info_02").prop("outerHTML"));
+							$('.container_for_add_bill_info').find('#tbl_add_bill_info_02').show();
+						}else if($(this).val()==0){
+							$(".container_for_add_bill_info").html("");
+							$(".container_for_add_bill_info").append($("#tbl_add_bill_info_01").prop("outerHTML"));
+							$('.container_for_add_bill_info').find('#tbl_add_bill_info_01').show();
+						}
+					});
+				// 选择给主办方开发票
+				}else{
+					$(".container_for_add_bill_info").html("");
+					$('.is_bill_select').next('#is_bill_note_chose').remove();
+					$(".container_for_add_bill_info").append($("#tbl_add_bill_info_03").prop("outerHTML"));
+					$('.container_for_add_bill_info').find('#tbl_add_bill_info_03').show();
+					
+				}
+			});
+		// 点击确定前先组装数据
+		$("#btn_submit_for_traceorder").click(function(){
+			var json_bill_info = {}
+			var bill_info_arr = [];
+			$(".container_for_add_bill_info tbody").find("tr").each(function(index){
+				var mid_bill_info = {}
+				var bill_from = $(this).find('select[name=bill_from]').val();
+				var bill_to = $(this).find('select[name=bill_to]').val();
+				var bill_money = $(this).find('input[name=bill_money]').val();
+				var bill_header  = $(this).find('input[name=bill_header]').val();
+				var bill_remark = $(this).find('input[name=bill_remark]').val();
+				var bill_status = $(this).find('input[type=checkbox]').is(':checked');
+				if(bill_status==true){
+					bill_status = 1
+				}else{
+					bill_status = 0
+				}
+				mid_bill_info["bill_from"] = bill_from;
+				mid_bill_info["bill_to"] = bill_to;
+				mid_bill_info["bill_money"] = bill_money;
+				mid_bill_info["bill_header"] = bill_header;
+				mid_bill_info["bill_remark"] = bill_remark;
+				mid_bill_info["bill_status"] = bill_status;
+				
+				bill_info_arr.push(mid_bill_info);
+			});
+			json_bill_info["bill_arr"] = bill_info_arr;
+			console.log(JSON.stringify(json_bill_info));
+			$("#bill_info_for_balance_bill").val(JSON.stringify(json_bill_info));
+			
+		});
+	  	</script>
+
+	{% else %}
+		<form action='/businesstalk/dotraceorder/{{order_id}}/' method='post' class="">
+		<!-- <form action='' method='post' class=""> -->
+			{% csrf_token%}
+			<!-- 佣金 -->
+		  <div class="form-group">
+		    <label for="">有无佣金</label>
+		    <select class="form-control commission_status_chose" name="commission_status" >
+                <option value="0">无佣金</option>
+                <option value="1">有佣金</option>
+            </select>
+		  </div>
+		  <!-- 返现 -->
+		  <div class="form-group">
+		    <label for="">是否返现</label>
+		    <select class="form-control is_return_cash_chose" name="is_return_cash">
+                <option value="0">无返现</option>
+                <option value="1">有返现</option>
+            </select>
+		  </div>
+
+		  <!-- 发票 -->
+		  <div class="form-group form-inline">
+		    <label for="">是否开发票</label>
+		    <select class="form-control is_bill_select" name="is_bill">
+                <option value="0">不开发票</option>
+                <option value="1">给客户开发票</option>
+                <option value="2">给主办方开发票</option>
+            </select>
+		  </div>
+		  <!-- 添加发票信息 -->
+		  <div class='form-group container_for_add_bill_info'>
+		  	
+		  </div>
+
+		  <div class="form-group">
+		    <label for="exampleInputName2">是否本人参会</label>
+		    <select class="form-control is_onself_chose" name="is_onself">
+                <option value="1">本人参会</option>
+                <option value="0">非把本人参会</option>
+            </select>
+		  </div>
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">参会者职务</label>
+		    <input type="text" class="form-control" id="attendee_job_input" name='attendee_job' value="{{attendee_job}}" placeholder="请输入参会者职务">
+		  </div>
+		  <div class="form-group">
+		    <label for="exampleInputName2">是否会前咨询</label>
+		    <select class="form-control is_consult_chose" name="is_consult">
+                <option value="0">未咨询</option>
+                <option value="1">电话400咨询</option>
+            </select>
+		  </div>
+		  <div class="form-group">
+		    <label for="exampleInputName2">是否回访</label>
+		    <select class="form-control is_visit_chose" name="is_visit">
+                <option value="0">未回访</option>
+                <option value="1">已回访</option>
+            </select>
+		  </div>
+		  <input class="form-control" type="hidden" id="bill_info_for_balance_bill" name="bill_info_json"/>
+		  <button type="submit" class="btn btn-info" style='width:100%;' id="btn_submit_for_traceorder">确定</button>
+		  <button id='close' type="button" class="btn btn-danger" style='width:100%;'>关闭</button> 
+		  <script type="text/javascript">
+		  	$('#close').click(function(){
+		  		$(window.parent.document).find("#trace_order_div").hide();
+		  	});
+		  </script>
+		</form>
+		<!-- 佣金信息 -->
+		<div style='margin-top:10px;display:none;' id='div_for_commission_status'>
+		  <div class='form-group'>
+		  		<input type='text' class='form-control' placeholder='请输入佣金' name='commission' value='{{commission}}' />
+		  </div>
+
+		  <div class='form-group'>
+		    <label for=''>佣金结算状态</label>
+		    <select class='form-control commission_pay_status_chose' name='commission_pay_status'>
+		    	<option value='0'>会后结算</option>
+	            <option value='1'>已结算</option>
+	        </select>
+		  </div>
+	  	</div>
+	  	<!-- 有反现的子选项 -->
+	  	<div style='margin-top:10px;display:none;' id='div_for_is_return_cash'>
+			  <div class='form-group'>
+			  		<input type='text' class='form-control' placeholder='请输入返现金额' name='return_cash' value="{{return_cash}}"/>
+			  </div>
+
+			  <div class="form-group">
+			    <label for="">返现状态</label>
+			    <select class="form-control is_return_cash_select" name="return_cash_pay_status">
+			    	<option value="0">会后结算</option>
+			    	<option value="1">已结算</option>
+	            </select>
+			  </div>
+		</div>
+		<!-- 是否有发票的子选项 -->
+		<select style='display:none;' class="form-control is_bill_note_chose" id='is_bill_note_chose' name="is_bill_note_chose">
+            <option value="0">主办方不给我们开发票</option>
+            <option value="1">主办方会给我们开发票</option>
+        </select>
+        <!-- 添加发票信息 -->
+        <!-- 给客户开发票主办方不给我们开发票 -->
+        <table class='table' id="tbl_add_bill_info_01" style="display:none;">
+	  		<thead>
+		  		<tr>
+		  			<th>开发票方</th>
+		  			<th>收发票方</th>
+		  			<th>发票金额</th>
+		  			<th>发票抬头</th>
+		  			<th>备注信息</th>
+		  			<th>操作</th>
+		  		</tr>
+	  		</thead>
+	  		<tbody>
+	  			{% if financial_bill_data %}
+	  			{%for bill in financial_bill_data%}
+		  			<tr>
+		  				<td>
+		  					<select class="form-control" name="bill_from">
+		  						<option value='0'>云数海量</option>
+		  						<option value='1'>主办方</option>
+		  					</select>
+		  				</td>
+		  				<td>
+		  					<select class="form-control" name="bill_to">
+		  						<option value='0'>客户</option>
+		  						<option value='1'>主办方</option>
+		  					</select>
+		  				</td>
+		  				<td>
+		  					<!-- 发票金额 -->
+		  					<input class="form-control" type="text" value="{{bill.bill_money}}" name="bill_money"/>
+		  				</td>
+		  				<td>
+		  					<!-- 发票抬头 -->
+		  					<input class="form-control" type="text" value="{{bill.bill_header}}" name="bill_header"/>
+		  				</td>
+		  				<td>
+		  					<input class="form-control" type="text" name="bill_remark" value="{{bill.bill_remark}}"/>
+		  				</td>
+		  				<td>
+		  					<label style='' class='label_bill_status' id=''>
+					          <input type="checkbox" class='bill_status' id="finacial_bill_status_for_init"  name='bill_status' >已给客户开发票
+					        </label>
+					        <script type="text/javascript">
+					        	if({{bill.bill_status}}==1){
+					        		$('#finacial_bill_status_for_init').attr('checked',true);
+					        	}
+					        </script>
+		  				</td>
+		  			</tr>
+		  		{%endfor%}
+	  			{%else%}
+	  			<tr>
+	  				<td>
+	  					<select class="form-control" name="bill_from">
+	  						<option value='0'>云数海量</option>
+	  						<option value='1'>主办方</option>
+	  					</select>
+	  				</td>
+	  				<td>
+	  					<select class="form-control" name="bill_to">
+	  						<option value='0'>客户</option>
+	  						<option value='1'>主办方</option>
+	  					</select>
+	  				</td>
+	  				<td>
+	  					<!-- 发票金额 -->
+	  					<input class="form-control" type="text" value="{{order_data.order_totalpay}}" name="bill_money"/>
+	  				</td>
+	  				<td>
+	  					<!-- 发票抬头 -->
+	  					<input class="form-control" type="text" value="{{order_data.order_text}}" name="bill_header"/>
+	  				</td>
+	  				<td>
+	  					<input class="form-control" type="text" name="bill_remark"/>
+	  				</td>
+	  				<td>
+	  					<label style='' class='label_bill_status' id=''>
+				          <input type="checkbox" class='bill_status'  name='bill_status'>已给客户开发票
+				        </label>
+	  				</td>
+	  			</tr>
+	  			{% endif %}
+
+	  		</tbody>
+	  	</table>
+	  	<!-- 给客户开发票主办方要给我们开发票 -->
+        <table class='table' id="tbl_add_bill_info_02" style="display:none;">
+	  		<thead>
+		  		<tr>
+		  			<th>开发票方</th>
+		  			<th>收发票方</th>
+		  			<th>发票金额</th>
+		  			<th>发票抬头</th>
+		  			<th>备注信息</th>
+		  			<th>操作</th>
+		  		</tr>
+	  		</thead>
+	  		<tbody>
+	  			{% if financial_bill_data %}
+	  				{% for bill in financial_bill_data %}
+	  				<tr>
+		  				<td>
+		  					<select class="form-control" name="bill_from">
+		  						<option value='0'>云数海量</option>
+		  						<option value='1'>主办方</option>
+		  					</select>
+		  				</td>
+		  				<td>
+		  					<select class="form-control" name="bill_to">
+		  						<option value='0'>客户</option>
+		  						<option value='1'>主办方</option>
+		  					</select>
+		  				</td>
+		  				<td>
+		  					<!-- 发票金额 -->
+		  					<input class="form-control" type="text" value="{{bill.bill_money}}" name="bill_money"/>
+		  				</td>
+		  				<td>
+		  					<!-- 发票抬头 -->
+		  					<input class="form-control" type="text" value="{{bill.bill_header}}" name="bill_header"/>
+		  				</td>
+		  				<td>
+		  					<input class="form-control" type="text" name="bill_remark" value="{{bill.bill_remark}}"/>
+		  				</td>
+		  				<td>
+		  					<label style='' class='label_bill_status' id=''>
+					          <input type="checkbox" class='bill_status' id="finacial_bill_status_for_init"  name='bill_status' >已给客户开发票
+					        </label>
+					        <script type="text/javascript">
+					        	if({{bill.bill_status}}==1){
+					        		$('#finacial_bill_status_for_init').attr('checked',true);
+					        	}
+					        </script>
+		  				</td>
+		  			</tr>
+	  				{%endfor%}
+		  			<tr>
+		  				<td>
+		  					<select class="form-control" name="bill_from">
+		  						<option value='1'>主办方</option>
+		  						<option value='0'>云数海量</option>
+		  					</select>
+		  				</td>
+		  				<td>
+		  					<select class="form-control" name="bill_to">
+		  						<option value='0'>云数海量</option>
+		  						<option value='1'>客户</option>
+		  					</select>
+		  				</td>
+		  				<td>
+		  					<input class="form-control" type="text" name="bill_money"/>
+		  				</td>
+		  				<td>
+		  					<input class="form-control" type="text" name="bill_header"/>
+		  				</td>
+		  				<td>
+		  					<input class="form-control" type="text" name="bill_remark"/>
+		  				</td>
+		  				<td>
+		  					<label style='' class='label_bill_status' id='label_bill_status'>
+					          <input type="checkbox" class='bill_status' id='finacial_bill_status_for_init' name='bill_status'>已收到主办方发票
+					        </label>
+		  				</td>
+		  			</tr>
+	  			{%else%}
+	  			<tr>
+	  				<td>
+	  					<select class="form-control" name="bill_from">
+	  						<option value='0'>云数海量</option>
+	  						<option value='1'>主办方</option>
+	  					</select>
+	  				</td>
+	  				<td>
+	  					<select class="form-control" name="bill_to">
+	  						<option value='0'>客户</option>
+	  						<option value='1'>主办方</option>
+	  					</select>
+	  				</td>
+	  				<td>
+	  					<!-- 发票金额 -->
+	  					<input class="form-control" type="text" value="{{order_data.order_totalpay}}" name="bill_money"/>
+	  				</td>
+	  				<td>
+	  					<!-- 发票抬头 -->
+	  					<input class="form-control" type="text" value="{{order_data.order_text}}" name="bill_header"/>
+	  				</td>
+	  				<td>
+	  					<input class="form-control" type="text" name="bill_remark"/>
+	  				</td>
+	  				<td>
+	  					<label style='' class='label_bill_status' id=''>
+				          <input type="checkbox" class='bill_status' name='bill_status'>已给客户开发票
+				        </label>
+	  				</td>
+	  			</tr>
+	  			<tr>
+	  				<td>
+	  					<select class="form-control" name="bill_from">
+	  						<option value='1'>主办方</option>
+	  						<option value='0'>云数海量</option>
+	  					</select>
+	  				</td>
+	  				<td>
+	  					<select class="form-control" name="bill_to">
+	  						<option value='0'>云数海量</option>
+	  						<option value='1'>客户</option>
+	  					</select>
+	  				</td>
+	  				<td>
+	  					<input class="form-control" type="text" name="bill_money"/>
+	  				</td>
+	  				<td>
+	  					<input class="form-control" type="text" name="bill_header"/>
+	  				</td>
+	  				<td>
+	  					<input class="form-control" type="text" name="bill_remark"/>
+	  				</td>
+	  				<td>
+	  					<label style='' class='label_bill_status' id='label_bill_status'>
+				          <input type="checkbox" class='bill_status' id='finacial_bill_status_for_init' name='bill_status'>已收到主办方发票
+				        </label>
+	  				</td>
+	  			</tr>
+	  			{% endif%}
+	  		</tbody>
+	  	</table>
+        
+        <!-- 给主办方开发票 -->
+        <table class='table' id="tbl_add_bill_info_03" style="display:none;">
+	  		<thead>
+		  		<tr>
+		  			<th>开发票方</th>
+		  			<th>收发票方</th>
+		  			<th>发票金额</th>
+		  			<th>发票抬头</th>
+		  			<th>备注信息</th>
+		  			<th>操作</th>
+		  		</tr>
+	  		</thead>
+	  		<tbody>
+	  			{% if financial_bill_data %}
+	  				{%for bill in financial_bill_data%}
+	  					<tr>
+			  				<td>
+			  					<select class="form-control" name="bill_from">
+			  						<option value='0'>云数海量</option>
+			  						<option value='1'>主办方</option>
+			  					</select>
+			  				</td>
+			  				<td>
+			  					<select class="form-control" name="bill_to">
+			  						<option value='1'>主办方</option>
+			  						<option value='0'>客户</option>
+			  						
+			  					</select>
+			  				</td>
+			  				<td>
+			  					<input class="form-control" type="text" name="bill_money" value="{{bill.bill_money}}"/>
+			  				</td>
+			  				<td>
+			  					<input class="form-control" type="text" name="bill_header" value="{{bill.bill_header}}"/>
+			  				</td>
+			  				<td>
+			  					<input class="form-control" type="text" name="bill_remark" value="{{bill.bill_remark}}"/>
+			  				</td>
+			  				<td>
+			  					<label style='' class='label_bill_status' id=''>
+						          <input type="checkbox" class='bill_status' name='bill_status'>已给主办方开发票
+						        </label>
+			  				</td>
+			  			</tr>
+	  				{%endfor%}
+
+	  			{%else%}
+	  			<tr>
+	  				<td>
+	  					<select class="form-control" name="bill_from">
+	  						<option value='0'>云数海量</option>
+	  						<option value='1'>主办方</option>
+	  					</select>
+	  				</td>
+	  				<td>
+	  					<select class="form-control" name="bill_to">
+	  						<option value='1'>主办方</option>
+	  						<option value='0'>客户</option>
+	  						
+	  					</select>
+	  				</td>
+	  				<td>
+	  					<input class="form-control" type="text" name="bill_money"/>
+	  				</td>
+	  				<td>
+	  					<input class="form-control" type="text" name="bill_header"/>
+	  				</td>
+	  				<td>
+	  					<input class="form-control" type="text" name="bill_remark"/>
+	  				</td>
+	  				<td>
+	  					<label style='' class='label_bill_status' id=''>
+				          <input type="checkbox" class='bill_status' name='bill_status'>已给主办方开发票
+				        </label>
+	  				</td>
+	  			</tr>
+	  			{%endif%}
+	  		</tbody>
+	  	</table>
+
+	  	<script type="text/javascript">
+	  		//初始化表单数据
+	  		//初始化佣金数据
+	  		if({{commission_status}}==1){
+	  			$(".commission_status_chose").find('option[value=1]').attr('selected','selected');
+	  			$(".commission_status_chose").after($("#div_for_commission_status").prop('outerHTML'));
+	  			$(".commission_status_chose").next("#div_for_commission_status").show();
+	  		}
+	  		//初始化反现数据
+	  		if({{is_return_cash}}==1){
+	  			$(".is_return_cash_chose").find('option[value=1]').attr('selected','selected');
+	  			$(".is_return_cash_chose").after($("#div_for_is_return_cash").prop('outerHTML'));
+	  			$(".is_return_cash_chose").next("#div_for_is_return_cash").show();
+	  		}
+	  		// 初始化是否有发票
+
+	  		if({{is_bill}}==1){
+	  			$('.is_bill_select').find('option[value=1]').attr('selected','selectedelse if(){}');	
+	  		}else if({{is_bill}}==2){
+	  			$('.is_bill_select').find('option[value=2]').attr('selected','selectedelse if(){}');
+	  		}
+
+	  		//初始化发票数据
+	  		if({{is_bill}}==1&&{{is_bill_sponsor_to_me}}==0){
+				$(".container_for_add_bill_info").html("");
+				$('.is_bill_select').after($("#is_bill_note_chose").prop("outerHTML"));
+				$(".is_bill_select").next("#is_bill_note_chose").show();
+				$(".container_for_add_bill_info").append($("#tbl_add_bill_info_01").prop("outerHTML"));
+				$(".container_for_add_bill_info").find("#tbl_add_bill_info_01").show();
+	  		}else if({{is_bill}}==1&&{{is_bill_sponsor_to_me}}==1){
+	  			$(".container_for_add_bill_info").html("");
+				$('.is_bill_select').after($("#is_bill_note_chose").prop("outerHTML"));
+				$(".is_bill_select").next("#is_bill_note_chose").show();
+				$(".container_for_add_bill_info").append($("#tbl_add_bill_info_02").prop("outerHTML"));
+				$(".container_for_add_bill_info").find("#tbl_add_bill_info_02").show();
+				//给客户开发票
+				// 如果选择了主办要要给我们开发票
+				$(".is_bill_note_chose").change(function(){
+					if($(this).val()==1){
+						$(".container_for_add_bill_info").html("");
+						$(".container_for_add_bill_info").append($("#tbl_add_bill_info_02").prop("outerHTML"));
+						$(".container_for_add_bill_info").find("#tbl_add_bill_info_02").show();
+					}else if($(this).val()==0){
+						$(".container_for_add_bill_info").html("");
+						$(".container_for_add_bill_info").append($("#tbl_add_bill_info_01").prop("outerHTML"));
+						$(".container_for_add_bill_info").find("#tbl_add_bill_info_01").show();
+					}
+				});
+	  		}else if({{is_bill}}==2){
+	  			$(".container_for_add_bill_info").html("");
+				$(".container_for_add_bill_info").append($("#tbl_add_bill_info_03").prop("outerHTML"));
+				$(".container_for_add_bill_info").find("#tbl_add_bill_info_03").show();
+	  		}
+	  		//初始化是否本人参会
+	  		if({{is_onself}}==1){
+	  			$(".is_onself_chose").find('option[value=1]').attr('selected','selected');
+	  		}
+	  		// 初始化参会者职务
+
+	  		// 初始化是否会前咨询
+	  		if({{is_consult}}==1){
+	  			$('.is_consult_chose').find('option[value=1]').attr('selected','selected');
+	  		}
+	  		// 初始化是否回访
+	  		if({{is_visit}}==1){
+	  			$('.is_visit_chose').find('option[value=1]').attr('selected','selected');
+	  		}
+
+	  		//初始化表单数据结束
+
+
+	  		//是否有佣金
+	  		$('.commission_status_chose').change(function(){
+
+				if($(this).val()==0){
+					$('.commission_status_chose').next().remove();
+				}else{
+					$('.commission_status_chose').after($('#div_for_commission_status').prop('outerHTML'));
+					$('.commission_status_chose').next().show();
+				}
+			});
+			
+			//是否有反现
+			$('.is_return_cash_chose').change(function(){
+				if($(this).val()==0){
+					$('.is_return_cash_chose').next('#div_for_is_return_cash').remove();
+				}else{
+					$('.is_return_cash_chose').after($('#div_for_is_return_cash').prop('outerHTML'));
+					$('.is_return_cash_chose').next().show();
+				}
+			});
+			
+			//是否要开发票
+			$('.is_bill_select').change(function(){
+				// 点击不开发票
+				if($(this).val()==0){
+					// 隐藏不开发票补充明选项
+					$('.is_bill_select').next('#is_bill_note_chose').remove();
+					// 隐藏添加发票表格
+					$(".container_for_add_bill_info").html("");
+				// 选择给客户开发票
+				}else if($(this).val()==1){
+					// 默认主办方不给我们开发票
+					$(".is_bill_select").next("#is_bill_note_chose").remove();
+					$(".container_for_add_bill_info").html("");
+					$('.is_bill_select').after($("#is_bill_note_chose").prop("outerHTML"));
+					$(".is_bill_select").next("#is_bill_note_chose").show();
+					$(".container_for_add_bill_info").append($("#tbl_add_bill_info_01").prop("outerHTML"));
+					// 如果选择了主办要要给我们开发票
+					$(".is_bill_note_chose").change(function(){
+						if($(this).val()==1){
+							$(".container_for_add_bill_info").html("");
+							$(".container_for_add_bill_info").append($("#tbl_add_bill_info_02").prop("outerHTML"));
+						}else if($(this).val()==0){
+							$(".container_for_add_bill_info").html("");
+							$(".container_for_add_bill_info").append($("#tbl_add_bill_info_01").prop("outerHTML"));
+						}
+					});
+				// 选择给主办方开发票
+				}else{
+					$(".container_for_add_bill_info").html("");
+					$('.is_bill_select').next('#is_bill_note_chose').remove();
+					$(".container_for_add_bill_info").append($("#tbl_add_bill_info_03").prop("outerHTML"));
+					
+				}
+			});
+		// 点击确定前先组装数据
+		$("#btn_submit_for_traceorder").click(function(){
+			var json_bill_info = {}
+			var bill_info_arr = [];
+			$(".container_for_add_bill_info tbody").find("tr").each(function(index){
+				var mid_bill_info = {}
+				var bill_from = $(this).find('select[name=bill_from]').val();
+				var bill_to = $(this).find('select[name=bill_to]').val();
+				var bill_money = $(this).find('input[name=bill_money]').val();
+				var bill_header  = $(this).find('input[name=bill_header]').val();
+				var bill_remark = $(this).find('input[name=bill_remark]').val();
+				var bill_status = $(this).find('input[type=checkbox]').is(':checked');
+				if(bill_status==true){
+					bill_status = 1
+				}else{
+					bill_status = 0
+				}
+				mid_bill_info["bill_from"] = bill_from;
+				mid_bill_info["bill_to"] = bill_to;
+				mid_bill_info["bill_money"] = bill_money;
+				mid_bill_info["bill_header"] = bill_header;
+				mid_bill_info["bill_remark"] = bill_remark;
+				mid_bill_info["bill_status"] = bill_status;
+				
+				bill_info_arr.push(mid_bill_info);
+			});
+			json_bill_info["bill_arr"] = bill_info_arr;
+			console.log(JSON.stringify(json_bill_info));
+			$("#bill_info_for_balance_bill").val(JSON.stringify(json_bill_info));
+			
+		});
+	  	</script>
+
+    {% endifequal %}
+    </div>
+</body>
+</html>

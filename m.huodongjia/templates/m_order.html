@@ -1,0 +1,83 @@
+{% extends "m_model.html" %}
+{% block meta %}
+<title>活动家-亚洲最大的活动网聚合平台</title>
+<meta name="description" content="活动家，亚洲最大的活动网聚合平台，为您提供海量会议,公开课,会展,极限运动,当地体验,夜生活,演出折扣票,同城活动查询,特色旅游，门票预订,报名,参加活动,请上活动家手机站！服务热线:400-003-3879" />
+<meta name="keywords" content="活动,活动网,线下活动,会议网,同城活动" />
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="http://m.huodongjia.com/weixin/weixin_self.php"></script>
+{% endblock %}
+{% block container %}
+<section class="col-sm-12 col-xs-12 details_con">
+    {% block header %}
+    <header class="col-sm-12 col-xs-12" style="padding:0">
+        <a href="javascript:history.go(-1)" class="back"><i class="iconfont">&#xf006b;</i></a>
+        <h1 style="padding:0;margin-left:0;font-size:1.3em" class="header_list">订单信息</h1>
+    </header>
+    {% endblock %}
+    <section class="col-sm-12 col-xs-12 order_info">
+            <p><a class="pic-opa-title" id="pic-opa-titles" href="{{event.event_url}}" target="_blank" style="color:#000;">{{event.event_name}}</a></p>
+            <p>购买数量: <span style="color:#7d7b7b;">{{ ticketNum }}张</span></p>
+            <p>总金额: <span style="color:#7d7b7b;">{{price_total}}RMB</span></p>
+            <p>返现金额:<span style="color:#7d7b7b;">￥{{return_pri_total}}</span></p>
+    </section>
+    <section class="col-sm-12 col-xs-12 people_info">
+        <form action="/submitorder/" method="post"  class="indent_submit">
+        <!-- 表单 -->
+        <div class="form_div">
+            <h3 class="info">联系人信息</h3>
+        </div>
+        <div class="form_div">
+            <label for="name"><span class="mustFill">∗</span>&nbsp;联&nbsp; 系&nbsp; 人:</label>
+            <input class="user_name form-control" id="name" name="name" type="text" data-judge="false">
+        </div>
+        <div class="form_div">
+            <label for="mobilphone"><span class="mustFill">∗</span>&nbsp;联系电话:</label>
+            <input type="text" name="mobilphone" id="mobilphone" class="mobilphone form-control"><a class="TestGetCode">获取验证码</a>
+        </div>
+        <div class="form_div">
+            <label for="captcha"><span class="mustFill">∗</span>&nbsp;验&nbsp; 证&nbsp; 码:</label>
+            <input data-captcha="" class="captcha form-control" id="captcha" name="captcha" type="text">
+        </div>
+        <div class="form_div">
+            <label for="email"><span class="mustFill">∗</span>&nbsp;联系邮箱:</label>
+            <input class="email form-control" id="email" name="email" type="text">
+        </div>
+            <div>
+                <input type="hidden" class="hide_price" name="price" value="{{price}}">
+                <input type="hidden" class="order-number" name="number" value="{{ ticketNum }}">
+                <input type="hidden" value="{{ event.event_id }}" name="event_id"/>
+                <input type="hidden" name="event_name" value="{{ event.event_name }}"/>
+            </div>
+    </section>
+    <section class="col-sm-12 col-xs-12 alipy">
+        <h3>付款方式</h3>
+        <article id="alipy">
+            <img class="alipys" id="zfb" name="bank" src="http://pic.huodongjia.com/static/images/new_alipay.png">
+        </article>
+        <script >
+            wx.ready(function () {
+                wx.checkJsApi({
+                    jsApiList: ['chooseImage'],success: function(res) {if (res.checkResult.chooseImage){
+                        $(".submit_indent").text("微信安全支付").css({
+                            textAlign:"center",
+                            width: "45%"
+                        });
+                        $('.indent_submit').attr('action','/submitorder/');
+                        $("#zfb").remove();
+                        $("#alipy").append("<input type='hidden'  name='wxpay' value='3' />");
+                        $("#alipy").append("<img class='alipys' id='weixin' name='bank' src='http://pic.huodongjia.com/static/images/new_weixin.png'>");
+                        $(".alipy .alipys").eq(0).css({border:"1px solid #F93"}).attr("data-judge","true");
+                    }
+                    }
+                });
+            });
+        </script>
+    </section>
+    <setion class="col-sm-12 col-xs-12 click_submits" type="submit">
+        <span class="sum_price">合计：<b>{{price_total}}RMB</b></span>
+        <a class="btn submit_indent" >去付款</a>
+    </setion>
+    </form>
+</section>
+{% endblock %}
+

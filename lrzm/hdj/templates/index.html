@@ -1,0 +1,475 @@
+{% extends "base.html" %}
+{% block style %}
+<style>
+    .today tr:first-child{
+        background: #DCE6F1 !important;
+        color: #444040;
+    }
+    table{
+        float: left;
+    }
+    .today{
+        background: #fff;
+        color: #000;
+        margin: 0 1.5% 25px;
+    }
+    .today tr td{
+        text-align: center;
+        padding: 10px 20px;
+        border:1px solid #D8D6D6;
+    }
+    .compare{
+        width: 25%;
+        background: #fff;
+        text-align: center;
+        color: #000;
+        margin-left: 25px;
+        border:1px solid #D8D6D6;
+    }
+    .compare tr td{
+        padding: 15px 10px;
+    }
+    select{
+        background: #B8D2C7;
+        width: 100px;
+        height: 30px;
+        margin-left: 35px;
+        margin-top: 10px;
+        outline:none;
+        color: #FFF;
+    }
+    .week,.month{
+        display: none;
+    }
+</style>
+{% endblock %}
+{% block right %}
+<div class='right'>
+    <select>
+        <option value="0">今日订单</option>
+        <option value="1">本周订单</option>
+        <option value="2">本月订单</option>
+    </select>
+    <div class="right_bottom day" style="width: 100%;padding: 0px 15px">
+        <!--<h2 align="center">今日订单</h2>-->
+        <div id="right_curveoforder_1" class="col-sm-6" style="width:35%;height: 280px;"></div>
+        <div id="right_curveoforder_5" class="col-sm-6" style="width:35%;height: 280px;"></div>
+        <table class="compare">
+            <tr><td colspan="2" style="font-size: 16px">今日订单</td></tr>
+            <tr><td>订单量：{{daily_orders.week_order_info.order_cnt}}</td><td>总金额：{{daily_orders.week_order_info.total_price}}</td></tr>
+            <tr><td>已支付：{{daily_orders.week_order_info.paid_count}}</td><td>未支付：</td></tr>
+            <tr><td colspan="2" style="font-size: 16px">与昨日对比订单</td></tr>
+            <tr><td>订单总额：{{daily_orders.week_order_info.cmp_yst_price}}</td><td>订单数量：{{daily_orders.week_order_info.cmp_yst_cnt}}</td></tr>
+        </table>
+        <p style="clear: both;height: 30px;"></p>
+        <table class="today" width="95%">
+            <tr>
+                <td>活动名称</td>
+                <td>订单金额</td>
+                <td>票数</td>
+            </tr>
+            {% for i in daily_orders.event_order_queryset%}
+            <tr>
+                <td>{{i.event__name}}</td>
+                <td>{{i.total_price}}</td>
+                <td>{{i.amount_sum}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+    <div class="right_bottom week" style="width: 100%;padding:0px 15px">
+        <div id="right_curveoforder_2" class="col-sm-6" style="height: 280px;"></div>
+        <div id="right_curveoforder_6" class="col-sm-6" style="height: 280px;"></div>
+        <table class="compare">
+            <tr><td colspan="2" style="font-size: 16px">本周订单</td></tr>
+            <tr><td>订单量：{{week_orders.week_order_info.order_cnt}}</td><td>总金额：{{week_orders.week_order_info.total_price}}</td></tr>
+            <tr><td>已支付：{{week_orders.week_order_info.paid_count}}</td><td>未支付：</td></tr>
+            <tr><td colspan="2" style="font-size: 16px">与上周对比订单</td></tr>
+            <tr><td>订单总额：{{week_orders.week_order_info.cmp_lweek_totalpay}}</td><td>订单数量：{{week_orders.week_order_info.cmp_lweek_cnt}}</td></tr>
+        </table>
+        <p style="clear: both;height: 30px;"></p>
+        <table class="today" width="95%">
+            <tr>
+                <td>活动名称</td>
+                <td>订单金额</td>
+                <td>票数</td>
+            </tr>
+            {% for i in week_orders.event_order_queryset%}
+            <tr>
+                <td>{{i.event__name}}</td>
+                <td>{{i.total_price}}</td>
+                <td>{{i.amount_sum}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+
+
+    </div>
+    <div class="right_bottom month" style="width: 100%;padding-bottom: 15px">
+        <div id="right_curveoforder_3" style="height: 500px;margin: auto"></div>
+        <div id="right_curveoforder_4" class="col-sm-6" style="height: 300px;"></div>
+        <div id="right_curveoforder_7" class="col-sm-6" style="height: 300px;"></div>
+        <div style="float: left;width: 30%;font-size: 16px;line-height: 2;padding-top: 5%">
+            本月订单：{{month_orders.yoy_info.month_price}} <br>
+            去年同月订单：{{month_orders.yoy_info.lsy_month_price}} <br>
+            同比增长：{{month_orders.yoy_info.yoy_price}}%
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+    var myChart1 = echarts.init(document.getElementById('right_curveoforder_1'),'roma');
+    var myChart2 = echarts.init(document.getElementById('right_curveoforder_2'),'roma');
+    var myChart3 = echarts.init(document.getElementById('right_curveoforder_3'),'roma');
+    var myChart4 = echarts.init(document.getElementById('right_curveoforder_4'),'roma');
+    var myChart5 = echarts.init(document.getElementById('right_curveoforder_5'),'');
+    var myChart6 = echarts.init(document.getElementById('right_curveoforder_6'),'');
+    var myChart7 = echarts.init(document.getElementById('right_curveoforder_7'),'');
+    $('#right_curveoforder_3').css({width:$('.right_bottom').width()})
+    $('#right_curveoforder_1,#right_curveoforder_2,#right_curveoforder_4,#right_curveoforder_5,#right_curveoforder_6,#right_curveoforder_7').css({width:$('.right_bottom').width()*0.35})
+    var data_week=new Array(),data_x=new Array(),data_day=new Array(),data_X=new Array(),data_count=new Array(),data_order=new Array(),data_month=new Array()
+    {% for i in daily_orders.cat_order_queryset %}
+    data_day.push({name:'{{i.event__cat__name}}',value:'{{i.cat_cnt}}'})
+    data_X.push('{{i.event__cat__name}}')
+    {% endfor %}
+    {% for i in week_orders.cat_order_queryset %}
+    data_week.push({name:'{{i.event__cat__name}}',value:'{{i.cat_cnt}}'})
+    data_x.push('{{i' +
+            '.event__cat__name}}')
+    {% endfor %}
+    {% for i in month_orders.orders %}
+    data_count.push('{{i.2}}')
+    data_order.push('{{i.1.order_totalpay__sum}}')
+    data_month.push('{{i.0}}日')
+    {% endfor %}
+
+    var data_monthly=new Array(),data_month_x=new Array()
+    {% for i in month_orders.cat_order_queryset %}
+    data_monthly.push({name:'{{i.event__cat__name}}',value:'{{i.cat_cnt}}'})
+    data_month_x.push('{{i.event__cat__name}}')
+    {% endfor %}
+
+    var option1 = {
+        title : {
+            text: '',
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            x : '20%',
+            data:data_X
+        },
+        calculable : true,
+        series : [
+            {
+                name:'订单量',
+                type:'pie',
+                radius : '55%',
+                itemStyle: {
+                    normal:{label:{
+                        show:true,
+                        formatter: "{b}({d}%)",
+                        textStyle:{
+                            color:'#000'
+                        }
+                    }}
+                },
+                x:'center',
+                data:data_day
+            }
+        ]
+    };
+    myChart1.setOption(option1);
+    var option2 = {
+        title : {
+            text: '',
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+//            orient : 'vertical',
+            x : 'center',
+            data:data_x
+        },
+        calculable : true,
+        series : [
+            {
+                name:'订单量',
+                type:'pie',
+                radius : '55%',
+                itemStyle: {
+                    normal:{label:{
+                        show:true,
+                        formatter: "{b}({d}%)",
+                        textStyle:{
+                            color:'#000'
+                        }
+                    }}
+                },
+                x:'center',
+                data:data_week
+            }
+        ]
+    };
+    myChart2.setOption(option2);
+    var option3 = {
+        tooltip : {
+            trigger: 'axis'
+        },
+        legend: {
+            data:['订单金额','订单量'],
+        },
+        calculable : true,
+        xAxis : [
+            {
+                type : 'category',
+//                boundaryGap : false,
+                data : data_month
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                name:'订单量',
+                axisLabel : {
+                    formatter: '{value}'
+                }
+            },
+            {
+                type : 'value',
+                name:'订单金额',
+                axisLabel : {
+                    formatter: '{value}'
+                }
+            }
+        ],
+        series : [
+            {
+                name:'订单金额',
+                type:'line',
+                smooth:true,
+                data:data_order,
+                yAxisIndex: 1,
+            },
+            {
+                name:'订单量',
+                type:'line',
+                smooth:true,
+//                barCategoryGap: '75%',
+                data:data_count,
+            }
+        ]
+    };
+    myChart3.setOption(option3);
+    var option4 = {
+        title : {
+            text: '',
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+//            orient : 'vertical',
+            show:false,
+            data:data_month_x
+        },
+        calculable : true,
+        series : [
+            {
+                name:'订单量',
+                type:'pie',
+                radius : '55%',
+                itemStyle: {
+                    normal:{label:{
+                        show:true,
+                        formatter: "{b}({d}%)",
+                        textStyle:{
+                            color:'#000'
+                        }
+                    }}
+                },
+                x : 'center',
+                data:data_monthly
+            }
+        ]
+    };
+    myChart4.setOption(option4);
+    $.ajax({
+        url:'/showorder/allsourcesoforders/',
+        data:{param:0},
+        type:'get',
+        dataType:'json',
+        async:false,
+        success:function(data){
+            var data_x=new Array(),Data=new Array()
+            for(var i=0;i<data.length;i++){
+                data_x.push(data[i].event_to)
+                Data.push({name:data[i].event_to,value:data[i].order_amount})
+            }
+            console.log(Data)
+            var option5 = {
+                title : {
+                    text: '',
+                },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    x : 'left',
+                    show:false,
+                    data:data_x
+                },
+                series : [
+                    {
+                        name:'订单量',
+                        type:'pie',
+                        radius : '55%',
+                        itemStyle: {
+                            normal:{label:{
+                                show:true,
+                                formatter: "{b}({d}%)",
+                                textStyle:{
+                                    color:'#000'
+                                }
+                            }}
+                        },
+                        x:'center',
+                        data:Data
+                    }
+                ]
+            };
+            myChart5.setOption(option5);
+        }
+
+    })
+    $.ajax({
+        url:'/showorder/allsourcesoforders/',
+        data:{param:1},
+        type:'get',
+        dataType:'json',
+        async:false,
+        success:function(data){
+            var data_x=new Array(),Data=new Array()
+            for(var i=0;i<data.length;i++){
+                data_x.push(data[i].event_to)
+                Data.push({name:data[i].event_to,value:data[i].order_amount})
+            }
+            var option6 = {
+                title : {
+                    text: '',
+                },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    x : 'left',
+                    show:false,
+                    data:data_x
+                },
+                series : [
+                    {
+                        name:'订单量',
+                        type:'pie',
+                        radius : '55%',
+                        itemStyle: {
+                            normal:{label:{
+                                show:true,
+                                formatter: "{b}({d}%)",
+                                textStyle:{
+                                    color:'#000'
+                                }
+                            }}
+                        },
+                        x:'center',
+                        data:Data
+                    }
+                ]
+            };
+            myChart6.setOption(option6);
+        }
+
+    })
+    $.ajax({
+        url:'/showorder/allsourcesoforders/',
+        data:{param:2},
+        type:'get',
+        dataType:'json',
+        async:false,
+        success:function(data){
+            var data_x=new Array(),Data=new Array()
+            for(var i=0;i<data.length;i++){
+                data_x.push(data[i].event_to)
+                Data.push({name:data[i].event_to,value:data[i].order_amount})
+            }
+            var option7 = {
+                title : {
+                    text: '',
+                },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    x : 'left',
+                    show:false,
+                    data:data_x
+                },
+                series : [
+                    {
+                        name:'订单量',
+                        type:'pie',
+                        radius : '55%',
+                        itemStyle: {
+                            normal:{label:{
+                                show:true,
+                                formatter: "{b}({d}%)",
+                                textStyle:{
+                                    color:'#000'
+                                }
+                            }}
+                        },
+                        x:'center',
+                        data:Data
+                    }
+                ]
+            };
+            myChart7.setOption(option7);
+        }
+
+    })
+    $('select').change(function(){
+        var _index=$(this).val()
+        $('.right_bottom').hide()
+        $('.right_bottom').eq(_index).show()
+        myChart1.resize();
+        myChart2.resize();
+        myChart3.resize();
+        myChart4.resize();
+        myChart5.resize();
+        myChart6.resize();
+        myChart7.resize();
+    })
+    $(window).resize(function () {
+        $('#right_curveoforder_3').css({width:$('.right_bottom').width()})
+        $('#right_curveoforder_1,#right_curveoforder_2,#right_curveoforder_4').css({width:$('.right_bottom').width()*0.35})
+        myChart1.resize();
+        myChart2.resize();
+        myChart3.resize();
+        myChart4.resize();
+        myChart5.resize();
+        myChart6.resize();
+        myChart7.resize();
+    })
+</script>
+{% endblock %}
+

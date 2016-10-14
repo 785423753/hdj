@@ -1,0 +1,27 @@
+html,body{height:100%;width:100%}
+body{font-family:"微软雅黑"}
+.loginBackground{width:100%;height:100%;position:relative}
+.loginBackground img{width:100%;height:100%}
+.footer{display:none}
+#login{position:absolute;left:0;top:0;right:0;bottom:0}
+#login,#login .loginBg,#login .loginMain{width:821px;height:343px;margin:auto auto;text-align:center}
+#login .loginBg{width:100%;height:100%;background-color:#fff;opacity:.6;filter:alpha(opacity=60)}
+#login .loginMain{position:absolute;top:0;left:0;width:100%;height:100%;padding:20px 45px}
+#login .loginMain img{vertical-align:top;width:auto;height:auto}
+#login .loginContent{display:inline-block;width:385px}
+#login .loginBtn{margin:0 auto;width:295px}
+.bgIcon3{background:url("http://pic.huodongjia.com/static/usercenter/images/douzhi.png") no-repeat;display:inline-block;width:16px;height:16px;vertical-align:middle;background-size:auto 100%}
+#login a{display:block;float:left;width:139px;height:32px;text-align:center;border-radius:16px;line-height:32px;font-size:15px;color:#fff;margin-bottom:20px;padding:0}
+#login h3{font-size:20px;margin-top:7px;margin-bottom:16px}
+#login p{margin-bottom:38px}
+#login i{margin-right:10px}
+#login a.qq{background-color:#3ab7f1}
+#login a.weixin{background-color:#34d578;margin-left:12px}
+#login a.weibo{background-color:#f35353}
+#login a.alipay{background-color:#3095ed;margin-left:12px}
+#login a.douban{background-color:#34d578}
+#login i.alipay{width:22px;background-position:-16px 0}
+#login i.douban{width:17px}
+.mainWrapper{background-color:#fff}
+.loginFoot{background-color:#fff;text-align:center;margin-top:30px}
+.loginFoot a,.loginFoot p{font-size:12px;color:#bbb}

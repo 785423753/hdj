@@ -1,0 +1,274 @@
+{% extends 'base.html' %}
+{% block content %}
+<head>
+<link rel="stylesheet" type="text/css" href="http://pic.huodongjia.com/static/css/sweet-alert.css" />
+    <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/businessList.css"/>
+    <link rel="stylesheet" type="text/css" href="http://pic.huodongjia.com/static/css/jqcloud.css" />
+
+</head>
+{% block addstyle %}
+
+<script type="text/javascript">
+    var browser = {
+        versions: function() {
+            var u = navigator.userAgent, app = navigator.appVersion;
+            return {//移动终端浏览器版本信息
+                trident: u.indexOf('Trident') > -1, //IE内核
+                presto: u.indexOf('Presto') > -1, //opera内核
+                webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+                mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端
+                ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                //<!-- android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器 -->
+                android: u.indexOf('Android') > -1, //android终端或者uc浏览器 -->
+                iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+                iPad: u.indexOf('iPad') > -1, //是否iPad
+                webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+            };
+        }(),
+        language: (navigator.browserLanguage || navigator.language).toLowerCase()
+    }
+    if (browser.versions.iPhone || browser.versions.iPad || browser.versions.android) {
+        var url =  location.href
+        url = url.split("page-")[0].replace("www.huodongjia", "m.huodongjia")
+        url = url.replace("http://www.huodongjia","http://m.huodongjia")
+
+        window.location=url;
+    }
+</script>
+{% endblock %}
+<style>
+ .tag{
+     width: 100%;
+     padding: 20px 20px !important;
+     background: #FFF;
+     font-size: 16px;
+     color: #4F5A6E;
+ }
+    .tag a{
+        color: #E64E4B !important;
+    }
+    .hot_theme{
+        margin: 0;
+    }
+    .email{
+        width: 100%;
+        border-radius: 5px;
+        background: #FFF;
+        box-shadow:0 0 7px 0px rgba(132, 132, 132, 0.33);
+        margin-top: 20px;
+        padding: 20px !important;
+        float: left;
+        position: relative;
+    }
+    .order_email{
+        width: 100px;
+        height: 33px;
+        border: none;
+        color: #fff;
+        background: #2E83DD;
+        display: block;
+        margin: 0 auto;
+    }
+    .order_email:hover{
+        background: #2569b1;
+    }
+    .email p{
+        font-size: 18px;
+        color: #535971;
+        margin-bottom: 0;
+        text-align: center;
+    }
+    .email font{
+        color: #2D84E1;
+    }
+    .email span{
+        font-size: 15px;
+        line-height: 4;
+    }
+    #emailTakeForm{
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+    .xing{
+        top: 92px;
+    }
+    #searchForm{
+        position: absolute;
+        top: 16px;
+        right: 10px;
+    }
+    #search{
+        width: 250px;
+        height: 32px;
+        border: 1px solid #BDC3D3;
+        padding: 8px;
+    }
+    #searchForm>.m_iconfont{
+        color: #BDC3D3;
+        font-size: 20px;
+        position: absolute;
+        right: 10px;
+        top: 0;
+        cursor: pointer;
+    }
+
+</style>
+<div class="content">
+    <div class="container">
+        <p class="bread_nav"><a href="/" target="_blank">首页</a>><a target="_blank" href="/business/">商务会议</a> ><a style="color: #858B9A">{{ tag_name }}</a></p>
+        <div class="col-sm-9 content_right">
+            <div class="tag">关于 <h1 style="display:inline; font-size: 16px"><a href="http://www.huodongjia.com{{request.path}}">{{ tag_name }}</a></h1> 的相关会议，共{{ events_cnt }}场</div>
+            <form id="searchForm" style="float: right" action="/tagsearch/"> <input name="keyword" id="search" type="text" placeholder="请输入您感兴趣的标签"/><span id="post" class="m_iconfont">&#xe607;</span></form>
+            {% for event in events %}
+                {% if not event %}
+                    {% if not forloop.last %}
+                    <p class="past"><span>以下是过期会议</span></p>
+                    <br style="clear: both"/>
+                    {% endif %}
+                {% else %}
+            <!--限时优惠-->
+            <div class='col-sm-12 col-xs-12 meeting_list' data-href="{{event.event_url}}">
+                <div class='col-sm-3 col-xs-3'>
+                    <a href='{{event.event_url}}' target="_blank" >
+                        {% if event.event_img.0.urls %}
+                        <img width='100%' src='{{event.event_img.0.server__name}}{{event.event_img.0.urls}}' alt='{{event.event_name}}'/>
+                        {% else %}
+                        <img width='100%' style='border: 1px solid #eee;' src='http://pic.huodongjia.com/static/images/event_default.jpg' alt='{{event.event_name}}'/>
+                        {% endif %}
+                    </a>
+                </div>
+
+                <div class='col-sm-7 col-xs-7 detail'>
+                    <h3 style="display:inline;"><p class='meeting_name'><a href='{{event.event_url}}' target="_blank">{{event.event_name}}</a></p></h3>
+                    <p class='meeting_tag'>
+                        {% for tag in event.event_tag_info %}
+                        <a href='/tag/{{tag.id}}/'>{{tag.name}}</a>
+                        {% endfor %}
+                    </p>
+                    <p class='meeting_des'>概述:{{event.event_intro}}</p>
+                    <p class='addr'>
+                        <span><a href='/{{event.event_city_info.0.title}}/'><font class='m_iconfont'>&#xe609;</font>{{event.event_city_info.0.district_name}}</a></span>
+                        <span><font style='color: #8C8C8C;font-size: 16px;' class='m_iconfont'>&#xe608;&nbsp;</font>{{event.event_begin_time|date:'Y-m-d'}}</span>
+                    </p>
+                </div>
+
+                {% ifequal event.event_price_type 6 %}  <!--标准-->
+                {% ifequal event.event_price_unit|length 0 %}
+                <div class="col-sm-2 col-xs-2 price text-center">
+                    <p style="line-height: 80px"><span>截止</span></p>
+                    <p>关注：{{event.visit}}人气</p>
+                </div>
+                {% else %}
+                <div class="col-sm-2 col-xs-2 price text-center">
+                    <p>{% if event.event_price_unit.0.fake_original_price %}限时优惠{% endif %}<span>{{event.event_price_unit.0.Currency__sign}}{{event.event_price_unit.0.price}}</span><br/>
+                        {% if event.event_price_unit.0.fake_original_price %}
+                        <font style="text-decoration: line-through">原价：{{event.event_price_unit.0.Currency__sign}}{{event.event_price_unit.0.fake_original_price}}</font>
+                        {% endif %}
+                    </p>
+                    <p>关注：{{event.visit}}人气</p>
+                </div>
+                {% endifequal %}
+                {% endifequal %}
+                {% ifequal event.event_price_type 4 %}  <!--免费-->
+                <div class="col-sm-2 col-xs-2 price text-center">
+                    <p style="line-height: 80px"><span>免费</span></p>
+                    <p>关注：{{event.visit}}人气</p>
+                </div>
+                {% endifequal %}
+                {% ifequal event.event_price_type 5 %}  <!--待定-->
+                <div class="col-sm-2 col-xs-2 price text-center">
+                    <p style="line-height: 80px"><span>待定</span></p>
+                    <p>关注：{{event.visit}}人气</p>
+                </div>
+                {% endifequal %}
+                {% ifequal event.event_price_type 7 %}  <!--待定-->
+                <div class="col-sm-2 col-xs-2 price text-center">
+                    <p style="line-height: 80px"><span>待定</span></p>
+                    <p>关注：{{event.visit}}人气</p>
+                </div>
+                {% endifequal %}
+                {% ifequal event.event_price_type 9 %}  <!--待定-->
+                <div class="col-sm-2 col-xs-2 price text-center">
+                    <p style="line-height: 80px"><span>待定</span></p>
+                    <p>关注：{{event.visit}}人气</p>
+                </div>
+                {% endifequal %}
+
+
+            </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="col-sm-3 content_left" >
+            <div class="right_fixed" style="float: left;">
+                <div class="hot_theme">
+                <p>你可能感兴趣的主题</p>
+                <div id="hot_tags" class="jqcloud" style="padding: 10px">
+                    {% for tag in tags_cloud%}
+                    <span><a target="_blank" lang="{% widthratio tag.cnt 100 1%}" href="/tag/{{tag.tag__id}}/">{{tag.tag__name}}</a></span>
+                    {% endfor %}
+                </div>
+            </div>
+                <div class="app_down">
+                    <div class="text-center">
+                        <p>下载活动家APP找会议更方便</p>
+                        <p style="color: #BCC2D2;font-size: 12px;margin-bottom:3px;">点击下载</p>
+                        <a style="margin-right: 8px" rel="nofollow" href="http://pic.huodongjia.com/app/hdj2015917.apk"><img src="http://pic.huodongjia.com/static/images/Android.png" alt="安卓版活动家APP下载"/></a>
+                        <a rel="nofollow" href="https://itunes.apple.com/cn/app/huo-dong-jia-hui-yi-zhan-hui/id731753448?mt=8"><img src="http://pic.huodongjia.com/static/images/ios.png" alt="ios版活动家APP下载"/></a>
+                    </div>
+                    <div style="padding-top: 4px;"><img width="100%" src="http://pic.huodongjia.com/static/images/APP_erweima.png" alt="活动家APP二维码"/></div>
+                </div>
+                <div class="email">
+                    <p>邮件订阅</p>
+                    <span>订阅 "<font>{{tag_name}}</font>"相关会议</span>
+                   {% csrf_token %}
+                   <form id="emailTakeForm" action="">
+                       <span class="close">&#xe618;</span>
+                       <p>邮件订阅</p>
+                       <span>订阅 "<font>{{tag_name}}</font>"相关会议</span>
+                       <input type="hidden" name="keyword" value="{{tag_name}}"/>
+                       <span class="xing">*</span><input type="text" id="email" name="email" placeholder="邮箱地址"/>
+                       <input type="text" name="company" placeholder="公司单位"/>
+                       <input type="text" name="position" placeholder="您的职位"/>
+                       <input type="text" id="checkcode" name="checkcode" placeholder="验证码" data-captchaflag="false"/> <img id="codeImg" width="49%" style="float: right" onclick="this.setAttribute('src','/get_check_code_image/?nocache='+Math.random());" src=""/>
+                       <p style="color: #BEC4D4;color: #BEC4D4;font-size: 14px;text-align: left;margin-bottom: 10px;">完整填写更利于精准推荐</p>
+                       <button class="post" type="button">立即订阅</button>
+                   </form>
+                   <button class="order_email">点击订阅</button>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pagination">
+    <ul>
+        {% ifnotequal firstPage 'false'%} 
+            <li><a  href="{{firstPage}}">首页</a></li>
+        {% endifnotequal %}
+
+        {% for page in pageList%}
+            {% if page.flag == 'true' %}
+             <li class="page_active"><a href="{{page.pageurl}}">{{page.page}}</a></li>
+             {%else%}
+             <li><a href="{{page.pageurl}}">{{page.page}}</a></li>
+             {%endif%}
+        {% endfor %}
+
+        {% ifnotequal nextPage 'false'%}                      
+             <li><a href="{{nextPage}}">下一页</a></li>
+             <li><a  href="{{lastPage}}">最后一页</a></li>
+        {% endifnotequal %} 
+    </ul>
+</div>
+{% endblock %}
+{% block js %}
+<script src="http://pic.huodongjia.com/static/js/sweet-alert.min.js"></script>
+<script src="http://pic.huodongjia.com/static/js/jquery.placeholder.min.js "></script>
+<script src="http://pic.huodongjia.com/static/js/tag.js"></script>
+<script>
+
+
+</script>
+{% endblock %}

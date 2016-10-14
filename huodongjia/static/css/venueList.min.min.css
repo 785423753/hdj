@@ -1,0 +1,56 @@
+.banner{width:1200px;margin:auto}
+.banner_index{position:relative;height:300px}
+.banner_index a{display:block;width:100%;position:absolute;left:0;top:0;z-index:-1;opacity:0;-webkit-transition:all .5s ease-out;-moz-transition:all .5s ease-out;-ms-transition:all .5s ease-out;-o-transition:all .5s ease-out;transition:all .5s ease-out}
+.banner_index .banner_act{z-index:1;opacity:1}
+.banner ul{width:100%;padding:0;margin:0;height:48px}
+.banner ul li{list-style:none;float:left;width:200px;height:50px;box-sizing:border-box;border-bottom:2px solid #f7f8fb;-webkit-transition:all .5s linear;-moz-transition:all .5s linear;-ms-transition:all .5s linear;-o-transition:all .5s linear;transition:all .5s linear;cursor:pointer}
+.banner ul li img{width:100%;height:100%}
+.banner ul .banner_act{border-bottom:2px solid #e36464}
+.content_left{padding:0}
+.title_nav{width:100%;background:#FFF;border-radius:5px;float:left;font-size:15px;margin-bottom:10px}
+.title_nav input{border:0;border-radius:5px;background:#FFF;height:40px;padding-left:15px;margin-left:5px;width:70%;text-align:left;color:#3E7CCC;outline:0}
+.title_nav>div{position:relative;z-index:1000}
+.cities,.venue_cat{padding:20px;width:355px;width:470px;background:rgba(255,255,255,0.96);border-radius:5px;box-shadow:0 0 2px 1px rgba(153,153,153,0.2);position:absolute;top:50px;left:0;padding:10px 0 10px 20px;display:none;border:1px solid #D7D7D7}
+.venue_cat{width:140px;padding:20px 0;left:47px}
+.cities li a,.venue_cat li a{font-size:14px;color:#7C8396!important}
+.cities li a:hover{color:#3E8DDA!important}
+.venue_cat li a:hover{color:#3E8DDA!important}
+.cities li span,.venue_cat li span{color:#000;font-size:17px;display:block}
+.cities .letter{width:100%;line-height:25px;float:left}
+.cities .letter a{padding-right:20px}
+.cities .letter span{padding:10px 0}
+li{list-style:none}
+.img{position:absolute;bottom:-11px;left:30%;display:none;z-index:1001}
+.venue_cat li{line-height:30px;text-align:center}
+.venue_list{background:#FFF;padding:15px;border-bottom:1px solid #E2E5EE}
+.venue_list>div{padding:0}
+.venue_mes p h3{color:#474A51;font-size:21px;font-weight:normal}
+.venue_mes p{color:#7F8293;font-size:14px}
+.venue_list>.venue_mes{padding-left:15px}
+.recent_event{display:inline-block;padding-left:10px;font-size:15px}
+.venue_des{max-height:40px;text-overflow:-o-ellipsis-lastline;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.venue_cat .choosed,.cities .choosed{color:#3E8DDA!important}
+.content_right{margin-top:20px;padding:0;padding-left:20px}
+.app_down{width:100%;border-radius:8px;background:#FFF;box-shadow:0 0 7px 0 rgba(132,132,132,0.33);margin-top:20px}
+.app_down{padding:10px!important;float:left}
+.app_down>div{width:50%;float:left}
+.app_down>div>p:first-child{color:#39414E;font-size:14px;padding:7px;padding-bottom:0}
+.app_down>div>a{background:#39414E;border-radius:3px;padding:5px;display:inline-block}
+.app_down>div>a:hover{background:rgba(57,65,78,0.61)}
+.post{width:100%;background:#56ADF0;text-align:center;border-radius:8px;padding:30px 30px 15px;color:#fff}
+.post span{line-height:20px}
+.content_right .post button{width:110px;height:30px;background:#ED6768;border:0;font-size:16px;margin-top:20px;color:#fff}
+.post button a{color:#fff!important}
+.pagination ul .page_active{background:#4693E3;border:1px solid #4693E3}
+.pagination ul .page_active a{color:#fff!important}
+@media(min-width:1200px){.bannnerImg{width:900px}
+.bannnerImg ul li img{width:900px}
+}
+@media(max-width:1200px){.bannnerImg ul li img{width:670px}
+.bannnerImg{width:670px}
+.bannnerImg ul{transform:translate3d(-3350px,0px,0px)}
+}
+.hot_city{line-height:30px}
+.venue_list h3{margin:0 0 5px;display:inline-block;font-size:21px}
+.bread_nav{margin:10px 0;color:#CACFDD}
+.bread_nav>a{color:#CACFDD}

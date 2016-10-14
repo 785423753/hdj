@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block mystyle %}
+<style>
+    #l-map{height:100%;width:78%;float:left;border-right:2px solid #bcbcbc;}
+    #r-result{height:100%;width:20%;float:left;}
+    .right>div{
+        margin: 10px 0;
+    }
+    .right>div>div{
+        width: 100%;
+        height: 300px;
+        /*color: #ffca00;*/
+    }
+</style>
+{% endblock %}
+{% block right %}
+<div  class='col-sm-10 right'>
+    <!--<p class="line"></p>-->
+    <div class="select">
+        <input value="{{ret.0.start_date}}" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="start_time">至
+        <input value='{{ret.0.end_date}}' onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="end_time"><button>确定</button>
+    </div>
+    <div class="col-sm-8 col-xs-12"><p>每日新增注册/下载量</p><div id="download"></div></div>
+    <div class="col-sm-4 col-xs-12"><p>用户属性</p><div id="property"></div></div>
+    <div class="col-sm-8 col-xs-12"><p>每日互动数据</p><div id="sign"></div></div>
+    <div class="col-sm-4 col-xs-12"><p></p><div id="percent"></div></div>
+
+
+</div>
+{% endblock %}
+{% block myscript %}
+<script src="/static/js/user.js"></script>
+{% endblock %}

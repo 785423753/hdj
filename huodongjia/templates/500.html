@@ -1,0 +1,19 @@
+{% extends "base.html"%}
+{% block content %}
+<style>
+	.interest_404 a{
+		padding: 5px;
+	}
+</style>
+	<div class="div_404" style="height: 520px;padding-top: 100px;text-align: center">
+		<img src="http://pic.huodongjia.com/static/images/404.png" alt="">
+		<p class="text_404">非常抱歉，您访问的页面不存在</p>
+		<p class="text_404">可能您输入了错误的网址，或该页面已删除或移动</p>
+		<a class="home_404" href="/">返回首页</a>
+		<p class="interest_404">这些商务会议你是否感兴趣？<br/>
+		<a href="/it/">IT互联网</a><a href="/medical/">医疗行业</a>	<a href="/energy/">能源化工</a><a href="/finance/">金融财经</a>
+		<a href="/agricultur/">农业牧渔</a><a title="edutrain" href="/edutrain/">教育培训</a>
+			<a  href="/manufact/">加工制造</a><a href="/realestate/">地产建筑</a><a href="/culmedia/">文化传媒</a>
+			<a  href="/servindust/">服务行业</a><a href="/tralogist/">交通物流</a><a href="/trade/">其他行业</a></p>
+	</div>
+{% endblock %}

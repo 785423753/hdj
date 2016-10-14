@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block style %}
+<script>
+    laydate.skin('danlan')
+</script>
+{% endblock %}
+
+{% block right %}
+<div class='col-sm-10 col-xs-12 right' style=''>
+    <h2 align='center'>下载用户分析</h2>
+    <div class="select"><input value="2016-04-01" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="start_time">至
+        <input value="2016-04-10" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="end_time"><button>确定</button></div>
+    <div class="right_bottom" style="width: 48%;height: 500px;float: left">
+        <h2 align='center'>每日新增及总数</h2>
+        <div id='right_curveoforder_1' style="width: 100%;height: 420px;"></div>
+    </div>
+    <div class="right_bottom" style="width: 48%;height: 500px;float: right">
+        <h2 align='center'>城市汇总数据</h2>
+        <div id='right_curveoforder_2' style="width: 100%;height: 400px;"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<script src="../static/echarts-2.2.7/build/dist/echarts.js"></script>
+<script src="../static/js/dark.js"></script>
+<script type="text/javascript" src="../static/js/userDownload.js"></script>
+<script src="http://echarts.baidu.com/build/dist/echarts.js "></script>
+<script type="text/javascript">
+    // 路径配置
+    require.config({
+        paths: {
+            echarts: 'http://echarts.baidu.com/build/dist'
+        }
+    });
+
+    // 使用
+    require(
+            [
+                'echarts',
+                'echarts/theme/macarons',
+                'echarts/chart/map' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec,theme) {
+                // 基于准备好的dom，初始化echarts图表
+                 citydown()
+                function citydown(){
+                    var start_day=$('#start_time').val(),end_day=$('#end_time').val()
+                    $.ajax({
+                        url: 'http://218.244.137.196:5000/json/userDownload',
+                        dataType: 'json',
+                        type: 'get',
+                        data: {
+                            start_day: start_day,
+                            end_day: end_day
+                        },
+                        async: false,
+                        success: function (data) {
+                            var data_geoCoord={},data_val=new Array()
+                            for(var i=0;i<data.city.city_down.length;i++) {
+                                data_geoCoord[data.city.city_down[i].city] = [data.city.city_down[i].location.lon, data.city.city_down[i].location.lat]
+                                data_val.push({
+                                    'name': data.city.city_down[i].city,
+                                    value: data.city.city_down[i].value
+                                })
+                            }
+                            var max=data.city.city_down[0].value
+                                var myChart = ec.init(document.getElementById('right_curveoforder_2'),theme);
+                                var option = {
+                                    tooltip : {
+                                        trigger: 'item'
+                                    },
+                                    dataRange: {
+                                        min : 0,
+                                        max : max,
+                                        calculable : true,
+                                        color: ['maroon','purple','red','orange','yellow','lightgreen'],
+                                        textStyle:{
+                                            color:'#fff'
+                                        }
+                                    },
+                                    series : [
+                                        {
+                                            name: '下载用户',
+                                            type: 'map',
+                                            mapType: 'china',
+                                            hoverable: false,
+//                                            roam:true,
+                                            data : [],
+                                            itemStyle:{
+                                                normal:{
+                                                    label:{
+                                                        show:true,
+                                                        textStyle:{color:'#8B4513'},
+                                                    },
+                                                },
+                                                emphasis:{label:{show:false}}
+                                            },
+                                            markPoint : {
+                                                symbolSize: 7,       // 标注大小，半宽（半径）参数，当图形为方向或菱形则总宽度为symbolSize * 2
+                                                itemStyle: {
+                                                    normal: {
+                                                        borderColor: '#87cefa',
+                                                        borderWidth: 1,            // 标注边线线宽，单位px，默认为1
+                                                        label: {
+                                                            show: false
+                                                        }
+                                                    },
+                                                    emphasis: {
+                                                        borderColor: '#1e90ff',
+                                                        borderWidth: 5,
+                                                        label: {
+                                                            show: false
+                                                        }
+                                                    }
+                                                },
+                                                data : data_val
+                                            },
+                                            geoCoord: data_geoCoord
+                                        },
+                                    ]
+                                };
+
+                                // 为echarts对象加载数据
+                                myChart.setOption(option);
+                                window.onresize = myChart.resize;
+                            }
+                    })
+                }
+
+            }
+    );
+</script>
+{% endblock %}

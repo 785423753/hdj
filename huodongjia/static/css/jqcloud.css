@@ -1,0 +1,54 @@
+/* fonts */
+
+div.jqcloud {
+  font-family: Tahoma,Arial,Helvetica,"Microsoft Yahei","Î¢ÈíÑÅºÚ",SimHei;
+  font-size: 10px;
+  line-height: normal;
+  text-align: center;
+}
+
+div.jqcloud a {
+  font-size: inherit;
+  text-decoration: none;
+}
+div.jqcloud span{
+  display: inline-block;
+}
+div.jqcloud span.w10 { font-size: 200%; padding: 5px 10px}
+div.jqcloud span.w9 { font-size: 190%;padding:5px 11px }
+div.jqcloud span.w8 { font-size: 180%;padding:5px 12px }
+div.jqcloud span.w7 { font-size: 175%;padding:5px 13px }
+div.jqcloud span.w6 { font-size: 170%; padding:5px 14px}
+div.jqcloud span.w5 { font-size: 165%; padding:5px 15px}
+div.jqcloud span.w4 { font-size: 160%; padding:5px 16px}
+div.jqcloud span.w3 { font-size: 155%; padding:5px 17px}
+div.jqcloud span.w2 { font-size: 150%; padding:5px 18px}
+div.jqcloud span.w1 { font-size: 145%; padding:5px 19px}
+div.jqcloud span.w0 { font-size: 140%; padding:5px 19px}
+/* colors */
+
+div.jqcloud { color: #09f; }
+div.jqcloud a { color: inherit; }
+div.jqcloud a:hover { color: #0df; }
+div.jqcloud a:hover { color: #0cf; }
+div.jqcloud span.w10 { color: #1067C6; }
+div.jqcloud span.w9 { color: #116fd5; }
+div.jqcloud span.w8 { color: #1270d8; }
+div.jqcloud span.w7 { color: #579AE8; }
+div.jqcloud span.w6 { color: #579AE8; }
+div.jqcloud span.w5 { color: #579AE8; }
+div.jqcloud span.w4 { color: #8DC2F8; }
+div.jqcloud span.w3 { color: #8DC2F8; }
+div.jqcloud span.w2 { color: #8DC2F8; }
+div.jqcloud span.w1 { color: #8DC2F8; }
+
+/* layout */
+
+div.jqcloud {
+  overflow: hidden;
+  position: relative;
+}
+
+#my_words span{
+  cursor: pointer;
+}

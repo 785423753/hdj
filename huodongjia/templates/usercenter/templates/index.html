@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% block m_site %}
+{% endblock %}
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{STATIC_URL}}css/userCenterIndex.css"/>
+</head>
+<body>
+<div class="container">
+    <div id="individualismLeftNav">
+        <div class="nav listNav">
+            <ul>
+                <li><a href="Integral.html" target="myframe">积分换门票</a></li>
+                <li><a href="order.html" target="myframe">我的订单</a></li>
+                <li><a href="myActivity.html" target="myframe">我发布的活动</a></li>
+                <li><a href="collection.html" target="myframe">我的收藏</a></li>
+                <li><a href="settings.html" target="myframe">个人账户设置</a></li>
+            </ul>
+        </div>
+        <div class="individualismQrCode">
+            <img src="./images/ewm.png" width="155px" height="155px" alt=""/>
+            <p>下载活动家APP</p>
+            <p>可以获得20积分</p>
+        </div>
+    </div>
+    <div id="individualismBody">
+        <iframe src="Integral.html" id="indIframe" name="myframe" frameborder="0" width="100%" onLoad="iFrameHeight()" height="auto">
+
+        </iframe>
+    </div>
+</div>
+<script src="http://cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
+<script>
+    function iFrameHeight() {
+        console.log("aaaa")
+        var ifm= document.getElementById("indIframe");
+        var subWeb = document.frames ? document.frames["indIframe"].document : ifm.contentDocument;
+        if(ifm != null && subWeb != null) {
+            ifm.height = subWeb.body.scrollHeight;
+        }
+    }
+//    TEST
+</script>
+</body>
+</html>

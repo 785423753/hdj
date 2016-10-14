@@ -1,0 +1,253 @@
+{% extends "base.html" %}
+{% block addstyle %}
+<style>
+    #member{
+        -webkit-box-shadow: 0 0 7px 0px rgba(175, 173, 173, 0.28);
+        -moz-box-shadow: 0 0 7px 0px rgba(175, 173, 173, 0.28);
+        box-shadow: 0 0 7px 0px rgba(175, 173, 173, 0.28);
+        padding: 20px 30px;
+        margin: 50px auto;
+        border-radius: 5px;
+        text-align: center;
+        background: #FFFFFF;
+        color: #000;
+    }
+    h2{
+        font-size: 24px;
+        margin: 20px 0;
+    }
+    p{margin: 0}
+    .tips{
+        line-height: 30px;
+        font-size: 14px;
+    }
+    #member form{text-align: justify;margin-top: 20px}
+    #member .title{
+        font-size: 16px;
+        padding-bottom: 5px;
+        border-bottom:2px solid #000;
+        margin: auto;
+        width: 70%;
+    }
+    .info{
+        width: 55%;
+        margin: 40px auto;
+    }
+    .info td{
+        height: 60px;
+        line-height: 40px;
+        position: relative;
+    }
+    .info tr td:first-child{
+        text-align: right;
+        color: #000;
+        padding-right: 30px;
+        width: 100px;
+    }
+    .info tr td:last-child{
+
+    }
+    input,select{
+        border: none;
+        outline: none;
+        border-bottom: 1px solid #999;
+        width: 100%;
+        height:40px;
+    }
+    button{
+        width: 300px;
+        height: 50px;
+        display: block;
+        margin: 10px auto;
+        border:none;
+        background: #000;
+        color: #fff;
+        outline: none;
+        transition: all .3s linear;
+    }
+    button:hover{
+        background: rgba(0, 0, 0, 0.7);
+    }
+    .red{  border-color: red !important;}
+    @font-face {
+        font-family: 's_iconfont';
+        src: url('//at.alicdn.com/t/font_1467972585_9737506.eot'); /* IE9*/
+        src: url('//at.alicdn.com/t/font_1467972585_9737506.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+        url('//at.alicdn.com/t/font_1467972585_9737506.woff') format('woff'), /* chrome、firefox */
+        url('//at.alicdn.com/t/font_1467972585_9737506.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+        url('//at.alicdn.com/t/font_1467972585_9737506.svg#iconfont') format('svg'); /* iOS 4.1- */
+    }
+    .fa{
+        font-family: 's_iconfont';
+        position: absolute;
+        font-size: 1em;
+        color: #000;
+        right: 2px;
+        background: #FFF;
+        top: 2px
+    }
+    input[type='text']:focus,textarea:focus,select:focus{border-color:#000 !important;box-shadow:inset 0 1px 1px rgba(0,0,0,0),0 0 8px rgba(102,175,233,0) !important;outline: none}
+    @media (max-width:1200px) {
+        #member{
+            width: 80% !important;
+        }
+        .info{width: 90%}
+    }
+    .select{
+        position: absolute;
+        width: 100%;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        z-index: 99;
+        background: #FFF;
+        box-shadow: 0 1px 7px 0px #999;
+        display: none;
+    }
+    .select li{
+        list-style: none;
+        height: 30px;
+        line-height: 30px;
+        border-bottom: 1px solid rgba(153, 153, 153, 0.36);
+        padding-left: 10px;
+        transition: all .2s linear;
+        color: #999;
+    }
+    .select li:hover{
+        background: #e0e0e0;
+    }
+    .select li:last-child{
+        border: none;
+    }
+</style>
+{% endblock %}
+{% block content%}
+<div class="container" id="member">
+    <h2>申请会员</h2>
+    <p class="tips">提示：会员仅限本人，不作其他用途，不可转让，持有人会籍资格终止后其会员权益即自行失效。 <br>活动家保留随时更改会员结构、优惠及其他项目的最终权力。</p>
+    <form action="" id="application">
+        <p class="title">基本信息</p>
+        <table class="info">
+            <tr><td>姓名</td><td><input placeholder="输入姓名" name="user" type="text"></td></tr>
+            <tr><td>性别</td><td>
+                <select  name="sex"><option value="">选择性别</option><option value="0">女</option><option value="1">男</option></select>
+                <!--<input type="text" name="sex" placeholder="选择性别">-->
+                <!--<ul class="select">-->
+                <!--<li>女</li><li>男</li>-->
+                <!--</ul>-->
+                <span class="fa">&#xe600;</span></td></tr>
+            <tr><td>年龄</td><td>
+                <select name="age">
+                    <option value="">选择年龄段</option>
+                    <option style="padding: 20px 0" value="0"> &gt;26 </option>
+                    <option value="1">26-35</option>
+                    <option value="2">36-45</option>
+                    <option value="3">&lt;46</option>
+                </select>
+                <span class="fa">&#xe600;</span></td></tr>
+            <tr><td>学历/学位</td><td>
+                <select name="education" id="">
+                    <option value="">选择学历</option>
+                    <option value="1">专科</option>
+                    <option value="2">本科</option>
+                    <option value="3">硕士</option>
+                    <option value="4">博士</option>
+                </select>
+                <span class="fa">&#xe600;</span></td></tr>
+            <tr><td>手机</td><td><input placeholder="输入手机号" name="phone" type="text"></td></tr>
+            <tr><td>电子邮箱</td><td><input placeholder="输入您的邮箱" name="email" type="text"></td></tr>
+            <tr><td>企业名称</td><td><input placeholder="你的单位名称" name="company" type="text"></td></tr>
+            <tr><td>部门</td><td><input placeholder="单位部门" name="section" type="text"></td></tr>
+            <tr><td>职位</td><td><input placeholder="职位名称" name="job" type="text"></td></tr>
+            <tr><td>所在行业</td><td>
+                <select name="industry" id="industry">
+                    <option value="">公司行业</option>
+                    <option value="2">IT互联网</option>
+                    <option value="4">医疗医学</option>
+                    <option value="3">能源化工</option>
+                    <option value="6">金融财经</option>
+                    <option value="9">农林牧渔</option>
+                    <option value="118">教育培训</option>
+                    <option value="120">加工制造</option>
+                    <option value="122">地产建筑</option>
+                    <option value="124">文化传媒</option>
+                    <option value="126">服务行业</option>
+                    <option value="128">交通物流</option>
+                    <option value="96">其它行业</option>
+                </select>
+                <span class="fa">&#xe600;</span></td></tr>
+            <tr><td>公司地址</td><td><input placeholder="输入地址" name="address" type="text"></td></tr>
+        </table>
+        <p class="title">公司信息</p>
+        <table class="info">
+            <tr><td>类型</td><td>
+                <select  name="cat">
+                    <option value="">选择类型</option>
+                    <option value="1">国有企业</option>
+                    <option value="2">外资企业（含合资）</option>
+                    <option value="3">民营或集体所有制企业</option>
+                    <option value="4">公用事业</option>
+                    <option value="5">政府机构/科研组织/协会</option>
+                    <option value="6">股份制企业</option>
+                    <option value="7">其他</option>
+                </select>
+                <span class="fa">&#xe600;</span></td></tr>
+            <tr><td>公司规模</td><td>
+                <select name="scale">
+                    <option value="">选择规模</option>
+                    <option value="1">1-99</option>
+                    <option value="2">100-499</option>
+                    <option value="3">500-1000</option>
+                    <option value="4">1000-4999</option>
+                    <option value="5">5000-9999</option>
+                    <option value="6">10,000-49,999</option>
+                    <option value="7">500,000以上</option>
+                </select>
+                <span class="fa">&#xe600;</span></td></tr>
+            <tr><td>会员会费</td><td><input placeholder="会费金额" name="fee" type="text"></td></tr>
+        </table>
+        <button>提交申请</button>
+    </form>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    $('select').each(function(){
+        if($(this).val()==''){
+            $(this).css({color:'#999'})
+        }
+    })
+    $('select').change(function(){
+        if($(this).val()==''){
+            $(this).css({color:'#999'})
+        }else {
+            $(this).css({color:'#000'})
+        }
+    })
+    $('#application').submit(function () {
+        $('input').each(function(){
+            if($(this).val()==''){
+                $(this).addClass('red')
+                return false
+            }else{
+                $(this).removeClass('red')
+            }
+        })
+    })
+
+//    $('input').click(function(){
+//        event.stopPropagation();
+//        var ul=$(this).parent().find('.select')
+//        $(ul).slideToggle(50)
+//        var _this=this
+//        $('.select li').click(function(){
+//            $(_this).val($(this).text())
+//            $(ul).slideUp(50)
+//        })
+//    })
+//    $('body').click(function () {
+//        $('.select').slideUp(50)
+//    })
+//    test
+</script>
+{% endblock %}

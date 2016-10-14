@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <!-- // <script src="http://pic.huodongjia.com/static/js/jquery-1.8.3.min.js"></script> -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!-- 百度echart插件 -->
+    <!-- 自定义css和js -->
+    <link rel="stylesheet" type="text/css" href="../static/css/index.css">
+</head>
+<body>
+<div class='container main'>
+    <header class="navbar navbar-fixed-top bs-docs-nav" id="top" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" style="color: #fff;">懒人周末</a>
+            </div>
+            <nav id="bs-navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="">总表</a>
+                    </li>
+                    <li ><a href="#" class="dropdown" data-toggle="dropdown" >
+                        用户分析
+                        <span class="caret" ></span>
+                        <ul class="dropdown-menu" >
+                            <li><a href="#">下载用户</a></li>
+                            <li><a href="#">注册用户</a></li>
+                            <li><a href="#">有操作行为用户</a></li>
+                            <li><a href="#">用户属性</a></li>
+                        </ul>
+                    </a></li>
+                    <li >
+                        <a href="">订单分析</a>
+                    </li>
+                    <li >
+                        <a href="">商家及活动分析</a>
+                    </li>
+                    <li >
+                        <a href="">活动类别及标签分析</a>
+                    </li>
+                    <li >
+                        <a href="">语义分析</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class='row'>
+        <!-- 左侧控制面板开始 -->
+        <div class='col-sm-2 left' style=''>
+            <div class='text-center left-title'><h4 style='color:white;'>懒人周末可视化数据</h4></div>
+            <div class='left-item-top'>
+                <h4 class='left-item-title'><a href="/lrzm/templates/index.html"><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>总表</a></h4>
+            </div>
+            <div class='left-item-middle'>
+                <h4 class='left-item-title'><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>用户分析</h4>
+                <ul class="menue" style='margin-left:20px;'>
+                    <li><a href="/lrzm/templates/userDownload.html" class='left-item-option'>下载用户</a></li>
+                    <li><a href="/lrzm/templates/userSign.html" class='left-item-option'>注册用户</a></li>
+                    <li><a href="/lrzm/templates/userAct.html" class='left-item-option'>有操作行为用户</a></li>
+                    <li><a href="/lrzm/templates/usreProperty.html" class='left-item-option'>用户属性</a></li>
+                </ul>
+            </div>
+            <div class='left-item-bottom'>
+                <h4 class='left-item-title'><a href=""><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>订单分析</a></h4>
+            </div>
+            <div class='left-item-bottom'>
+                <h4 class='left-item-title'><a href=""><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>商家及活动分析</a></h4>
+            </div>
+            <div class='left-item-bottom'>
+                <h4 class='left-item-title'><a href=""><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>活动类别及标签分析</a></h4>
+            </div>
+            <div class='left-item-bottom'>
+                <h4 class='left-item-title'><a href=""><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>语义分析</a></h4>
+            </div>
+        </div>
+        <!-- 左侧控制面板结束 -->
+        <!-- 右侧祥情开始 -->
+        <div class='col-sm-10 right'  style="">
+            <!--<h2 align='center'>总表</h2>-->
+            <div class="right_bottom col-lg-3 col-sm-4 col-xs-12" style="height: 300px;">
+                <h2>下载总量</h2>
+                <div id='right_curveoforder_1'class="col-xs-12" style="height: 80%;width:100%;padding: 0;"></div>
+            </div>
+            <div class="right_bottom col-lg-2 col-sm-3 col-xs-12 down" style="height: 300px;">
+                    <h2 >昨日新增下载</h2>
+                    <p><span class="new_down"></span></p>
+                    <h2 >昨日新增注册</h2>
+                    <p style="border: none;"><span class="new_sign"></span></p>
+            </div>
+            <div class="right_bottom col-lg-3 col-sm-3 col-xs-12 bus" style="height: 300px;">
+                <p><span>商家总数</span><span class="shop_total" style="font-size: 22px"></span><span>昨日新增商家 </span><span class="new_shop" style="font-size: 22px"></span></p>
+                <p style="border: none;"><span >活动总数 </span><span class="act_total" style="font-size: 22px"></span><span>昨日新增活动 </span><span class="new_act" style="font-size: 22px"></span></p>
+            </div>
+            <div class="right_bottom col-sm-3 col-xs-12" style="height: 300px;">
+                <h2>热门活动TOP5</h2>
+                <table width="100%" class="top_act">
+                </table>
+            </div>
+
+            <div class="right_bottom col-lg-5 col-sm-5 col-xs-12" style="height: 300px;padding-top: 10px">
+                <!--<h2>下载总量</h2>-->
+                <div id='right_curveoforder_3'class="col-xs-12" style="height: 100%;width:100%;padding: 0;"></div>
+            </div>
+            <div class="right_bottom col-lg-3 col-sm-4 col-xs-12" style="height: 300px;">
+                <h2 >活动总数及占比</h2>
+                <div id='right_curveoforder_2' style="height: 75%;"></div>
+            </div>
+            <div class="right_bottom col-sm-3 col-xs-12" style="height: 300px;">
+                <h2>热门商家TOP10</h2>
+                <table width="48%" class="top_shop_1" style="float: right">
+
+                </table>
+                <table width="48%" class="top_shop_2" >
+
+                </table>
+            </div>
+
+            <div class="right_bottom col-sm-3 col-xs-3 all" style="height: 300px;">
+                <p><span>订单总量 <br><font class="order_total" style="font-size: 22px"></font></span><span>昨日新增订单量 <br><font class="new_order" style="font-size: 22px"></font></span></p>
+                <p><span>订单销售金额 <br><font class="money_total" style="font-size: 22px"></font></span><span>昨日新增订单金额 <br><font class="new_money" style="font-size: 22px"></font></span></p>
+                <p style="border: none;"><span>退款总金额 <br><font class="refunds_total" style="font-size: 22px"></font></span><span>昨日退款金额 <br><font class="new_refunds" style="font-size: 22px"></font></span></p>
+            </div>
+            <div class="right_bottom col-lg-8 col-sm-5 col-xs-12" style="height: 300px;padding-top: 10px">
+                <!--<h2>下载总量</h2>-->
+                <div id='right_curveoforder_4' style="height: 100%;width:100%;padding: 0;"></div>
+            </div>
+
+        </div>
+        <!-- 右侧祥情结束 -->
+    </div>
+</div>
+</body>
+<script src="../static/echarts-2.2.7/build/dist/echarts.js"></script>
+<script src="../static/js/dark.js"></script>
+<script type="text/javascript" src="../static/js/index_1.js"></script>
+</html>

@@ -1,0 +1,91 @@
+{% extends "m_model.html" %}
+{% block cssStyle %}
+{% endblock %}
+{% block meta %}
+<title>活动家-亚洲最大的活动网聚合平台</title>
+<meta name="description" content="活动家，亚洲最大的活动网聚合平台，为您提供海量会议,公开课,会展,极限运动,当地体验,夜生活,演出折扣票,同城活动查询,特色旅游，门票预订,报名,参加活动,请上活动家手机站！服务热线:400-003-3879" />
+<meta name="keywords" content="活动,活动网,线下活动,会议网,同城活动" />
+{% endblock %}
+{% block container %}
+<div class="container_details">
+    <div class="gohome"><a href="http://m.huodongjia.com/"> <i class="icon iconfont">&#xe66e;</i></a></div>
+{% block header %}
+<div class="header">
+    <div class="icon-left"><a href="#" onClick="javascript :history.go(-1);"><i class="iconfont">&#xe66b;</i></a></div>
+    <h2>确认订单信息并支付</h2>
+</div>
+{% endblock %}
+
+
+{% block Navlist %}
+{% endblock %}
+
+{% block content %}
+<div class="center">
+    <ul class="orderlist">
+        <li>
+            <table  cellspacing="0" >
+                <tbody>
+                <tr>
+                    <td><p class="ordernum"style="color:#333">订单号:{{order_number}}</p>
+                </tr>
+                <tr>
+                    <td >
+                        <div class="details-big-div">
+                            <div class="details-big-div-info">
+                                <p class="details-big-div-info-title">{{order_info.event_name}}</p>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="all">合计：<b>{{total_price}}(人民币)</b></span>
+                        {% ifequal order.order_pay_status 0 %}
+                        <span class="all">支付方式：<b>{% ifequal order_info.payMode 'bank' %}银行转账{% else %}支付宝{% endifequal %}</b></span></td>
+                    {% endifequal %}
+                </tr>
+                <tr>
+                    <td >
+                        <p class="contact" style="color:#333;">联系人：{{order_info.name}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p class="phonenum" style="color:#333;">联系号码：{{order_info.mobilphone}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td> <p class="address" style="color:#333;">联系地址：{{order_info.address}}</p></td>
+                </tr>
+                <tr>
+                    <td><p class="remark">备注：{{order_info.remark}}</p></td>
+                </tr>
+                </tbody>
+            </table>
+        </li>
+    </ul>
+</div>
+
+<div class="text-center">
+    {% ifequal order_info.payMode 'bank' %}
+    <div class="text-center-info">
+        <h4 style="color:#ee1c48">付款步骤</h4>
+        <h5>①请将款项转入对公账号</h5>
+        <p class="text-center-contact">账户名：成都云数海量智能科技有限公司</p>
+        <p class="text-center-contact">账号：117169457814</p>
+        <p class="text-center-contact">开户行：中国银行成都中和支行</p>
+        <h5 class="h5-2">②并将转账截图或银行回单发到邮箱或者电联。</h5>
+        <p class="text-center-contact">邮箱：business@veryevent.com</p>
+        <p class="text-center-contact">客服电话：400-003-3879</p>
+    </div>
+{% else %}
+<a type="submit" id="surePay" style="padding-left:20px;padding-right:20px;" href="/upgrade/{{order_number}}/{{total_price}}/{{order_info.event_name}}" class="btn surePayIcon">立即支付</a>
+
+</div>
+{% endifequal %}
+{% endblock %}
+
+    </div>
+{% endblock %}
+{% block footerjs %}
+{% endblock %}

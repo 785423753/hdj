@@ -1,0 +1,34 @@
+@font-face {
+    font-family: "guestfont";
+    src: url("http://pic.huodongjia.com/static/css/guest/iconfont.ttf");
+}
+.myguestfont{
+    font-family: "guestfont";
+    font-size: 1.3em;
+    line-height: 50px;
+}
+footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: #4B91F0;
+    color: #ffffff;
+    font-size: 1.7em;
+    text-align: center;
+    line-height: 50px;
+    z-index: 9999;
+}
+.info{
+    text-indent: 2em;
+    text-align: inherit;
+    margin-top:10px;
+    background:#fff;
+    padding: 20px 5px 5px 5px;
+}
+.details {
+    color:  #BBBBBB;
+    font-size: 1.1em;
+    padding-top: 10px;
+}

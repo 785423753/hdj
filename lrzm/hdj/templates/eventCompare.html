@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/static/laydate/laydate.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/base.css">
+</head>
+<style>
+    .content .part{
+        width: 48%;
+        margin: 10px 1% 0;
+        background: rgba(14, 26, 64, 0.8);
+    }
+    .content .part h3{
+        color: #fff;
+    }
+</style>
+<body>
+<canvas class="bg"></canvas>
+<div class="head">
+    <span class="logo">可视化管理</span>
+    <ul>
+        <li data-url="zonglan_1.png" data-old="zonglan.png"><a href="/" title="总览图"><img src="http://pic.huodongjia.com/static/vision/images/zonglan.png" alt=""></a></li>
+        <li class="order" data-url="dingdan_1.png" data-old="dingdan.png">
+            <a class="act" title="订单可视化" href="/newordervis/salesanalysis/"><img src="http://pic.huodongjia.com/static/vision/images/dingdan_1.png" alt=""></a>
+        </li>
+        <li data-url="bianji_1.png" data-old="bianji.png"><a href="/neweventvis/showevents/" title="编辑可视化"><img src="http://pic.huodongjia.com/static/vision/images/bianji.png" alt=""></a></li>
+        <li class="operate" data-url="qita_1.png" data-old="qita.png">
+            <a href="/newoperation/op_datas/" title="运营推广数据可视化"><img src="http://pic.huodongjia.com/static/vision/images/qita.png" alt=""></a>
+        </li>
+        <li data-url="app_1.png" data-old="app.png"><a href="/newordervis/app/" title="活动家APP"><img src="http://pic.huodongjia.com/static/vision/images/app.png" alt=""></a></li>
+    </ul>
+</div>
+<div class="menue">
+    <a  href="/newordervis/salesanalysis/">销售额对比分析</a><a href="/newordervis/top20/">销售榜单分析</a>
+    <a class="choose"  href="/newordervis/contrastwithpast/">历届会议对比</a><a href="/newordervis/bizcoopanalysis/">商务合作分析</a><a href="/newordervis/order_source/">其他维度分析</a>
+    <div class="industry">
+        <span>行业分类:</span>&nbsp;&nbsp;&nbsp;<font data-cat="{% ifequal ret.1.id 1 %}{% else %}{{ret.1.id}}{% endifequal %}">{{ret.1.name}}</font>
+        <ul>
+            <li data-cat="">
+                全部
+            </li>
+            {% for item in ret.0 %}
+            <li data-cat="{{item.id}}">
+                {{ item.name }}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<div class='content'>
+    {% for item in ret.2 %}
+        <div class="part"><h3>{{ item.name }}</h3><div id="event_{{ forloop.counter }}"></div></div>
+    {% endfor %}
+    <p style="clear: both"></p>
+</div>
+</body>
+<script src="/static/js/echarts.js"></script>
+<script src="/static/js/dark.js"></script>
+<script src="/static/js/compare.js"></script>
+<script src="/static/js/canvas.js"></script>
+</html>

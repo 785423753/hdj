@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+
+</style>
+<body>
+<div class="dom">
+   <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <div>5</div>
+    <div>6</div>
+</div>
+<button onclick="del()">删除</button>
+</body>
+<script src="http://pic.huodongjia.com/static/js/jquery-1.8.3.min.js"></script>
+<script>
+
+    function del(){
+        var dom=document.getElementsByClassName('dom')
+        var child=dom[0].children
+        console.log(child)
+        for(var i=0;i<3;i++){
+            dom[0].removeChild(child[j])
+        }
+    }
+</script>
+</html>

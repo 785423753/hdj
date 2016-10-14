@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/static/laydate/laydate.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/base.css">
+</head>
+<style>
+    .content{
+        float: left;
+    }
+    .menue{
+        line-height: 50px;
+        font-size: 16px;
+        color: rgba(118, 210, 247, 1);
+    }
+    .left{
+        color: #1A4A97;
+        line-height: 30px;
+        width: 10%;
+    }
+    .center{
+        width: 45%;
+    }
+    .right{
+        width:45%;
+    }
+    .left span{
+        display: block;
+        font-family: 'EURASIA';
+        color: #76D2F7;
+        font-size: 3em;
+        margin: 15px 0;
+    }
+    .content>div>p{
+        color: #76D2F7;
+        font-size: 16px;
+        clear: both;
+    }
+    .content>div>p>font{
+        border-left:4px solid #7DFEFD;
+        padding-left: 5px;
+    }
+    .content>div>p>span{
+        font-size: 14px;
+    }
+    #top{
+        /*border:1px solid green;*/
+    }
+    .num span{
+        float: left;
+        width: 20%;
+        text-align: center;
+        color: #76D2F7;
+        font-family: 'EURASIA';
+        font-size: 18px !important;
+        position: relative;
+        bottom:13px;
+    }
+    .num{
+        margin-bottom: 35px;
+    }
+    .cat{
+        width: 100%;
+        background: #0b1538;
+        padding: 15px 0;
+        float: left;
+        border-radius: 4px;
+        box-shadow: 0 0 5px 1px rgba(5, 9, 17, 0.22);
+    }
+    .cat li{
+        list-style: none;
+        border-left:1px solid #050E27;
+        text-align: center;
+        color: #1A4A97;
+        line-height: 25px;
+    }
+    .cat li:nth-child(1){
+        border: none;
+    }
+    .cat li span{
+        color: #76D2F7;
+        font-family: 'EURASIA';
+        font-size: 18px;
+    }
+    .select{
+        position: absolute;
+        right: 5%;
+        top:-37px;
+    }
+    .select input{
+        width: 135px;
+    }
+</style>
+<body>
+<canvas class="bg"></canvas>
+<div class="head">
+    <span class="logo">可视化管理</span>
+    <ul>
+        <li data-url="zonglan_1.png" data-old="zonglan.png"><a href="/" title="总览图"><img src="http://pic.huodongjia.com/static/vision/images/zonglan.png" alt=""></a></li>
+        <li class="order" data-url="dingdan_1.png" data-old="dingdan.png">
+            <a title="订单可视化" href="/newordervis/salesanalysis/"><img src="http://pic.huodongjia.com/static/vision/images/dingdan_1.png" alt=""></a>
+        </li>
+        <li data-url="bianji_1.png" data-old="bianji.png"><a class="act"  href="/neweventvis/showevents/" title="编辑可视化"><img src="http://pic.huodongjia.com/static/vision/images/bianji.png" alt=""></a></li>
+        <li class="operate" data-url="qita_1.png" data-old="qita.png">
+            <a href="/newoperation/op_datas/" title="运营推广数据可视化"><img src="http://pic.huodongjia.com/static/vision/images/qita.png" alt=""></a>
+        </li>
+        <li data-url="app_1.png" data-old="app.png"><a href="/newordervis/app/" title="活动家APP"><img src="http://pic.huodongjia.com/static/vision/images/app.png" alt=""></a></li>
+    </ul>
+</div>
+<div class="menue">编辑数据</div>
+<div class='content'>
+    <div class="select"><input value="{{start_time}}" onclick="laydate({istime: true, format: 'YYYY-MM-DD 00:00:00'})" id="start_time">至
+        <input value="{{end_time}}" onclick="laydate({istime: true, format: 'YYYY-MM-DD 00:00:00'})" id="end_time"><button>确定</button></div>
+    <div class="col-sm-1 col-xs-1 left">{{cur_year_events.year}}总编辑量:<br><span>{{cur_year_events.total_events_cnt}}</span>标准收费：<br><span>{{cur_year_events.std_price_events_cnt}}</span></div>
+    <div class="col-sm-6 col-xs-6 center" id="city" style="height: 450px"></div>
+    <div class="col-sm-5 col-xs-5 right">
+        <p><font>城市会议数据&nbsp;&nbsp;  </font> <span>Conference city</span><span style="float: right;color: #1A4A97;">单位：场</span></p>
+        <div id="top" style="height: 120px"></div>
+        <p class="num">
+            {% for i in citys_events_top5 %}
+            <span>{{i.cnt}}</span>
+            {% endfor %}
+        </p>
+        <p style="clear: both;margin:auto;border-top: 1px solid rgb(37, 51, 97);margin-bottom: 15px;"></p>
+        <p><font>会议价格段&nbsp;&nbsp;   </font><span>Conference price</span></p>
+        <div id="price" style="height: 250px;"></div>
+    </div>
+    <div class="col-sm-12 col-xs-12">
+        <p style="clear: both"><font>标准收费会议&nbsp;&nbsp;  </font> <span>Charge conference</span></p>
+        <ul class="cat">
+            {% for i in cats_events %}
+            <li class="col-sm-1 col-xs-1"><span>{{i.cnt}}</span><br>{{i.name}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <p style="clear: both"></p>
+    <div class="col-sm-12 col-xs-12">
+        <p style="clear: both"><font>会议价格信息&nbsp;&nbsp;  </font> <span>Price information</span></p>
+        <div id="event" style="height: 350px;"></div>
+    </div>
+</div>
+</body>
+<script src="/static/js/echarts.js"></script>
+<script src="/static/js/canvas.js"></script>
+<script src="/static/js/infographic.js"></script>
+<script src="/static/js/edit.js"></script>
+<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+<script>
+    // 路径配置
+    require.config({
+        paths: {
+            echarts: 'http://echarts.baidu.com/build/dist/'
+            // echarts: './static/echarts-2.2.7/build/dist/'
+        }
+    });
+    // 使用
+    require(
+            [
+                'echarts',
+                'echarts/theme/macarons',
+                'echarts/chart/line',
+                'echarts/chart/bar',
+                'echarts/chart/pie',
+                'echarts/chart/map',
+            ],
+            function (ec,theme) {
+                // 基于准备好的dom，初始化echarts图表)
+                $('.select button').click(function () {
+                    city()
+                })
+                city()
+                function city(){
+                    var start_day=$('#start_time').val(),end_day=$('#end_time').val()
+                    $.ajax({
+                        url: '/neweventvis/showevents/?json=1',
+                        data: {
+                            start_time: start_day,
+                            end_time: end_day,
+                        },
+                        dataType: 'json',
+                        type: 'get',
+                        async: false,
+                        success: function (data) {
+                            var Data=[],Coord={}
+                            for(var i=0;i<data.citys_events.length;i++){
+                                if(data.citys_events[i].location){
+                                    Data.push({name:data.citys_events[i].name,value:data.citys_events[i].cnt})
+                                    Coord[data.citys_events[i].name]=[data.citys_events[i].location.lng,data.citys_events[i].location.lat]
+                                }
+                            }
+                            var myChart1 = ec.init(document.getElementById('city'),theme);
+                            var option1 = {
+                                backgroundColor: 'rgba(0,0,0,0)',//背景色
+                                tooltip : {
+                                    trigger: 'item',
+                                },
+                                series : [
+                                    {
+                                        name: '会议数据',
+                                        type: 'map',
+                                        mapType: 'china',
+                                        hoverable: false,
+                                        roam:false,
+                                        data : [],
+                                        itemStyle:{
+                                            normal:{
+                                                borderColor:'rgba(100,149,237,1)',
+                                                borderWidth:1,
+                                                areaStyle:{
+                                                    color: 'rgba(0,0,0,0)'
+                                                }
+                                            }
+                                        },
+                                        markPoint : {
+                                            symbolSize: 2,       // 标注大小，半宽（半径）参数，当图形为方向或菱形则总宽度为symbolSize * 2
+                                            effect : {
+                                                show: true
+                                            },
+                                            itemStyle: {
+                                                normal: {
+                                                    color:'rgba(4, 123, 245, 0.84)',
+                                                    label:{
+                                                        show:false
+                                                    }
+                                                },
+                                                emphasis:{
+                                                    label:{
+                                                        show:false
+                                                    }
+                                                }
+                                            },
+                                            data : Data
+                                        },
+                                        geoCoord: Coord
+                                    },
+                                ]
+                            };
+                            myChart1.setOption(option1);
+                            $(window).resize(function () {
+                                myChart1.resize();
+                            })
+                        }
+                    })
+
+                }
+
+            }
+    );
+</script>
+</html>

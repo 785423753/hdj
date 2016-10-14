@@ -1,0 +1,457 @@
+@font-face {
+    font-family: 'iconfont';
+    src: url('http://pic.huodongjia.com/static/css/mobile_icon/iconfont.eot');
+    src: url('http://pic.huodongjia.com/static/css/mobile_icon/iconfont.eot?#iefix') format('embedded-opentype'), url('http://pic.huodongjia.com/static/css/mobile_icon/iconfont.ttf') format('truetype'), url('http://pic.huodongjia.com/static/css/mobile_icon/iconfont.svg#iconfont') format('svg')
+}
+@font-face {
+    font-family: 'myFont';
+    src: url('http://pic.huodongjia.com/static/css/all_iconfont.ttf');
+}
+@font-face {
+    font-family: 'sponsor-font';
+    src: url('http://pic.huodongjia.com/static/css/sponsor_iconfont.ttf');
+}
+@font-face {
+    font-family: 'Iconfont';
+    src: url('http://pic.huodongjia.com/static/css/m_iconfont.ttf');
+}
+.Iconfont {
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: .2px;
+    -moz-osx-font-smoothing: grayscale;
+    color: #fff;;
+    font-size: 2em !important;
+    float: left;
+    position: relative;
+    top: 2px;
+}
+.iconfont {
+    /*font-family: "iconfont" !important;*/
+    font-size: 26px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: .2px;
+    -moz-osx-font-smoothing: grayscale;
+    color: #fff;
+    line-height: 45px;
+}
+.Body{
+    position: fixed;
+    width: 100%;
+}
+.myfont{
+    font-family: 'myFont';
+    font-size:2.3em;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: .2px;
+    -moz-osx-font-smoothing: grayscale;
+    color: #fff;
+    line-height: 45px;
+}
+body{
+    background: #F0F0F0;
+}
+/*header*/
+header {
+    width: 100%;
+    height: 45px;
+    background: #36c;
+    padding: 0 10px;
+    line-height: 45px !important;
+}
+.menue{
+    float: right;
+}
+.title{
+    font-size: 18px;
+    color: #fff;
+}
+#searchIcon{
+    position: absolute;
+    font-size: 21px;
+    right: 12px;
+    top: 51px;
+    color: rgba(215, 215, 215, 0.57);
+}
+.searchInput{
+    width: 100%;
+    height: 40px;
+    border: 1px solid rgba(215, 215, 215, 0.57);
+    padding: 0 10px;
+}
+.searchForm{
+    margin: 5px 0;
+}
+/*分类*/
+.hidden-cat{
+    position: absolute;
+    top: 45px;
+    z-index: 1000;
+    width: 100%;
+    background-color: #FFF;
+    float: left;
+    padding: 20px 10px;
+    display: none;
+}
+.hidden-cat ul{
+    float: left;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 0 10px;
+}
+.hidden-cat ul li{
+    line-height: 30px;
+    padding: 0;
+    list-style: none;
+}
+.hidden-cat ul li a{
+    color: #7C7C7C;
+    font-size: 1.1em;
+}
+.hidden-cat ul li a:hover{
+    color: #1C65B0;
+}
+.choose{
+    color: #CACACA;
+}
+/*城市列表*/
+.city-list{
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    padding: 0 10px;
+    background: #fff;
+    color: #FF9048;font-size: 18px;
+    border: 1px solid rgba(215, 215, 215, 0.57);
+}
+.more{
+    float: right;
+    color: #D7D7D7;
+    font-size: 24px;
+    margin-top: 9px;
+}
+.cityList,.venueClassList{
+    padding: 0 10px;
+    display: none;
+    position: absolute;
+    width: 100%;
+    z-index: 999;
+}
+.cityList ul,.venueClassList ul{
+    padding: 0;
+    border: 1px solid #D7D7D7;
+    height: 315px;
+    overflow: auto;
+}
+.venueClassList ul{
+    height: auto;
+}
+.cityList ul li,.venueClassList ul li{
+    list-style: none;
+    width: 100%;
+    height: 45px;
+    background: #FAFAFA;
+    line-height: 45px;
+    text-align: center;
+    border-top: 1px solid rgba(224, 224, 224, 0.65);
+}
+.cityList ul li a,.venueClassList ul li a{
+    color: #000;
+    font-size: 18px;
+}
+.jiantou{
+    position: relative;
+    top: 1px;
+}
+.active{
+    color: #FF9048 !important ;
+}
+.bg{
+    width: 100%;
+    height: 800px;
+    position: fixed;
+    top: 140px;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 100;
+    display: none;
+}
+/*场馆列表*/
+.venue_list{
+    margin: 0;
+}
+.venue{
+    padding:10px 0;
+    background: #fff;
+    position: relative;
+    margin-bottom: 5px;
+    height: 100px;
+}
+.venue h2{
+    font-size: 18px;
+    line-height: 1;
+    margin: 0;
+    letter-spacing: 2px;
+    margin-bottom: 7px;
+    width: 100%;
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical
+}
+.venue p{
+    font-size: 13px;
+    color: #A3A3A3;
+    line-height: 1.2;
+    width: 100%;
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical
+}
+.venue .message{
+    position: absolute;
+    width: 60%;
+    padding: 10px;
+    bottom: 0;
+    left: 40%;
+    font-size: 13px;
+    color: #A3A3A3;
+    line-height: 1;
+}
+/*footer*/
+footer{
+    padding:0 10px;
+}
+footer a,footer div,footer{
+    color: #aaa;
+}
+footer>ul{
+    width: 100%;
+    padding: 0;
+    display: inline-block;
+    margin: 10px auto;
+}
+footer>ul>li{
+    text-align: center;
+    display: inline-block;
+    list-style: none outside none;
+    width: 32%;
+}
+footer>ul>li+li{
+    /*margin-left: 30px;*/
+}
+/*主办方列表*/
+.fa-heart:before {
+    color: #c0c0c0;
+    margin-left: 25px;
+    margin-right: 5px;
+}
+.fa-send:before, .fa-paper-plane:before {
+    color: #c0c0c0;
+    margin-right: 5px;
+}
+/*主办方详情*/
+.spon_title{
+    text-align: center;
+    padding-left:0%;
+    width: 80%;
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    line-height: 2.6;
+}
+.mysponsorfont{
+    font-family: 'sponsor-font';
+    color: #F65050;
+}
+.session{
+    border-left: 1px solid #d7d7d7;
+    border-right: 1px solid #d7d7d7;
+}
+.spon_info{
+    background: #fff;
+    margin: 5px 0;
+    padding: 10px 0;
+}
+.spon_info div{
+    padding: 0 0 10px;
+}
+.content{
+    padding: 10px 15px;
+    background: #fff;
+}
+.content p{
+    text-indent: 2em;
+    line-height: 1.7;
+    color: #868383;
+    width: 100%;
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 9;
+    -webkit-box-orient: vertical;
+    text-align: justify;
+}
+/*正在报名*/
+.meeting_title{
+    margin: 5px 0;
+    width: 100%;
+    height: 45px;
+    line-height: 48px;
+    background: #fff;
+}
+.meeting_title>span{
+    font-size: 18px;
+    border-left: 5px solid #4D92F1;
+    padding-left: 10px;
+}
+.meeting_list{
+    margin: 0;
+    border: 1px solid rgba(255, 0, 0, 0);
+}
+.meeting{
+    padding: 10px 10px 0;
+}
+.meeting>div{
+    background: #fff;
+    padding: 5px;
+    border-radius: 4px;
+}
+.meeting>div>p{
+    margin: 5px 0 0;
+    width: 100%;
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical
+}
+.meeting>div>p>span{
+    color: #A6A6A6;
+    margin-right: 13%;
+}
+.son_name{
+    margin: 5px 0;
+    font-size: 15px;
+    line-height: 1.2;
+    height: 37px;
+    color: #000;
+    width: 100%;
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical
+}
+.spon_addr{
+    width: 100%;
+    height: 20px;
+    margin: 0;
+    font-size: 13px;
+    color: #A6A6A6;
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical
+}
+/*往期活动*/
+.Activities_list{
+    width: 100%;
+    background: #fff;
+    padding: 0 10px;
+}
+.Activities{
+    border-bottom: 1px solid #E9E9E9;
+    padding: 10px 0 5px;
+}
+.Activities p{
+    margin: 0;
+}
+.act_name{
+    margin-bottom: 5px !important;
+    width: 100%;
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical
+}
+.act_name a{
+    color: #000;
+    font-size: 15px;
+}
+.act_mess{
+    text-align: right;
+    color: #A6A6A6;
+}
+.act_mess span{
+    margin-right:10px;
+}
+/*场馆*/
+.venue_name{
+    text-align: center;
+    font-size: 20px;
+}
+a:active{
+    color: #0000f1 !important;
+    text-decoration: none !important ;
+}
+a:link {
+    text-decoration: none;
+}
+a:visited {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+}
+.meeting_list .meeting:nth-child(even){
+    padding-left: 5px !important;
+}
+.meeting_list .meeting:nth-child(odd){
+    padding-right:5px !important;
+}
+.top_back{
+    position: fixed;
+    bottom: -40px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius:5px;
+    line-height: 30px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.18);
+}
+.searchForm{
+    width: 100%;
+}
+.load,.Load{
+    color: #736f6f;
+}
+@font-face {
+    font-family: 'tyf_iconfont';
+    src: url('//at.alicdn.com/t/font_1464591655_526947.eot'); /* IE9*/
+    src: url('//at.alicdn.com/t/font_1464591655_526947.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('//at.alicdn.com/t/font_1464591655_526947.woff') format('woff'), /* chrome、firefox */
+    url('//at.alicdn.com/t/font_1464591655_526947.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('//at.alicdn.com/t/font_1464591655_526947.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+.ty_font{
+    font-family: 'tyf_iconfont' !important;
+}

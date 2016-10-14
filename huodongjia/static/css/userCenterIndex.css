@@ -1,0 +1,883 @@
+/*ȫ������*/
+@font-face {
+    font-family: 'iconfont';
+    src: url('//at.alicdn.com/t/font_1446603389_030571.eot'); /* IE9*/
+    src: url('//at.alicdn.com/t/font_1446603389_030571.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('//at.alicdn.com/t/font_1446603389_030571.woff') format('woff'), /* chrome、firefox */
+    url('//at.alicdn.com/t/font_1446603389_030571.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('//at.alicdn.com/t/font_1446603389_030571.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+.iconfont{
+    font-family:"iconfont";
+    font-style:normal;
+    margin-right: 5px;
+}
+.container{
+    width: 1200px;
+    padding: 0px;
+}
+body{
+    background-color: #f2f2fa;
+    font-family:  "Microsoft Yahei", "微软雅黑",Tahoma, Arial, Helvetica, SimHei;
+}
+div,ul,li,a,p,h1,h2,h3,h4,h5,h6,img,span,i,nav,br,table,tr,td{
+    padding: 0px;
+    margin: 0px;
+}
+a{
+    color: #000000;
+    cursor: pointer;
+}
+a:hover,a:focus{
+    text-decoration: none;
+}
+li{
+    list-style: none outside none;
+}
+.mainWrapper{
+    background-color: #f2f2fa;
+}
+.fa{
+    color: #fff;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    line-height: 18px;
+    text-align: center;
+    font-size: 12px;
+}
+.fa-weixin{
+    background-color: #1ab341;
+}
+.fa-weibo{
+    background-color: red;
+}
+.pageNumber{
+    width: 888px;
+    margin: 0 auto;
+    text-align: right;
+    margin-top: 40px;
+}
+.pageNumber a{
+    display: inline-block;
+    border: 1px solid #666666;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 30px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.pageNumber a.morePage{
+    border: none;
+    margin-left: 0px;
+    margin-right: -10px;
+    cursor: default;
+}
+.pageNumber a.nextPage{
+    width: 70px;
+}
+.pageNumber a.active{
+    background-color: #4693e3;
+    border-color: #4693e3;
+    color: #ffffff;
+}
+/*��������ҳ����ർ����*/
+#individualismLeftNav,#individualismBody{
+    margin-top: 47px;
+    float: left;
+}
+#individualismLeftNav{
+    width: 200px;
+    margin-right: 20px;
+    display: inline-block;
+    vertical-align: top;
+}
+#individualismLeftNav .listNav{
+    width: 100%;
+    height: 300px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+#individualismLeftNav .listNav ul li>a{
+    height: 60px;
+    background-color: #fff;
+    line-height: 60px;
+    font-size: 16px;
+    list-style: none;
+    text-align: center;
+    color: #000000;
+    display: block;
+    border-bottom:1px solid #eee;
+    transition: all .3s linear;
+}
+#individualismLeftNav .individualismQrCode{
+    text-align: center;
+    width: 200px;
+    height: 220px;
+    background-color: #fff;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+#individualismLeftNav .individualismQrCode img{
+    margin: 15px 0px;
+}
+#individualismLeftNav .individualismQrCode p{
+    color: #596575;
+    font-size: 16px;
+}
+#individualismLeftNav .listNav ul li:hover>a,#individualismLeftNav .listNav ul li:hover>a{
+    color: #559cf4;
+}
+/*�Ҳ�ifarme����*/
+#individualismBody{
+    width: 980px;
+    display: inline-block;
+    height: auto;
+    overflow: hidden;
+    border-radius: 10px;
+}
+#individualismBody iframe{
+    border-radius: 10px;
+    +height:980px;
+}
+/*�ҵĶ���*/
+#indOrder,#settings,#myActivity,#collection{
+    background-color: #fff;
+    padding: 48px;
+    overflow: hidden;
+}
+#indOrder table{
+    border-top: 1px solid #d7d7d7;
+    border-right: 1px solid #d7d7d7;
+    margin: 0 auto 20px;
+}
+#indOrder td{
+    border-left: 1px solid #d7d7d7;
+    border-bottom: 1px solid #d7d7d7;
+}
+#indOrder table img{
+    margin: 20px 16px;
+}
+#indOrder a.goPly{
+    display: block;
+    width: 72px;
+    height: 24px;
+    background-color: #549cf1;
+    color: #ffffff;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 24px;
+    border-radius: 3px;
+}
+#indOrder a.processing{
+    color: #f76f71;
+}
+/*��������*/
+#settings{
+padding: 0px 48px
+}
+#settings .container{
+    width: 888px;
+}
+#settings h3{
+    font-size: 18px;
+    line-height: 60px;
+    border-bottom: 1px solid #dbdfeb;
+    margin-bottom: 53px;
+}
+#settings .form-horizontal input[type=text],#settings select{
+    height: 38px;
+    width: 318px;
+}
+#settings .form-horizontal label{
+    font-size: 18px;
+    font-weight: 400;
+}
+#settings #authcode{
+    width: 198px;
+}
+#settings #authcodebtn{
+    width: 110px;
+    height: 40px;
+    margin-left: 10px;
+    background-color: #80b5f7;
+    border: none;
+    color: #ffffff;
+    border-radius: 5px;
+}
+#settings .form-horizontal input[type=submit]{
+    width: 320px;
+    height: 40px;
+    background-color: #559cf4;
+    color: #ffffff;
+    border-radius: 5px;
+    border: none;
+}
+#settings .form-horizontal input,#settings .form-horizontal label,#settings .form-horizontal select{
+    margin-bottom: 20px;
+    display: inline-block;
+}
+#settings table{
+    margin: 0 auto;
+}
+#settings table td{
+    padding-right: 10px;
+}
+#settings table td span{
+    font-size: 12px;
+    color: #d0d1d5;
+}
+/*�����Ļ*/
+#myActivity h3{
+    font-size: 20px;
+    display: inline-block;
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+#myActivity>h3+a,#myActivity>h3+a>i{
+    color: #9ba3b6;
+    font-size: 13px;
+}
+#myActivity table{
+    text-align: center;
+    color: #596677;
+}
+#myActivity table thead{
+    background-color: #dee5ef;
+}
+#myActivity table th{
+    text-align: center;
+    font-weight: 400;
+    font-size: 18px;
+    height: 40px;
+    line-height: 40px;
+}
+#myActivity table .trOdd{
+    background-color: #fff;
+}
+#myActivity table .trEven{
+    background-color: #f7f6fb;
+}
+#myActivity table h2{
+    font-size: 18px;
+    color: #596677;
+}
+#myActivity table p{
+    font-size: 14px;
+    color: #596677;
+}
+#myActivity .tImg{
+    width: 184px;
+    padding:14px 11px;
+}
+#myActivity .tTitle{
+    width: 253px;
+    vertical-align: top;
+    text-align: left;
+    padding-top: 14px;
+    position: relative;
+}
+#myActivity .tTitle div{
+    position: absolute;
+    bottom:10px;
+    left: 0px;
+}
+#myActivity .tAuditing p{
+    font-size: 12px;
+    color: #a9adb8;
+    margin-bottom: 5px;
+}
+#myActivity .tAuditing .auditingFlag{
+    font-size: 14px;
+    color: #e74c50;
+    margin-bottom: 5px;
+}
+#myActivity table tbody a{
+    display: block;
+    font-size: 12px;
+    color: #a9adb8;
+}
+#myActivity table tbody a>i{
+    color: #a9adb8;
+}
+/*�ղ�*/
+#collection h3{
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+#collection table{
+    text-align: center;
+}
+#collection table th{
+    font-weight: 400;
+    text-align: center;
+}
+#collection table thead{
+    background-color: #dee5ef;
+    height: 33px;
+    line-height: 33px;
+}
+#collection table .trOdd{
+    background-color: #fff;
+}
+#collection table .trEven{
+    background-color: #f5f5f5;
+}
+#collection table .eSoon>span,#collection table .eIng{
+    color: #e64c4e;
+}
+/*����*/
+#integral{
+    overflow: hidden;
+    font-size: 16px;
+    background-color: rgb(242, 242, 250);
+}
+#integral h2{
+    color: #559cf6;
+    font-size: 22px;
+    margin-bottom: 26px;
+}
+#integral .integralExchange span{
+    color: #ce3c3d;
+}
+#integral .getIntegral .getIntegralRule p{
+    font-size: 16px;
+    overflow: hidden;
+    margin: 15px 0px;
+}
+#integral .user,#integral .getIntegral,#integral .integralExchange{
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 32px 43px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+#integral .user{
+    padding-top: 22px;
+    padding-bottom: 22px;
+}
+#integral .userNumber{
+    display: inline-block;
+    position: relative;
+}
+#integral .user .userIntegral{
+    font-size: 36px;
+    color: #cf3b39;
+    position: relative;
+}
+#integral .user i,#integral .user a{
+    font-size: 12px;
+    color:#bcbcbc;
+}
+#integral .user a{
+    margin-left: 40px;
+    margin-right: 20px;
+}
+#integral .progressBar{
+    width: 300px;
+    height: 20px;
+    background-color: #f0f0f0;
+    display: inline-block;
+    position: relative;
+    top: -15px;
+}
+#integral .progressBar .currentProgress{
+    width: 1px;
+    height: 100%;
+    background-color: #ea3c3b;
+}
+#integral .shareIcon{
+    width: 84px;
+    margin: 15px;
+    display: table-cell;
+    vertical-align: top;
+}
+#integral .shareIcon i{
+    width: 54px;
+    height: 54px;
+    background-color: #b8e2fa;
+    border-radius: 27px;
+    text-align: center;
+    display: block;
+    line-height: 54px;
+    font-size: 36px;
+    color: #fff;
+    margin: 20px auto;
+}
+#integral .getIntegral .getIntegralCat{
+    width: 888px;
+    background-color: #fafafa;
+    display: table;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+#integral .getIntegral .getIntegralCat p{
+    margin: 12.5px 0;
+}
+#integral .getIntegral .getIntegralRule{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+#integral .getIntegral .shareEvent{
+    height: 182px;
+    width: 198px;
+    overflow: hidden;
+    float: left;
+    margin-right: 19px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
+#integral .getIntegral .shareEvent p{
+    font-size: 14px;
+    padding: 0px 5px;
+    height: 40px;
+    margin: 0px;
+}
+.shareWeiboSina{
+    position: relative;
+}
+#integral .getIntegral .weibo{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    opacity: 0;
+    filter:alpha(opacity=0)
+}
+#integral .getIntegral .shareEventLast{
+    margin-right: 0px;
+}
+.shareMain{
+    text-align: right;
+    padding-right: 3px;
+    padding-bottom: 3px;
+}
+#randevent{
+    float: right;
+    color: #bebebe;
+}
+#randevent>a{
+    margin-right: 10px;
+}
+#integral .hotEventInIntegral .hotEventNav{
+    border-bottom: 1px solid #d9dfeb;
+    margin-bottom: 20px;
+    height: 40px;
+    position: relative;
+}
+#integral .hotEventInIntegral .hotSelect{
+    position: relative;
+    display: inline-block;
+    float: right;
+    line-height: 40px;
+    text-align: right;
+}
+#integral .hotEventInIntegral .hotSelect span{
+    margin-right: 10px;
+}
+#integral .hotEventInIntegral .hotSelect>a>i{
+    width: 0px;
+    height: 0px;
+    display: inline-block;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid #000;
+    border-left: 4px solid transparent;
+    border-right: 4px solid #000;
+    position: relative;
+    right: 0px;
+    bottom: -1px;
+}
+
+#integral .hotEventInIntegral .hotOption{
+    display: none;
+    position: absolute;
+    width: 118px;
+    line-height: 30px;
+    top: 100%;
+    right: 0px;
+    margin-top: 5px;
+    background-color: #fff;
+    border: 1px solid #d9dfeb;
+    text-align: center;
+}
+#integral .hotEventInIntegral .hotOption li{
+    font-size: 14px;
+    cursor: pointer;
+}
+#integral .hotEventInIntegral .hotEventNav h3{
+    font-size: 16px;
+    display: inline-block;
+    line-height: 40px;
+}
+#integral .hotEventInIntegral .hotEventNav a{
+    font-size: 16px;
+}
+#integral .hotEventInIntegral .hotMain{
+    height: 224px;
+    width: 180px;
+    float: left;
+    margin-right: 21px;
+    text-align: center;
+    font-size: 14px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+#integral .hotEventInIntegral .hotMain img{
+    border-radius: 5px;
+}
+#integral .hotEventInIntegral .hotMain p{
+    font-size: 12px;
+    padding: 0px 10px;
+    margin: 0px 0px 4px;
+    text-align: left;
+}
+#integral .hotEventInIntegral .hotMain .hotEventName{
+    font-size: 14px;
+    height: 40px;
+    overflow: hidden;
+}
+#integral .hotEventInIntegral .hotMainLast{
+    margin-right: 0px;
+}
+#integral .integralExchange h2{
+    font-size: 20px;
+    text-align: center;
+}
+#integral .integralExchange .nameBottomList{
+    width: 65px;
+    height: 2px;
+    background-color: #d0d0d0;
+    margin: 20px auto;
+}
+#integral .integralExchange .exchangeClass{
+    text-align: center;
+    border-bottom: 1px solid #d9dfeb;
+    margin-bottom: 32px;
+}
+#integral .integralExchange .exchangeClass li{
+    list-style: none outside none;
+    display: inline-block;
+    padding: 0px 10px 5px 10px;
+    font-size: 14px;
+    position: relative;
+    top: 1px;
+}
+#integral .integralExchange .exchangeClass li.active{
+    color: #cd3b3c;
+    border-bottom: 2px solid #cd3b3c;
+}
+#individualismLeftNav .active a{
+    color: #549cf1 !important;
+}
+#integral .integralExchange .ExchangeTickets{
+    width: 198px;
+    float: left;
+    margin-right: 32px;
+    margin-bottom: 32px;
+}
+#integral .integralExchange .ExchangeTickets img{
+    border-radius: 5px;
+}
+#integral .integralExchange .ExchangeTicketsLest{
+    margin-right: 0px;
+}
+#integral .integralExchange .ExchangeTicketsImg{
+    position: relative;
+    width: 198px;
+    height: 124px;
+}
+#integral .integralExchange .t_city,#integral .integralExchange .t_time{
+    position: absolute;
+    bottom: 5px;
+    background-color: #32528a;
+    background-color: rgba(50,82,138,.75);
+    color: #ffffff;
+    font-size: 12px;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+#integral .integralExchange .t_city{
+    left: 5px;
+}
+#integral .integralExchange .t_time{
+    right: 5px;
+}
+#integral .integralExchange .ExchangeTicketsName{
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 16px;
+}
+
+#integral .integralExchange .ExchangeTicketsPrice,.ExchangeTicketsNumber {
+    font-size: 14px;
+    margin-top: 3px;
+}
+#integral .integralExchange .ExchangeTicketsNumber a {
+    border: 1px solid #ce3c3d;
+    float: right;
+    width: 70px;
+    height: 22px;
+    border-radius: 11px;
+    text-align: center;
+    position: relative;
+    bottom: 3px;
+    font-size: 14px;
+}
+#integral .integralExchange .ExchangeTicketsNumber a:hover{
+    text-decoration: none;
+    background-color: #ce3c3d   ;
+    color: #ffffff;
+}
+#integral .myGit{
+    padding: 25px 0px 0px;
+    margin-top: 10px;
+    border-top: 1px solid #d9dfeb;
+}
+#integral .myGit .myGitName{
+    margin-bottom: 15px;
+}
+#integral .getInteg{
+    color: #f74e4b;
+    font-size: 14px;
+}
+#integral .gitEvent{
+    width: 280px;
+    height: 335px;
+    background-color: #f0f0f0;
+    font-size: 14px;
+    float: left;
+    margin-right: 15px;
+}
+#integral .gitName{
+    font-size: 18px;
+    margin-bottom: 20px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#integral .gitEvent div{
+    height: 100%;
+    padding: 19px 10px 0px;
+    width: 100%;
+    background: transparent url(http://pic.huodongjia.com/static/images/bolang.png)  repeat-x;
+    position: relative;
+    top: -9px;
+}
+#integral .gitEvent img,#integral .gitEvent div{
+    float: left;
+}
+#one{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: -60px;
+    left: 0px;
+    z-index: 99999999;
+}
+.qrocde{
+    display: none;
+}
+#integral .Ticket{
+    display: block;
+    float: right;
+    width: 57px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    background-color: #e44e4f;
+    color: #ffffff;
+    border-radius: 5px;
+    position: relative;
+    top: -5px;
+}
+#integral .waitingForPayment{
+    padding: 32px 43px;
+    background-color: #fff;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+#integral .waitingForPayment>p{
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+#integral .waitingForPayment .waitingName{
+    padding: 0px 10px;
+}
+#integral .waitingForPayment .waitingName+div{
+    position: absolute;
+    bottom: 0px;
+    left: 00px;
+}
+#integral .waitingForPayment .waitingName+div p{
+    padding: 0px 10px;
+}
+#integral .waitingForPayment a{
+    display: block;
+    width: 72px;
+    height: 24px;
+    border-radius: 5px;
+    background-color: #549bf3;
+    color: #fff;
+    margin: 0 auto;
+}
+/*提示框*/
+#usercenterPopup{
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 29px 42px;
+    display: none;
+    position: absolute;
+    box-shadow: 0px 0px 1px #666;
+}
+#usercenterPopup .popupImages{
+    margin-bottom: 20px;
+    border-radius: 36px;
+    margin-right: 20px;
+    vertical-align: top;
+}
+#usercenterPopup table{
+    margin:  0 auto;
+}
+#usercenterPopup input{
+    width: 214px;
+    height: 36px;
+    margin-bottom: 20px;
+}
+#usercenterPopup select{
+    width: 100px;
+    height: 36px;
+    margin-bottom: 10px;
+}
+#usercenterPopup select#city{
+    width: 111px;
+}
+#usercenterPopup .popupText{
+    width: 235px;
+    /* float: left; */
+    display: inline-block;
+}
+#usercenterPopup .popupTitle{
+    font-size: 22px;
+    color: #696969;
+}
+#usercenterPopup .popupTips{
+    font-size: 16px;
+    color: #8f8e8f;
+}
+#usercenterPopup .popupFormTips{
+    color: #696969;
+}
+#usercenterPopup .popupForm{
+    border-top: 1px solid #d7d7d7;
+    display: inline-block;
+    width: 100%;
+}
+#usercenterPopup .popupForm>.popupEventName{
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+#usercenterPopup .popupForm>.popupUserGift{
+    font-size: 16px;
+}
+#usercenterPopup .popupForm>.popupEventGift{
+    font-size: 16px;
+}
+#usercenterPopup .popupForm>.popupEventGift+p{
+    padding: 15px 0px;
+    border-top: 1px solid #d4d4d4;
+    margin-top: 15px;
+}
+#usercenterPopup button[type=submit]{
+    background-color: #549df3;
+    color: #ffffff;
+    margin-bottom: 0px;
+}
+#usercenterPopup .queding{
+    background-color: #549df3;
+    display: block;
+    height: 35px;
+    width: 165px;
+    color: #fff;
+    margin: 35px auto 0px;
+    text-align: center;
+    line-height: 35px;
+    border-radius: 5px;
+}
+.nullLists{
+    width: 198px;
+    height: 250px;
+    float: left;
+}
+.nullLists+.nullLists{
+    margin-left: 30px;
+}
+.nullLists p{
+    padding: 0px 10px;
+}
+.nullLists p.nullName>a{
+    font-size: 16px;
+    color: #666666;
+    display: block;
+    height: 45px;
+    overflow: hidden;
+}
+.nullLists p.nullCity,.nullLists p.nullTime{
+    color:#989898;
+    font-size: 14px;
+}
+.nullLists p.nullButton>a{
+    width: 88px;
+    height: 30px;
+    display: block;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #e64d4f;
+    border-radius: 5px;
+    color: #e64d4f;
+    margin-top: 5px;
+}
+.nullLists p.nullButton>a.flaeTrue{
+    background-color: #cfcfcf;
+    border: 1px solid #cfcfcf;
+    color: #ffffff;
+}
+.nullLists p.nullButton>a.sign{
+    background-color: #e64d4f;
+    color: #ffffff;
+}
+.nullTitle{
+    font-size: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #d8deea;
+    margin-bottom: 20px;
+}
+.nullTitle+p{
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+#userPopupMain{
+    width:100%;
+    height:100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 999999;
+    display: none;
+}
+#userPopupMain .fa-times{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 16px;
+    color: #000;
+    cursor: pointer;
+}
+.popover.top{
+    z-index: 999999;
+}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/static/laydate/laydate.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/base.css">
+</head>
+<style>
+.top{
+    width: 100%;
+    color: rgba(14, 40, 63, 0.62);
+    position: relative;
+}
+h3{
+    font-size: 18px;
+    color: #76D2F7;
+    text-shadow: 0 0 5px #57BBF7;
+    font-weight: normal;
+    margin: 0;
+    padding-left: 4%;
+    text-align: left !important;
+}
+.menue{
+    line-height: 50px;
+    font-size: 16px;
+    color: rgba(118, 210, 247, 1);
+}
+    .down{
+        position: absolute;
+        right: 3%;
+        color: #525B81;
+        top: 10px;
+    }
+    .down span{
+        font-size: 24px;
+        font-family: 'EURASIA';
+        color: #76D2F7;
+        text-shadow: 0 0 5px #57BBF7;
+    }
+</style>
+<body>
+<canvas class="bg"></canvas>
+<div class="head">
+    <span class="logo">可视化管理</span>
+    <ul>
+        <li data-url="zonglan_1.png" data-old="zonglan.png"><a href="/" title="总览图"><img src="http://pic.huodongjia.com/static/vision/images/zonglan.png" alt=""></a></li>
+        <li class="order" data-url="dingdan_1.png" data-old="dingdan.png">
+            <a title="订单可视化" href="/newordervis/salesanalysis/"><img src="http://pic.huodongjia.com/static/vision/images/dingdan_1.png" alt=""></a>
+        </li>
+        <li data-url="bianji_1.png" data-old="bianji.png"><a href="/neweventvis/showevents/" title="编辑可视化"><img src="http://pic.huodongjia.com/static/vision/images/bianji.png" alt=""></a></li>
+        <li class="operate" data-url="qita_1.png" data-old="qita.png">
+            <a href="/newoperation/op_datas/" title="运营推广数据可视化"><img src="http://pic.huodongjia.com/static/vision/images/qita.png" alt=""></a>
+            <!--<div class="menue" ><a href="">订单来源渠道</a><a href="">订单来源渠道</a><a href="">订单来源渠道</a></div>-->
+        </li>
+        <li data-url="app_1.png" data-old="app.png"><a class="act" href="/newordervis/app/" title="活动家APP"><img src="http://pic.huodongjia.com/static/vision/images/app.png" alt=""></a></li>
+    </ul>
+</div>
+<div class="menue">APP数据</div>
+<div class='content'>
+    <div class="top">
+        <h3>每日新增用户</h3><p class="down">总下载量：<span>104,842</span></p>
+        <div id="event_1" style="width:100%;height: 350px"></div>
+    </div>
+    <p style="clear: both;margin:10px auto;border-top: 1px solid rgb(37, 51, 97);width: 94%"></p>
+    <div class="col-sm-4 col-xs-4">
+        <h3 style="padding-left: 6%">用户分布城市</h3>
+        <div id="city" style="height: 350px;"></div>
+    </div>
+    <div class="col-sm-2 col-xs-2"  style="padding: 10px 0"><div id="top" style="height: 350px;border-right:1px solid rgb(37, 51, 97);"></div></div>
+    <div class="col-sm-6 col-xs-6">
+        <h3>APP使用频率</h3>
+        <div id="app" style="height: 350px;"></div>
+    </div>
+</div>
+</body>
+<script src="/static/js/echarts.js"></script>
+<script src="/static/js/infographic.js"></script>
+<script src="/static/js/canvas.js"></script>
+<script src="/static/js/app_1.js"></script>
+<script src="http://echarts.baidu.com/build/dist/echarts.js "></script>
+<script src="/static/js/app.js"></script>
+</html>

@@ -1,0 +1,49 @@
+{% extends "wapVenueList.html" %}
+{% block container %}
+<!--场馆列表-->
+<div class="venue_list row text-center">
+    {% if venue_lst|length == 0 %}
+    <p class="text-center" style="margin-top: 50px">对不起,没有搜索到相关信息,请换一个关键词搜索</p>
+    {% else %}
+    {% for venue in venues %}
+    <div class="venue col-sm-12 col-xs-12">
+        <div class="col-sm-5 col-xs-5" style="padding: 0 10px"><a href="/venue-{{venue.id}}.html">
+            {% if venue.nv_img_urls %}
+            <img width="130" class="img-responsive img-rounded" src="{{venue.nv_img_urls}}" alt="{{venue.nv_name}}"/>
+            {% else %}
+            <img width="130" class="img-responsive img-rounded" src="http://pic.huodongjia.com/static/images/venue_default.jpg" alt=""/>
+            {% endif %}
+        </a></div>
+        <div class="col-sm-7 col-xs-7" style="padding: 0 10px">
+            <a href="/venue-{{venue.id}}.html">
+                <h2 style='color: #000'>{{venue.nv_name}}</h2>
+                <p>会场介绍：{{venue.nv_content}}</p>
+            </a>
+        </div>
+        <div class="message">
+            <span style="float: right">共举办 <span class="active">{{venue.nv_event_cnt}}场</span>会议</span><span>{{venue.venue_city}}</span>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+<p class="text-center" style="padding:5px 0;width: 100%;background: #fff;margin: 0"><a title="{{nextPage}}" class="loading" style="color: #aaa">下拉显示更多</a>
+    <span class="load fa fa-spinner fa-pulse fa-2x" style="display: none"></span>
+    <span class="loads" style="color: #aaa;display: none">加载完成!</span>
+    <span class="loadfail" style="color: #aaa;display: none">加载失败！</span>
+
+</p>
+<!--footer-->
+<footer {% if venue_lst|length == 0 %} style="width: 100%;position: fixed;bottom: 0"{% endif %} >
+    <a href="http://m.huodongjia.com/">首页</a>&gt;<h1 style="display: inline;"><a href="http://m.huodongjia.com/listvenue/" style="color: #000;font-size: 14px">会议场地</a></h1>
+    <hr style="margin:4px 0;border-top: 1px solid rgba(215, 215, 215, 0.57)"/>
+    <ul>
+        <li class=""><a href="http://www.huodongjia.com/?mobile" rel="nofollow"><span class="fa fa-desktop"></span>电脑端</a></li>
+        <li class=""><a class="appdownload" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.dahuodong.veryevent" rel="nofollow" >下载APP</a></li>
+        <li class=""><a href="http://m.huodongjia.com/about/">关于我们</a></li>
+    </ul>
+    <div class="text-center">CopyRight 活动家 huodongjia.com</div>
+</footer>
+{% endblock %}
+
+

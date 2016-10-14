@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{{event.event_name}}_参会-门票-报名_活动家</title>
+    <meta name="description" content="{{head.description}}" />
+    <meta name="keywords" content="{{head.keywords}}" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/wapstatic/css/wapShowEvent.css"/>
+    <style>
+        a{
+            text-decoration: none !important;
+        }
+        .bsync-custom{
+            background: #fff;height: 50px;line-height: 50px
+        }
+        .bsync-custom a {
+            background: none !important;
+            display: inline-block;
+            font-size: 16px;
+            color: #606060;
+        }
+        .bsync-custom a:after {
+            content: "\f1e0" !important;
+        }
+        .fa-share-alt:before {
+            content: "";
+        }
+        .fa{
+            margin: 0 !important ;
+        }
+
+    </style>
+    {% load page_nav_m %}
+</head>
+<body>
+<header>
+    <div id="header">
+        <a class="back" href="javascript:history.back(-1)"><span class="myfont">&#xe74e;</span>
+        </a><span style="line-height: 50px;font-size: 18px">会议详情</span><a class="home" href="/">
+        <span class="myfont">&#xe6b2;</span></a>
+    </div>
+</header>
+<div class="eventImg">
+    <!--<img src="{{event.event_img}}" alt="{{event.event_name}}"/>-->
+    <p class="eventName">{{event.event_name}}</p>
+    <p class="eventTime">
+        地点：{{city}} <br/>
+        时间：{{event.event_begin_time}}
+    </p>
+</div>
+<!-- 正常报名 -->
+{% ifequal event.event_price_model 6 %}
+    {% ifnotequal event.price_unit_info|filterprice|length 0 %}
+        <!-- 会议祥情 333-->
+        {% for content in event.event_content|slice:':3' %}
+        <div class="paragraph">
+            <h3><span class="fa fa-volume-up"></span>{{content.0}}</h3>
+            <div class="paragraphBody">
+                {% if content.1.1 %}
+                {{content.1|safe}}
+                {% else %}
+                {% ifequal content.0 "会议嘉宾" %}
+                <span>会议嘉宾正在确认中，敬请期待。</span>
+                {% endifequal %}
+                {% ifequal content.0 "会议日程" %}
+                <span>暂无最新日程，请等待更新。</span>
+                {% endifequal %}
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    <div class="relevant">
+        <div class="relevantTitle">
+            <h3>相关会议</h3>
+        </div>
+        {% for rel_event in event.related_events %}
+        <a href="{{rel_event.event_url}}">
+        <div class="relevantCat col-xs-6">
+            <div class="imgTime">
+                <img src="{{rel_event.event_img}}" alt="{{rel_event.event_name}}"/>
+                <span class="relevantTime">{{rel_event.event_end_time}}</span>
+              <a href="/{{rel_event.district_title}}/business/">  <span class="relevantCity">{{rel_event.district_name}}</span></a>
+            </div>
+            <div class="relevantName">
+                {{rel_event.event_name}}
+            </div>
+        </div>
+            </a>
+        {% endfor %}
+        <div style="clear: both;"></div>
+    </div>
+    {% endifnotequal %}
+
+    <!-- 报名截止 -->
+    {% ifequal event.price_unit_info|filterprice|length 0 %}
+        <p class="col-xs-12 col-sm-12 tips">温馨提示：你浏览的会议<span>报名已截止</span>，已下是热门会议</p>
+<div style="clear: both;"></div>
+        <!-- 热门会议 截止-->
+        <div class="relevant">
+            <div class="relevantTitle">
+                <h3>相关会议</h3>
+            </div>
+            {% for hot_event in event.related_hot_events %}
+            <a href="{{hot_event.event_url}}">
+            <div class="relevantCat col-xs-6">
+                <div class="imgTime">
+                    <img src="{{hot_event.event_img}}" alt="{{hot_event.event_name}}"/>
+                    <span class="relevantTime">{{hot_event.event_begin_time}}</span>
+                    <a href="/{{hot_event.district_title}}/business/">  <span class="relevantCity">{{hot_event.district_name}}</span></a>
+                </div>
+                <div class="relevantName">
+                    {{hot_event.event_name}}
+                </div>
+            </div>
+                </a>
+            {% endfor %}
+            <div style="clear: both;"></div>
+        </div>
+        <!-- 会议祥情111 -->
+        {% for content in event.event_content %}
+        <div class="paragraph">
+            <h3><span class="fa fa-volume-up"></span>{{content.0}}</h3>
+            <div class="paragraphBody">
+                {% if content.1.1 %}
+                {{content.1|safe}}
+                {% else %}
+                {% ifequal content.0 "会议嘉宾" %}
+                <span>会议嘉宾正在确认中，敬请期待。</span>
+                {% endifequal %}
+                {% ifequal content.0 "会议日程" %}
+                <span>暂无最新日程，请等待更新。</span>
+                {% endifequal %}
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+
+    <div style="clear: both;"></div>
+    <!--<div class="relevant relevant_ul">-->
+        <!--<div class="relevantTitle">-->
+            <!--<h3>你可能喜欢</h3>-->
+        <!--</div>-->
+        <!--<div class=" col-xs-12 col-sm-12">-->
+            <!--<ul>-->
+                <!--<li><a href="">2015中国电子支付行业研究报告</a></li>-->
+                <!--<li><a href="">2015中国电子支付行业研究报告</a></li>-->
+                <!--<li><a href="">2015中国电子支付行业研究报告</a></li>-->
+                <!--<li><a href="">2015中国电子支付行业研究报告</a></li>-->
+                <!--<li><a href="">2015中国电子支付行业研究报告</a></li>-->
+            <!--</ul>-->
+        <!--</div>-->
+        <!--<div style="clear: both;"></div>-->
+    <!--</div>-->
+    {% endifequal %}
+{% endifequal %}
+<!-- 费用待定 -->
+{% ifequal event.event_price_model 5 %}
+    <!-- 会议祥情 -->
+    {% for content in event.event_content %}
+<div class="paragraph">
+    <h3><span class="fa fa-volume-up"></span>{{content.0}}</h3>
+    <div class="paragraphBody">
+        {% if content.1.1 %}
+        {{content.1|safe}}
+        {% else %}
+        {% ifequal content.0 "会议嘉宾" %}
+        <span>会议嘉宾正在确认中，敬请期待。</span>
+        {% endifequal %}
+        {% ifequal content.0 "会议日程" %}
+        <span>暂无最新日程，请等待更新。</span>
+        {% endifequal %}
+        {% endif %}
+    </div>
+</div>
+    {% endfor %}
+    <!-- 正在报名 -->
+    <div class="relevant">
+        <div class="relevantTitle">
+            <h3>正在报名</h3>
+        </div>
+
+        {% for hot_event in event.related_hot_events %}
+        <a href="{{hot_event.event_url}}">
+        <div class="relevantCat col-xs-6">
+            <div class="imgTime">
+                <img src="{{hot_event.event_img}}" alt="{{hot_event.event_name}}"/>
+                <span class="relevantTime">{{hot_event.event_begin_time}}</span><a href="/{{hot_event.district_title}}/business/">  <span class="relevantCity">{{hot_event.district_name}}</span></a>
+            </div>
+            <div class="relevantName">
+                {{hot_event.event_name}}
+            </div>
+        </div>
+        </a>
+        {% endfor %}
+
+        <div style="clear: both;"></div>
+    </div>
+{% endifequal %}
+
+<!-- 免费 -->
+{% ifequal event.event_price_model 4 %}
+{% for content in event.event_content|slice:':3' %}
+<div class="paragraph">
+    <h3><span class="fa fa-volume-up"></span>{{content.0}}</h3>
+    <div class="paragraphBody">
+        {% if content.1.1 %}
+        {{content.1|safe}}
+        {% else %}
+        {% ifequal content.0 "会议嘉宾" %}
+        <span>会议嘉宾正在确认中，敬请期待。</span>
+        {% endifequal %}
+        {% ifequal content.0 "会议日程" %}
+        <span>暂无最新日程，请等待更新。</span>
+        {% endifequal %}
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
+<div class="relevant">
+    <div class="relevantTitle">
+        <h3>相关会议</h3>
+    </div>
+    {% for rel_event in event.related_events %}
+    <a href="{{rel_event.event_url}}">
+        <div class="relevantCat col-xs-6">
+            <div class="imgTime">
+                <img src="{{rel_event.event_img}}" alt="{{rel_event.event_name}}"/>
+                <span class="relevantTime">{{rel_event.event_end_time}}</span>
+                <a href="/{{rel_event.district_title}}/business/">  <span class="relevantCity">{{rel_event.district_name}}</span></a>
+            </div>
+            <div class="relevantName">
+                {{rel_event.event_name}}
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+    <div style="clear: both;"></div>
+</div>
+{% endifequal %}
+<div id="footer">
+    <div class="col-xs-12 navigation">
+        <ul>
+            <li><a href="/">首页</a><span>&gt;</span></li>
+            <li><a href="/business/">商务会议</a><span>&gt;</span></li>
+            <li><a href="/{{event.cat_ename}}/">{{event.cat_name}}</a><span>&gt;</span></li>
+            <li class="navLast"><a href="">详情页</a></li>
+        </ul>
+    </div>
+    <ul>
+        <li class=""><a href="http://www.huodongjia.com/?mobile"><span class="fa fa-desktop"></span>电脑端</a></li>
+        <li class=""><a class="appdownload" href="">下载APP</a></li>
+        <li class=""><a href="/about/">关于我们</a></li>
+    </ul>
+    <p>CopyRight 活动家 huodongjia.com</p>
+</div>
+<div class="fixedBottom">
+
+</div>
+<div class="navbar-fixed-bottom fixedBottom">
+    <!-- 正常报名 -->
+    {% ifequal event.event_price_model 6 %}
+        {% ifnotequal event.price_unit_info|filterprice|length 0 %}
+      <div class="row">
+        <div class="bsync-custom icon-blue col-sm-4 col-xs-4 fa fa-share-alt" style="">
+            <script type="text/javascript">document.write('<a href="http://v.t.sina.com.cn/share/share.php?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent('#{{event.cat_name}}#我在@活动家报名了#{{event.event_name}}#，希望能在会场遇见您（分享自@活动家）')+'"&appkey=433903842&pic" class="t1" target="_blank">分享</a>');</script>
+        </div>
+        <div  class="col-sm-8 col-xs-8 " style="background-color: #3fa8f5"> <a href="/signup/{{event.event_id}}/" class="signUp">参会报名</a></div>
+      </div>
+        {% endifnotequal %}
+    <!-- 报名截止 -->
+        {% ifequal event.price_unit_info|filterprice|length 0 %}
+        <button disabled href="" class="col-sm-12 col-xs-12 signUpEnd">报名截止</button>
+        {% endifequal %}
+    {% endifequal %}
+    <!-- 价格待定 -->
+    {% ifequal event.event_price_model 5 %}
+        <button disabled  class="col-sm-12 col-xs-12 stayTuned">敬请期待</button>
+    {% endifequal %}
+    <!--免费-->
+    {% ifequal event.event_price_model 4 %}
+    <a class="col-sm-12 col-xs-12 stayTuned" href="/freesignup/{{event.event_id}}/" style="color: #fff;width: 100%">免费报名</a>
+    {% endifequal %}
+</div>
+<script src="/wapstatic/js/clamp.min.js"></script>
+<script src="http://pic.huodongjia.com/static/js/jquery-1.8.3.min.js"></script>
+<script>
+    var s = document.getElementsByClassName("relevantName");
+    for (var i = 0; i < s.length; i++) {
+        $clamp(s[i], {clamp: 2});
+    }
+
+//    test
+</script>
+<script>
+    $(".paragraph h3").each(function (i) {
+        if($($(".paragraph h3")[i]).text()=="会议日程"){
+            $($(".paragraph h3")[i]).find("span").removeClass("fa-volume-up").addClass("fa-calendar")
+        }
+        if($($(".paragraph h3")[i]).text()=="会议嘉宾"){
+//            console.log($($(".paragraph h3 span")[i]))
+            $($(".paragraph h3")[i]).find("span").removeClass("fa-volume-up").addClass("fa-user")
+        }
+    })
+    var u = navigator.userAgent, app = navigator.appVersion;
+    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //android终端或者uc浏览器
+    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+//    alert('是否是Android：'+isAndroid);
+//    alert('是否是iOS：'+isiOS);
+    if(isAndroid){
+        document.getElementsByClassName("appdownload")[0].href="http://app.mi.com/detail/64258"
+    }else{
+        document.getElementsByClassName("appdownload")[0].href="https://itunes.apple.com/cn/app/da-huo-dong/id731753448?l=en&mt=8"
+    }
+</script>
+<!--统计代码-->
+<script>
+var _hmt = _hmt || [];
+(function() {
+      var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?7dce5762be86c04d74cdf23183cc9558";
+          var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>

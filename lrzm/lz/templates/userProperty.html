@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <!-- // <script src="http://pic.huodongjia.com/static/js/jquery-1.8.3.min.js"></script> -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!-- 百度echart插件 -->
+    <!-- 自定义css和js -->
+    <link rel="stylesheet" type="text/css" href="../static/css/index.css">
+</head>
+<body>
+<div class='container main'>
+    <div class='row'>
+        <!-- 左侧控制面板开始 -->
+        <div class='col-lg-2 left' style=''>
+            <div class='text-center left-title'><h4 style='color:white;'>懒人周末可视化数据</h4></div>
+            <div class='left-item-top'>
+                <h4 class='left-item-title'><a href="/lrzm/templates/index.html"><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>总表</a></h4>
+            </div>
+            <div class='left-item-middle'>
+                <h4 class='left-item-title'><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>用户分析</h4>
+                <ul class="menue" style='margin-left:20px;'>
+                    <li><a href="/lrzm/templates/userDownload.html" class='left-item-option'>下载用户</a></li>
+                    <li><a href="/lrzm/templates/userSign.html" class='left-item-option'>注册用户</a></li>
+                    <li><a href="/lrzm/templates/userAct.html" class='left-item-option'>有操作行为用户</a></li>
+                    <li><a href="/lrzm/templates/usreProperty.html" class='left-item-option'>用户属性</a></li>
+                </ul>
+            </div>
+            <div class='left-item-bottom'>
+                <h4 class='left-item-title'><a href=""><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>订单分析</a></h4>
+            </div>
+            <div class='left-item-bottom'>
+                <h4 class='left-item-title'><a href=""><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>商家及活动分析</a></h4>
+            </div>
+            <div class='left-item-bottom'>
+                <h4 class='left-item-title'><a href=""><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>活动类别及标签分析</a></h4>
+            </div>
+            <div class='left-item-bottom'>
+                <h4 class='left-item-title'><a href=""><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>语义分析</a></h4>
+            </div>
+        </div>
+        <!-- 左侧控制面板结束 -->
+        <!-- 右侧祥情开始 -->
+        <div class='col-lg-10 right' style=''>
+            <h2 align='center'>用户属性分析</h2>
+            <div class="right_bottom" style="width:100%;height: 460px;margin:50px auto">
+                <h2 align='center'></h2>
+                <div id='right_curveoforder_1' style="width: 100%;height: 430px;"></div>
+            </div>
+        </div>
+        <!-- 右侧祥情结束 -->
+    </div>
+</div>
+</body>
+<script src="../static/echarts-2.2.7/build/dist/echarts.js"></script>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('right_curveoforder_1'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        tooltip : {
+            formatter: "{a} <br/>{c} {b}"
+        },
+        toolbox: {
+            show : false,
+        },
+        series : [
+            {
+                name:'互动用户',
+                type:'gauge',
+                z: 3,
+                min:0,
+                max:220,
+                splitNumber:11,
+                axisLine: {            // 坐标轴线
+                    lineStyle: {       // 属性lineStyle控制线条样式
+                        width: 10
+                    }
+                },
+                axisTick: {            // 坐标轴小标记
+                    length :15,        // 属性length控制线长
+                    lineStyle: {       // 属性lineStyle控制线条样式
+                        color: 'auto'
+                    }
+                },
+                splitLine: {           // 分隔线
+                    length :20,         // 属性length控制线长
+                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                        color: 'auto'
+                    }
+                },
+                title : {
+                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                        fontWeight: 'bolder',
+                        fontSize: 20,
+                        fontStyle: 'italic'
+                    }
+                },
+                detail : {
+                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                        fontWeight: 'bolder'
+                    }
+                },
+                data:[{value: 150, name: '互动用户'}]
+            },
+            {
+                name:'核心用户',
+                type:'gauge',
+                z: 3,
+                min:0,
+                max:220,
+                center : ['25%', '50%'],    // 默认全局居中
+                splitNumber:11,
+                axisLine: {            // 坐标轴线
+                    lineStyle: {       // 属性lineStyle控制线条样式
+                        width: 10
+                    }
+                },
+                axisTick: {            // 坐标轴小标记
+                    length :15,        // 属性length控制线长
+                    lineStyle: {       // 属性lineStyle控制线条样式
+                        color: 'auto'
+                    }
+                },
+                splitLine: {           // 分隔线
+                    length :20,         // 属性length控制线长
+                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                        color: 'auto'
+                    }
+                },
+                title : {
+                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                        fontWeight: 'bolder',
+                        fontSize: 20,
+                        fontStyle: 'italic'
+                    }
+                },
+                detail : {
+                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                        fontWeight: 'bolder'
+                    }
+                },
+                data:[{value: 40, name: '核心用户'}]
+            },
+            {
+                name:'沉睡用户',
+                type:'gauge',
+                z: 3,
+                min:0,
+                max:220,
+                center : ['75%', '50%'],    // 默认全局居中
+                splitNumber:11,
+                axisLine: {            // 坐标轴线
+                    lineStyle: {       // 属性lineStyle控制线条样式
+                        width: 10
+                    }
+                },
+                axisTick: {            // 坐标轴小标记
+                    length :15,        // 属性length控制线长
+                    lineStyle: {       // 属性lineStyle控制线条样式
+                        color: 'auto'
+                    }
+                },
+                splitLine: {           // 分隔线
+                    length :20,         // 属性length控制线长
+                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                        color: 'auto'
+                    }
+                },
+                title : {
+                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                        fontWeight: 'bolder',
+                        fontSize: 20,
+                        fontStyle: 'italic'
+                    }
+                },
+                detail : {
+                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                        fontWeight: 'bolder'
+                    }
+                },
+                data:[{value: 100, name: '沉睡用户'}]
+            },
+        ]
+    };
+
+
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</html>

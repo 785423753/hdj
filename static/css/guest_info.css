@@ -1,0 +1,138 @@
+.mainWrapper{
+    background-color: #fff;
+    font-family: "microsoft yahei";
+}
+.container{
+    min-width:992px;
+    font-family: "microsoft yahei";
+}
+.spon_header{
+    position: relative;
+    height: auto;
+    padding: 0;
+}
+.banner {
+    width: 100%;
+}
+.banner img{
+    width: 100%
+}
+.ul_left {
+    margin-top: 1em;
+    cursor: pointer;
+}
+.ul_left li{
+    display: inline-block;
+    color:#b0b0b0 !important;
+}
+.ul_left li a{
+    display: inline-block;
+    color:#b0b0b0 !important;
+}
+.ul_left li  h1{
+    font-size: 14px;
+    line-height: 1.4px;
+    color:#333 !important;
+}
+.content{
+    margin-top: 2em;
+    height: auto;
+    padding: 0;
+    padding-bottom: 35px;
+}
+.content .meeasge_div {
+    height: auto;
+    padding: 0;
+}
+.content .meeasge_div .pic{
+    text-align: center;
+    padding-left: 0;
+}
+.content .meeasge_div .pic img{
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+}
+.content .meeasge_div p{
+    line-height: 18px;
+    margin-top: 12px;
+    font-size:1.15em;
+    color: #848484;
+}
+.content .meeasge_div .guestName{
+    font-size:1.3em;
+    color:#000;
+}
+.content .meeasge_div .intro{
+    line-height: 33px;
+    color: #848484;
+    font-size: 1.15em;
+    white-space: pre-line;
+    margin-top: -28px;
+}
+.content .meeasge_div .intro br{
+    line-height: 45px;
+}
+.content .meeasge_div .intro .more{
+    color:#1f6ddd;
+    cursor: pointer;
+    float: right;
+    margin-right: 2%;
+}
+.content .meeasge_div .hr{
+    background-color:#ddd;
+    height: 1px;
+    margin-bottom: 50px;
+    margin-top: 30px;
+}
+.mustFill{
+    color:red;
+    font-size:0.875em;
+}
+.content .meeasge_form{
+    padding:0;
+}
+.content .meeasge_form div{
+    margin-top: 30px;
+}
+.content .meeasge_form .info{
+    margin-top: -30px;
+}
+.content .meeasge_form label{
+    color: #6c6c6c;
+    font-weight: inherit;
+    font-size:16px;
+}
+.content .meeasge_form input{
+    height: 42px;
+    border-radius: 0;
+    background-color:#fff;
+}
+.content .meeasge_form textarea{
+    border-radius: 0;
+}
+.content .meeasge_form a{
+    border: none;
+    border-radius:5px;
+    background-color:#3367cd;
+    cursor: pointer;
+    color:#fff;
+    line-height: 40px;
+    height: 40px;
+    width: 200px;
+    display: inline-block;
+}
+.content .meeasge_form a:hover{
+    text-decoration: none;
+    background-color:#5581c0;
+}
+.TestGetCode{
+    padding: 5px 15px;
+    background-color: #ddd !important;
+    text-align: center;
+    margin-left: 32px;
+    border-radius: 5px;
+    color: #333 !important;
+    line-height: 32px !important;
+    cursor: pointer;
+}

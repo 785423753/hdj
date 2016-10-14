@@ -1,0 +1,108 @@
+{% extends "base.html"%}
+{% block myContainer %}myContainer{% endblock%}
+{% block search%}
+  {% include "searchComponent.html" %}
+{% endblock %}
+{% block subscriptionLi%}
+<li>
+<a href="/subscribepage/">活动订阅</a>
+</li>
+{% endblock %}
+{% block content %}
+  {% block jumbortron %}
+  {% endblock %}
+  
+  <div class="container mainContent myContainer">
+	<div class="row">
+	{% block list_left %}
+    {% autoescape off %}
+      <div class="col-md-2 visible-md visible-lg" id="categoryList">
+      {% if datList %}
+          <ul class="firstLevel">
+          	<li class="first">
+          	  <h2 style="font-size:18px;color:#000;margin-top:3px;">日期</h2>
+          	  <ul style="padding-left:8px;" class="secondLevel">
+              {% for dat in datList %}
+                {% ifequal dat.flag 'true'%}
+                  <li class="selected"><a href="{{dat.daturl}}">{{dat.datname}}</a></li>
+                {% else %}
+                <li><a href="{{dat.daturl}}">{{dat.datname}}</a></li>
+                {%endifequal %}
+              {% endfor %}
+              </ul>
+             </li>
+          </ul>
+      {% endif %}
+      <ul class="firstLevel">
+          {% for first in catUrlLv1 %}
+            <li {% ifequal first.flag 'true' %}class="selectedUl"{% endifequal %} ><a href="{{first.caturl}}" style="font-size:18px;color:#000;"  title="{{city}}{{first.catname}}" >{{city}}{{first.catname}}</a>
+              <ul class="secondLevel"> 
+	            {% for second in first.child%}
+	              <li {% ifequal second.flag 'true' %}class="selected"{% endifequal %}><span class="slideLi">+</span><a href="{{second.caturl}}"  title="{{city}}{{second.catname}}" >{{city}}{{second.catname}}</a>
+	                
+	                <ul  style="margin-top:0;" class="thirdLevel">
+			            {% for third in second.child%}
+			              <li {% ifequal third.flag 'true' %}class="selected"{% endifequal %} ><a href="{{third.caturl}}"  title="{{city}}{{third.catname}}">{{city}}{{third.catname}}</a></li>
+			            {% endfor %}
+		              </ul>
+		              
+		          </li>
+		         {% endfor %}
+		      </ul>
+            </li>
+          {% endfor %}
+      </ul>
+      </div>
+      <div class="col-md-10" id="tabDiv" style="margin-top:0;">
+        <ul class="nav nav-tabs visible-xs visible-sm" style="margin-bottom:.5em;margin-top:1em;">
+        {% if datList %}
+          <li class="active"><h2 href="#date" data-toggle="tab" >日期</h2></li>
+        {% endif %}
+          <li><h2 href="#business" data-toggle="tab">商务</h2></li>
+          <li><h2 href="#travel" data-toggle="tab">旅行</h2></li>
+          <li><h2 href="#fun" data-toggle="tab">娱乐</h2></li>
+        </ul>
+        <div class="tab-content visible-xs visible-sm tab-content-category" style="margin-bottom:1em;">
+         {% if datList %}
+          <div class="tab-pane fade in active" id="date">
+            <ul class="list-inline">
+              {% for dat in datList %}
+                <li><a href="{{dat.daturl}}">{{dat.datname}}</a></li>
+              {% endfor %}
+          </div>
+          {% endif %}
+          {% for first in catUrlLv1 %}
+            <div class="tab-pane fade" id="{{first.catename}}">
+              <ul class="list-inline"> 
+                {% for second in first.child%}
+                  <li>
+                    <a href="{{second.caturl}}" title="{{city}}{{second.catname}}">{{city}}{{second.catname}}</a>
+                  </li>
+               {% endfor %}
+              </ul>
+            </div>
+          {% endfor %}
+      </div>
+      {% endautoescape %}
+      {% if navigationList %}
+      <ul class="list-inline navigationUlist clearfix" style="margin-left:0;margin-top:9px;background-color:transparent;">
+		{% for navigation in navigationList %}
+		    {% if forloop.last%}
+			<li style="padding-left:0;"><a href="{{navigation.caturl}}" title="{{city}}{{navigation.catname}}">{{city}}{{navigation.catname}}</a></li>
+			{% else %}
+			<li style="padding-right:0;"><a href="{{navigation.caturl}}" title="{{city}}{{navigation.catname}}">{{city}}{{navigation.catname}}</a>></li>
+			{% endif %}
+		{% endfor %}
+		</ul>
+	{% endif %}
+ 
+	
+
+	
+	{% endblock %}
+	
+             {% block prouductArea %}
+
+            {% endblock %}
+            
+    {% endblock %}

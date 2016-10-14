@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/static/laydate/laydate.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/base.css">
+</head>
+<style>
+    .content>div{
+        float: left;
+    }
+    .content{
+        padding:0;
+        float: left;
+    }
+    .left{
+        width: 25%;
+        padding: 30px 0 30px 5%;
+    }
+    .center{
+        width: 50%;
+    }
+    .right{
+        width: 25%;
+        padding: 30px 5% 30px 4%;
+    }
+    .top_left{
+        color: #fff;
+        padding:5px 20px;
+        position: relative;
+        margin-bottom: 30px;
+    }
+    .top_left img{
+        position: absolute;
+        top:0;
+        left:0;
+    }
+    .title span{
+        font-size: 14px;
+    }
+    .detail>p>font{
+        color: #CBCDCC;
+        font-size: 15px;
+        display: inline-block;
+        width: 80px;
+    }
+    .title,.detail span,.word{
+        font-size: 20px;
+        color: #76D2F7;
+        text-shadow: 0 0 5px #57BBF7;
+    }
+    .title{
+        font-size: 16px;
+    }
+    .word{
+        font-family: 'EURASIA';
+        color: rgba(118, 210, 247, 1)!important;
+        font-size: 20px !important;
+    }
+    .detail span{
+        font-family: 'EURASIA';
+        display: inline-block;
+        width: 120px;
+        text-align: right;
+        letter-spacing:1px;
+    }
+    .detail span>font{
+        font-family: '微软雅黑';
+    }
+    .edit p span{
+        display: inline-block;
+        width: 40%;
+        color: #CBCDCC;
+        font-size: 15px;
+        line-height: 30px;
+    }
+    .edit p span font{
+        color: rgba(118, 210, 247, 1);
+        text-shadow: 0 0 5px #57BBF7;
+        font-family: 'EURASIA';
+        font-size: 20px;
+    }
+    .pie{
+        position: relative;
+    }
+    .circle{
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        background: #152448;
+        border-radius: 30px;
+        box-shadow: 0 0 3px 2px #0C1526,
+        0 0 5px 3px rgba(26, 60, 103, 0.48);
+        position: absolute;
+        top: 37%;
+        z-index: 999;
+        font-size: 16px;
+        left: 64px;
+    }
+    .circle span{
+        display: inline-block;
+        width: 5px;
+        height: 5px;
+        border-radius: 5px;
+        background: #52B4F9;
+    }
+    /*中间*/
+    .top{
+        width: 100%;
+        height: 300px;
+        background: rgba(13, 46, 80, 0.2);
+        margin:20px 0;
+        border:1px solid transparent;
+        border-image:url(http://pic.huodongjia.com/static/vision/images/hengtiao_1px.png) 2  2 stretch;
+        background-image:url("http://pic.huodongjia.com/static/vision/images/xs_top.png"),url("http://pic.huodongjia.com/static/vision/images/xs_bottom.png");
+        background-repeat: no-repeat, no-repeat;
+        background-position: top center,bottom center;
+        background-size: auto,90%;
+        color: rgba(118, 210, 247, 1);
+        text-shadow: 0 0 5px #57BBF7;
+        font-size: 16px;
+        text-align: center;
+    }
+    .num{
+        font-family: 'EURASIA';
+        font-size: 20px;
+    }
+    .compare span{
+        display: inline-block;
+        width: 49%;
+        line-height: 30px;
+    }
+    .bottom{
+        position: relative;
+        height:460px;
+    }
+    .ditu{
+        position: relative;
+        width: 600px;
+        height: 300px;
+        margin: 0 auto;
+        top:80px;
+    }
+    .ditu>img{
+        position: absolute;
+    }
+    .shadow{
+        animation:fadein 6s ease-in-out infinite;
+    }
+    @keyframes fadein {
+        from{
+            opacity: 1;
+        }
+        50%{
+            opacity: 0;
+        }
+        to{
+            opacity: 1;
+        }
+    }
+    .r_word{
+        color: rgba(118, 210, 247, 1);
+        text-shadow: 0 0 5px #57BBF7;
+        font-size: 15px;
+    }
+    .right p{
+        margin: 0;
+        width: 268px;
+    }
+    .right>div{
+        width: 110%;
+        height: 200px;
+        position: relative;
+        top:-45px;
+        left:-5%;
+        margin-top: -45px;
+        padding-top: 15px;
+    }
+    .right>.app{
+        clear: both;
+        border-top:2px solid #3F828C;
+        margin: 0;
+        width: 100%;
+        position: static;
+        text-align: center;
+        color: rgba(118, 210, 247, 1);
+        text-shadow: 0 0 5px #57BBF7;
+        height: auto;
+    }
+    @media (max-width:1400px) {
+        .left{
+            padding-left: 2%;
+        }
+        .right{
+            padding: 30px 2% 30px 2%;
+        }
+    }
+</style>
+<!--{% block style %}-->
+<!--{% endblock %}-->
+<body>
+<canvas class="bg"></canvas>
+<div class="head">
+        <span class="logo">可视化管理</span>
+        <ul>
+            <li data-url="zonglan_1.png" data-old="zonglan.png"><a class="act" href="/" title="总览图"><img src="http://pic.huodongjia.com/static/vision/images/zonglan_1.png" alt=""></a></li>
+            <li class="order" data-url="dingdan_1.png" data-old="dingdan.png">
+                <a title="订单可视化" href="/newordervis/salesanalysis/"><img src="http://pic.huodongjia.com/static/vision/images/dingdan.png" alt=""></a>
+            </li>
+            <li data-url="bianji_1.png" data-old="bianji.png"><a href="/neweventvis/showevents/" title="编辑可视化"><img src="http://pic.huodongjia.com/static/vision/images/bianji.png" alt=""></a></li>
+            <li class="operate" data-url="qita_1.png" data-old="qita.png">
+                <a href="/newoperation/op_datas/" title="运营推广数据可视化"><img src="http://pic.huodongjia.com/static/vision/images/qita.png" alt=""></a>
+                <!--<div class="menue" ><a href="">订单来源渠道</a><a href="">订单来源渠道</a><a href="">订单来源渠道</a></div>-->
+            </li>
+            <li data-url="app_1.png" data-old="app.png"><a href="/newordervis/app/" title="活动家APP"><img src="http://pic.huodongjia.com/static/vision/images/app.png" alt=""></a></li>
+        </ul>
+</div>
+<div class="content">
+    <div class="left">
+        <div class="top_left">
+            <img src="http://pic.huodongjia.com/static/vision/images/tiao.png" alt="">
+            <p class="title">销售额&nbsp;  <span>Sales volume</span></p>
+            <div class="detail">
+                <p><font>{{ today|date:'Y'}}年：</font><span><font>￥</font>{{year_order}}</span></p>
+                <p><font>第{{this_quarter}}季度：</font><span><font>￥</font>{{ quarter_order }}</span></p>
+                <p><font>{{ today|date:'n' }}月份：</font><span><font>￥</font>{{ month_order }}</span></p>
+                <p><font>第{{ week_number }}周：</font><span><font>￥</font>{{ week_order }}</span></p>
+            </div>
+        </div>
+        <div class="top_left">
+            <img src="http://pic.huodongjia.com/static/vision/images/tiao.png" alt="">
+            <p class="title">合作主办方&nbsp;  <span>Cosponsor</span></p>
+            <div class="detail">
+                <p style="color: #315E85;"><span style="font-size: 3em;">{{ co_sponsor }}</span>&nbsp; 家</p>
+        </div>
+    </div>
+        <div class="top_left">
+            <img src="http://pic.huodongjia.com/static/vision/images/tiao.png" alt="">
+            <p class="title">编辑数据量&nbsp;  <span>Edit data</span></p>
+            <div class="edit">
+                <p><span>总会议量<br><font>{{ events_cnt }}</font></span><span>可售会议<br><font>{{ online_events_cnt }}</font></span></p>
+                <div class="pie">
+                    <div class="circle"><span></span></div>
+                    <div style="width: 200px;height: 200px;position: relative;right: 20px;" id="event_1"></div>
+                    <p style="color: #CBCDCC;">昨日发布：<span class="word">{{ yst_events_cnt }}</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="center">
+        <div class="top">
+            <p style="line-height: 40px">{{ today|date:'j' }}日销售额</p>
+            <p style="margin: 5% auto"><span style="font-size: 2em">￥</span><span class="num" style="font-size: 3.5em">{{ today_orders }}</span></p>
+            <p class="compare"><span>昨日销售额 <br>￥<font class="num">{{ yst_orders }}</font></span>
+                <span>增长比例 <br><font class="num">{{ grow_percent }}</font>%</span>
+            </p>
+        </div>
+        <div class="bottom">
+            <div class="ditu"><img class="shadow" src="http://pic.huodongjia.com/static/vision/images/ditu.png" alt=""><img src="http://pic.huodongjia.com/static/vision/images/ditu1.png" alt=""></div>
+            <div id="event_2" style="width: 120%;height:100%;position: absolute;top: 0;left:-8%"></div>
+        </div>
+    </div>
+    <div class="right">
+        <p class="r_word">运营 &nbsp; <span style="font-size: 14px">Operate</span>  <br><img src="http://pic.huodongjia.com/static/vision/images/heng_tiao.png" alt=""></p>
+        <p><img src="http://pic.huodongjia.com/static/vision/images/diannao.png" alt=""><span class="r_word" style="font-size: 14px">pc端</span><span style="float: right"><font style="color: #CBCDCC;line-height: 2.5">访问量：</font><font class="num r_word">{{website_view.0}}</font></span></p>
+        <div id="pc"></div>
+        <p><img src="http://pic.huodongjia.com/static/vision/images/diannao.png" alt=""><span class="r_word" style="font-size: 14px">NEWS</span><span style="float: right"><font style="color: #CBCDCC;line-height: 2.5">访问量：</font><font class="num r_word">{{news_view.0}}</font></span></p>
+        <div id="news"></div>
+        <p><img src="http://pic.huodongjia.com/static/vision/images/shouji.png" alt=""><span class="r_word" style="font-size: 14px">WAP端</span><span style="float: right"><font style="color: #CBCDCC;line-height: 2.5">访问量：</font><font class="num r_word">{{wap_view.0}}</font></span></p>
+        <div id="wap"></div>
+        <div class="app">
+            <p>APP运营</p>
+            <p class="compare"><span>下载量 <br><font class="num">{{total_user}}</font></span>
+                <span>活跃用户 <br><font class="num">{{ active_user }}</font></span>
+            </p>
+        </div>
+    </div>
+</div>
+<!--{% block right %}-->
+<!--{% endblock %}-->
+</body>
+<script src="/static/js/echarts.js"></script>
+<script src="/static/js/dark.js"></script>
+<script src="/static/js/canvas.js"></script>
+<script src="/static/js/base.js"></script>
+<script src="http://echarts.baidu.com/build/dist/echarts.js "></script>
+<script src="/static/js/base_1.js"></script>
+<script>
+var ws = new WebSocket('ws://adminttr.huodongjia.com:6385');
+ws.onopen = function() {
+//    console.log("websocket connected");
+};
+ws.onmessage = function(e) {
+    console.log(e)
+};
+ws.onerror = function(e) {
+//    console.error(e);
+};
+ws.onclose = function(e) {
+    //toastr.error('实时提示功能已失效，请刷新页面，并联系技术解决。');
+    a = new Date();
+//    console.log(a.toLocaleTimeString());
+//    console.log("connection closed");
+}
+function send_message(msg) {
+    ws.send(msg);
+}
+</script>
+<!--{% block script %}-->
+<!--{% endblock %}-->
+</html>

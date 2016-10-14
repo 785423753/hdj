@@ -1,0 +1,528 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>{{ name }}_{{ title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="renderer" content="webkit"/>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <!--<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&amp;ak=2d83d2138253787cb3768b8dd58d700f&amp;services=&amp;t=20160721145132"></script>-->
+    <style type="text/css">
+        body {
+            font-family: Tahoma, Arial, Helvetica, 'Microsoft Yahei', 微软雅黑, SimHei;
+            color: #2c3e50;
+            margin: 0;
+            background: #f2f2f2;
+        }
+        @font-face {
+            font-family: 'iconfont';
+            src: url('//at.alicdn.com/t/font_1469514194_4099224.eot'); /* IE9*/
+            src: url('//at.alicdn.com/t/font_1469514194_4099224.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+            url('//at.alicdn.com/t/font_1469514194_4099224.woff') format('woff'), /* chrome、firefox */
+            url('//at.alicdn.com/t/font_1469514194_4099224.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+            url('//at.alicdn.com/t/font_1469514194_4099224.svg#iconfont') format('svg'); /* iOS 4.1- */
+        }
+
+        .main {
+            max-width: 768px;
+            margin: auto;
+        }
+
+        .container {
+            padding: 0;
+            margin-top: 66px;
+            transition: all .2s linear;
+            width: 100%;
+        }
+        .container>div{
+            background: #FFF;
+        }
+        .img-responsive {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container .content p {
+            line-height: 25px !important;
+            word-break: break-all;
+            color: #3a3a3a;
+            font-size: 16px;
+            padding: 0 8px;
+        }
+
+        .container .title_t {
+            color: #b5b5b5 ;
+            font-size: 14px ;
+            margin: 0;
+            text-align: center;
+        }
+
+        .container .content p img {
+            margin: 1em auto;
+            display: block;
+            max-width: 100%;
+            height: auto !important;
+            opacity: 1 !important;
+        }
+
+        .app-div {
+            text-align: center;
+            margin-top: 2em;
+        }
+
+        .app-div a {
+            display: inline-block;
+            background-color: #fcc746;
+            width: 80%;
+            height: 2em;
+            text-align: center;
+            line-height: 2em;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 15px;
+        }
+
+        /*//广告条*/
+        .download {
+            width: 100%;
+            height: 66px;
+            padding-right: 3px;
+            background: #fff;
+            padding-top: 10px;
+            /*border-bottom: 1px solid #bbb;*/
+            position: fixed;
+            top: 0;
+            left: 0;
+            max-width: 768px;
+            z-index:99;
+        }
+        .download::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            right: auto;
+            top: auto;
+            height: 1px;
+            width: 100%;
+            background-color: #bbb;
+            display: block;
+            z-index: 15;
+            -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+            webkit-transform: scaleY(0.33);
+            transform: scaleY(0.33);
+        }
+        .download > div {
+            padding: 0;
+            height: 48px;
+            /*border: 1px solid red;*/
+        }
+
+        .download_app {
+            width: 90px;
+            height: 35px;
+            border: none;
+            background: rgba(0, 0, 0, 0);
+            outline: none;
+            color: #fff;
+            margin-top: 10px;
+            position: relative;
+            right: 10px;
+        }
+
+        .center span {
+            color: #919191;
+            line-height: 2;
+            letter-spacing: 5px;
+            font-size: 16px;
+        }
+
+        .download a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            position: absolute;
+            left: 0;
+            top: 6px;
+            z-index: 8;
+            width: 100%;
+        }
+
+        .listContent {
+            margin-bottom: 15px;
+        }
+
+        #navigation span {
+            position: relative;
+            top: -3px;
+        }
+
+        .b_class, .c_class {
+            top: 3px;
+            right: -7px;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        .container  .title_p {
+            margin: 24px 0 10px;
+            letter-spacing: 0px;
+            color: #000 !important;
+            font-weight: normal;
+            font-size: 1.5em !important;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 15px;
+            line-height: 28px;
+            color: #7F7F7F;
+            padding: 20px 10px;
+            background: #3E3D3D;
+        }
+
+        .container .open_time{
+            margin: 0 0 21px;
+            text-align: center;
+            color: #b5b5b5;font-size: 16px
+        }
+        .des{
+            padding: 20px 10px 20px 5px;
+            position: relative;
+        }
+        .des::before{
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: auto;
+            right: auto;
+            top: 0;
+            height: 1px;
+            width: 100%;
+            background-color: #bbb;
+            display: block;
+            z-index: 15;
+            -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+            webkit-transform: scaleY(0.33);
+            transform: scaleY(0.33);
+        }
+        .des>p{
+           margin:20px 0 0;
+            color: #b5b5b5;
+            font-size: 16px;
+            line-height: 35px;
+        }
+        .top,.content{
+            padding: 0 8px;
+            margin-bottom: 10px;
+            border: 1px solid #FFF;
+        }
+        .des p span{
+            display: inline-block;
+            width: 80%;
+            line-height: 25px;
+        }
+        .des p a{
+            float: right;
+            font-family: 'iconfont';
+            color: #000;
+            font-size: 20px;
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            border:1px solid #000;
+            border-radius: 100%;
+            text-align: center;
+            line-height: 32px;
+        }
+        .bg{
+            width: 100%;
+            height: 100vh;
+            position: fixed;
+            top:0;
+            left:0;
+            background: rgba(0, 0, 0, 0.59);
+            z-index:100;
+            display: none;
+        }
+        #allmap{
+            height: 100vh;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .bg p{
+            width:100%;
+            height: 50px;
+            line-height: 53px;
+            background: #FFF;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index:999;
+            margin: 0;
+            text-align: center;
+            color: #000;
+            font-size: 16px;
+            border-bottom:1px solid #eee;
+        }
+        .bg p .fa{
+            float: left;
+            color: #bdbdbd;
+            font-size:2.2em;
+            position: absolute;
+            top:7px;
+            left: 10px;
+        }
+        .shop_owner{
+            background: #f5f5f5;
+            padding: 25px 15px;
+            width: 95%;
+            margin: 15px auto;
+        }
+        .shop_owner td{
+            padding-left: 10px;
+        }
+        .head_photo span,.wanna_list span{
+            width: 50px;
+            height: 50px;
+            display: block;
+            background: #ECECEC;
+            border-radius: 100%;
+            line-height: 50px;
+            text-align: center;
+            font-size: 20px;
+            color: #C9C9C9;
+            border:1px solid #FEFEFE;
+        }
+       .container .owener_info p{
+            color: #000;
+            font-size: 18px;
+           margin: 0;
+
+        }
+        .owener_info p span{
+            background: #000;
+            color: #fff;
+            font-size: 12px;
+            border-radius: 10px;
+            padding: 2px 8px;
+        }
+        .wanna_go{
+            background: #FFF;
+            width: 100%;
+            border-top:1px solid #EDEDED;
+        }
+        .wanna_go td{
+            /*width: 25%;*/
+        }
+        .i_wanna{
+            padding:10px 0;
+            border-left:1px solid #EDEDED;
+            width: 105px;
+        }
+        .i_wanna a{
+            display: block;
+            width: 85px;
+            height: 40px;
+            border-radius: 3px;
+            background: #F45735;
+            color: #fff;
+            text-align: center;
+            line-height: 40px;
+            margin: auto;
+        }
+        .i_wanna span{
+            font-family: 'iconfont';
+            font-size: 1.6em;
+            margin-right: 3px;
+        }
+        .wanna_list{
+            padding: 0 8px;
+        }
+        .wanna_list span{
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+        }
+        .like{
+            width: 100%;
+            height: 100px;
+            padding: 0 15px;
+        }
+        .like span{
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            border-radius: 100%;
+            text-align: center;
+            background: #FFF;
+            box-shadow: 0 0 11px 1px rgba(209, 209, 209, 0.85);
+            color: #7F7F7F;
+            padding: 3px 0;
+        }
+        .like span font{
+            font-family: 'iconfont';
+            font-size: 1.6em;
+        }
+    </style>
+    <link href="http://pic.huodongjia.com/static/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=d55c3d0a6ba1a7be686f2d0de622bf14&plugin=AMap.ToolBar"></script>
+</head>
+
+<body class="xiaorizi">
+<div class="main">
+    <div class="download">
+        <div class="col-sm-3 col-xs-3"
+             style="width:14%;padding-top: 3px;padding-left: 5px">
+            <img width="100%" style="max-width:43px;"
+                 src="http://m.xiaorizi.me/images/xiaori_logo.png" alt=""/>
+        </div>
+        <div class="col-sm-7 col-xs-7 center"
+             style="width:55%;padding-left: 10px">
+            <img width="50" src="http://m.xiaorizi.me/images/xiaori_wenzi.png"
+                 alt=""/><br/>
+            <span>温暖的生活方式</span>
+        </div>
+        <div class="col-sm-2 col-xs-2" style="width:29%;">
+            <button class="download_app">
+                <img src="http://m.xiaorizi.me/images/an.png" width="100%"
+                     style="position: absolute;left: 0;top: 0;z-index: 0;">
+                <a href="http://xiaorizi.me/app/download/?show=page">下载APP</a>
+            </button>
+            <img class="close" src="http://m.xiaorizi.me/images/close.png"
+                 style="position: absolute;top: 35%;right: 0px;width: 20px;opacity: 1; height: auto;">
+        </div>
+    </div>
+    <div class="container">
+        <p style="margin: 0;height: 50px;line-height: 50px !important;text-align: center;background: #FFF"><a style="color: #000;" href="">下载banner</a></p>
+        <img class="img-responsive"  width="100%"
+             src="{{ img }}" alt="">
+        <div class="top">
+            <p class='title_p'>{{ title }}</p>
+            <p class='title_t'>
+                {{ tag }}
+            </p>
+            <p style="margin: 21px 0;text-align: center;color: #b5b5b5;font-size: 16px">人均{{per}}元</p>
+            <p class="open_time">{{open_time}}</p>
+            <div class="des">
+                <p style="margin:0;"><span>{{phone}}</span><a href="tel:{{phone}}">&#xe602;</a></p>
+                <p><span>{{address}}</span><a class="addr">&#xe600;</a></p>
+            </div>
+        </div>
+
+        <div class="content">
+            <p class="title_p">『{{ name }}』</p>
+            {{ content | safe }}
+            {% if shop_owner  %}
+            <div class="shop_owner">
+                <table>
+                    <tr>
+                        <td class="head_photo">
+                            {% if shop_owner.head_photo %}
+                            <img class="img-circle" src="{{shop_owner.head_photo}}" alt="" width="50">
+                            {% else %}
+                            <span>?</span>
+                            {% endif %}
+                        </td>
+                        <td class="owener_info"><p>{{shop_owner.name}}<span>店主</span></p></td>
+                    </tr>
+                </table>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="like">
+        <span><font>&#xe603;</font><br>好店</span>
+    </div>
+    <div class="wanna_go">
+        <table width="100%">
+            <tr>
+                <td colspan="3" class="wanna_list"></td>
+                <td class="i_wanna"><a href=""><span>&#xe604;</span>想去</a></td>
+            </tr>
+        </table>
+    </div>
+    <footer>
+        微信公众号：小日子 <br>
+        公关推广：Pr@xiaorizi.me <br>
+        联系我们：<a style="color:#337ab7;" href="tel:400-086-5500">400-086-5500</a>
+    </footer>
+    <div class="bg">
+        <p><i class="fa fa-angle-left back"></i><span>位置</span></p>
+        <div id="allmap" ></div>
+    </div>
+</div>
+</body>
+<script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    $('.close').click(function () {
+        $('.download').hide()
+        $('.container').css({marginTop: '5px'})
+    })
+    $(".main p br").replaceWith("");
+    init()
+    function init() {
+        var lat,lng
+        $.ajax({
+            url:'http://restapi.amap.com/v3/geocode/geo?key=d55c3d0a6ba1a7be686f2d0de622bf14',
+            data:{address:"{{address}}"},
+            dataType:'json',
+            type:'get',
+            async:false,
+            success: function (data) {
+                console.log(data.geocodes)
+                lat=data.geocodes[0].location.split(',')[0]
+                lng=data.geocodes[0].location.split(',')[1]
+            }
+        })
+        map = new AMap.Map("allmap", {
+            zoom: 15,
+            center:[lat,lng]
+        });
+        marker = new AMap.Marker({
+            map:map,
+            position:[lat,lng]
+        })
+        marker.setLabel({
+            offset: new AMap.Pixel(20, 20),//修改label相对于maker的位置
+            content: ""
+        });
+        marker.on('click',function(e){
+            marker.markOnAMAP({
+                name:'{{address}}',
+                position:marker.getPosition()
+            })
+        })
+        map.addControl(new AMap.ToolBar());
+    }
+    $('.addr').click(function () {
+        $('.bg').show(300)
+    })
+    $('.back').click(function () {
+        $('.bg').hide(300)
+    })
+    $.get('/wannago/?root_id={{id}}&root_type=0','', function (data) {
+        if(data.list){
+            $('.wanna_list').html('')
+            for(var i in data.list){
+                if(i.head_photo){
+                    $('.wanna_list').append("<span><img src='"+i.head_photo+"' alt=''></span>")
+                }else{
+                    $('.wanna_list').append("<span>?</span>")
+                }
+            }
+        }
+    })
+</script>
+</html>

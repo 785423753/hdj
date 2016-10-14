@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<!--
+Copyright 2007 The Closure Library Authors. All Rights Reserved.
+
+Use of this source code is governed by the Apache License, Version 2.0.
+See the COPYING file for details.
+-->
+<!--
+-->
+<head>
+  <title>goog.ui.ac.Remote</title>
+  <script src="/static/js/goog/base.js"></script>
+  <script>
+    goog.require('goog.ui.ac.Remote');
+  </script>
+  <link rel="stylesheet" href="/static/css/acdemo.css">
+  <link rel="stylesheet" href="/static/css/autocomplete.css">
+</head>
+<body>
+<p>此页面为第一次使用autocomplete使用,可保留</p>
+  <h1>goog.ui.ac.Remote</h1>
+
+  Google Buzzwords:<br>
+  <input type="text" id="txtInput" style="width:500px"><br>
+  <p>
+    This data is being pulled from the server at
+    <a href="autocompleteremotedata.js">autocompleteremotedata.js</a>.
+  </p>
+  <p>
+    Ideally the server would perform a search on the query and would only
+    return relevant results; however, this response is static.
+  </p>
+
+  <script>
+    var input = document.getElementById('txtInput');
+    var ac = new goog.ui.ac.Remote('/publish/addr_suggest',
+        input);
+  </script>
+</body>
+</html>

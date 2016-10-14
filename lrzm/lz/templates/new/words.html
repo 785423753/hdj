@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style>
+    .right_bottom {
+        height: auto;
+    }
+    .right_bottom img{
+        width:100%;
+    }
+    @media (min-width:768px) {
+        .right_bottom {
+            width: 30%;
+            height: 370px;
+            margin-right: 20px;
+        }
+        .right_bottom img{
+            width:97%;
+            height: 290px;
+        }
+    }
+
+</style>
+{% endblock %}
+{% block right %}
+<div class='col-sm-10 col-xs-12 right' style=''>
+    <div class="right_bottom col-xs-12">
+        <h2 align='center'>活动热门词汇</h2>
+        <img src='/static/png/all.png' >
+    </div>
+    <div class="right_bottom col-sm-4 col-xs-12">
+        <h2 align='center'>北京热门词汇</h2>
+        <img src='/static/png/beijing_cloud_content.png' >
+    </div>
+    <div class="right_bottom col-sm-4 col-xs-12" >
+        <h2 align='center'>上海热门词汇</h2>
+        <img src='/static/png/shanghai_cloud_content.png'>
+        <!-- <div id='right_curveoforder_2' style="width: 100%;height: 90%;"></div> -->
+    </div>
+    <div class="right_bottom col-sm-4 col-xs-12" >
+        <h2 align='center'>广州热门词汇</h2>
+        <img src='/static/png/guangzhou_cloud_content.png'>
+        <!-- <div id='right_curveoforder_3' style="width: 100%;height: 90%;"></div> -->
+    </div>
+    <div class="right_bottom  col-sm-4 col-xs-12" >
+        <h2 align='center'>成都热门词汇</h2>
+        <img src='/static/png/chengdu_cloud_content.png'>
+        <!-- <div id='right_curveoforder_4' style="width: 100%;height: 90%;"></div> -->
+    </div>
+    <div class="right_bottom col-sm-4  col-xs-12" >
+        <h2 align='center'>深圳热门词汇</h2>
+        <img src='/static/png/shenzheng_cloud_content.png'>
+        <!-- <div id='right_curveoforder_5' style="width: 100%;height: 90%;"></div> -->
+    </div>
+    <div class="right_bottom col-sm-4 col-xs-12">
+        <h2 align='center'>杭州热门词汇</h2>
+        <img src='/static/png/hangzhou_cloud_content.png'>
+        <!-- <div id='right_curveoforder_6' style="width: 100%;height: 90%;"></div> -->
+    </div>
+
+</div>
+{% endblock %}

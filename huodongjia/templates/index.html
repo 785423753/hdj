@@ -1,0 +1,151 @@
+﻿
+{% load page_nav %}
+{% block addstyle %}
+    <meta name="mobile-agent" http-equiv="mobile-agent" content="format=html5;url=http://m.huodongjia.com{{request.get_full_path}}" />
+    <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/index.min.css"/>
+<style>.li div{padding: 1px 0}</style>
+{%endblock%}
+{% block banner %}
+<div class="banner">
+    <div class="banner_index">
+        {% for ad in advert_list %}{% if forloop.first %}<a class="banner_act" target="_blank" href="{{ad.url}}"><img width="1200" height="300" src="{{ad.pic__server__name}}{{ad.pic__urls}}!hdj123" alt="{{ad.title}}"></a>{% else %}
+        <a  target="_blank" href="{{ad.url}}"><img width="1200" height="300" src="{{ad.pic__server__name}}{{ad.pic__urls}}!hdj123" alt="{{ad.title}}"></a>{% endif %}{% endfor %}
+    </div>
+    <ul>
+        {% for ad in advert_list %}{% if forloop.first %}<li class="banner_act"><img height="48" width="200" src="{{ad.pic__server__name}}{{ad.pic__urls}}!hdj123" alt="{{ad.title}}"></li>
+        {% else %}<li><img width="200" height="48" src="{{ad.pic__server__name}}{{ad.pic__urls}}!hdj123" alt="{{ad.title}}"></li>{%endif%}{% endfor %}
+    </ul>
+</div>
+{% endblock %}
+{% block content %}
+<div class="container content">
+    {% for event in events|slice:'0:4' %}
+    <div style="width: 80%;padding-right: 5px;*width: 900px;">
+        <div class="meeting_cat">
+            <h3 ><a target="_blank" href="/{{event.cat_ename}}/" title="{{event.cat_name}}查询">{{event.cat_name}}会议</a></h3>
+            {% for tag in event.tags_id %}{% if forloop.last %}<h4><a href="/tag/{{tag.tag}}/" target="_blank">{{tag.tag__name}}</a></h4>
+            {%else%}<h4><a href="/tag/{{tag.tag}}/" target="_blank">{{tag.tag__name}}</a></h4><span class="line">|</span>{%endif%}{% endfor %}
+            <a href="/{{event.cat_ename}}/"  title="{{event.cat_name}}报名" target="_blank" class="more">更多>> </a>
+        </div>
+        {% for main_event in event.main_queryset|slice:':1' %}
+        <div class="col-sm-5 col-xs-5 all_meetings" style="padding: 5px 15px 5px 0 !important;">
+            <div class="meetings">
+                 <div class="meet_child" style="max-height: 233px;">
+                     <a href="{{main_event.event_url}}" target="_blank" ><img width="383" height="233" class="lazy"  src="http://pic.huodongjia.com/static/images/event_default.jpg"  data-original="{{main_event.event_img.0.server__name}}{{main_event.event_img.0.urls}}!hdj123" alt="{{main_event.event_name}}"/></a>
+                    <p style="height: 35px;line-height: 35px">
+                        <span><a style="color: #fff;" href="/{{main_event.event_city_info.0.title}}/" target="_blank">{{main_event.event_city_info.0.district_name}}</a></span><span style="float: right">{{main_event.event_begin_time|date:'Y-m-d'}}</span>
+                    </p>
+            </div>
+            <a href="{{main_event.event_url}}" target="_blank"><p class="meeting_name" style="color: #1067C8 !important;padding:11px 0 3px 10px;font-size: 16px;text-overflow: ellipsis;white-space: nowrap;width: 96%;overflow: hidden;">{{main_event.event_name}}</p></a>
+            <p class="meeting_des" title="{{main_event.event_intro}}">{{main_event.event_intro}}</p>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="col-sm-7 col-xs-7 normal" style="*width: 57%">
+            {% for main_event in event.main_queryset|slice:'1:7' %}
+            <div class="col-sm-4 col-xs-4 all_meetings" style="*width: 31%">
+                <div class="meetings">
+                    <div class="meet_child">
+                        <a href="{{main_event.event_url}}" target="_blank"><img width="176" height="110" class="lazy"  src="http://pic.huodongjia.com/static/images/event_default.jpg!hdj123"  data-original="{{main_event.event_img.0.server__name}}{{main_event.event_img.0.urls}}!hdj123" alt="{{main_event.event_name}}"/></a>
+                        <p><span><a style="color: #fff;" target="_blank" href="/{{main_event.event_city_info.0.title}}/">{{main_event.event_city_info.0.district_name}}</a></span><span style="float: right">{{main_event.event_begin_time|date:'Y-m-d'}}</span></p>
+                    </div>
+                    <a href="{{main_event.event_url}}" target="_blank"><p class="meeting_name">{{main_event.event_name}}</p></a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div style="width: 20%;padding-left: 10px;padding-top: 2px;">
+        <div class="recent_meeting">近期{{event.cat_name}}会议</div>
+        <ul class="recent">
+            {% for side_event in event.side_queryset|slice:'5'%}
+            <li class="li">
+              <a href="{{side_event.event_url}}" rtarget="_blank"><span class="name">{{side_event.event_name}}</span>
+              <div><a target="_blank" href="/{{side_event.event_city_info.0.title}}/" style="color: #B8BAC7 !important;" >{{side_event.event_city_info.0.district_name}}</a>
+                  &nbsp;<span style="color: #B8BAC7;" >{{side_event.event_begin_time|date:'Y-m-d'}}</span>
+              </div>
+                </a>
+            </li>
+            {% endfor %}
+            <li class="text-center" style="border: none;padding: 10px 0;"><a href="/{{event.cat_ename}}/14/" target="_blank" style=" color: #1067C8 !important">更多{{event.cat_name}}会议>></a></li>
+        </ul>
+    </div>
+    {% endfor %}
+    {% for event in events|slice:'4:7'%}
+    <div style="width: 50%;padding-right: 5px;*width:48%;">
+        <div class="meeting_cat"><span><h3><a  title="{{event.cat_name}}查询"  target="_blank" href="/{{event.cat_ename}}/">{{event.cat_name}}会议</a></h3></span>
+            {% for tag in event.tags_id %}{% if forloop.last %}<h4><a target="_blank" href="/tag/{{tag.tag}}/">{{tag.tag__name}}</a></h4>
+            {%else%}<h4><a target="_blank" href="/tag/{{tag.tag}}/">{{tag.tag__name}}</a></h4><span class="line">|</span>{%endif%}{% endfor %}
+            <a href="/{{event.cat_ename}}/" target="_blank"  title="{{event.cat_name}}报名" class="more">更多>> </a></div>
+                {% for main_event in event.main_queryset|slice:'0:3' %}
+                <div class="col-sm-4 col-xs-4 all_meetings normal" style="*width: 31%">
+                    <div class="meetings">
+                        <div class="meet_child">
+                            <a href="{{main_event.event_url}}" target="_blank"><img width="188" height="110" class="lazy" src="http://pic.huodongjia.com/static/images/event_default.jpg" data-original="{{main_event.event_img.0.server__name}}{{main_event.event_img.0.urls}}!hdj123" alt="{{main_event.event_name}}"/></a>
+                            <p><span><a style="color: #fff;" target="_blank" href="/{{main_event.event_city_info.0.title}}/">{{main_event.event_city_info.0.district_name}}</a></span><span style="float: right">{{main_event.event_begin_time|date:'Y-m-d'}}</span></p>
+                        </div>
+                        <a href="{{main_event.event_url}}" target="_blank"><p class="meeting_name">{{main_event.event_name}}</p></a>
+                    </div>
+                </div>
+                {% endfor %}
+    </div>
+    {% endfor %}
+    {% for event in events|slice:'11:12'%}
+    <div style="width: 50%;padding-right: 5px;*width:48%;">
+        <div class="meeting_cat"><span><h3><a target="_blank" href="/{{event.cat_ename}}/"  title="{{event.cat_name}}查询">{{event.cat_name}}会议</a></h3></span>
+            <h4><a target="_blank" href="/culmedia/">文化传媒</a></h4>
+            <h4><a target="_blank" href="/servindust/">服务行业</a></h4>
+            <h4><a target="_blank" href="/tralogist/">交通物流</a></h4>
+            <h4><a target="_blank" href="/realestate/">地产建筑</a></h4>
+            <a href="/{{event.cat_ename}}/" target="_blank" title="{{event.cat_name}}报名" class="more">更多>> </a></div>
+                {% for main_event in event.main_queryset|slice:'0:3' %}
+                <div class="col-sm-4 col-xs-4 all_meetings normal" style="*width: 31%">
+                    <div class="meetings">
+                        <div class="meet_child">
+                            <a href="{{main_event.event_url}}" target="_blank" ><img width="188" height="110" class="lazy" src="http://pic.huodongjia.com/static/images/event_default.jpg!hdj123" data-original="{{main_event.event_img.0.server__name}}{{main_event.event_img.0.urls}}!hdj123" alt="{{main_event.event_name}}"/></a>
+                            <p><span><a target="_blank" style="color: #fff;" href="/{{main_event.event_city_info.0.title}}/">{{main_event.event_city_info.0.district_name}}</a></span><span style="float: right">{{main_event.event_begin_time|date:'Y-m-d'}}</span></p>
+                        </div>
+                        <a href="{{main_event.event_url}}" target="_blank"><p class="meeting_name">{{main_event.event_name}}</p></a>
+                    </div>
+                </div>
+                {% endfor %}
+    </div>
+    {% endfor %}
+    <div style="width: 100%;">
+        <p class="meeting_cat hot_guest">
+            <span><a target="_blank" class="jiabin Choose" href="/guest/">热门嘉宾 </a>｜<a target="_blank" class="sponsor" href="/listsponsor/">会议主办方</a></span>
+            <a class="more gues"><span class="m_iconfont" style="color:#C2C8D5 !important;">&#xe603; &nbsp;</span>换一换</a>
+            <a class="more spons" style="display: none;"><span class="m_iconfont" style="color:#C2C8D5 !important;">&#xe603; &nbsp;</span>换一换 </a>
+        </p>
+        <div class="col-sm-12 col-xs-12 all_guest text-center">
+            {%for guest in guests%}
+            <div class="col-sm-2 col-xs-2 guest">
+                <a target="_blank" href="/guest-{{ guest.id|encodeid }}.html">
+                    <div class="gues_pic">
+                     <img width="120" height="120" class="lazy"  src="http://pic.huodongjia.com/static/images/guest_default(1).jpg"  data-original="{{ guest.img__server__name  }}{{ guest.img__urls }}" alt="邀请{{ guest.name }}出席会议"/>
+                    </div>
+                </a>
+                <p><a style="color: #000 !important;" target="_blank" href="/guest-{{ guest.id|encodeid }}.html">{{ guest.name }} </a><br/><span>{{guest.company__name}}</span><br/><span>{{ guest.job__name }}</span></p>
+             </div>
+             {% endfor %}
+        </div>
+        <div class="col-sm-12 col-xs-12 all_sponsor text-center">
+            {% for sponsor in sponsors %}
+            <div class='col-sm-2 col-xs-2 guest'>
+                <a href='/sponsor-{{sponsor.id}}.html' target="_blank">
+                    <img width="120" height="55" class='img-rounded lazy'  src="http://pic.huodongjia.com/static/images/spon_default.jpg"  data-original='{{sponsor.pic__server__name}}{{sponsor.pic__urls}}' alt='{{sponsor.name}}'/>
+                </a>
+                <p><a href="/sponsor-{{sponsor.id}}.html" target="_blank" style="color: #525A6F;">{{sponsor.name}}</a></p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<!--[if lt IE 9]>
+<script src="http://pic.huodongjia.com/static/js/html5shiv.min.js"></script>
+<![endif]-->
+<script src="http://pic.huodongjia.com/static/js/jquery.lazyload.min.js"></script>
+<script src="http://pic.huodongjia.com/static/js/banner.min.js"></script>
+{% endblock %}

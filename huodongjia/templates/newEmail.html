@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+    body{
+        padding: 0;
+        margin: 0;
+        background: #F0F0F8;
+    }
+    table{
+        width: 900px;
+        margin: 0 auto;
+        font-family: "微软雅黑";
+        background: #FFF;
+        padding:20px;
+    }
+    table tr td{
+        padding: 5px 0;
+        width: 25%;
+    }
+    a{
+        text-decoration: none;
+        font-family: "微软雅黑";
+    }
+    .event img{
+        border-radius: 8px;
+    }
+    .event td{
+        position: relative;
+        padding: 15px 10px 10px 0;
+    }
+    .event h3{
+        margin: 0;
+        font-size: 18px;
+        font-weight: normal;
+    }
+    .event p{
+        color: #7B8294;
+        font-size: 14px;
+        margin: 8px 0;
+    }
+    .trade{
+        border: 2px solid #a2a2a8;
+        border-left: none;
+        border-right:none;
+        font-size: 14px;
+        line-height: 30px;
+        padding: 10px 0 0;
+    }
+    .trade a{
+        font-size: 12px;
+        padding: 0 5px;
+        color: #2C84DB;
+    }
+    .app{
+        font-size: 14px;
+    }
+    .app a{
+        background: #39414E;
+        border-radius: 3px;
+        padding: 5px;
+        display: inline-block;
+    }
+
+</style>
+<body>
+<table style="width: 900px">
+   <tr><td   colspan="4" style="text-align: right;font-size: 14px;">为了您能够正常收到活动家的会议推荐通知，请将<span style="color: #2C84DB;">newsletter@huodongjia.com</span>添加进您的通讯录</td></tr>
+    <tr><td colspan="4" style="font-size: 18px;"><img style="position:relative;top: 5px;" width="80" src="http://pic.huodongjia.com/static/images/hdj.png" alt=""/>优质会议推荐</td></tr>
+    {% for ev in events %}
+    <tr class="event">
+        <td><a href="http://www.huodongjia.com{{ ev.event_url }}"><img width="100%" src="{{ ev.event_img.0.server__name }}{{ ev.event_img.0.urls }}" alt="{{ ev.event_name }}"/></a></td>
+        <td colspan="3" style="width: 75%">
+            <h3><a style="color: #41414D;" href="http://www.huodongjia.com{{ ev.event_url }}">{{ ev.event_name }}</a></h3>
+            <p>{{ ev.event_begin_time|date:'Y-m-d' }} 8:00至{{ ev.event_end_time|date:'Y-m-d' }} 18:00结束</p>
+            <p>{{ev.event_city_info.0.district_name}} {{ev.event_venue_info.0.title}}</p>
+            <p style="height: 45px;overflow: hidden;">{{ev.event_intro|slice:"75"}}...
+                <a href="http://www.huodongjia.com{{ ev.event_url }}">查看更多</a></p>
+        </td>
+    </tr>
+    {% endfor %}
+    <tr><td colspan="4" class="trade">
+      更多行业：<a href="http://www.huodongjia.com/it/">IT互联网</a><a href="http://www.huodongjia.com/medical/">医疗行业</a>	<a href="http://www.huodongjia.com/energy/">能源化工</a><a href="http://www.huodongjia.com/finance/">金融财经</a>
+        <a href="http://www.huodongjia.com/agricultur/">农业牧渔</a><a href="http://www.huodongjia.com/edutrain/">教育培训</a>
+        <a  href="http://www.huodongjia.com/manufact/">加工制造</a><a href="http://www.huodongjia.com/realestate/">地产建筑</a><a href="http://www.huodongjia.com/culmedia/">文化传媒</a>
+        <a  href="http://www.huodongjia.com/servindust/">服务行业</a><a href="http://www.huodongjia.com/tralogist/">交通物流</a><a href="http://www.huodongjia.com/trade/">其他行业</a></p>
+    </td></tr>
+    <tr>
+        <td style="padding: 30px 0;">
+            <img width="230" src="http://pic.huodongjia.com/static/images/LOGO_phone.png" alt=""/>
+            <img src="http://www.huodongjia.com/static/images/phone.png" alt=""/>
+        </td>
+        <td></td>
+        <td></td>
+        <td class="app" style="text-align: center;color: #545A72">
+            <img width="100" style="float: right;" src="http://pic.huodongjia.com/static/images/APP_erweima.png" alt=""/>
+            <p style="margin: 0 0 5px;">下载活动家APP <br/>找会议更方便</p>
+            <span>点击下载</span><br/>
+            <a style="margin-right: 8px;" rel="nofollow" href="http://pic.huodongjia.com/app/hdj2015917.apk"><img src="http://pic.huodongjia.com/static/images/Android.png" alt="安卓版活动家APP下载"></a>
+            <a rel="nofollow" href="https://itunes.apple.com/cn/app/huo-dong-jia-hui-yi-zhan-hui/id731753448?mt=8"><img src="http://pic.huodongjia.com/static/images/ios.png" alt="ios版活动家APP下载"></a>
+        </td>
+    </tr>
+    <tr><td colspan="4" style="text-align: center;color: #545A72"><span>该邮件由<a href="http://www.huodongjia.com" style="color: #2C84DB;" >活动家官网</a>整理，如果你、您不希望在收到类似的信息服务，点击这里<a href="%%user_defined_unsubscribe_link%%" style="color: #F0C76D;">退订</a></span></td></tr>
+</table>
+
+</div>
+</body>
+</html>

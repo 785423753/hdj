@@ -1,0 +1,65 @@
+{% extends "m_model.html" %}
+{% block meta %}
+<title>活动家-亚洲最大的活动网聚合平台</title>
+<meta name="description" content="活动家，亚洲最大的活动网聚合平台，为您提供海量会议,公开课,会展,极限运动,当地体验,夜生活,演出折扣票,同城活动查询,特色旅游，门票预订,报名,参加活动,请上活动家手机站！服务热线:400-003-3879" />
+<meta name="keywords" content="活动,活动网,线下活动,会议网,同城活动" />
+{% endblock %}
+{% block container %}
+<div class="container" id="list_con">
+    <!-------header---->
+    <section class="row">
+        <header class="col-sm-12 col-xs-12 list-header">
+            <a href="javascript:history.go(-1)"><i class="col-sm-1 col-xs-1 iconfont">&#xf006b;</i></a>
+            <h2 class="col-sm-9 col-xs-9 ">4月北京移动互联网会议</h2>
+            <i class="col-sm-1 col-xs-1 iconfont list_seach">&#xe61b;</i>
+        </header>
+    </section>
+    <!-----分类----->
+    <section class="row">
+        <nav  class="col-sm-12 col-xs-12 list-nav">
+            <ul>
+                <li>月份<i class="iconfont">&#xe62b;</i></li>
+                <li><i class="iconfont">&#xe60f;</i></li>
+                <li>城市<i class="iconfont">&#xe62b;</i></li>
+                <li><i class="iconfont">&#xe60f;</i></li>
+                <li>分类<i class="iconfont">&#xe62b;</i></li>
+            </ul>
+        </nav>
+        <div class="col-sm-12 col-xs-12  blue_div"></div>
+    </section>
+    <!---------meeting list--->
+    <div class="row">
+        {% for event in list%}
+        <section  class="col-sm-12 col-xs-12 meeting">
+            <dl>
+                <dt>
+                    <img src="./images/meeting_info.PNG" alt="" style="width: 130px;height: 90px;">
+                </dt>
+                <dd>
+                    <ul>
+                        <a href="/event-{{event.event_id}}.html" target="_blank">
+                            <h3 class="pic-opa-title">{{event.event_name}}</h3>
+                        </a>
+                        <span class="home-money">$2000</span>
+                        <label class="home-time">2015-05-01&nbsp;|</label><label class="home-city"><a href="/{{event.district_title}}/" style="color:#b5b5b5;" target="_blank">{{event.district_name}}</a></label>
+                    </ul>
+                </dd>
+            </dl>
+        </section>
+        {%endfor%}
+    <!----footer---->
+    <div class="row">
+        <footer class="col-sm-12 col-xs-12">
+            <div class="footTop">
+                <ul>
+                    <li class="col-sm-5 col-xs-5"><i class="iconfont">&#xe6d7;</i><label>订单查询</label></li>
+                    <li class="col-sm-7 col-xs-7 phone"><i class="iconfont ">&#xe600;</i><label>400-003-3879</label></li>
+                </ul>
+            </div>
+            <div class="footBottom">
+                <p>CopyRight 活动家 huodongjia.com </p>
+            </div>
+        </footer>
+    </div>
+</div>
+{% endblock %}

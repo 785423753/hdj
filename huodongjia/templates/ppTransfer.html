@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block content%}
+<style type="text/css">
+    /*全局设置*/
+    .mainWrapper{
+        background-color: #f4f3f3;
+    }
+    ul>li{
+        list-style: none outside none;
+        margin-top:8px;
+        color:#686868;
+    }
+    .row{
+        margin-right:0px;
+        margin-left: 0px;
+    }
+    #container_body{
+        background-color:#fff;
+        border: 1px solid #ddd;
+        margin-top: 2.5em;
+        padding-left: 2%;
+        padding-right: 2%;
+        padding-bottom: 5em;
+    }
+    .retrun{
+        background-color: #ff9934;
+        color: #fff;
+        border: none;
+        border-radius: 2px;
+        width: 180px;
+        height: 40px;
+        font-size: 15px;
+        margin-left: 34%;
+        position: relative;
+        top: 60px;
+    }
+    .retrun:hover{
+        background-color: #f49135;
+        color: #fff;
+    }
+    .info p{
+        line-height: 15px;
+        color:#686868;
+        font-size: 15px;
+    }
+</style>
+
+<div class="container" id="container_body">
+    <div class="row">
+    <h2 style="margin-top:2em;text-align: center;">对公转账</h2>
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 col-lg-offset-2" style="margin-top: 3em">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <img src="http://pic.huodongjia.com/static/images/bankofchina.png">
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 info">
+                <p>银行账户名：成都云数海量智能科技有限公司</p>
+                <p>银行账号：117169457814</p>
+                <p>开户行：中国银行成都中和支行</p>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <ul style="margin-top:2em;padding:0px;">
+                <li style="display: inline-block;color:red;" >注意事项:</li>
+                <li style="display: inline-block;">1.汇款时请务必在汇款留言中注明会议名称、参会人员单位、姓名。</li>
+                <li style="padding-left: 4.7em">2.汇款后请务必将转帐汇款信息或回执扫描件通过电子邮件发送至business@veryevent.com以便对帐。</li>
+                <li style="padding-left: 4.7em"> 3.对公转账一般需要1-3天才能到帐，若需及时办理，请使用在线支付。</li>
+            </ul>
+            </div>
+            <div>
+            <button class="retrun btn-default" onclick="getconfirm()">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="http://pic.huodongjia.com/static/js/jquery-1.8.3.min.js"></script>
+<script>
+    $("#container_body").css({
+        height:$("body").height()
+    });
+    function getconfirm()
+    {
+        if(confirm("您是否要关闭？")==true)
+        {
+
+            window.open('','_parent','');
+            window.top.opener = null;
+            window.close();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+</script>
+
+{% endblock %}
+

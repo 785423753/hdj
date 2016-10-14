@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+{% block addstyle %}
+<link rel="stylesheet" href="http://pic.huodongjia.com/static/css/notSearch.css"/>
+<link rel="stylesheet" type="text/css" href="http://pic.huodongjia.com/static/css/sweet-alert.css">
+<link rel="stylesheet" href="http://pic.huodongjia.com/static/css/searchRsult.css"/>
+<link rel="alternate" media="only screen and(max-width: 640px)" href="http://m.huodongjia.com{{request.get_full_path}}" >
+<meta name="mobile-agent" http-equiv="mobile-agent" content="format=html5;url=http://m.huodongjia.com{{request.get_full_path}}" />
+<!--[if lt IE 9]>
+<script src="http://pic.huodongjia.com/static/js/html5shiv.min.js"></script>
+<style>
+    body{
+        background: #f7f8fb;
+    }
+</style>
+<![endif]-->
+<style>.tags a{color: #1474d8;padding-right: 10px}</style>
+{% endblock %}
+{% block content %}
+<div class="container content">
+    <form action="">
+        <input name="keyword" id="search" type="text" placeholder="请输入关键字"/>
+        <button id="post">搜索</button>
+    </form>
+    <div class="content_left col-sm-9 col-xs-9">
+        {% if events %}
+        <p style="font-size: 16px;color: #676767;margin: 10px 0 15px;padding: 0 10px">抱歉，没有找到相关会议,为你推荐最近热门会议</p>
+        {% else %}
+        <p style="font-size: 16px;color: #676767;margin: 10px 0 15px;padding: 0 10px" class="tags">
+            大家都在搜：
+            <a href="/tag/437/">互联网</a> <a href="/tag/969/">大数据</a> <a href="/tag/807/">金融</a>
+            <a href="/tag/2561/">互联网金融</a> <a href="/beijing/">北京会议</a> <a href="/shanghai/">上海会议</a>
+            <a href="/tag/9912/">VR</a> <a href="/tag/26500/">AR</a>
+        </p>
+        {% endif %}
+        {% for event in events %}
+        {% if not event %}
+        {% if not forloop.last %}
+        <p class='past'><span>下面是已成功举办的会议</span></p>
+        <br style='clear: both'/>
+        {% endif %}
+        {% endif %}
+        <div class='col-sm-12 col-xs-12 meeting_list' >
+            <div class='col-sm-3 col-xs-3'>
+                <a href='{{event.event_url}}' rel="nofollow" target="_blank">
+                    {% if event.event_img.0.urls %}
+                    <img width='100%' src='{{event.event_img.0.server__name}}{{event.event_img.0.urls}}' alt='{{event.event_name}}'/>
+                    {% else %}
+                    <img width='100%' style="border: 1px solid #eee" src='http://pic.huodongjia.com/static/images/event_default.jpg' alt='{{event.event_name}}'/>
+                    {% endif %}
+                </a>
+            </div>
+
+            <div class='col-sm-7 col-xs-7 detail' >
+                <h3 class='meeting_name'><a href="{{event.event_url}}" target="_blank">{{event.event_name}}</a></h3>
+                <p class='meeting_tag'>
+                    {% for tag in event.event_tag_info %}
+                    <a href='/tag/{{tag.id}}/'>{{tag.name}}</a>
+                    {% endfor %}
+                </p>
+                <p class='meeting_des'>概述:{{event.event_intro}}</p>
+                <p class='addr'>
+                    <span><a href='/{{event.event_city_info.0.title}}/'><font class='m_iconfont'>&#xe609;</font>{{event.event_city_info.0.district_name}}</a></span>
+                    {% if event.event_begin_time %}
+                    <span><font style='color: #8C8C8C;font-size: 16px;' class='m_iconfont'>&#xe608;&nbsp;</font>{{event.event_begin_time|date:'Y-m-d'}}</span>
+                    {% endif %}
+                </p>
+            </div>
+
+            {% ifequal event.event_price_type 6 %}  <!--标准-->
+            {% ifequal event.event_price_unit|length 0 %}
+            <div class="col-sm-2 col-xs-2 price text-center">
+                <p><span>截止</span></p>
+                <p>关注：2040人气</p>
+            </div>
+            {% else %}
+            <div class="col-sm-2 col-xs-2 price text-center">
+                <p><span>{{event.event_price_unit.0.Currency__sign}}{{event.event_price_unit.0.price}}</span></p>
+                <p>关注：{{event.visit}}人气</p>
+            </div>
+            {% endifequal %}
+            {% endifequal %}
+            {% ifequal event.event_price_type 4 %}  <!--免费-->
+            <div class="col-sm-2 col-xs-2 price text-center">
+                <p><span>免费</span></p>
+                <p>关注：{{event.visit}}人气</p>
+            </div>
+            {% endifequal %}
+            {% ifequal event.event_price_type 5 %}  <!--待定-->
+            <div class="col-sm-2 col-xs-2 price text-center">
+                <p><span>待定</span></p>
+                <p>关注：{{event.visit}}人气</p>
+            </div>
+            {% endifequal %}
+            {% ifequal event.event_price_type 7 %}  <!--待定-->
+            <div class="col-sm-2 col-xs-2 price text-center">
+                <p><span>待定</span></p>
+                <p>关注：{{event.visit}}人气</p>
+            </div>
+            {% endifequal %}
+            {% ifequal event.event_price_type 9 %}  <!--待定-->
+            <div class="col-sm-2 col-xs-2 price text-center">
+                <p><span>待定</span></p>
+                <p>关注：{{event.visit}}人气</p>
+            </div>
+            {% endifequal %}
+
+
+        </div>
+        {% endfor %}
+
+    </div>
+    <div class="content_right col-sm-3 col-xs-3">
+        <div style="padding: 20px">
+            <a target="_blank" href="/postevent/"><button class="postevent">发布活动</button></a>
+            <span style="font-size: 16px;color: #868E9B;line-height: 25px">发布活动赚积分，可兑换全国演唱会门票，赶快动动你的手指来活动家发布吧！</span>
+        </div>
+        <div>
+            <p class="history">历史搜索 <span class="Close">&#xe618;</span></p>
+            <ul>
+                <li class="search_history" style="display: none;font-size: 14px">没有搜索记录哦！</li>
+                {% for key in keywords|slice:'8' %}
+                <li><a href="/search/?keyword={{ key }}">{{ key }}</a><span class="Close">&#xe618;</span></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script src="http://pic.huodongjia.com/static/js/sweet-alert.min.js"></script>
+<script src="http://pic.huodongjia.com/static/js/jquery.placeholder.min.js "></script>
+<script src="http://pic.huodongjia.com/static/js/js.cookie.js"></script>
+<script src="http://pic.huodongjia.com/static/js/sweet-alert.min.js"></script>
+<script>
+    function encodeUTF8(str){
+        var temp = "",rs = "";
+        for( var i=0 , len = str.length; i < len; i++ ){
+            temp = str.charCodeAt(i).toString(16);
+            rs  += "\\\\u"+ new Array(5-temp.length).join("0") + temp;
+        }
+        return rs;
+    }
+
+    function decodeUTF8(str){
+        return str.replace(/(\\u)(\w{4}|\w{2})/gi, function($0,$1,$2){
+            return String.fromCharCode(parseInt($2,16));
+        });
+    }
+    $("ul li span.Close").on("click", function(){
+        var delete_val = $(this).prev().text()
+        var del_str = "u'" + encodeUTF8(delete_val) + "'";
+        var history = Cookies.get('search_history');
+        var new_history = history.replace(del_str, '');
+        Cookies.set('search_history', new_history, { expires: 7});
+        var new_history = Cookies.get('search_history');
+//        console.log(new_history)//TODo
+
+
+        var li = $(this).parent("li");
+        li.hide(500);
+        setTimeout(function() {
+            li.remove();
+        }, 500);
+    });
+    $(".history .Close").on("click", function(){
+        $("ul li span.Close").click()
+        setTimeout(function() {
+            $(".search_history").show()
+        }, 500);
+    });
+    $("#checkcode").on('blur', function () {
+        var csrf = document.getElementsByName('csrfmiddlewaretoken')[0];
+        var captcha = $("#checkcode").val();
+        $.ajax({
+            url: "/verify_captcha/",
+            dataType: "json",
+            type: "post",
+            async: false,
+            data: {
+                csrfmiddlewaretoken: csrf.value,
+                captcha: captcha
+            },
+            success: function (data) {
+                if (data.flag == 'false') {
+                    $("#checkcode").attr({"data-captchaflag":false})
+                    $("#cap_img").click()
+                }else{
+                    $("#checkcode").attr({"data-captchaflag":true})
+                }
+            }
+        });
+    })
+    $(".searchPost").click(function () {
+        var filter = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+        setTimeout(function () {
+            $("#searchForm input[type=text]").popover('destroy')
+        }, 1000)
+        var option = {
+            placement: "top",
+            animation: "true",
+            container: "body",
+        }
+        if ($.trim($("#eventname").val()).length == 0) {
+            option.content = "姓名不能为空"
+            $("#eventname").popover(option).popover('show')
+        }else if(!filter.test($('#email').val())){
+            option.content = "请输入正确的邮箱"
+            $("#email").popover(option).popover('show')
+        }else if($("#checkcode").attr("data-captchaflag") == 'false'){
+            option.content = "验证码错误"
+            $("#checkcode").popover(option).popover('show')
+        }else{
+            $.ajax({
+                url:'/postmissevent/',
+                data:$("#searchForm").serialize(),
+                dataType:'json',
+                type:'post',
+                success: function (data) {
+                    swal(data.msg);
+                    $(".confirm").click(function(){
+                        window.location.href=window.location.href
+                    })
+                }
+            })
+        }
+
+    })
+</script>
+{% endblock %}

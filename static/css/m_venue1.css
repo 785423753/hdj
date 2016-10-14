@@ -1,0 +1,91 @@
+header{
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 1.3em;
+}
+.venue-des{
+    text-indent: 2em;color:#777777;
+    margin: 20px auto;
+    width: 90%;
+    text-align: justify;
+    overflow: hidden;
+}
+.meeting {
+    clear: both;
+    padding: 0 10px;
+    position: relative;
+    top: 10px;
+
+}
+.meeting_join{
+    background: #fff;width: 100%;
+    line-height: 30px;position: relative;
+    top:10px;clear: both
+}
+.sponsor_name{
+    /*width: 18em;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #777777;
+    padding: 0 5px
+}
+.m-name {
+    padding: 0 5px;width: 100%;
+    height: 40px;overflow: hidden;
+}
+.m_activity{
+    border-left:8px solid #4D92F1;
+    padding-left: 5px;
+    background: #fff;
+    width:100%;
+    height: 30px;
+    line-height:30px;
+    clear: both;
+    position: relative;
+    top: 30px;
+}
+.meeting-child{
+    width: 100%;background: #fff;
+    padding: 5px;border-radius: 3px;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.1);
+}
+.activity{
+    /*height: 345px;*/
+    overflow: hidden;
+    position: relative;
+    top: 35px;
+    background: #fff;
+    padding: 0 10px;
+    border-top: 1px solid #DADADA;
+}
+.event-name{
+    width: 100%;
+    font-size: 1.1em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 30px;
+}
+.a-sponsor_name{
+    width: 60%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    color: #777777;
+}
+.loadmore{
+    position: relative;
+    top: 35px;
+    line-height: 50px;
+    text-align: center;
+    background: #fff;
+    border-bottom: 1px solid #DADADA;
+}
+.load-more {
+    text-align: center;
+    position: relative;
+    top: 15px;
+    line-height: 15px;
+}

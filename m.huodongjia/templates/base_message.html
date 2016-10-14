@@ -1,0 +1,102 @@
+{% extends "base.html"%}
+{% block myStyle %}
+<style>
+    /*全局设置*/
+    .jumbotron{
+        width: 60%;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 10em 0px;
+        position: relative;
+        left: 3em;
+    }
+    .mainWrapper{
+        background-color: #f4f3f3;
+    }
+    .jumbotron h1{
+        font-size: 1.5em;
+        position: relative;
+        left: -40px;
+        background: url("http://pic.huodongjia.com/static/images/base_gou.png") no-repeat;
+        padding-left: 40px;
+        line-height: 1.43;
+        color:#0eaf2d;
+    }
+    .jumbotron h1 span{
+        font-size: 1.625em;
+        color: #0eaf2d;
+    }
+    .jumbotron p{
+        font-size: 1.15em;
+    }
+    .jumbotron p span{
+        font-size: 1.6em;
+    }
+    .input-group-btn{
+        width: auto;
+    }
+    .btn{
+        background-color: #0eaf2d!important;
+        margin-left: 10px;
+        border-radius: 2px;
+    }
+    #container_body{
+        background-color:#fff;
+        border: 1px solid #ddd;
+        margin-top: 2.5em;
+        padding-left: 2%;
+        padding-right: 2%;
+        padding-bottom: 5em;
+        border-radius: 2px;
+    }
+    span{
+        font-size: 16px;
+    }
+    label{
+        color:red;
+        font-size: 17px;
+    }
+    .retrun{
+        background-color: #ff9934;
+        color: #fff;
+        border: none;
+        border-radius: 2px;
+        width: 180px;
+        height: 40px;
+        font-size: 15px;
+        margin-left: 460px;
+        position: relative;
+        top: -60px;
+    }
+    .retrun:hover{
+        background-color: #f49135;
+        color: #fff;
+    }
+</style>
+{% endblock %}
+{% block myContainer %}myContainer{% endblock%}
+{% block search%}
+{% include "searchComponent.html" %}
+{% endblock %}
+{% block content %}
+        <div class="container" id="container_body">
+            <form action="/searchorder/" method="get" role="form">
+                {% if order %}
+            <div class="jumbotron"><h1>恭喜您，订单支付成功！</h1>
+                <span>您的订单号为:<label>{{order_number}}</label></span>&nbsp;&nbsp;&nbsp;&nbsp;<span>您本次支付的金额是:<label>{{order.order_totalpay}}元</label></span>
+                <!--{%if price_return%}<p>活动家将为忠实会员返现{{price_return}}RMB</p>-->
+                                    <!--<p>请准确填写订单号或手机号码发送至：business@veryevent.com</p>{%endif%}-->
+                <!--<p>稍后将有商务人员与您联系，您也可以致电客户热线：400 003 3879</p>-->
+                <div class="input-group" style="margin-top: 1em">
+                    <span style="float: left;font-size: 14px;line-height: 35px;">查看我的订单:&nbsp;</span>
+                    <input type="text" name="order_search" id="sel" style="width:17em;display: inline-block" class="form-control" placeholder="请输入您的手机号码或订单号查询"/>
+                        <button class="btn btn-default" id="sel_form" type="submit">确定</button>
+                </div>
+            </div>
+                {% else %}
+                <div style="height: 285px"><p style="text-align: center;font-weight:bold;font-size: 20px;margin-top: 8em;">请输入正确的订单号！</p></div>
+                {% endif %}
+            </form>
+                <a href="/" ><button class="retrun btn-default">返回首页</button></a>
+        </div>
+    {% endblock %}

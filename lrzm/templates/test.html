@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script src="../echarts-2.2.7/build/dist/echarts.js"></script>
+</head>
+<body>
+<div id="right_curveoforder_3" style="width: 600px;height: 400px"></div></body>
+<script src="http://echarts.baidu.com/build/dist/echarts.js "></script>
+<script type="text/javascript">
+    // 路径配置
+    require.config({
+        paths: {
+            echarts: 'http://echarts.baidu.com/build/dist'
+        }
+    });
+
+    // 使用
+    require(
+            [
+                'echarts',
+                'echarts/theme/macarons',
+                'echarts/chart/map' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec,theme) {
+                // 基于准备好的dom，初始化echarts图表
+                var myDate = new Date();
+                var myChart = ec.init(document.getElementById('right_curveoforder_3'),theme);
+                var option = {
+                    title : {
+                        text: '全国主要城市空气质量（pm2.5）',
+                        subtext: 'data from PM25.in',
+                        sublink: 'http://www.pm25.in',
+                        x:'center'
+                    },
+                    tooltip : {
+                        trigger: 'item'
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        x:'left',
+                        data:['pm2.5']
+                    },
+                    dataRange: {
+                        min : 0,
+                        max : 500,
+                        calculable : true,
+                        color: ['maroon','purple','red','orange','yellow','lightgreen']
+                    },
+                    series : [
+                        {
+                            name: 'pm2.5',
+                            type: 'map',
+                            mapType: 'china',
+                            hoverable: false,
+                            selectedMode : 'multiple',
+                            roam:true,
+                            data : [ {name: "海门", value: 9,selected:true},
+                                {name: "鄂尔多斯", value: 12},
+                                {name: "招远", value: 12},
+                                {name: "舟山", value: 12},
+                                {name: "齐齐哈尔", value: 14},
+                                {name: "盐城", value: 15},
+                                {name: "赤峰", value: 16},
+                                {name: "青岛", value: 18},
+                                {name: "乳山", value: 18},
+                                {name: "金昌", value: 19},
+                                {name: "泉州", value: 21},],
+                            markPoint : {
+                                symbolSize: 0,       // 标注大小，半宽（半径）参数，当图形为方向或菱形则总宽度为symbolSize * 2
+                                itemStyle: {
+                                    normal: {
+                                        borderColor: '#87cefa',
+                                        borderWidth: 1,            // 标注边线线宽，单位px，默认为1
+                                        label: {
+                                            show: true,
+                                            formatter : "{b}"
+                                        },
+                                    },
+                                },
+                                data : [
+                                    {name: "海门", value: 9,selected:true},
+                                    {name: "鄂尔多斯", value: 12},
+                                    {name: "招远", value: 12},
+                                    {name: "舟山", value: 12},
+                                    {name: "齐齐哈尔", value: 14},
+                                    {name: "盐城", value: 15},
+                                    {name: "赤峰", value: 16},
+                                    {name: "青岛", value: 18},
+                                    {name: "乳山", value: 18},
+                                    {name: "金昌", value: 19},
+                                    {name: "泉州", value: 21},
+                                ]
+                            },
+                            geoCoord: {
+                                "海门":[121.15,31.89],
+                                "鄂尔多斯":[109.781327,39.608266],
+                                "招远":[120.38,37.35],
+                                "舟山":[122.207216,29.985295],
+                                "齐齐哈尔":[123.97,47.33],
+                                "盐城":[120.13,33.38],
+                                "赤峰":[118.87,42.28],
+                                "青岛":[120.33,36.07],
+                                "乳山":[121.52,36.89],
+                                "金昌":[102.188043,38.520089],
+                                "泉州":[118.58,24.93],
+                            }
+                        },
+
+                    ]
+                };
+
+
+
+                // 为echarts对象加载数据
+                myChart.setOption(option);
+                window.onresize = myChart.resize;
+            }
+    );
+</script>
+</html>

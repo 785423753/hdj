@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load page_nav %}
+{% block addstyle %}
+<link rel="stylesheet" href="http://pic.huodongjia.com/static/css/guestlist.css"/>
+{% endblock %}
+{% block content %}
+<div class="banner">
+        <div class="container">
+        <a href="/guest/apply_guest/" target="_blank"><img width="100%" src="http://pic.huodongjia.com/static/images/guest.jpg" alt="邀请会议嘉宾，上活动家"/></a>
+        </div>
+    </div>
+<!--list-->
+<div class="container guest_list">
+    <div class="bread_nav" style="margin-bottom: 10px"><a href="/">首页</a>&gt;<a href="/guest/">演讲嘉宾</a>&gt;
+        {% if active_cat == 'no_restrict' %}
+        <h1 style="display: inline;font-size: 14px"><a href="/guest/" style="color: #7F8796;">不限</a></h1>
+        {% endif %}
+        {% for cat in cats %}
+        {% if cat.ename == active_cat %}
+        <h1 style="display: inline;font-size: 14px"><a href="/guest/{{ active_cat }}/" style="color: #7F8796;">{{ cat.name }}</a></h1>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <ul class="guest_cat row">
+        {% if active_cat == 'no_restrict' %}
+        <li class="col-sm-2 col-xs-2"><h3 class="choosed"><a href="/guest/">不限</a></h3></li>
+        {% else %}
+        <li class="col-sm-2 col-xs-2"><h3 ><a href="/guest/">不限</a></h3></li>
+        {% endif %}
+    {% for cat in cats %}
+        {% if cat.ename == active_cat %}
+        <li class="col-sm-2 col-xs-2"><h3 class="choosed"><a href="/guest/{{ cat.ename }}/">{{ cat.name }}</a></h3></li>
+        {% else %}
+        <li class="col-sm-2 col-xs-2"><h3 ><a href="/guest/{{ cat.ename }}/">{{ cat.name }}</a></h3></li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+    {% for guest in guests %}
+    <div class="guest row">
+        <div class="col-sm-3 col-xs-3">
+            <div class="gues_pic"><a target="_blank" href="/guest-{{ guest.id|encodeid }}.html">
+                {% if guest.img__urls %}
+                <img width="100%"  src="{{ guest.img__server__name }}{{ guest.img__urls }}" alt="{{ guest.company__name }}{{ guest.job__name }}{{ guest.name }}"/>
+                {% else %}
+                <img width="100%"  src="http://pic.huodongjia.com/static/images/guest_default(1).jpg" alt="{{ guest.company__name }}{{ guest.job__name }}{{ guest.name }}"/>
+                {% endif %}
+            </a></div></div>
+       <div class="col-sm-9 col-xs-9 gues_des">
+           <a href="/guest-{{ guest.id|encodeid }}.html" target="_blank"><p class="gue_name">{{ guest.name }}</p></a>
+        <span style="width: 62%">{% if guest.company__name %}{{guest.company__name}}<br/>{% endif %}{% if guest.job__name %}{{ guest.job__name }}{% endif %}</span><span style="text-align: right">参与会议<font>{{ guest.event_cnt }}场</font></span>
+        <p class="gues_info">{{ guest.intro }}</p>
+        <!-- <p class="theme">演讲主题：<a>数据搜集到海量处理和实时处理</a></p> -->
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="pagination">
+    <ul>
+        {% ifnotequal firstPage 'false'%} 
+            <li><a href="{{firstPage}}">首页</a></li>
+        {% endifnotequal %}
+
+        {% for page in pageList%}
+            {% if page.flag == 'true' %}
+             <li class="page_active"><a href="{{page.pageurl}}">{{page.page}}</a></li>
+             {%else%}
+             <li><a href="{{page.pageurl}}">{{page.page}}</a></li>
+             {%endif%}
+        {% endfor %}
+
+        {% ifnotequal nextPage 'false'%}                      
+             <li><a  href="{{nextPage}}">下一页</a></li>
+             <!--<li><a  href="{{lastPage}}">最后一页</a></li>-->
+        {% endifnotequal %} 
+    </ul>
+</div>
+{% endblock %}

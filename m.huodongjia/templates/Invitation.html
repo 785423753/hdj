@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=no,minimal-ui" />
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title></title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="new_mobile.css">
+</head>
+<body>
+<section class="col-sm-12 col-xs-12 Invitation" style="background: url('./images/yaoqinghan.png') no-repeat;background-size:100% 100%;">
+    <article class="Invitation_info">
+        <ul>
+            <li><h3>第七届中国云计算大会(CC CC 2015)</h3></li>
+            <li><p class="h_time" data-state="0">时间：2015-04-27&nbsp;至&nbsp;2015-04-28</p></li>
+            <li><p class="city">地点：<a href="/beijing/">北京中欧国际工商学院</a></p></li></li>
+        </ul>
+    </article>
+    <article class="Invitation_but">
+        <a href="Notice.html" class="buy">立即购买</a>
+    </article>
+</section>
+<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="bootstrap.min.js"></script>
+<script type="text/javascript" src="new_mobile.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".Invitation_info").animate({
+            marginTop:'52%',
+            opacity:'1'
+        },1200,function() {
+            $(".Invitation_but").animate({
+                opacity: '1'
+            })
+        });
+    });
+</script>
+</body>
+</html>

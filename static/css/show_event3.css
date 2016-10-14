@@ -1,0 +1,620 @@
+h1{
+    margin: 0px;
+}
+.mainWrapper {
+    background-color: #fff;
+}
+/*猜你喜欢*/
+.guess_like{
+    width: 100%;padding:20px 0 40px;background: #F5F5F5
+}
+.guess_like img{
+    max-height: 162px;
+}
+.tips{
+    display:block;font-family:microsoft yahei;font-size:16px;color:#999;margin-bottom:10px;margin-top:10px;
+}
+.guess{
+    font-family:microsoft yahei;font-size:21px;color: #999;
+}
+.more{
+    float: right;font-size: 1.1em;line-height: 2;color: #999;
+}
+.all{
+    /*border: 1px solid red;*/
+    /*width: 4350px;*/
+}
+.guess_like>.container{
+    overflow: hidden;
+    padding-bottom: 10px;
+}
+.more{
+    cursor: pointer;
+}
+hr{
+    padding:0px;margin:6px 0 30px;border-color: #D7D7D7
+}
+.recommend1{
+    height:232px;width:260px;float:left;margin-left:32px;
+    padding: 0px;box-shadow:rgba(0, 0, 0, 0.17) 0px 0px 1px 1px
+}
+.guess_1{
+    width:260px;height:32px;position:absolute;bottom:0;
+    background:#0a223d;opacity:0.7;color:#D07325;
+}
+.text-right{
+    width:260px;height:32px;position:absolute;bottom:0;color:#D07325;
+    font-family:microsoft yahei;font-size:16px;padding-right:8px;line-height: 32px
+}
+.guess_theme{
+    position:absolute;width:260px;margin-top:8px;padding: 0 5px
+}
+.guess_name{
+    font-weight:bold;display:block;font-family:microsoft yahei;font-size:16px;
+    color:#333;line-height: 2;width: 100%;text-overflow: ellipsis;overflow: hidden;white-space: nowrap
+}
+.guess_time{
+    float:left;font-family:microsoft yahei;font-size:14px;color:#666;
+}
+.guess_addr{
+    float:right;font-family:microsoft yahei;font-size:14px;color:#666;margin-right:8px;
+}
+
+/*顶部图片以及内容*/
+.header_imgH470>img{
+    width: 100%;
+}
+.header_top {
+    text-align: center;
+    position: relative;
+    height: 450px;
+    width: 100%;
+    font-family: "microsoft yahei";
+}
+.header_top img{
+    width: 100%;
+    height: 450px;
+}
+.head_body {
+    display: table-cell;
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.head_position{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    display: table;
+}
+.head_body h1 {
+    font-size: 3.5em;
+    color: #ffffff;
+    width: 93%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.head_body p {
+    font-size: 2em;
+    color: #ffffff;
+    letter-spacing: 1em;
+}
+
+.head_body .city {
+    font-size: 1.3em;
+    letter-spacing: 0em;
+}
+
+.head_body .city a{
+    color: #fff;
+}
+
+.head_body .h_time {
+    font-size: 1.3em;
+    letter-spacing: 0em;
+    margin-top: 2.5em;
+}
+
+.right_bottom {
+    position: absolute;
+    margin-left: 79px;
+
+}
+.enroll-bt{
+      position: absolute;
+bottom: 22px;;
+  left: 41.5%;
+}
+.enroll-bt img{
+    height: auto;
+    width: auto;
+}
+
+.ul_right {
+    float: right;
+    margin-top: -45px;
+}
+.ul_right a{
+    margin-left: 11px;
+}
+
+/*.ul_right li{
+    margin-right: 15px;
+    height: 25px;
+    line-height: 36px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    float: left;
+    list-style: none;
+}
+
+.ul_right_li_1,.ul_right_li_2,.ul_right_li_3,.ul_right_li_2_fan{
+    background: url("http://pic.huodongjia.com/static/images/event_img.gif") no-repeat;
+    display: inline-block;
+    width: 40px;
+    height: 36px;
+    float: left;
+}
+.ul_right_li_1{
+    background-position: 0px;
+}
+.ul_right_li_2{
+    background-position: -108px;
+}
+.ul_right_li_2_fan{
+    background-position: -72px;
+}
+.ul_right_li_3{
+    background-position: -35px;
+    margin-right: 0px;
+}*/
+
+/*活动导航栏*/
+.fixednav {
+    height: 104px;
+}
+
+.navbar {
+    border: none;
+}
+
+#navbar-example {
+    width: 100%;
+    height: 104px;
+    background: #498bc7;
+    color: #fff;
+    text-align: center;
+    z-index: 999;
+}
+
+.nav_body, #head_nav, #head_nav li, #head_nav li a {
+    height: 104px;
+    font-family: "microsoft yahei";
+}
+
+#head_nav {
+    margin: 0 auto;
+    text-align: center;
+    float: none;
+}
+
+#head_nav li {
+    float: none;
+    display: inline-block;
+    margin: 0;
+}
+
+#head_nav li a {
+    padding: 0 84px;
+    color: #ffffff;
+    font-size: 1.3em;
+    font-family: "microsoft yahei";
+}
+
+.a_notice {
+    background: #fcb01f;
+}
+
+.a_notice:hover {
+    background: #ffca04;
+}
+
+.a_schedule {
+    background: #78c440;
+}
+
+.a_schedule:hover {
+    background: #8ae24b;
+}
+
+.a_guest {
+    background: #e1557c;
+}
+
+.a_guest:hover {
+    background: #ff608f;
+}
+
+.a_ticket {
+    background: #31c8a7;
+}
+
+.a_ticket:hover {
+    background: #33e8c6;
+}
+
+.nav > li > a > img {
+    margin: 10px 0;
+}
+
+/*面包屑导航栏*/
+.ul_left {
+    margin-top: 2em;
+    margin-left: 0px;
+}
+
+.ul_left li {
+    display: inline-block;
+    color: #b0b0b0 !important;
+}
+
+.ul_left li a {
+    display: inline-block;
+    color: #b0b0b0 !important;
+}
+
+.ul_left .navigationUlist_last{
+    width: 200px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #333 !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+/*内容分类*/
+.class_head {
+    width: 100%;
+    height: 40px;
+    background: #e3f3f0;
+    z-index: 9;
+    position: relative;
+}
+
+.classs_name {
+    position: relative;
+    text-align: center;
+    z-index: 999;
+    height: 80px;
+    top: -20px;
+}
+
+.classs_name h2 {
+    font-size: 18px;
+    color: #fff;
+    line-height: 40px;
+}
+
+.head_middle {
+    width: 0px;
+    height: 0px;
+    border-top: 40px solid #f3d457;
+    border-left: 66px solid #f3d457;
+    border-right: 66px solid #f3d457;
+    border-bottom: 20px solid #fff;
+    margin: 0 auto;
+    position: absolute;
+    top: -20px;
+    z-index: 1;
+}
+
+.enroll {
+    position: absolute;
+    right: 1.5em;
+    top: 85px;
+    z-index: 9999999;
+    cursor: pointer;
+}
+.fanli {
+    cursor: pointer;
+    position: fixed;
+    _position: absolute;
+    bottom: 339px;
+    right: 2%;
+    width: 75px;
+    height: 68px;
+    z-index: 10000;
+    _border: 1px solid #000;
+    _border-bottom: 0;
+}
+.fanli img{
+    width:75px;
+}
+.class_content {
+    padding: 3em 0;
+    line-height: 30px;
+    font-size: 16px;
+}
+
+.class_content table {
+    margin: 0 auto;
+}
+
+.class_content img {
+    margin: 0 auto;
+}
+
+.zt_footer {
+    margin-top: 2em;
+}
+
+.recommend {
+    padding: 0px 4.5px;
+}
+.recommend_bg{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    background-color: #000000;
+    opacity: .5;
+    filter: alpha(opacity=50);
+}
+.zt_footer .recommend .recommend_body {
+    position: absolute;
+    bottom: 0;
+    width: 220px;
+    height: 50px;
+    color: #ffffff !important;
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false);
+    background-color: #000;
+    opacity: .5;
+}
+.zt_footer .recommend .div_text{
+    bottom: 0;
+    height: 50px;
+    position: absolute;
+    width: 100%;
+}
+.recommend table {
+    width: 100%;
+    height: 100%;
+}
+
+.recommend table p {
+    margin: 0 0;
+    color: #fff;
+    padding: 0 10px;
+}
+.zt_footer .recommend img {
+    width: 220px;
+    position: relative;
+}
+@media (max-width: 1366px) {
+    .width980 {
+        width: 980px;
+        margin: 0 auto;
+    }
+
+    .head_nav > div {
+        padding: 0px;
+    }
+    .zt_footer .recommend .recommend_body {
+        position: absolute;
+        bottom: 0;
+        width: 220px;
+        height: 50px;
+        color: #ffffff !important;
+        filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false);
+    }
+
+    .zt_footer .recommend img {
+        width: 220px;
+        position: relative;
+    }
+
+    .ul_left .navigationUlist_last{
+        width: 200px;
+        font-size: 14px;
+        line-height: 1.4;
+        color: #333 !important;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+}
+
+@media (min-width: 1400px) {
+    #head_nav li a {
+        padding: 0 109px;
+        color: #ffffff;
+        font-size: 1.2em;
+    }
+
+    .zt_footer .recommend img {
+        width: 240px;
+        position: relative;
+    }
+
+    .zt_footer .recommend .recommend_body {
+        position: absolute;
+        bottom: 0;
+        width: 240px;
+        height: 50px;
+        color: #ffffff !important;
+        filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false);
+        background-color: #000;
+        opacity: .5;
+    }
+    .zt_footer .recommend .div_text{
+        bottom: 0;
+        height: 50px;
+        position: absolute;
+        width: 100%;
+    }
+    .ul_left .navigationUlist_last{
+        width: 400px;
+        font-size: 14px;
+        line-height: 1.4;
+        color: #333 !important;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+}
+.div_text table p{
+    line-height: 1.42857;
+    margin: 0px;
+}
+/*留言咨询界面*/
+.message_popup{
+    width:500px;
+    clear: both;
+    margin: 0 auto;
+    -webkit-box-shadow: 0px 0px 0px #eee;
+    -moz-box-shadow: 0px 0px 0px #eee;
+    box-shadow: 0px 1px 4px #000;
+    border-radius: 5px;
+    overflow: hidden;
+    display: none;
+    position: fixed;
+    background-color: #fff;
+    z-index: 999;
+}
+.message_popup h4{
+    display: block;
+    background-color: #3366CC;
+    padding: .7em 10px;
+    color: #fff;
+    margin: 0px;
+    font-size: 17px;
+}
+.message_popup p{
+    margin: 1em 0;
+}
+.message_popup label{
+    font-weight: 400;
+}
+.message_popup textarea{
+    display: inline-block;
+    resize: none
+}
+.message_popup ul{
+    padding: 0px;
+}
+.message_popup>div{
+    padding-left: 3.7em;
+}
+.message_popup ul li{
+    margin-bottom: 1em;
+    list-style: none outside none;
+}
+.message_popup ul li input{
+    height: 2.2em;
+    border: 1px solid #b8b8b8;
+    border-radius: 5px;
+    width: 200px;
+    margin-bottom: 1em;
+}
+.message_popup ul li textarea{
+    border: 1px solid #b8b8b8;
+    border-radius: 5px;
+}
+.message_popup .captcha_btn{
+    display: inline-block;
+    text-align: center;
+    padding: 4px 10px;
+    font-size: 14px;
+    color: #646464;
+    border-radius: 3px;
+    background: url(http://pic.huodongjia.com/static/images/btn-bg.png)!important;
+    background-size: 100%;
+    margin-left: 10px;
+    border: 1px solid #c8c8c8;
+    cursor: pointer;
+}
+.message_popup .captcha_btn:hover{
+    text-decoration: none;
+    background: #dedede!important;
+    color: #646464;
+    text-decoration: none;
+}
+.clearDiv{
+    float: right;
+}
+.message_popup button{
+    background-color: #FF9933;
+    color: #ffffff;
+    font-size:17px;
+    border-radius: 5px;
+    padding: .3em 3em;
+    border: none;
+    display: block;
+    margin: 0 auto 2em auto;
+}
+.xing {
+    color: red;
+}
+
+/*标签*/
+.tag {
+    font-family: "microsoft yahei";
+    height: auto;
+    margin-top: 5em;
+}
+
+.tag ul {
+    line-height: 26px;
+    padding: 0;
+}
+
+.tag span {
+    font-size: 14px;
+    line-height: 40px;
+}
+
+.tag ul li {
+    display: inline-block;
+    width: auto;
+    height: 26px;
+    background-color: #eee;
+    border-radius: 3px;
+    font-size: 14px;
+    color: #5f5f5f;
+    text-align: center;
+    margin-left: 3px;
+    margin-top: 15px;
+    padding: 0 12px;
+}
+
+/*侧边*/
+.backTop {
+    display: none;
+    font-size: 30px;
+    background: url("http://pic.huodongjia.com/static/images/btn.png") no-repeat 0 -140px;
+    *filter: progid: DXImageTransform . Microsoft . gradient(startColorstr = #88000000, endColorstr = #88000000);
+    _background: url("http://pic.huodongjia.com/static/images/btn.png") no-repeat 0 140px !important;
+    color: #fff;
+    cursor: pointer;
+    position: fixed;
+    _position: absolute;
+    right: 4%;
+    bottom: 117px;
+    width: 60px;
+    height: 50px;
+    text-align: center;
+    z-index: 10000;
+    _border: 1px solid #000;
+    _border-top: 0
+}
+
+/*.APP {*/
+    /*display: none;*/
+    /*background: url("http://pic.huodongjia.com/static/images/btn.jpg") no-repeat 0 -140px;*/
+    /**filter: progid: DXImageTransform . Microsoft . gradient(startColorstr = #88000000, endColorstr = #88000000);*/
+    /*_backgr

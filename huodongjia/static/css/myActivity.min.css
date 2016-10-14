@@ -1,0 +1,42 @@
+#myActivity{padding:40px;font-family:Tahoma,Arial,Helvetica,"Microsoft Yahei","Î¢ÈíÑÅºÚ",SimHei}
+.myActivity{background:#FFF}
+.myActivity ul{padding:0}
+.myActivity ul li{list-style:none;width:100%}
+.act_title{height:40px;background:#EAEBEF;line-height:40px}
+.act_title span{display:inline-block;width:12%;color:#7B8093;font-size:14px;text-align:center}
+.activity{border-bottom:1px solid #DEE1E8;padding:20px 0;float:left;width:100%;position:relative}
+.act_name{width:65%!important;line-height:2;padding:0 10px}
+.act_name .act{color:#535B6E;font-size:16px;display:block;width:100%;max-height:42px;line-height:22px;text-overflow:-o-ellipsis-lastline;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;margin:0!important}
+.act_name span{color:#BDC5D2;font-size:14px}
+.activity div{float:left;width:12%;color:#535B6E;font-size:16px;text-align:center}
+.activity div p{float:left;width:35%;margin:0}
+.activity .edit{width:8%!important;color:#BDC4D4;font-size:12px;cursor:pointer}
+.activity .edit:hover{color:#000}
+.activity .status{width:19%;color:#2F84DF;font-size:14px}
+.fa{padding-right:5px}
+.activity .not{color:#E74D4F}
+.activity .reason{width:100%;padding:0}
+.activity .reason p{width:86%;text-align:left;float:right;border-top:1px solid #DEE1E8;color:#E74D4F;font-size:14px}
+.activity .reason p span{position:relative;top:10px}
+.activity .succed{color:#535B6E}
+.bdsharebuttonbox{width:100%!important;padding:0!important;text-align:center!important}
+.bdsharebuttonbox a{background-image:none!important}
+.bdshare-button-style0-16 a{float:none!important;margin:0!important}
+.bdsharebuttonbox .fa{padding:0;width:20px;height:20px!important;border-radius:20px;text-align:center;line-height:20px!important;color:#fff!important}
+.bdsharebuttonbox .fa-weibo{background:#EA4E35;font-size:15px!important}
+.bdsharebuttonbox .fa-qq{background:#56ABE4;font-size:13px!important}
+.bdsharebuttonbox .fa-weixin{background:#0FCE6E;font-size:13px!important}
+.list{position:absolute;width:95%;background:#FFF;z-index:1000;padding:20px 15px;border-radius:8px;box-shadow:0 0 10px 5px rgba(117,117,117,0.35);top:20px;left:2.5%;display:none}
+.list>li{width:100%;list-style:none}
+.list>li>span{display:inline-block;width:20%;line-height:40px;text-align:center}
+.list>li:first-child{background:#F2F2F2!important;margin-top:30px}
+.list>li:nth-child(odd){background:#F1F5FF}
+.pagination{width:100%;margin-top:20px}
+.pagination ol{width:350px;margin:0 auto}
+.pagination ol li{display:inline-block;border:1px solid #C7C7D3;border-radius:4px;background:0;padding:5px 10px;width:auto}
+.pagination ol li a{color:#888886!important;font-size:15px}
+.pagination ol .page_active{background:#4693E3;border:1px solid #4693E3}
+.pagination ol .page_active a{color:#fff!important}
+@font-face{font-family:"close_font";src:url("http://pic.huodongjia.com/static/css/close_iconfont.ttf")}
+.close{font-family:"close_font";position:absolute;right:15px;top:15px;font-size:18px}
+.view{cursor:pointer}

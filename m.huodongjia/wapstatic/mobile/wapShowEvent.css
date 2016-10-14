@@ -1,0 +1,231 @@
+body{
+    background-color: #f0f0f0;
+}
+/*图标字体设置*/
+.fa{
+    margin-right: 5px;
+}
+@font-face {
+    font-family: 'iconfont';
+    src: url('http://pic.huodongjia.com/static/css/mobile_icon/iconfont.eot');
+    src: url('http://pic.huodongjia.com/static/css/mobile_icon/iconfont.eot?#iefix') format('embedded-opentype'), url('http://pic.huodongjia.com/static/css/mobile_icon/iconfont.woff') format('woff'), url('http://pic.huodongjia.com/static/css/mobile_icon/iconfont.ttf') format('truetype'), url('http://pic.huodongjia.com/static/css/mobile_icon/iconfont.svg#iconfont') format('svg')
+}
+@font-face {
+    font-family: "myFont";
+    src: url("iconfont.ttf");
+}
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 24px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: .2px;
+    -moz-osx-font-smoothing: grayscale;
+    color: #36c;
+}
+.myfont{
+    font-family: "myFont";
+    font-size: 2.3em;
+    float: left;
+    color: #36c;
+}
+/*公共head*/
+#header{
+    height: 50px;
+    text-align: center;
+    padding: 0px 15px;
+    background-color: #fff;
+}
+#header span{
+    line-height: 1;
+}
+#header .home{
+    float: right;
+    margin-top: 10px;
+}
+#header .back{
+    float: left;
+    margin-top: 10px;
+}
+/*会议配图*/
+.eventImg{
+    background-color: #fff;
+    margin-top: 10px;
+    padding: 10px;
+}
+.eventTime{
+    color: #848484;
+    font-size: 16px;
+    margin: 0;
+}
+.eventName{
+    font-size: 19px;
+    color: #000;
+}
+/*提示*/
+.tips{
+    color: #000000;
+    margin-bottom: -10px;
+    margin-top: 10px;
+}
+.tips span{
+    color: #f18321;
+}
+/*底部规定栏*/
+.fixedBottom{
+    width: 100%;
+    text-align: center;
+    line-height: 50px;
+    font-size: 18px;
+    height: 50px;
+}
+.signUp{
+    background-color: #3fa8f5;
+    color: #ffffff;
+}
+.signUpEnd{
+    background-color: #c6c6c6;
+    color: #ffffff;
+    border: none;
+}
+.stayTuned{
+    background-color: #f18322;
+    color: #ffffff;
+    border: none;
+}
+.share {
+    background-color: #fff;
+    color: #999999;
+}
+/*会议内容段落*/
+.paragraph h2{
+    background-color: #fff;
+    font-size: 18px;
+    line-height: 50px;
+    padding: 0px 15px;
+    color: #2d6ac5;
+}
+.paragraph h2 span{
+    margin-right: 5px;
+}
+.paragraph .paragraphBody{
+    padding: 0px 15px;
+    margin-top: 30px;
+}
+.paragraphBody img{
+    width: 100% !important;
+}
+.paragraphBody table{
+     width: 100% !important;
+ }
+.paragraphBody p{
+    word-break: break-word;
+}
+
+/*相关会议*/
+.relevant .relevantTitle{
+    background-color: #fff;
+    padding: 10px 0px;
+    margin: 20px 0;
+}
+.relevant h3{
+border-left:5px solid #4d92f1;
+    margin: 0px;
+    padding-left: 10px;
+}
+.relevant .relevantCat img{
+    width:100%;
+    margin-bottom: 5px;
+}
+.relevant .relevantCat .relevantTime{
+    color: #999;
+}
+.relevant .relevantCat .relevantCity{
+    float: right;
+    text-align: right;
+    color: #4d92f1;
+    width:3em;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.relevant .relevantCat{
+    margin-bottom: 15px;
+    color: #333;
+}
+.relevant .relevantCat:nth-child(odd){
+    padding-left: 7.5px;
+}
+.relevant .relevantCat:nth-child(even){
+    padding-right: 7.5px;
+}
+.relevant .relevantCat .imgTime{
+    padding: 3px;
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+.relevant .relevantName{
+    height: 40px;
+}
+.relevant.relevant_ul{
+    margin-bottom: 40px;
+}
+.relevant.relevant_ul .relevantTitle{
+    margin-bottom: 10px;
+}
+.relevant.relevant_ul .col-sm-12{
+    background-color: #fff;
+}
+.relevant.relevant_ul  ul{
+    padding: 0px;
+    margin: 0px;
+    background-color: #fff;
+}
+.relevant.relevant_ul  ul li{
+    list-style: none outside none;
+    border-bottom: 1px solid #d7d7d7;
+    padding: 15px 0;
+}
+.relevant.relevant_ul  ul li>a{
+    color:#666666
+}
+.relevant.relevant_ul
+/*面包屑导航*/
+.navigation{
+    padding: 5px 15px;
+    margin-bottom: 15px;
+}
+.navigation ul{
+    padding: 10px 0;
+    margin: 0px;
+    border-bottom: 1px solid #d7d7d7;
+}
+.navigation ul li{
+    display: inline-block;
+}
+.navigation,.navigation ul li a{
+    color: #aaaaaa;
+    text-align: left;
+}
+.navigation .navLast a{
+    color: #000000;
+}
+/*footer*/
+#footer,#footer a{
+    text-align: center;
+    color: #aaaaaa;
+}
+#footer>ul{
+    padding: 0px;
+    display: inline-block;
+    margin: 10px auto;
+}
+#footer>ul>li{
+    text-align: center;
+    display: inline-block;
+    list-style: none outside none;
+}
+#footer>ul>li+li{
+    margin-left: 30px;
+}

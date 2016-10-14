@@ -1,0 +1,115 @@
+{% extends 'base.html'%}
+{% block addstyle %}
+<meta name="viewport" content="width=device-width, initial-scale=0.3">
+<link rel="stylesheet" type="text/css" href="http://pic.huodongjia.com/static/css/shop_app.css">
+{% endblock %}
+{% block content %}
+<div class="banner">
+	<img width="100%" src="http://pic.huodongjia.com/static/images/images/bg.jpg" alt="">
+	<table>
+		<tr>
+			<td colspan="2">
+				<h1>找会议上活动家</h1><span>下载活动家App，实时查看行业最新动态！</span>
+			</td>
+			<td width="40%" rowspan="2"><img width="82%" src="http://pic.huodongjia.com/static/images/images/tu1.png" alt=""></td>
+		</tr>
+		<tr>
+			<td class="app_down" width="20%">
+				<a class="android" href="http://app.xiaomi.com/detail/64258" target="_blank"><i class="fa fa-android"></i>Android</a>
+				<a class="ios" style="margin: 0" href="https://itunes.apple.com/cn/app/da-huo-dong/id731753448?l=en&mt=8" target="_blank"><i class="fa fa-apple"></i>iOS</a>
+			</td>
+			<td class="ewm"><img width="170" src="http://pic.huodongjia.com/static/images/images/ewm.jpg" alt=""></td>
+		</tr>
+	</table>
+</div>
+<div class="content" style="background: #F8F8F8">
+	<div class="part row play_1 act_1">
+		<div class="col-sm-6 col-xs-6 img"></div>
+		<div class="col-sm-6 col-xs-6 des"><h1>国内会议全收录</h1><p>平均每天举办会议上万场</p></div>
+	</div>
+	<div class="part row play_2">
+		<div class="col-sm-6 col-xs-6 des"><h1>知名演讲者聚集地</h1><p>实时关注演讲嘉宾动态</p></div>
+		<div class="col-sm-6 col-xs-6 img"></div>
+	</div>
+	<div class="part row play_3">
+		<div class="col-sm-6 col-xs-6 img"></div>
+		<div class="col-sm-6 col-xs-6 des"><h1>最新商业资讯整理</h1><p>行业动态、大咖解说</p></div>
+	</div>
+	<div class="part row play_4">
+		<div class="col-sm-6 col-xs-6 des "><h1>会议音、视频在线播</h1><p>让你不再错过每一场会议</p></div>
+		<div class="col-sm-6 col-xs-6 img"></div>
+	</div>
+	<div class="part row play_5">
+		<div class="col-sm-6 col-xs-6 img"></div>
+		<div class="col-sm-6 col-xs-6 des"><h1>会议干货，精彩分享</h1><p>听大佬解读行业政策，分享行业干货</p></div>
+	</div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+	var browser={
+		versions:function(){
+			var u = navigator.userAgent, app = navigator.appVersion;
+			return {
+				trident: u.indexOf('Trident') > -1,
+				presto: u.indexOf('Presto') > -1,
+				webKit: u.indexOf('AppleWebKit') > -1,
+				gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1,
+				mobile: !!u.match(/AppleWebKit.*Mobile.*/),
+				ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+				android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1,
+				iPhone: u.indexOf('iPhone') > -1 ,
+				iPad: u.indexOf('iPad') > -1,
+				webApp: u.indexOf('Safari') == -1
+			}
+		}(),
+		language:(navigator.browserLanguage || navigator.language).toLowerCase()
+	};
+
+
+	$(".dow .ios").on("click", function () {
+		if(/MicroMessenger/i.test(navigator.userAgent)) {
+			//window.location = "http://www.huodongjia.com/theme/qrcodedownload.html";
+			$(this).attr("href","https://itunes.apple.com/cn/app/da-huo-dong/id731753448?l=en&mt=8")
+		}else{
+			$(this).attr("href","https://itunes.apple.com/cn/app/da-huo-dong/id731753448?l=en&mt=8")
+		}
+	});
+
+	$(".dow .android").on("click", function () {
+		if(/MicroMessenger/i.test(navigator.userAgent)) {
+			//window.location = "http://www.huodongjia.com/theme/qrcodedownload.html";
+			$(this).attr("href","http://app.mi.com/detail/64258");
+		}else{
+			$(this).attr("href","http://app.mi.com/detail/64258");
+		}
+	});
+   if(window.screen.width<768){
+      $('.play_1').addClass('act_1')
+	   $('.play_2').addClass('act_2')
+	   $('.play_3').addClass('act_3')
+   }
+	function animate(div,cssname){
+		var b,c,d;
+		d=div.offset().top;
+		b=$(window).scrollTop();
+		c=$(window).height();
+		if(b+c>d){
+			div.addClass((cssname));
+		}else {
+			div.removeClass((cssname));
+		}
+	}
+
+	$(document).ready(function(e) {
+		$(window).scroll(function(){
+			$('.part').each(function () {
+				var _index=$(this).index()+1
+				var Class="act_"+_index
+				animate($(this),Class);
+			})
+		});
+	});
+</script>
+{% endblock %}

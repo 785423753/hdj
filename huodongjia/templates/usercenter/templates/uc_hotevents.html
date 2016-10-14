@@ -1,0 +1,16 @@
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+{% for event in hot_events %}
+<div class="hotMain{% if forloop.last %} hotMainLast{% endif %}">
+    <a href="/event-{{event.event_id}}.html" target="_blank">
+        <img width="180px" height="112px" src="{{ event.event_img }}" alt=""/>
+    </a>
+    <p class="hotEventName">{{ event.event_name}}</p>
+    <p>赠积分:{{event.credit}}</p>
+    <p>价格:<i class="iconfont">&#xe603;</i>{{event.price}}</p>
+    <p class="shareMain">分享：<i class="fa fa-weixin" data-userId="{{request.session.usercenter_user.id}}"></i>
+        <!--<span class="shareWeiboSina"> <i class="fa fa-weibo"></i> <i class="weibo"><wb:share-button appkey="553061895" ralateUid="3909144333" url="http://www.huodongjia.com/event-{{event.event_id}}.html" default_text="{{event.event_name}}将于{{event.begin_time }}在{{event.city}}举办，希望能在会场遇见您！" addition="simple" type="icon" language="zh_cn"></wb:share-button></i></span>-->
+        <a class="Ticket" href="/signup/{{event.event_id}}" target="_blank">购票</a>
+    </p>
+    <div class="qrocde"></div>
+</div>
+{% endfor %}

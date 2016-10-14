@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block banner%}
+{% endblock %}
+{% block content%}
+<div class="content container">
+    <div class="bread_nav"><a href="/">首页</a>&gt;<a href="/dj/ganhuo.mpy">会议干货</a>&gt;<h1>会议文档</h1></div>
+    <div class="left">
+        <ul class="classify">
+            <li class="{% if not active_cat %}choose{% endif %}" ><a href="/dj/ganhuo_listdocs.mpy">不限</a></li>
+            {% for cat in main_cats%}
+            {% ifequal active_cat.ename cat.ename %}
+            <li class="choose"><a data="{{cat.id}}" href="/dj/ganhuo_listdocs_{{cat.id}}.mpy" >{{cat.name}}</a></li>
+            {% else %}
+            <li ><a data="{{cat.id}}" href="/dj/ganhuo_listdocs_{{cat.id}}.mpy" >{{cat.name}}</a></li>
+            {% endifequal %}
+
+            {% endfor %}
+        </ul>
+        <ul class="ppt_list">
+            {% for doc in docs %}
+            <li>
+                <h3><a href="/dj/ganhuo_doc_{{doc.id}}.mpy" target="_blank">
+                    {% ifequal doc.suffix ".docx" %}
+                    <span class="news_font docx">&#xe602;</span>
+                    {% endifequal %}
+                    {% ifequal doc.suffix ".ppt" %}
+                    <span class="news_font ppt">&#xe600;</span>
+                    {% endifequal %}
+                    {% ifequal doc.suffix ".pdf" %}
+                    <span class="news_font pdf">&#xe601;</span>
+                    {% endifequal %}
+                    {{doc.event_info.0.name}}</a></h3>
+                <p class="des">{{doc.intro}}</p>
+                <p class="down"><span class="tag">{{doc.cat_info.name}}</span><span class="download"><a target="_blank" href="{{doc.urls}}">下载</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">在线阅读</a></span></p>
+            </li>
+            {% endfor %}
+        </ul>
+        <ul class="ppt_pagination">
+            {% if page_info.previous_page %}
+            <li><a href="/dj/ganhuo_listdocs_p{{page_info.previous_page}}.mpy">上一页</a></li>
+            {% endif %}
+            {% for page in page_info.pages_url %}
+            {% ifequal page_info.this_page page.page %}
+            <li class="page_active"><a href="{{page.url}}">{{page.page}}</a></li>
+            {% else %}
+            <li><a href="{{page.url}}">{{page.page}}</a></li>
+            {% endifequal %}
+            {% endfor %}
+            {% if page_info.next_page %}
+            <li><a href="/dj/ganhuo_listdocs_p{{page_info.next_page}}.mpy">下一页</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    <div class="right">
+        <div class="uploading"><span class="news_font">&#xe609;</span>会议PPT上传</div>
+        <h2>即将举办的会议</h2>
+        <ul class="upcoming">
+            <li><a href="">2016第六届产品创新高峰论坛</a></li>
+            <li><a href="">2016第六届产品创新高峰论坛</a></li>
+            <li><a href="">2016第六届产品创新高峰论坛</a></li>
+            <li><a href="">2016第六届产品创新高峰论坛</a></li>
+            <li class="more"><a href="">更多互联网IT会议</a></li>
+        </ul>
+        <h2>热门视频 <a href="/dj/ganhuo_listvideos.mpy" target="_blank">更多</a></h2>
+        <ul class="upcoming video">
+            {% for video in hot_videos|slice:'5' %}
+            {% if forloop.first %}
+            <li>
+                <div class="video_img"><a target="_blank" href="/dj/ganhuo_video_{{video.id}}.mpy"><img width="256" height="160" src="{{video.video_img}}" alt="{{video.name}}"><div class="play"><span class="news_font">&#xe605;</span></div></a></div>
+                <p class="video_name"><a target="_blank" href="/dj/ganhuo_video_{{video.id}}.mpy">{{video.name}}</a></p>
+            </li>
+            {% else %}
+            <li><p class="video_name"><a target="_blank" href="/dj/ganhuo_video_{{video.id}}.mpy"><span class="news_font">&#xe605;</span>{{video.name}}</a></p></li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
+

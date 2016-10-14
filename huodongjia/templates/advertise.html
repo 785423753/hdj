@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block addstyle %}
+<style>
+    .xc .lk{
+        position: absolute;
+        width: 100%;
+        bottom: 47px;
+        left:0;
+        text-align: center;
+    }
+    .xc .lk a{
+        height: 110px;
+        width: 420px;
+        display: inline-block;
+    }
+    .xc{
+        text-align: center;
+        position: relative;
+    }
+    @media (max-width:1200px) {
+        .xc{
+            width: 80% !important;
+        }
+        .xc img{width: 100%}
+    }
+    @media (max-width:760px) {
+        .xc{
+            width: 100% !important;
+        }
+        iframe{  display: none !important;}
+        .introduce p, .introduce p a {font-size: 12px;line-height: 20px;margin-bottom: 5px;  }
+        .footer .container{ width: 100% !important;  }
+        .nav,.nav .container{width: 100% !important;}
+        .nav ul,.footer1{display: none}
+    }
+</style>
+{% endblock %}
+{% block content%}
+{% block baiduautopush %}
+{% endblock%}
+<div class="container xc">
+    <img src="http://www.huodongjia.com/static/images/advertise.jpg" alt="会员招募">
+    <div class="lk"><a href="/applymember/"></a></div>
+</div>
+{% endblock %}

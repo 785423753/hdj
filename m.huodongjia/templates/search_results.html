@@ -1,0 +1,118 @@
+{% extends "m_model.html" %}
+{% block cssStyle %}
+<style>
+    @font-face {
+        font-family: 'Iconfont';
+        src: url('http://pic.huodongjia.com/static/css/m_iconfont.ttf');
+    }
+    .Iconfont {
+        font-family: "Iconfont" !important;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-stroke-width: .2px;
+        -moz-osx-font-smoothing: grayscale;
+        color: #36c;
+        font-size:2.3em !important;
+        float: left;
+    }
+    .header{
+        width: 100%;height: 45px;border-bottom: 1px solid #eee;text-align: center;line-height: 45px;padding: 0 10px;background: #fff
+    }
+    .header .title{
+        font-size: 18px;color: #36c;position: relative;top: 3px;
+    }
+</style>
+{% endblock %}
+{% block container %}
+<div class="container" id="list_con">
+    <div class="header">
+        <span class="myfont menue cat" style="line-height:.5">&#xe648;</span>
+        <a  href="javascript:history.go(-1)"><i class="Iconfont" style="color: #36c;">&#xe74e;</i></a>
+        <span class="title">搜索结果</span>
+    </div>
+        <section class="col-sm-12 col-xs-12 hidden-div">
+            <ul>
+                <li><a>找会议</a></li>
+                <li><a>会议主办方</a></li>
+                <li><a>会议场馆</a></li>
+                <li><a>会议嘉宾</a></li>
+                <li><a>活动发布</a></li>
+            </ul>
+        </section>
+    <section class="hidden-cat">
+        <ul>
+            <li class="col-sm-12 col-xs-12" style="color: #FA9D42;padding:0"><h4>商务会议</h4></li>
+            <li class="col-sm-3 col-xs-3"><a href="/it/">IT互联网</a></li>
+            <li class="col-sm-3 col-xs-3"><a href="/finance/">金融财经</a></li>
+            <li class="col-sm-3 col-xs-3"><a href="/medical/">医疗医学</a></li>
+            <li class="col-sm-3 col-xs-3"><a href="/energy/">能源化工</a></li>
+            <li class="col-sm-3 col-xs-3"><a href="/agricultur/">农业牧渔</a></li>
+            <li class="col-sm-3 col-xs-3"><a href="/trade/">行业会议</a></li>
+            <li class="col-sm-3 col-xs-3"><a href="/salon/">讲座沙龙</a></li>
+        </ul>
+        <ul>
+            <li class="col-sm-12 col-xs-12" style="color: #FA9D42;padding: 0"><h4>更多服务</h4></li>
+            <li class="col-sm-3 col-xs-3"><a href="/postevent/">活动发布</a></li>
+            <li class="col-sm-3 col-xs-3"><a href="/searchorder/">订单查询</a></li>
+            <li class="col-sm-3 col-xs-3"><a href="/listvenue/">会议场地</a></li>
+            <li class="col-sm-3 col-xs-4"><a href="/listsponsor/">会议主办方</a></li>
+        </ul>
+    </section>
+    <div class="bg"></div>
+    <section class="col-sm-12 col-xs-12 list-seacher" style="display: block">
+        <form action="/tag/" method="get" class="myForm">
+            <a href="javascript:validate()"><i class="col-sm-1 col-xs-1 iconfont list_seach">&#xe61b;</i></a>
+            <input type="search" class="form-control" name="keyword" placeholder="请输入关键词">
+        </form>
+    </section>
+    {% if error_msg %}
+    <div class="row">
+        <div class="col-sm-6">
+            <span>{{error_msg}}</span>
+        </div>
+    </div>
+    {% endif %}
+    {% if message %}
+        <div class="col-sm-6" style="margin-top:2em;">
+            <span style="font-weight:bold;font-size:18px;">{{message}}</span>
+        </div>
+    {% endif %}
+    {% if list %}
+        {% for event in list%}
+        <section class="col-sm-12 col-xs-12 meeting" data-href="{{event.event_id}}">
+            <dl>
+                <dt>
+                    <img src="{{event.event_img}}" alt="{{event.event_name}}">
+                </dt>
+                <dd>
+                    <h3 class="pic-opa-title" {% if event.cat_name or event.event_venue.venue_title %}{% endif %}>{{event.event_name}}</h3>
+                    {% if event.price_unit_info %}
+                    <span class="home-money " data-price="{{event.price_unit_info.0.price}}"
+                          data-priceType="{{event.event_price_unit}}"
+                          data-price_return="{{event.price_unit_info.0.price_return}}">{{event.price_unit_info.0.price}}{{event.event_price_unit}}</span>
+                    {% else %}
+                    <span class="home-money">{{event.event_price_model_str}}</span>
+                    {% endif %}
+                    <label class="home-time">
+                        {% if event.event_begin_time%}{{ event.event_begin_time }}{%else%}
+                        {{event.event_end_time}}{%endif%}
+                        &nbsp;|</label>
+                    <label class="home-city" style="margin-top:73px">
+                        <a href="/{{event.district_title}}/" target="_blank">{{event.district_name}}</a>
+                    </label>
+                </dd>
+            </dl>
+        </section>
+        {% endfor %}
+        <input value="{{currentPage}}" class="page" type="hidden"/>
+        <input value="{{keyword}}" class="keyword" type="hidden"/>
+        <input value="{{m_key}}" class="m_key" type="hidden"/>
+    </div>
+    {% endif %}
+{% endblock %}
+{% block footerjs%}
+<script type="text/javascript" src="http://pic.huodongjia.com/static/js/m_list.js"></script>
+<script>
+
+</script>
+{%endblock%}

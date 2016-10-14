@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block addstyle %}
+<link rel="stylesheet" href="/static/css/base.css"/>
+<link rel="stylesheet" href="/static/css/businessList.css"/>
+<link rel="stylesheet" type="text/css" href="http://pic.huodongjia.com/static/css/sweet-alert.css">
+<link rel="stylesheet" type="text/css" href="/static/css/jqcloud.css" />
+{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="container">
+        <p class="bread_nav"><a href="/" target="_blank">首页> </a><a href="/spot/" target="_blank" style="color: #858B9A">在现场</a></p>
+        <div class=" content_right">
+            <div class="all_events" style="float: left;margin-top: 20px">
+            {% for event in spots %}
+                <div class='col-sm-12 col-xs-12 meeting_list' data-href="/spot/{{event.id}}.html" target="_blank">
+                    <div class='col-sm-3 col-xs-3'>
+                        <a href='/spot/{{event.id}}.html' target="_blank" rel="nofollow">
+                            {% if event.spot_img__urls %}
+                            <img width='100%' src='{{ event.spot_img__urls }}' alt='{{event.spot_name}}'/>
+                            {% else %}
+                            <img width='100%' src='http://pic.huodongjia.com/static/images/event_default.jpg' alt='{{event.spot_name}}'/>
+                            {% endif %}
+                        </a>
+                    </div>
+
+                      <div class='col-sm-7 col-xs-7 detail' >
+                    <h3 class='meeting_name'><a href="/spot/{{event.id}}.html" target="_blank">{{event.spot_name}}</a></h3>
+                    <p class='meeting_tag'>
+                {% for item in event.spot_cat.all  %}
+                  <a   href="/spot/{% if item.cat_ename %}{{item.cat_ename}}{% else %}{{item.cat_id}}{% endif %}/" class="glyphiconWord">{{ item }}</a>{% if not forloop.last%},{% endif %}
+                {% endfor %}
+                    </p>
+                    <p class='meeting_des' style="height:20px">
+                    {% autoescape off %}
+                    概述:{{event.spot_desc}}
+                    {% endautoescape %}
+                    </p>
+                    <p class='addr'>
+                    <span><a target="_blank"><font class='m_iconfont'>&#xe609;</font>{{spot_city__district_name}}</a></span>
+                        <span>{%if event.spot_begin_time %}<font style='color: #8C8C8C;font-size: 16px;' class='m_iconfont'>&#xe608;&nbsp;</font>{{event.spot_begin_time|date:'Y-m-d'}}{% endif %}</span>
+                    </p>
+                </div>
+
+                    {% ifequal event.event_price_type 6 %}  <!--标准-->
+                    {% ifequal event.event_price_unit|length 0 %}
+                    <div class="col-sm-2 col-xs-2 price text-center">
+                        <p style="line-height: 80px"><span>截止</span></p>
+                        <p>关注：{{event.visit}}人气</p>
+                    </div>
+                    {% else %}
+                    <div class="col-sm-2 col-xs-2 price text-center">
+                        <p>{% if event.event_price_unit.0.fake_original_price %}限时优惠{% endif %}<span>{{event.event_price_unit.0.Currency__sign}}{{event.event_price_unit.0.price}}</span><br/>
+                            {% if event.event_price_unit.0.fake_original_price %}
+                            <font style="text-decoration: line-through">原价：{{event.event_price_unit.0.Currency__sign}}{{event.event_price_unit.0.fake_original_price}}</font>
+                            {% endif %}
+                        </p>
+                        <p>关注：{{event.visit}}人气</p>
+                    </div>
+                    {% endifequal %}
+                    {% endifequal %}
+                    {% ifequal event.event_price_type 4 %}  <!--免费-->
+                    <div class="col-sm-2 col-xs-2 price text-center">
+                        <p style="line-height: 80px"><span>免费</span></p>
+                        <p>关注：{{event.visit}}人气</p>
+                    </div>
+                    {% endifequal %}
+                    {% ifequal event.event_price_type 5 %}  <!--待定-->
+                    <div class="col-sm-2 col-xs-2 price text-center">
+                        <p style="line-height: 80px"><span>待定</span></p>
+                        <p>关注：{{event.visit}}人气</p>
+                    </div>
+                    {% endifequal %}
+                    {% ifequal event.event_price_type 7 %}  <!--待定-->
+                    <div class="col-sm-2 col-xs-2 price text-center">
+                        <p style="line-height: 80px"><span>待定</span></p>
+                        <p>关注：{{event.visit}}人气</p>
+                    </div>
+                    {% endifequal %}
+                    {% ifequal event.event_price_type 9 %}  <!--待定-->
+                    <div class="col-sm-2 col-xs-2 price text-center">
+                        <p style="line-height: 80px"><span>待定</span></p>
+                        <p>关注：{{event.visit}}人气</p>
+                    </div>
+                    {% endifequal %}
+
+
+            </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pagination">
+    <ul>
+        {% ifnotequal firstPage 'false'%} 
+            <li><a href="{{firstPage}}">首页</a></li>
+        {% endifnotequal %}
+
+        {% for page in pageList%}
+            {% if page.flag == 'true' %}
+             <li class="page_active"><a href="{{page.pageurl}}">{{page.page}}</a></li>
+             {%else%}
+             <li><a href="{{page.pageurl}}" >{{page.page}}</a></li>
+             {%endif%}
+        {% endfor %}
+
+        {% ifnotequal nextPage 'false'%}                      
+             <li><a href="{{nextPage}}">下一页</a></li>
+             <li><a href="{{lastPage}}">最后一页</a></li>
+        {% endifnotequal %} 
+    </ul>
+</div>
+{% endblock %}
+{% block js %}
+<script src="http://www.ijquery.cn/js/jquery.placeholder.min.js "></script>
+<script src="/static/js/businessList.js"></script>
+{% endblock %}

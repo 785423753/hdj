@@ -1,0 +1,194 @@
+html{
+	margin: 0; padding:0;
+
+}
+body{
+	font-family: "Microsoft Yahei";
+	background:url("http://pic.huodongjia.com/static/vision/images/background.jpg") no-repeat;
+	background-size: 100% 100%;
+	box-sizing: border-box;
+	min-height: 100vh;
+}
+.row{
+	margin: 0;
+}
+/*导航*/
+.head{
+	width: 100%;
+	height: 54px;
+	box-shadow: 0 0px 3px 3px rgba(0, 0, 0, 0.72);
+	padding:0 5%;
+	background: rgba(29, 42, 104, 0.30) url("http://pic.huodongjia.com/static/images/viewlogo.png")  no-repeat  5% center;
+	background-size:100px;
+	position: relative;
+	z-index:999;
+}
+.logo{
+	color: #848484;
+	line-height: 5;
+	padding-left: 107px;
+}
+.head ul{
+	padding: 0;
+	margin: 0;
+	float: right;
+	width: auto;
+	height:100%;
+}
+.head ul li{
+	list-style: none;
+	float: left;
+	cursor: pointer;
+}
+.head ul li>a{
+	width: 60px;
+	height:100%;
+	display: block;
+	text-align: center;
+	line-height: 54px;
+	transition: all .3s linear;
+}
+.menue{
+	position: relative;
+	width: 100%;
+	height: 50px;
+	background: rgba(29, 42, 104, .2);
+	padding:0 5%;
+	z-index:999;
+}
+.head ul li>a:hover{
+	background: #0b0e1b;
+}
+.act{
+	background: #0b0e1b;
+}
+.menue a{
+	display: inline-block;
+	color: #fff;
+	height: 32px;
+	line-height: 29px;
+	margin: 10px 5px;
+	padding: 0 15px;
+	transition: all .5s linear;
+	cursor: pointer;
+}
+.menue a:hover{
+	background-image: linear-gradient(to right, rgba(11, 24, 68, 0.36) 0%, rgba(8, 41, 95, 0.7) 30%,#08295f 50%, rgba(8, 41, 95, 0.7) 70%, rgba(11, 24, 68, 0.36) 100%);
+}
+.menue .choose{
+	background-image: linear-gradient(to right, rgba(11, 24, 68, 0.36) 0%, rgba(8, 41, 95, 0.7) 30%,#08295f 50%, rgba(8, 41, 95, 0.7) 70%, rgba(11, 24, 68, 0.36) 100%);
+}
+/*内容*/
+.content{
+	width: 100%;
+	padding:15px;
+	position: relative;
+}
+
+.select{
+	color: #fff;
+	z-index:999;
+	font-size: 12px;
+}
+.select input{
+	width: 85px;
+	height: 25px;
+	outline: none;
+	background: rgba(25, 42, 86, 0.6);
+	border:none;
+	margin: 0 5px;
+	color: #5fb1fe;
+	border-radius: 4px;
+	padding-left: 10px;
+}
+.select button {
+	height: 25px;
+	outline: none;
+	border: none;
+	background: rgba(25, 42, 86, 0.6);
+	color: #fff;
+	border-radius: 4px;
+	padding: 0 15px;
+	margin-left: 5px;
+}
+.select button:hover{
+	background: #3e8099;
+}
+.set{
+	position: absolute;
+	z-index:9;
+	right: 15px;
+	top: 60%;
+	text-align: right;
+}
+a:hover{
+	text-decoration: none;
+}
+.content .part{
+	width: 50%;
+	float: left;
+	position: relative;
+}
+.content .part>div{
+	width: 100%;
+	height:350px;
+}
+.content .event>div{
+	width: 100%;
+}
+.part h3{
+	color: #5EB3DE;
+	text-align: center;
+	font-size: 16px;
+	margin: 15px;
+}
+#laydate_box{
+	opacity:.9;
+}
+canvas { width: 100%;position: absolute; top: 0;left:0;}
+.industry{
+	float: right;
+	color: #4D567D;
+	position: relative;
+	height: 50px;
+	line-height: 50px;
+	width: 136px;
+}
+.industry font{
+	color: #5EB3DE;
+	cursor: pointer;
+}
+.industry ul{
+	padding:0;
+	position: absolute;
+	right: -14px;
+	top:50px;
+	z-index:999;
+	color: #fff;
+	border-radius: 4px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	width: 90px;
+	display: none;
+	background-image: linear-gradient(to bottom, #131D39, rgb(57, 69, 127));
+
+}
+.industry ul li{
+	list-style: none;
+	line-height: normal;
+	padding: 5px 0;
+	height: 28px;
+	cursor: pointer;
+	transition: all .3s linear;
+	text-align: center;
+}
+.industry ul li:hover{
+	background: rgb(36, 36, 73);
+}
+@font-face {
+	font-family: "EURASIA";
+	src: url('EurasiaNormal.ttf');
+}
+.laydate_body .laydate_y .laydate_yms ul li {
+	width: 50% !important;
+}

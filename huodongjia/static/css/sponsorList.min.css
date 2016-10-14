@@ -1,0 +1,55 @@
+.bread_nav{margin-top:10px;color:#CACFDD}
+.bread_nav>a{color:#CACFDD}
+.content_left{padding:0;position:relative}
+.sponsor_list{float:left;background:#FFF;padding:15px 0;border-top:1px solid #E2E5EE}
+.sponsor_list h3{margin:0 0 5px;display:inline-block}
+.spo_name{font-size:21px;margin-bottom:5px}
+.spo_des{font-size:15px;color:#7C8393;max-height:61px;text-overflow:-o-ellipsis-lastline;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
+.recent{display:inline-block;padding-left:10px;font-size:15px}
+.sponsor_list>div{position:relative}
+.attention{position:absolute;background-color:#E94D50;border-radius:4px;padding:5px;color:#fff;top:5px;right:20px;font-size:12px;display:none}
+.sponsor_list:hover .attention{display:block}
+.content_right{padding-left:30px}
+.content_right .postevent{border-radius:5px;background:#45A2F2;color:#e1f3ff;padding:30px 20px}
+.content_right .postevent span{display:block;margin-bottom:10px}
+.content_right .postevent button{width:100%;height:45px;background:#ED6768;border:0;font-size:16px;color:#fff}
+.postevent button a{color:#fff!important}
+.hot_spon,.unautherize,.new_spon{border-radius:5px;background:#FFF;box-shadow:0 0 1px 1px rgba(195,195,195,0.35);margin-top:20px;float:left;width:100%;padding-bottom:20px}
+.hot_spon>p,.unautherize>p,.new_spon>p{font-size:14px;padding:0 15px;height:40px;line-height:40px;border-bottom:1px solid #E6E4EF;margin:0}
+.sponsor{padding:0 15px;margin-top:15px}
+.sponsor>div{padding:0}
+.sponsor p{margin:0;font-size:14px;color:#000;width:100%;text-overflow:ellipsis;overflow:hidden;white-space:nowrap}
+.bread_nav a:hover{color:#2E83DD!important}
+.sponsor:hover a{color:#2E83DD!important}
+.sponsor span{font-size:13px;color:#696e7c}
+font{color:#ED6768}
+.unautherize_spon{width:90%;border-bottom:1px dotted #E6E5ED;margin:0 auto;padding:8px 0}
+.unautherize .unautherize_spon:last-child{border:0}
+.unautherize_spon p{font-size:14px;margin:0 0 10px;width:100%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}
+.unautherize>p{margin-bottom:10px}
+.unautherize span{display:inline-block;color:#7D8296}
+.ren{width:80px;height:25px;color:#fff!important;background:#2E83DD;text-align:center;line-height:25px;cursor:pointer}
+.new_spon{padding:0}
+.content_left>h3{background:#FFF;margin-bottom:0;height:70px;line-height:70px;padding-left:15px;margin-top:10px}
+#searchForm{position:absolute;top:39px;right:10px}
+#search{width:250px;height:30px;border:1px solid #BDC3D3!important;padding:8px;color:#000!important}
+#searchForm>.m_iconfont{color:#BDC3D3;font-size:20px;position:absolute;right:20px;top:0;cursor:pointer}
+.message_popup{width:500px;clear:both;margin:0 auto;-webkit-box-shadow:0 0 0 #eee;-moz-box-shadow:0 0 0 #eee;box-shadow:0 1px 4px #000;border-radius:5px;overflow:hidden;display:none;position:fixed;background-color:#fff;z-index:99}
+.message_popup h4{display:block;background-color:#36C;padding:.7em 10px;color:#fff;margin:0;font-size:17px}
+.message_popup p{margin:1em 0}
+.message_popup label{font-weight:400}
+.message_popup textarea{display:inline-block;resize:none;padding:10px}
+.message_popup ul{padding:0}
+.message_popup>div{padding-left:3.7em;margin-top:2.5em}
+.message_popup ul li{margin-bottom:1em;list-style:none}
+.message_popup ul li input{height:2.2em;border:1px solid #b8b8b8;border-radius:5px;width:200px;margin-bottom:1em;padding-left:8px}
+.message_popup ul li textarea{border:1px solid #b8b8b8;border-radius:5px}
+.message_popup .captcha_btn{display:inline-block;text-align:center;padding:4px 10px;font-size:14px;color:#646464;border-radius:3px;background:url(http://pic.huodongjia.com/static/images/btn-bg.png)!important;background-size:100%;margin-left:10px;border:1px solid #c8c8c8;cursor:pointer}
+.message_popup .captcha_btn:hover{text-decoration:none;background:#dedede!important;color:#646464;text-decoration:none}
+.clearDiv{float:right;cursor:pointer}
+.message_popup button{background-color:#F93;color:#fff;font-size:17px;border-radius:5px;padding:.3em 3em;border:0;display:block;margin:0 auto 2em auto}
+.xing{color:red}
+.unautherize_spon:hover a{color:#3391E8!important}
+.new_sponsor a{width:100%;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;display:inline-block}
+.new_spon a:hover{color:#3391E8!important}
+#content{width:70%;height:110px}

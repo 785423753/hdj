@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block addstyle %}
+<link rel="stylesheet" type='text/css' href='http://pic.huodongjia.com/static/css/sponsor_list.css'>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 spon_header">
+            <ul class="col-lg-12 col-md-12 col-xs-12 col-sm-12 ul_left">
+                <li><a href="/" target="_blank">活动家</a>&gt;</li>
+                <li><a href="/listsponsor/" target="_blank">会议主办方</a>&gt;</li>
+                <li><a><h1>主办方搜索</h1></a></li>
+            </ul>
+        </div>
+        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 content_left">
+                <form action="/searchsponsor/" method="get" id="myForm">
+                    <input type="text"  class="search" name="keyword" id="centerSearch" placeholder="搜索主办方" style="width:25%">
+                    <a href="javascript:login()"><i style="top: -7px;font-size: 22px" class="m_iconfont">&#xe607;</i></a>
+                </form>
+                <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 new_sponsor">
+                    {% if sponsors %}
+                    <p class="active" style="margin-top: 1em">搜索结果</p>
+                    <ul>
+                        {% for sponsor in sponsors %}
+                        <li>
+                            {% if sponsor.id %}
+                            <a href="/sponsor-{{ sponsor.id }}.html" target="_blank">{{  sponsor.name }}</a>
+                            {% else %}
+                            <a class="nolink">{{  sponsor.name }}</a>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <p style="color: #868586;margin-top:2em;font-size: 16px">暂时没有会议...</p>
+                    {% endif %}
+                </div>
+        </div>
+        </div>
+            <div class="pagination">
+                <ul>
+                    {% ifnotequal firstPage 'false'%} 
+                        <li><a rel='nofollow' href="{{firstPage}}">首页</a></li>
+                    {% endifnotequal %}
+
+                    {% for page in pageList%}
+                        {% if page.flag == 'true' %}
+                         <li class="page_active"><a href="{{page.pageurl}}">{{page.page}}</a></li>
+                         {%else%}
+                         <li><a href="{{page.pageurl}}">{{page.page}}</a></li>
+                         {%endif%}
+                    {% endfor %}
+
+                    {% ifnotequal nextPage 'false'%}                      
+                         <li><a rel='nofollow' href="{{nextPage}}">下一页</a></li>
+                         <li><a rel='nofollow' href="{{lastPage}}">最后一页</a></li>
+                    {% endifnotequal %} 
+                </ul>
+            </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script type="text/javascript" src="http://pic.huodongjia.com/static/js/sponsor_list.js"></script>
+{% endblock %}

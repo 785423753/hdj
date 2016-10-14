@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% if seo %}{{ seo.title }}{% else %}{{head.title}}{% endif %}</title>
+    <meta name="keywords" content="{% if seo %}{{ seo.keywords }}{% else %}{{head.keywords}}{% endif %}"/>
+    <meta name="description" content="{% if seo %}{{ seo.description }}{% else %}{{head.description}}{% endif %}"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta property="wb:webmaster" content="f8b759b681dff9f2" />
+    <link rel="shortcut icon" type="image/x-icon" href="http://www.huodongjia.com/favicon.ico" media="screen" />
+    <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/hdj.min.css">
+    <link rel="stylesheet" href="/ganhuo/static/css/news.css">
+    {%block add_st%}<link rel="alternate" media="only screen and(max-width: 640px)" href="http://m.huodongjia.com{{request.get_full_path}}" >{%endblock%}
+    {% block addstyle %}{% endblock %}
+</head>
+<body>
+<div class="nav">
+    <div class="container" >
+       <div class="col-sm-3 col-xs-3">
+           {% if index %}<h1 style="margin: 11px 0"><a href="http://www.huodongjia.com/"><img  width="251" height="35" src="/ganhuo/static/images/newhdj_logo.png" alt="找会议，上活动家"/></a></h1>{% else %}
+           <span style="margin: 11px 0"><a  href="http://www.huodongjia.com/"><img  height="35"   width="251" src="/ganhuo/static/images/newhdj_logo.png" alt="找会议，上活动家"/></a></span>{% endif %}
+       </div>
+        <div class="col-sm-9 col-xs-9 menus">
+            <ul>
+                <li style="width:30px;"></li>
+                <li class="menue  business"><a target="_blank" href="http://www.huodongjia.com/business/">商务会议 <span class="tb_font">&#xe606;</span></a>
+                    <div class="business_menue"><div class="col-sm-12 col-xs-12 industry">按行业</div>
+                        <div class="col-sm-3 col-xs-3 "><a target="_blank" href="http://www.huodongjia.com/it/">IT互联网</a></div><div class="col-sm-3 col-xs-3 "><a target="_blank" href="http://www.huodongjia.com/finance/">金融财经</a></div>
+                        <div class="col-sm-3 col-xs-3 "><a target="_blank" href="http://www.huodongjia.com/medical/">医疗医学</a></div><div class="col-sm-3 col-xs-3 "><a target="_blank" href="http://www.huodongjia.com/energy/">能源化工</a></div>
+                        <div class="col-sm-3 col-xs-3 "><a target="_blank" href="http://www.huodongjia.com/agricultur/">农林牧渔</a></div><div class="col-sm-3 col-xs-3 "><a target="_blank" href="http://www.huodongjia.com/edutrain/">教育培训</a></div>
+                        <div class="col-sm-3 col-xs-3 "><a target="_blank" href="http://www.huodongjia.com/manufact/">加工制造</a></div><div class="col-sm-3 col-xs-3 "><a target="_blank" href="http://www.huodongjia.com/realestate/">地产建筑</a></div>
+                        <div class="col-sm-3 col-xs-3 "><a target="_blank" href="http://www.huodongjia.com/culmedia/">文化传媒</a></div><div class="col-sm-3 col-xs-3 "><a target="_blank" href="http://www.huodongjia.com/servindust/">服务行业</a></div>
+                        <div class="col-sm-3 col-xs-3 "><a target="_blank" href="http://www.huodongjia.com/tralogist/">交通物流</a></div><div class="col-sm-3 col-xs-3 "><a target="_blank" href="http://www.huodongjia.com/trade/">其它行业</a></div>
+                        <div class="col-sm-12 col-xs-12 time"><span class="col-sm-3 col-xs-3">按时间</span>
+                            <span class="col-sm-3 col-xs-3"><a target="_blank" href="http://www.huodongjia.com/business/13/">最近一周</a></span>
+                            <span class="col-sm-3 col-xs-3"><a target="_blank" href="http://www.huodongjia.com/business/14/">最近一月</a></span>
+                            <span class="col-sm-3 col-xs-3"><a target="_blank" href="http://www.huodongjia.com/business/15/">最近三月</a></span></div>
+                        <div class="col-sm-12 col-xs-12 city">按城市</div><div class="col-sm-2 col-xs-2 "><a target="_blank" href="http://www.huodongjia.com/beijing/">北京</a></div><div class="col-sm-2 col-xs-2 "><a target="_blank" href="http://www.huodongjia.com/shanghai/">上海</a></div><div class="col-sm-2 col-xs-2 "><a target="_blank" href="http://www.huodongjia.com/guangzhou/">广州</a></div><div class="col-sm-2 col-xs-2 "><a target="_blank" href="http://www.huodongjia.com/shenzhen/">深圳</a></div><div class="col-sm-2 col-xs-2 "><a target="_blank" href="http://www.huodongjia.com/hangzhou/">杭州</a></div><div class="col-sm-2 col-xs-2 "><a target="_blank" href="http://www.huodongjia.com/chengdu/">成都</a></div><div class="col-sm-2 col-xs-2 "><a target="_blank" href="http://www.huodongjia.com/xian/">西安</a></div><div class="col-sm-2 col-xs-2 "><a target="_blank" href="http://www.huodongjia.com/xiamen/">厦门</a></div><div class="col-sm-2 col-xs-2 "><a target="_blank" href="http://www.huodongjia.com/nanjing/">南京</a></div><div class="col-sm-2 col-xs-2 "><a target="_blank" href="http://www.huodongjia.com/wuhan/">武汉</a></div><div class="col-sm-2 col-xs-2 "><a target="_blank" href="http://www.huodongjia.com/chongqing/">重庆</a></div><div class="col-sm-2 col-xs-2 "><a target="_blank" href="http://www.huodongjia.com/tianjin/">天津</a></div><div class="col-sm-2 col-xs-2 "><a target="_blank" href="http://www.huodongjia.com/changsha/">长沙</a></div><div class="col-sm-2 col-xs-2 "><a target="_blank" href="http://www.huodongjia.com/qingdao/">青岛</a></div></div>
+                </li>
+                <li class="menue"><a href="http://news.huodongjia.com/" target="_blank">会议资讯</a></li>
+                <li class="menue"><a href="http://www.huodongjia.com/guest/" target="_blank" >演讲经纪</a></li>
+                <li class="postevent"><a href="http://www.huodongjia.com/postevent/"  target="_blank">免费发布活动</a></li>
+                <li class="search" ><form action="http://www.huodongjia.com/search/"><input name="keyword" type="text" placeholder="输入您要找的会议"/><span class="m-search m_iconfont">&#xe607;</span></form></li>
+                <li class="ordersearch"><a href="http://www.huodongjia.com/searchorder/" target="_blank" style="font-size: 14px">订单查询</a></li>
+                <li class="login">
+                    <a href="http://www.huodongjia.com/usercenter/login/" rel="nofollow">{% if request.session.usercenter_user %}<img style="border-radius: 16px;" width="32px" height="32px" src='{{  request.session.usercenter_user.avatar }}' />{% else %}<span class="Login" style="font-size: 14px">登录</span>{% endif %}</a>
+                    <ol>
+                        <li><a href="http://www.huodongjia.com/usercenter/index/" rel="nofollow">我的积分</a></li>
+                        <li><a href="http://www.huodongjia.com/usercenter/index/?ind=showorder" rel="nofollow">我的订单</a></li>
+                        <li><a href="http://www.huodongjia.com/usercenter/index/?ind=myevent" rel="nofollow">我的发布</a></li>
+                        <li><a href="http://www.huodongjia.com/usercenter/index/?ind=showcollection" rel="nofollow">我的收藏</a></li>{% if request.session.usercenter_user %}<li class="exit"><a href="/usercenter/logout/"  rel="nofollow">退出</a></li>{% endif %}
+                    </ol>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% block banner%}
+{% endblock %}
+{% block content%}
+{% endblock %}
+<div class="footer">
+    <div class="container">
+        <br style="clear: both">
+       <div class="col-sm-2 col-xs-2 footer1">
+           <ul style="padding: 0">
+               <li class="title">关于我们</li>
+               <li><a href="http://www.huodongjia.com/contactus/" rel="nofollow">关于活动家</a></li>
+               <li><a href="http://www.huodongjia.com/mediareport/" rel="nofollow">媒体报道</a></li>
+               <li><a href="http://www.huodongjia.com/friendLinks/" rel="nofollow">友情链接</a></li>
+               <li><a href="http://www.huodongjia.com/app/" target="_blank" rel="nofollow">APP下载</a></li>
+               <li><a href="http://www.huodongjia.com/law/" target="_blank" rel="nofollow">免责声明</a></li>
+           </ul>
+       </div>
+        <div class="col-sm-2 col-xs-2 footer1">
+            <ul>
+                <li class="title">更多服务</li>
+                <li><a href="http://www.huodongjia.com/business/" target="_blank" rel="nofollow">商务会议</a></li>
+                <li><a href="http://www.huodongjia.com/guest/" target="_blank" rel="nofollow">出席嘉宾</a></li>
+                <li><a href="http://www.huodongjia.com/listsponsor/" target="_blank" rel="nofollow">会议主办方</a></li>
+                <li><a href="http://www.huodongjia.com/listvenue/" target="_blank" rel="nofollow">会议场地</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-4 col-xs-4 footer1 contact">
+            <ul>
+                <li class="title">联系我们</li>
+                <li class="call_serve"></li>
+                <li style="line-height: 17px;position: relative;">
+                    <div class="kefu"></div>
+                    <span class="erweima"></span><a style="font-size: 14px;display: inline-block;">活动家微信客服 <br/>（微信号：hdjkefu）</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-2 col-xs-2 footer1 weixin">
+            <p>活动家微信</p>
+            <span class="wxchat"></span>
+            <p style="color: #A0A8B7;font-size: 12px;padding: 5px">优质会议及时推荐，查 <br/>询会议更方便</p>
+        </div>
+        <div class="col-sm-2 col-xs-2 footer1 weixin">
+            <p>APP下载</p>
+            <span class="APP_erweima"></span>
+            <p style="color: #A0A8B7;font-size: 12px;padding: 5px">下载活动家APP，随 <br/>时随地方便报名参会</p>
+        </div>
+        <div class="introduce">
+            <p>活动家介绍：<br/>
+            {{ seo.intro }}
+            </p>
+            <p>热门关键词：<br/>
+            <a href="http://www.huodongjia.com/tag/2561/">互联网金融</a>  <a href="http://www.huodongjia.com/tag/969/">大数据</a>  <a href="http://www.huodongjia.com/tag/805/">创业</a>  <a href="http://www.huodongjia.com/tag/4710/">智能硬件</a>  <a href="http://www.huodongjia.com/tag/902/">投融资</a>  <a href="http://www.huodongjia.com/tag/3758/">金融创新</a>  <a href="http://www.huodongjia.com/tag/2379/">移动医疗</a>  <a href="http://www.huodongjia.com/tag/4341/">健康产业</a>  <a href="http://www.huodongjia.com/tag/459/">医疗器械</a>  <a href="http://www.huodongjia.com/tag/1018/">环保</a>  <a href="http://www.huodongjia.com/tag/4070/">石墨烯</a>  <a href="http://www.huodongjia.com/tag/3189/">幼教</a>  <a href="http://www.huodongjia.com/tag/4331/">养猪</a>  <a href="http://www.huodongjia.com/tag/4765/">苗木</a>  <a href="http://www.huodongjia.com/tag/2676/">无人机</a>  <a href="http://www.huodongjia.com/tag/5512/">商业地产</a>  <a href="http://www.huodongjia.com/tag/2610/">新媒体</a>  <a href="http://www.huodongjia.com/tag/3363/">零售业</a>  <a href="http://www.huodongjia.com/tag/980/">物流</a>  <a href="http://www.huodongjia.com/tag/3372/">企业家</a></p>
+            {% block seo_fridendly_link %}
+            {% if site_links %}
+            <p>友情链接：<br/>
+            {% for link in site_links %}
+                <a href="{{ link.url }}" target="_blank">{{ link.name }}</a>
+            {% endfor%}
+            {% endif %}
+            {% endblock %}
+            <hr style="border-top: 1px solid #4B4F52;"/>
+            <p class="text-center">CopyRight <a rel="nofollow" target="_blank" href="http://www.huodongjia.com/">活动家</a> huodongjia.com <a rel="nofollow" target="_blank" href="http://www.miibeian.gov.cn/">蜀ICP备13006805号-5</a>,增值电信业务经营许可证编号川B2-20130143</p>
+        </div>
+    </div>
+</div>
+</body>
+<!--百度统计代码-->
+<script>
+    var host = "www.huodongjia.com";if(window.location.host==host){
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?388950f5fe8dce1409ec7843101f9730";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    }
+</script>
+{% block baiduautopush %}
+<!--百度页面访问自动推送-->
+<script>
+    var host = "www.huodongjia.com";
+    if(window.location.host==host){
+        (function(){
+            var bp = document.createElement('script');
+            bp.src = '//push.zhanzhang.baidu.com/push.js';
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+        <!---->
+        (function(){
+            var src = document.location.protocol +'//js.passport.qihucdn.com/11.0.1.js?bc6e333c247b87d154a2b11caf40aa0a';
+            document.write('<script src="' + src + '" id="sozz"><\/script>');
+        })();
+    }
+</script>
+{% endblock %}
+<script src="http://pic.huodongjia.com/static/js/huodongjia.js"></script>
+<script src="/ganhuo/static/js/new.js"></script>
+<script>
+    $(".business").hover(function () {
+        business_menue.fadeIn(10)
+    }, function () {
+        business_menue.fadeOut(10)
+    })
+</script>
+{% block js %}
+{% endblock %}
+</html>

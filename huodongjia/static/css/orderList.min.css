@@ -1,0 +1,10 @@
+body{background:#F0F0F0!important}
+.order_list{padding:30px 0;min-height:550px}
+.order_list .bread,.order_list .bread a{color:#ADADAD}
+.order_list .tab{width:100%;border:1px solid #DADADA;background:#FFF;margin-top:20px}
+.order_list .tab table{width:96%;margin:0 2%}
+.order_list table td{width:16.6%;text-align:center;padding:10px 0;color:#666;height:30px}
+.t_head{font-size:16px}
+.t_title{background:#EFF8FF}
+.pay{width:100px;height:30px;border:0;background:#3EA9F7;outline:0;color:#fff;cursor:pointer;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px}
+.pay:hover{background:#3898de}

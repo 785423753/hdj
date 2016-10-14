@@ -1,0 +1,274 @@
+.row{margin-right: 0px;margin-left: 0px;}
+/*图标字体*/
+@font-face {
+    font-family: 'iconfont2';
+    src: url('http://pic.huodongjia.com/static/css/list-iconfont/iconfont.eot'); /* IE9*/
+    src: url('http://pic.huodongjia.com/static/css/list-iconfont/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('http://pic.huodongjia.com/static/css/list-iconfont/iconfont.woff') format('woff'), /* chrome、firefox */
+    url('http://pic.huodongjia.com/static/css/list-iconfont/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('http://pic.huodongjia.com/static/css/list-iconfont/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+.iconfont2{
+    font-family: "iconfont2" !important;
+    font-size: 16px;
+    font-style: normal;
+}
+/*顶部轮播*/
+.container{padding-right: 0px;padding-left: 0px}
+.pad0{padding-right: 0px;padding-left: 0px;margin-bottom:10px}
+#banner{width:100%;position: relative;}
+#banner ul{padding: 0px;}
+.slides{margin:0px auto;width:100%;overflow:hidden;position:relative;}
+.slide-pic{width:100%;overflow:hidden;list-style:none;}
+.slide-pic img{width:100%;}
+.slide-pic li{display:none;}
+.slide-pic li.cur{display:block;}
+.slide-li{left: 0px;  bottom: 15px;  position: absolute;  text-align: center;left: 48%}
+.slide-li li{width: 20px; height:20px;display:inline-block;overflow: hidden;list-style: none;border-radius: 10px;}
+.slide-li a{color:#000;font-size:12px;display:block;}
+.slide-li a:hover{color:#F00;text-decoration:none;}
+.op li{width:20px;height:20px;background:#999999;filter:alpha(opacity=60);opacity:0.6;background: #fff;}
+.op li.cur{background:red;}
+/*宣传栏*/
+.Propaganda{display: inline-block;font-size: 1.3em;text-align: center;margin: 1.3em 0px;font-weight: 700}
+.Propaganda img{width: 50px;margin-right: 10px;}
+/*商务活动*/
+.businessAffairs>div>h2,.eMailing>div>h2{font-size: 22px;font-weight: 400}
+.businessAffairs>div>h2>span,.eMailing>div>h2>span{font-size:0.7em;color: #919191;font-weight: 400;padding-left: 10px;}
+.eMailing{margin-top: 25px;}
+.classification{padding: .3em 0px 10px 0px;}
+.classification li{list-style: none outside none;display: inline-block;margin-right: 3em}
+.classification li a{font-size:15.4px;color: #919191;}
+.classification li a:hover{color: rgb(255, 52, 0);}
+.divs{padding-right: 5px;padding-left: 5px;margin-bottom: 10px;display: table;overflow: hidden;}
+.meeting{position: relative; width: 100%;display: table-cell;vertical-align: middle;padding: 0px;}
+.meeting a img{width:100%}
+.bf_div_bottom{height: 100%;width: 100%;color: #fff;text-align: left;padding-left: 5px;padding-right: 5px;display: table;}
+.bf_div_bottom h4{white-space:nowrap;text-overflow: ellipsis;max-width: 100%;display: block;overflow: hidden;font-size: 1.35em;}
+.bf_div_bottom span{font-size: 1em;float: right}
+.bf_div_bottom span a,.bf_div_bottom a{color:#fff;}
+.bf_div_bottom .time{margin-right: 1em;}
+.bf_bg{background-color: #000;opacity: .2;filter:alpha(opacity=20);width: 100%;height: 60px;}
+.bf_div{height: 60px;width: 100%;position: absolute;bottom: -60px;left: 0px;}
+.bf_div_text>div{display: table-cell;vertical-align: middle}
+.bf_div_text{position: absolute;left: 0px;top: 0px;}
+/*同城活动*/
+.div_kuai{display: table;margin: 0 auto;margin-top: -10px}
+.div_kuai img{width: 100%;}
+.kuai{float: left;}
+.kuai_f_left{float:left;}
+.div_kuai div{padding-bottom: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;}
+.kuai_divs{position: relative;}
+.kuai_1{width: 40%}
+.kuai_2{margin-right: 5px;width: 18.4%;}
+.kuai_3{width: 40%}
+.width100{width: 100%}
+.width50{width: 50%}
+.pad-left-5{padding-left:5px!important;}
+.pad-right-5{padding-right:5px!important;}
+.pad-top-5{padding-top: 5px!important;}
+.pad-bottom-5{padding-bottom:5px!important;}
+.kuai_t_bg{width: 117px;height: 50px;background-color: #000;opacity: .5;filter:alpha(opacity=50);position: absolute;top: 0px;left: 0px;}
+.kuai_t_text{width: 117px;height: 50px;text-align:center;color: #fff;position: absolute;top: 0px;left: 0px;}
+.kuai_t_text h3{line-height: 50px;margin: 0px;}
+@media (max-width:990px) {
+    .kuai_t_bg{width: 83px;height: 37px;background-color: #000;opacity: .5;filter:alpha(opacity=50);position: absolute;top: 0px;left: 0px;}
+    .kuai_t_text{width: 83px;height:37px;text-align:center;color: #fff;position: absolute;top: 0px;left: 0px;}
+    .kuai_t_text h3{line-height: 37px;margin: 0px;font-size: 1.1px}
+}
+/*活动资讯*/
+.eMailing img{width: 100%}
+.eMailing div,ul,li{padding: 0px;}
+.eMailing_ul_right,.eMailing_ul_left{background-color: #f5f5f5;}
+.eMailing_ul_right ul li,.eMailing_ul_left ul li{list-style: none outside none;padding-left: 10px;width: 100%;}
+.eMailing_ul_right ul li a,.eMailing_ul_left ul li a{white-space:nowrap;text-overflow: ellipsis;max-width: 100%;overflow: hidden;  display: block; color: #676767;}
+.eMailing_ul_left ul li a i{color: #cacaca;}
+.eMailing_ul_left ul li{margin-top: 1.9%}
+.eMailing_ul_right ul li{margin-top: 2.5%}
+
+/* 近期会议 */
+.meet_div{
+    height: 100%;
+    width: 100%;
+    background-color: #f9f9f9;
+}
+.meet_div .it_meet{
+    padding: 0;
+}
+.meet_div ul{
+    width: 97%;
+    padding: 0;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    height: 340px;
+    margin-top:46px;
+    margin-bottom:46px;
+    position: relative;
+}
+.meet_div ul li:first-child{
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    font-size: 22px;
+    color:#fff;
+    width: 100% !important;
+    margin-left: 0;
+    border-bottom:none;
+}
+.meet_div ul li:last-child{
+    border-bottom:none;
+}
+.meet_div .meet_ul1 li:first-child{
+    background-color: #7fcff4;
+}
+.meet_div .meet_ul2 li:first-child{
+    background-color: #8edd81;
+}
+.meet_div .meet_ul3 li:first-child{
+    background-color: #d9c684;
+}
+.meet_div ul li{
+    list-style: none;
+    height: 70px;
+    border-bottom: 1px solid #ddd;
+    width: 94%;
+    margin-left: 3%;
+}
+.meet_div p{
+    position: absolute;
+    margin-top: 14px;
+    color:#707070;
+}
+.meet_div .meet_name{
+    margin-top: 36px;
+    color: #707070;
+    font-weight:inherit;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width:72%;
+    overflow: hidden;
+    position: absolute;
+}
+.meet_div .meet_city{
+    float: right;
+    margin-top: 36px;
+    margin-right: 6%;
+    color:#707070;
+    font-weight: inherit;
+}
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.bannnerImg{
+    overflow: hidden;
+    position: relative;
+}
+.bannnerImg ul {
+    width: 10000px;
+    position: absolute;
+}
+.bannnerImg ul li{
+    float: left;
+    list-style: none outside none;
+}
+.bannnerImg img {
+    width: 870px;
+}
+
+.bannnerText {
+    width: 300px;
+    height: 360px;
+    float: right;
+    background-color: #323232;
+    overflow: hidden;
+}
+
+.bannnerImg {
+    width: 870px;
+    float: left;
+    height: 360px;
+}
+
+.eventName {
+    color: #fff;
+    display: block;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    line-height: 40px;
+}
+
+.bannerNumber {
+    width: 20px;
+    height: 20px;
+    background-color: #e54e4e;
+    display: inline-block;
+    margin-right: 20px;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 5px;
+    line-height: 20px;
+    font-size: 14px;
+}
+
+.TextHidden {
+    display: none;
+}
+
+.TextHidden p {
+    color: #9b9b9b;
+    line-height: 1;
+    font-size: 12px;
+}
+.bannnerText li.active .eventName{
+    font-size: 18px;
+    margin: 5px 0;
+    color: #e44e50;
+
+}
+.TextHidden>div.hText>a {
+    display: block;
+    width: 80px;
+    height: 26px;
+    text-align: center;
+    color: #ffffff;
+    background-color: #e54e4e;
+    line-height: 26px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 0px;
+}
+.TextHidden .hImage,.TextHidden .hText{
+    display: inline-block;
+    height: 86px;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    float: left;
+    position: relative;
+}
+.bannnerText li.active{
+    height: auto;
+}
+.bannnerText li.active > .TextHidden {
+    display: block;
+}
+.hImage img{
+    width: 136px;
+    height: 86px;
+}
+.bannnerText li{
+    width: 260px;
+    height: 41px;
+    border-bottom: 1px solid #292929;
+    border-top: 1px solid #404040;
+    margin: 0 auto;
+    line-height: 1;
+    list-style: none outside none;
+}
+.bannnerText li:last-child{
+    border-bottom: 0px;
+}
+.head_Carousel{
+    margin-bottom: 20px;
+}

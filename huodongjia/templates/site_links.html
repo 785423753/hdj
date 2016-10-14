@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block m_site %}
+{% endblock%}
+{% block addstyle %}
+<link rel="stylesheet" href="http://pic.huodongjia.com/static/css/site_links.css">
+<style type="text/css">
+.active_content{
+    margin-top:1em;
+}
+.active_content ul{
+    margin-top: 2em;
+    padding: 0;
+}
+.active_content ul li{
+    list-style: none;
+    margin-top:1em;
+}
+.active_content ul li a{
+    color:#5d5d5d;
+}
+</style>
+{% endblock %}
+{% block head %}
+{% autoescape off %}
+<title>媒体合作_资源互换_媒体报道_友情链接_活动家</title>
+<meta name="description" content="这里是活动家的商务合作页面，包含媒体合作、资源互换、媒体报道、友情链接交换等各种合作。欢迎各行业平台与本站商务合作。" />
+<meta name="keywords" content="媒体合作,友链交换,活动家" />
+{% endautoescape %}
+{% endblock %}
+{% block myContainer %}myContainer{% endblock%}
+{% block search%}
+{% include "searchComponent.html" %}
+{% endblock %}
+
+{% block content%}
+<div class="container site">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 site_header">
+        <p class="site_title">友情链接申请要求:</p>
+        <p>1、本站可申请首页、城市分站、分类内页等页面的友情链接。</p>
+        <p>2、首页友链要求：BR≥3，百度快照3天以内，百度、google、360、搜狗收录均正常，导出链接不超过30个。</p>
+        <p>3、内页友链要求：主站BR≥3、PR≥3，交换相关首页或内页，必须被各大搜索引擎收录。</p>
+        <p>4、欢迎符合条件的站长与本站资源互换，请联系QQ：3062279918</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 site_content">
+            <p class="link">文字链接</p>
+            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 hr"></div>
+            <ul class="list-inline">
+                {% if midd_site_links %}
+                {% for item in midd_site_links %}
+                {% if item.name %}
+                <li><a href="{{item.url}}" target="_blank">{{item.name}}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+            </ul>
+    </div>
+    </div>
+</div>
+
+{% endblock %}
+ {% block selfLinks %}
+ {% endblock %}

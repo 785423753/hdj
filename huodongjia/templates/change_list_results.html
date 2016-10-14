@@ -1,0 +1,176 @@
+{% load i18n admin_static %}
+{% if result_hidden_fields %}
+    <div class="hiddenfields"> {# DIV for HTML validation #}
+        {% for item in result_hidden_fields %}{{ item }}{% endfor %}
+    </div>
+{% endif %}
+
+{% if results %}
+    <div class="grp-module grp-changelist-results">
+        <table id="result_list" cellspacing="0" class="grp-sortable">
+            <thead>
+                <tr>
+                    {% for header in result_headers %}
+                        <th scope="col" {{ header.class_attrib }}>
+                            {% if header.sortable %}
+                                {% if header.sort_priority > 0 %}
+                                    <div class="grp-sortoptions">
+                                        <a href="{{ header.url_toggle }}" class="grp-toggle {% if header.ascending %}grp-ascending{% else %}grp-descending{% endif %}" title="{% trans "Toggle sorting" %}"></a>
+                                        {% if num_sorted_fields > 1 %}<span class="grp-sortpriority" title="{% blocktrans with priority_number=header.sort_priority %}Sorting priority: {{ priority_number }}{% endblocktrans %}">{{ header.sort_priority }}</span>{% endif %}
+                                        <a class="grp-sortremove" href="{{ header.url_remove }}" title="{% trans "Remove from sorting" %}"></a>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                            <div class="grp-text">{% if header.sortable %}<a href="{{ header.url_primary }}">{{ header.text|capfirst }}</a>{% else %}<span>{{ header.text|capfirst }}</span>{% endif %}</div>
+                        </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                    {% if result.form.non_field_errors %}
+                        <tr class="grp-errors"><td colspan="{{ result|length }}">{{ result.form.non_field_errors }}</td></tr>
+                    {% endif %}
+                    <tr class="grp-row {% cycle 'grp-row-even' 'grp-row-odd' %}">{% for item in result %}{{ item }}{% endfor %}</tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+<!--##################################################### -->
+<!--发短信-->
+<div class="modal fade informModal" style="display:none" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    <h4 class="modal-title" id="mySmallModalLabel">发送通知主办方的短信</h4>
+    </div>
+    <div class="modal-body">
+        <div class="inform-msg">
+            <p>短信内容：(请勿在短信内容中添加空格)</p>
+            <div class="msg-content" contenteditable="true"></div>
+            </br>
+            <label>手机号：</label>
+            <input type="text" class="inform-tel"/>
+            <input type="hidden" class="inform-id"/>
+        </div>
+    </div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default btn-close" data-dismiss="modal">关闭</button>
+    <button type="button" class="btn btn-primary inform-confirm">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade failed-informModal" style="display:none" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    <h4 class="modal-title" id="mySmallModalLabel">未通过原因</h4>
+    </div>
+    <div class="modal-body">
+            <input type="radio" name="failed-info" value="活动家只支持收费或免费商务会议的发布，您提交的活动为沙龙活动，非常抱歉，不能通过审核，感谢您的参与！" style="height:10px !important;"/>1. 活动家只支持收费或免费商务会议的发布，您提交的活动为沙龙活动，非常抱歉，不能通过审核，感谢您的参与！</br></br>
+            <input type="radio" name="failed-info" value="活动家只支持收费或免费商务会议的发布，您提交的活动为讲座类活动，非常抱歉，不能通过审核，感谢您的参与！" style="height:10px !important;"/>2. 活动家只支持收费或免费商务会议的发布，您提交的活动为讲座类活动，非常抱歉，不能通过审核，感谢您的参与！</br></br>
+            <input type="radio" name="failed-info" value="活动家只支持收费或免费商务会议的发布，您提交的活动为培训公开课，非常抱歉，不能通过审核，感谢您的参与！" style="height:10px !important;"/>3. 活动家只支持收费或免费商务会议的发布，您提交的活动为培训公开课，非常抱歉，不能通过审核，感谢您的参与！</br></br>
+            <input type="radio" name="failed-info" value="活动家只支持收费或免费商务会议的发布，您提交的活动为展会，非常抱歉，不能通过审核，感谢您的参与！" style="height:10px !important;"/>4. 活动家只支持收费或免费商务会议的发布，您提交的活动为展会，非常抱歉，不能通过审核，感谢您的参与！</br></br>
+            <input type="radio" name="failed-info" value="活动家只支持收费或免费商务会议的发布，您提交的活动为旅游类活动，非常抱歉，不能通过审核，感谢您的参与！" style="height:10px !important;"/>5. 活动家只支持收费或免费商务会议的发布，您提交的活动为旅游类活动，非常抱歉，不能通过审核，感谢您的参与！</br></br>
+            <input type="radio" name="failed-info" value="活动家只支持收费或免费商务会议的发布，您提交的活动为演出类活动，非常抱歉，不能通过审核，感谢您的参与！" style="height:10px !important;"/>6. 活动家只支持收费或免费商务会议的发布，您提交的活动为演出类活动，非常抱歉，不能通过审核，感谢您的参与！</br></br>
+            <input type="radio" name="failed-info" value="活动家只支持收费或免费商务会议的发布，您提交的活动为文化生活类活动，非常抱歉，不能通过审核，感谢您的参与！" style="height:10px !important;"/>7. 活动家只支持收费或免费商务会议的发布，您提交的活动为文化生活类活动，非常抱歉，不能通过审核，感谢您的参与！</br></br>
+            <input type="radio" name="failed-info" value="您提交的活动内容为空，非常抱歉，不能通过审核，感谢您的参与！" style="height:10px !important;"/>8. 您提交的活动内容为空，非常抱歉，不能通过审核，感谢您的参与！</br></br>
+            <input type="radio" name="failed-info" value="您发布的该场活动主办方已在活动家提交并已通过了审核，非常抱歉，您发布的只能作未通过处理，感谢您的参与！" style="height:10px !important;"/>9. 您发布的该场活动主办方已在活动家提交并已通过了审核，非常抱歉，您发布的只能作未通过处理，感谢您的参与！</br></br>
+            <input type="radio" name="failed-info" value="您发布的该场活动重复提交！" style="height:10px !important;"/>10. 您发布的该场活动重复提交！</br></br>
+            <input type="radio" name="failed-info" value="-1" style="height:10px !important;"/>其他
+            <input type="text" class="other-failed-info" value="" style="width: 500px"/>
+            <input type="hidden" class="event-id" value="" style="width: 500px"/>
+    </div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default btn-close" data-dismiss="modal">关闭</button>
+    <button type="button" class="btn btn-primary failed-inform-confirm">确定</button>
+</div>
+</div>
+</div>
+</div>
+<!--###################################### -->
+<link rel="stylesheet" type="text/css" href="http://pic.huodongjia.com/static/css/sweet-alert.css">
+<script src="http://pic.huodongjia.com/static/js/jquery-2.1.4.js" type="text/javascript"></script>
+<script src="http://pic.huodongjia.com/static/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="http://pic.huodongjia.com/static/js/sweet-alert.min.js" type="text/javascript"></script>
+<script type='text/javascript'>
+//生成邀请函
+    $('.btn-gen-invit').click(function(){
+        $('#mask').show();
+        var url = $(this).attr('data-url');
+        var eventid = $(this).attr('data-id');
+        swal("success","生成成功！","success")
+        $.get(url,{'eventid':eventid},function(data){
+            if (data.code == 0) {
+                $(".confirm").hide()
+                $('#mask').hide();
+                swal("success","生成成功！","success")
+                setTimeout(function () {
+                    $(".confirm").click()
+                },1000)
+            }
+            else {
+                $(".confirm").hide()
+                $('#mask').hide();
+                swal("error","生成失败！","error")
+                setTimeout(function () {
+                    $(".confirm").click()
+                },1000)
+            }
+        });
+    });
+    //生成授权书
+    $('.btn-gen-auth').click(function(){
+        $('#mask').show();
+        var url = $(this).attr('data-url');
+        var eventid = $(this).attr('data-id');
+        $.get(url,{'eventid':eventid},function(data){
+            if (data.code==0) {
+                $('#mask').hide();
+                $(".confirm").hide()
+                swal("success","生成成功！","success")
+                setTimeout(function () {
+                    $(".confirm").click()
+                },1000)
+            }
+            else {
+                $('#mask').hide();
+                $(".confirm").hide()
+                swal("error","生成失败！","error")
+                setTimeout(function () {
+                    $(".confirm").click()
+                },1000)
+            }
+        });
+    });
+    $('.btn-flash-cache').click(function(){
+        $('#mask').show();
+        var url = $(this).attr('data-url');
+        var eventid = $(this).attr('data-id');
+        $.get(url,{'eventid':eventid},function(data){
+            if(data.code==0){
+                $('#mask').hide();
+                $(".confirm").hide()
+                swal("success","刷新成功！","success")
+                setTimeout(function () {
+                    $(".confirm").click()
+                },1000)
+                //location.reload();
+            }else{
+                $('#mask').hide();
+                $(".confirm").hide()
+                swal("error","刷新失败！","error")
+                setTimeout(function () {
+                    $(".confirm").click()
+                },1000)
+                //location.reload();
+            }
+        });
+    });
+</script>
+{% endif %}
+

@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% block addstyle %}
+<link rel="stylesheet" type="text/css" href="http://pic.huodongjia.com/static/css/sweet-alert.css">
+<link rel="stylesheet" href="http://pic.huodongjia.com/static/css/eventSignup.css"/>
+<style type="text/css">
+  #ApplyForm{
+    display:none;
+  }
+  .linkman{
+    display:block;
+  }
+  .form_title{
+    text-align:left;
+  }
+  .change{
+    display: inline-block;
+  }
+</style>
+{%endblock%}
+{%block content %}
+
+
+{% if order_list %}
+<div class="container content">
+    <div class="content_top">
+            <p><span>报名流程</span><br/>报名成功后客服会与您确认参会凭证和发票事宜。</p>
+            <p><img src="http://pic.huodongjia.com/static/images/apply.jpg" alt=""/></p>
+        </div>
+    <p class="form_title"> 联系人信息 <br/><span>多人参会客服直接与您确认其他人参会信息</span><font class="change">资料修改</font></p>
+    {% csrf_token %}
+    <form id="ApplyForm"  action="">
+        <input type="text"  id="name" placeholder="姓名" value="{{ order_list.0.order_user_name }}"/><span>*必填</span><br/>
+        <input type="text"  id="phone" placeholder="手机号" value="{{ order_list.0.order_tel }}"/><span>*必填</span><br/>
+        <input type="text"  id="email" placeholder="邮箱" value="{{ order_list.0.order_email }}"/><span>*必填</span><br/>
+        <input type="text"  id="company" placeholder="单位" value="{{ order_list.0.company }}"/><br/>
+        <input type="text"  id="job" placeholder="职位" value="{{ order_list.0.job }}"/><br/>
+        <input type="text" name="checkcode" id="checkcode" placeholder="验证码" data-captchaflag="false"/>
+        <img onclick="this.setAttribute('src','/get_check_code_image/?nocache='+Math.random());" src="/get_check_code_image/" alt="CheckCode" style="width: 138px" id="cap_img"><br/>
+        <textarea name="" id="mark"  rows="3" placeholder="备注">{{ order_list.0.order_text}}</textarea>
+        {% ifequal order_list.0.invoice 0 %}
+        <label for="invoice" ><input id="invoice"  type="checkbox"/>我需要发票</label>
+        {% else %}
+        <label for="invoice" ><input id="invoice" checked="checked" type="checkbox"/>我需要发票</label>
+        {% endifequal %}
+        {% ifequal order_list.0.invoice 0 %}
+        <div class="invoice">
+            <input type="text" id="invoice_title" placeholder="发票抬头" />
+            <input type="text" id="email_addr" placeholder="邮寄地址"/>
+        </div>
+        {% else %}
+        <div class="invoice" style="display: block;">
+            <input type="text" value="{{ order_list.0.invoice_head }}" id="invoice_title" placeholder="发票抬头" />
+            <input type="text" value="{{ order_list.0.invoice_address }}" id="email_addr" placeholder="邮寄地址"/>
+        </div>
+        {% endifequal %}
+        <br/>
+        <button type="button" id="save">保存</button>
+    </form>
+    <div class="linkman">
+        <span class="link_name">姓名：<label>{{ order_list.0.order_user_name }}</label></span> <span class="link_phone">手机号：<label>{{order_list.0.order_tel }}</label></span><br/>
+        <span class="link_email">邮箱：<label>{{ order_list.0.order_email }}</label></span><br/>
+        <span class="link_company">单位：<label>{% if order_list.0.company %}{{ order_list.0.company }}{% else %}无{% endif %}</label></span><br/>
+        <span class="link_job">职位：<label>{% if order_list.0.job %}{{ order_list.0.job }}{% else %}无{% endif %}</label></span><br/>
+        <span class="link_mark">备注：<label>{% if order_list.0.order_text %}{{ order_list.0.order_text }}{% else %}无{% endif %}</label></span><br/>
+        {% if not order_list.0.invoice_head %}
+        <span class="Hide">发票信息：<label>不需要发票</label></span>
+        <span class="link_invoice_title">发票抬头：<label></label></span><br/>
+        <span class="link_email_addr">邮寄地址：<label></label></span><br/>
+        {% else %}
+        <span class="Hide" style="display: none">发票信息：<label></label></span>
+        <span class="link_invoice_title" style="display: block">发票抬头：<label>{{ order_list.0.invoice_head }}</label></span>
+        <span class="link_email_addr" style="display: block">邮寄地址：<label>{{ order_list.0.invoice_address }}</label></span><br/>
+        {% endif %}
+    </div>
+    <div class="content_bottom">
+      <div class="pay_way">
+        <p>支付方式</p>
+          <input type="hidden" id="payway" value="支付宝"/>
+        <ul class="ways">
+            <li title="支付宝" lang="alipay" class="way"><span class="active"><font class="myfont">&#xe60a;</font>支付宝</span></li>
+            <li title="微信支付" lang="weixin" class="way"><span><img src="http://pic.huodongjia.com/static/images/weixin1.png" alt=""/>微信支付</span></li>
+            <li title="网银支付" lang="wangyin" class="wangyin"><span>网银支付</span></li>
+            <li title="对公转账" lang="duigong" class="way"><span>对公转账</span></li>
+            <div class="card">
+                <ul>
+                    <li class="choose_card">选择银行卡：<span>(已选择：中国工商银行)</span></li>
+                    <li class="choosed"><img lang="ICBCB2C" src="http://pic.huodongjia.com/static/images/gongshang.jpg" alt="中国工商银行"/><img class="xuanzhong" src="http://pic.huodongjia.com/static/images/xuanzhong.png" alt=""/></li>
+                    <li ><img lang="CMB" src="http://pic.huodongjia.com/static/images/zhaoshang.jpg" alt="招商银行"/></li>
+                    <li ><img lang="BOCB2C" src="http://pic.huodongjia.com/static/images/zhongguo.jpg" alt="中国银行"/></li>
+                    <li ><img lang="CCB" src="http://pic.huodongjia.com/static/images/jiahang.jpg" alt="中国建设银行"/></li>
+                    <li ><img lang="ABC" src="http://pic.huodongjia.com/static/images/nongye.jpg" alt="中国农业银行"/></li>
+                    <li ><img lang="SPDB" src="http://pic.huodongjia.com/static/images/pufa.jpg" alt="浦发银行"/></li>
+                    <li ><img lang="CIB" src="http://pic.huodongjia.com/static/images/xingye.jpg" alt="兴业银行"/></li>
+                    <li ><img lang="GDB" src="http://pic.huodongjia.com/static/images/guangfa.jpg" alt="广东发展银行"/></li>
+                    <li ><img lang="FDB" src="http://pic.huodongjia.com/static/images/fuzhen.jpg" alt="富滇银行"/></li>
+                    <li ><img lang="HZCBB2C" src="http://pic.huodongjia.com/static/images/hangzhou.jpg" alt="杭州银行"/></li>
+                    <li ><img lang="SHBANK" src="http://pic.huodongjia.com/static/images/shanghai.jpg" alt="上海银行"/></li>
+                    <li ><img lang="NBBANK" src="http://pic.huodongjia.com/static/images/ningbo.jpg" alt="宁波银行"/></li>
+                    <li ><img lang="SPABANK" src="http://pic.huodongjia.com/static/images/pingan.jpg" alt="平安银行"/></li>
+                    <li ><img lang="POSTGC" src="http://pic.huodongjia.com/static/images/youzheng.jpg" alt="中国邮政储蓄银行"/></li>
+                </ul>
+            </div>
+        </ul>
+    </div>
+      <div class="order">
+          <p>确认订单信息</p>
+          <ul class="order_detail row">
+              <li class="col-sm-6 col-xs-6">会议名称</li>
+              <li class="col-sm-2 col-xs-2">单价</li>
+              <li class="col-sm-2 col-xs-2">数量</li>
+              <li class="col-sm-2 col-xs-2">小计</li>
+          </ul>
+          <ul class="order_detail order_details row">
+              <li class="col-sm-6 col-xs-6 event_name">
+                  <div style="width: 33%;"><img width="100%" src="{{event.0.event_img.0.server__name}}{{event.0.event_img.0.urls}}" alt=""/></div>
+                  <div><p>{{event.0.event_name}}</p><span>时间：{{event.0.event_begin_time|date:'Y-m-d'}} 至 {{event.0.event_end_time|date:'Y-m-d'}} <br/>地点：{{event.0.event_city_info.0.district_name}}</span></div>
+              </li>
+              <li class="col-sm-2 col-xs-2">{{event.0.event_price_unit.0.Currency__sign}}{{order_list.0.order_price}}</li>
+              <li class="col-sm-2 col-xs-2">{{order_list.0.order_amount}}张</li>
+              <li class="col-sm-2 col-xs-2">{{event.0.event_price_unit.0.Currency__sign}}{{ order_list.0.order_totalpay}}</li>
+          </ul>
+      </div>
+        <!--<p style="text-align: right;margin: 15px 0 0;color: #7B8493;">温馨提示：返现将在3-5个工作日内返回到你指定的账户。</p>-->
+    </div>
+    <div class="post_order">
+        <div class="col-sm-6 sol-xs-6" style='position:relative;'>
+            <div class='back'></div>
+            <form id="messageForm" method="post" action="/submitorder/">
+                {% csrf_token %}
+                联系人：<input  type="text" name="name" class="username" value="{{ order_list.0.order_user_name }}"/>联系电话：<input  type="text" name="phone" class="phonenumber" value="{{order_list.0.order_tel }}"/><br/>
+                邮箱：<input  type="text" name="email" class="email" value="{{ order_list.0.order_email }}"/><br/>
+                支付方式：<input  type="text" class="pay" value="{{ order_list.0.order_payment}}"/>
+                <input type="hidden" name="pay_way" id="ways" value="{{ order_list.0.order_payment}}">
+                <input type="hidden"  id="bank" name="bank"/>
+                <input type="hidden"  id="event_id" name="event_id" value="{{order_list.0.event_id}}"/>
+                <input type="hidden"  id="event_name" name="event_name" value="{{order_list.0.event_name}}"/>
+                <input type="hidden"  id="price" name="price" value="{{order_list.0.order_price}}"/>
+                <input type="hidden"  id="amount" name="amount" value="{{order_list.0.order_amount}}"/>
+                <input type="hidden"  id="order_num" name="order_num" value="{{order_list.0.order_number}}"/>
+                 <input type="hidden" class="company" name='company' value="{{ order_list.0.company }}">
+                <input type="hidden" class="job" name="job" value="{{ order_list.0.job }}">
+                <input type="hidden" class="mark" name="remark" value="{{ order_list.0.order_text }}">
+                <input type="hidden" class="invoice" name="invoice" value="{{ order_list.0.invoice }}">
+                <input type="hidden" class="invoice_title" name="invoice_title" value="{{ order_list.0.invoice_head }}">
+                <input type="hidden" class="invoice_addr" name="invoice_addr" value="{{ order_list.0.invoice_address }}">
+            </form>
+          </div>
+        <div class="col-sm-6 col-xs-6 text-right">共{{order_list.0.order_amount}}张，应付金额：<font>￥{{ order_list.0.order_totalpay}}</font><button id="post_order">提交订单</button></div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
+{% block js %}
+<script src="http://pic.huodongjia.com/static/js/jquery.placeholder.min.js "></script>
+<script src="http://pic.huodongjia.com/static/js/sweet-alert.min.js"></script>
+<script src="http://pic.huodongjia.com/static/js/eventSignup.js?t={{now}}.js"></script>
+<script>
+    $(".ways li span").click(function () {
+        $(".ways li span").removeClass("active")
+        $(this).addClass("active")
+        var val=$(this).parent().attr("title")
+        $("input.pay").attr("value",val)
+    });
+    $(".ways li").each(function (i) {
+        if("{{order_list.0.order_payment}}"==$(this).attr("lang")){
+            $(".ways li span").removeClass("active")
+            $(this).find("span").addClass("active")
+        }
+    })
+
+</script>
+{% endblock %}

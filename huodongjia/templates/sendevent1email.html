@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0" />-->
+    <!--<link rel="stylesheet" href="http://pic.huodongjia.com/static/css/bootstrap.min.css">-->
+</head>
+<style>
+    body{
+        background: #F5F5F5;
+        font-family: "Microsoft Yahei", "微软雅黑", Tahoma, Arial, Helvetica, SimHei;
+    }
+    @font-face {
+        font-family: "home_pagefont";
+        /*src: url("http://pic.huodongjia.com/static/fonts/all_iconfont.ttf");*/
+        font-family: "home_pagefont";
+        src: url('http://pic.huodongjia.com/static/fonts/all_iconfont.eot'); /* IE9*/
+        src: url('http://pic.huodongjia.com/static/fonts/all_iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+        url('http://pic.huodongjia.com/static/fonts/all_iconfont.ttf') format('truetype') /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    }
+    .m_iconfont{
+        font-family: "home_pagefont";
+    }
+    .content{
+        background: #FFF;
+        padding: 15px;
+        width: 960px;
+        margin: 0 auto 10px;
+    }
+    .event_detail h3{
+        color: #333333;
+        margin-top: 0;
+    }
+    .event_detail p{
+        color: #525A6D;
+        font-size: 14px;
+    }
+    .event_detail p span{
+        color: #C1C7D5;
+    }
+    .event_detail .tags{
+        margin: 20px 0 15px;
+    }
+    .event_detail .tags span{
+        color: #7B8197;
+        background: #F0F0F8;
+        padding: 2px 10px;
+        border-radius: 11px;
+        margin-right: 5px;
+    }
+     button{
+        width: 160px;
+        height: 40px;
+        background: #3490E7;
+        border: none;
+        outline: none;
+        border-radius: 4px;
+    }
+     button{
+        color: #fff;
+        font-size: 18px;
+        text-decoration: none;
+    }
+    .title{
+        border: 1px solid #3490E7;
+        width: 100%;
+        padding: 0;
+        margin:20px 0 20px;
+        border-radius: 5px;
+        float: left;
+    }
+    .title li{
+        width: 24%;
+        height: 45px;
+        line-height: 45px;
+        text-align: center;
+        font-size: 16px;
+        list-style: none;
+        float: left;
+        border-right: 1px solid #3490E7;
+    }
+    .title li:last-child{
+        border: none;
+    }
+    .title li a{
+        color: #3490E7 !important;
+    }
+    a{
+        text-decoration: none;
+    }
+    .meeting_content{
+        padding-top: 10px;
+        width: 100%;
+        position: relative;
+    }
+    .meeting_name{
+        margin: 0;
+        border-bottom: 1px solid #E0E3EC;
+        font-weight: normal;
+        height: 30px;
+    }
+    .meeting_name span{
+        color: #1375D8;
+        border-bottom: 3px solid #1375D8;
+        padding-bottom: 5px;
+    }
+    .meetingBs{
+        color: #525A6F;
+        font-size: 16px;
+        line-height: 25px;
+        padding-top: 20px;
+        /*max-height: 530px;*/
+        /*overflow: hidden;*/
+    }
+    .meetingBs p{
+        width: 100%;
+    }
+    .meetingBs img{
+        display: block;
+        margin:0 auto;
+    }
+    .gues_pic{
+        width: 50%;
+        border-radius: 50%;
+        margin: 0 auto;
+        overflow: hidden;
+        height: 111px;
+    }
+    .gues_pic img{
+        width: 100%;
+    }
+    .gues_mes{
+        width: 24%;
+        display: inline-block;
+        text-align: center;
+    }
+    .gues_mes>p{
+        width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        margin: 0;
+    }
+    .ticket{
+        width: 100%;
+        table-layout: fixed;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+    .ticket tr{
+        width: 100%;
+    }
+    .ticket td{
+        padding: 5px 10px;
+        border: 1px solid #BDC3D3;
+        line-height: normal;
+    }
+    .text-center{
+        text-align: center;
+        margin: 0;
+        line-height: 30px;
+        color: #999999;
+        font-size: 14px;
+    }
+    .img,.event_detail{
+        width: 48%;
+        float: left;
+        position: relative;
+    }
+    .img{
+        padding-right: 15px;
+    }
+    .event_detail{
+        padding-left: 15px;
+    }
+</style>
+<body>
+    <div class="content">
+        <div class="img">
+            <img width="100%" src="{{event.event_img.0.server__name}}{{event.event_img.0.urls}}">
+        </div>
+        <div class="event_detail">
+            <h3><a href="http://www.huodongjia.com/event-{{ event.event_id }}.html">{{event.event_name}}</a></h3>
+            <p><span>时间：</span>{{event.event_begin_time|date:'Y-m-d'}} 8:00至 {{event.event_end_time|date:'Y-m-d'}} 18:00结束<span class="dead">({{ event.event_price_unit.0.end_time|date:'Y-m-d' }}报名截止)</span></p>
+            <p><span>地点：{{ event.event_city_info.0.district_name}} </span>{{event.event_venue_info.0.title}}  {{event.event_venue_info.0.address}}<span><span style="color: #E54C4F;" class="m_iconfont">&#xe609;</span><a onclick="Map('{{event.event_city_info.0.district_name}}{{event.event_venue_info.0.address}}')">查看地图</a></span></p>
+            <p><span>会议规模：</span>{% if event.event_scale %}{{ event.event_scale }}人{% endif %}人</p>
+            <a href="http://www.huodongjia.com/event-{{ event.event_id }}.html"><button>立即报名</button></a>
+        </div>
+        <ul class="title">
+            <li><a href="http://www.huodongjia.com/event-{{ event.event_id }}.html">会议通知</a></li>
+            <li><a href="http://www.huodongjia.com/event-{{ event.event_id }}.html">会议日程</a></li>
+            <li><a href="http://www.huodongjia.com/event-{{ event.event_id }}.html">会议嘉宾</a></li>
+            <li><a href="http://www.huodongjia.com/event-{{ event.event_id }}.html">会议门票</a></li>
+        </ul>
+        <br style="clear: both"/>
+            {% for par in event.event_paragraph_info %}
+            <div class="meeting_content">
+                    <h3 class="meeting_name"><span>{{par.name}}</span></h3>
+                    {% if par.name == '会议嘉宾'%}
+                    {% if event.event_guest %}
+                        <div class="meetingBs">
+                            {% for guest in event.event_guest %}
+                            <div class="gues_mes">
+                                <div class="gues_pic"><img alt="{{ guest.job__name }}{{ guest.name }}" src={{ guest.img__server__name}}{{ guest.img__urls }} /></div>
+                                <p>{{ guest.name }}</p>
+                                <p class="gues_company">{{ guest.company__name }}</p>
+                                <p class="gues_job">{{ guest.job__name }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="meetingBs">{{par.txt|safe}}</div>
+
+                    {% endif %}
+                    {% else %}
+                        <div class="meetingBs">{{par.txt|safe}}</div>
+                    {% endif %}
+                     <!--<p class="text-center"><a href="http://www.huodongjia.com/event-{{ event.event_id }}.html" style="color: #999999;font-size: 14px">查看更多</a></p>-->
+                </div>
+            {% endfor %}
+    </div>
+    <div class="content container" style="text-align: center"><img class="" src="http://pic.huodongjia.com/static/images/APP.png" alt=""/></div>
+</body>
+</html>

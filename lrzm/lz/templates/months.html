@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block style %}
+<style>
+    .select {
+        left: 2%;
+        top: 28px;
+    }
+    .right_bottom{
+        float: left;
+        margin-right: 2%;
+    }
+    .abs{
+        position: absolute;
+        z-index: 999;
+        right: 5px;
+        top: 46%;
+    }
+    @media (max-width:1420px) {
+        .right_bottom{
+            width: 49% !important;
+            margin-right: 1%;
+        }
+    }
+    @media (max-width:768px) {
+        .select {
+            top: 68px;
+        }
+    }
+</style>
+{% endblock %}
+{% block right %}
+<div class='col-sm-10 col-xs-12 right' style=''>
+    <h2 align='center'>核心月度数据</h2>
+    <div class="select"><input value="2015-10-01" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="start_time">至
+        <input value="2016-04-01" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="end_time"><button>确定</button></div>
+    <div class="right_bottom" style="width:48%;height: 450px;">
+        <div id='right_curveoforder_1' style="width: 100%;height: 100%"></div>
+    </div>
+    <div class="right_bottom" style="width:48%;height: 450px;">
+        <div id='right_curveoforder_2' style="width: 100%;height: 100%"></div>
+    </div>
+    <div class="right_bottom" style="width:48%;height: 450px;">
+        <div id='right_curveoforder_3' style="width: 100%;height: 100%"></div>
+    </div>
+    <div class="right_bottom" style="width:48%;height: 450px;">
+        <div id='right_curveoforder_4' style="width: 100%;height: 100%"></div>
+    </div>
+    <div class="right_bottom" style="width:48%;height: 450px;">
+        <div id='right_curveoforder_5' style="width: 100%;height: 100%"></div>
+    </div>
+    <div class="right_bottom" style="width:48%;height: 450px;">
+        <div id='right_curveoforder_6' style="width: 100%;height: 100%"></div>
+    </div>
+    <div class="right_bottom" style="width:48%;height: 450px;">
+        <div id='right_curveoforder_7' style="width: 100%;height: 100%"></div>
+    </div>
+    <div class="right_bottom" style="width:48%;height: 450px;">
+        <div id='right_curveoforder_8' style="width: 100%;height: 100%"></div>
+    </div>
+    <div class="right_bottom" style="width:48%;height: 450px;">
+        <div class="abs">
+            <span class="avg"></span><br>
+            <span class="buy_rate"></span>
+        </div>
+        <div id='right_curveoforder_9' style="width: 100%;height: 100%"></div>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+<script type="text/javascript" src="../static/js/monthlyData.js"></script>
+{% endblock %}

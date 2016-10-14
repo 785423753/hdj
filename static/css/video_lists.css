@@ -1,0 +1,296 @@
+.mainWrapper{
+    font-family: "microsoft yahei";
+}
+.banner {
+    width: 100%;
+}
+.banner img{
+    width: 100%;
+    height: 400px;
+}
+.container{
+    min-width:992px;
+    font-family: "microsoft yahei";
+}
+body{
+    background-color:#fafafa;
+}
+.header{
+    position: relative;
+    height: auto;
+    padding: 0;
+}
+.ul_left {
+    margin-top: 1em;
+    cursor: pointer;
+    padding:0;
+}
+.ul_left li{
+    display: inline-block;
+    color:#b0b0b0 !important;
+}
+.ul_left li a{
+    display: inline-block;
+    color:#b0b0b0 !important;
+}
+.ul_left li  h1{
+    font-size: 14px;
+    line-height: 1.4px;
+    color:#333 !important;
+}
+.content{
+    margin-top: 2em;
+    height: auto;
+    padding-bottom: 35px;
+    padding:0;
+}
+.content .video_list{
+    height:750px;
+    padding: 0;
+}
+.content .video_list .video_info{
+    background-color:#fff;
+    border-radius:10px;
+    border:1px solid #dedede;
+    height:640px;
+    padding: 0;
+}
+.content .video_list .more a {
+    background-color: #16c8c2;
+    display: block;
+    font-size: 16px;
+    height: 40px;
+    line-height: 40px;
+    width: 120px;
+    color: #fff;
+    border-radius: 20px;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.content .video_list .more a:hover,.content .video_list .more a:focus {
+    -webkit-box-shadow: 0 0 0 2px #fff, 0 0 0 4px #16c8c2;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #6ceed9;
+    -webkit-transition-timing-function: cubic-bezier(0.6, 4, 0.3, 0.8);
+    transition-timing-function: cubic-bezier(0.6, 4, 0.3, 0.8);
+    -webkit-animation: gelatine 0.5s 1;
+    animation: gelatine 0.5s 1;
+    text-decoration: none;
+    color:#fff;
+}
+/**
+ * $keyframes \ gelatine
+ **/
+@keyframes gelatine {
+    from, to {
+        -webkit-transform: scale(1, 1);
+        transform: scale(1, 1);
+    }
+
+    25% {
+        -webkit-transform: scale(0.9, 1.1);
+        transform: scale(0.9, 1.1);
+    }
+
+    50% {
+        -webkit-transform: scale(1.1, 0.9);
+        transform: scale(1.1, 0.9);
+    }
+
+    75% {
+        -webkit-transform: scale(0.95, 1.05);
+        transform: scale(0.95, 1.05);
+    }
+
+    from, to {
+        -webkit-transform: scale(1, 1);
+        transform: scale(1, 1);
+    }
+
+    25% {
+        -webkit-transform: scale(0.9, 1.1);
+        transform: scale(0.9, 1.1);
+    }
+
+    50% {
+        -webkit-transform: scale(1.1, 0.9);
+        transform: scale(1.1, 0.9);
+    }
+
+    75% {
+        -webkit-transform: scale(0.95, 1.05);
+        transform: scale(0.95, 1.05);
+    }
+}
+@-webkit-keyframes gelatine {
+    from, to {
+        -webkit-transform: scale(1, 1);
+        transform: scale(1, 1);
+    }
+
+    25% {
+        -webkit-transform: scale(0.9, 1.1);
+        transform: scale(0.9, 1.1);
+    }
+
+    50% {
+        -webkit-transform: scale(1.1, 0.9);
+        transform: scale(1.1, 0.9);
+    }
+
+    75% {
+        -webkit-transform: scale(0.95, 1.05);
+        transform: scale(0.95, 1.05);
+    }
+
+    from, to {
+        -webkit-transform: scale(1, 1);
+        transform: scale(1, 1);
+    }
+
+    25% {
+        -webkit-transform: scale(0.9, 1.1);
+        transform: scale(0.9, 1.1);
+    }
+
+    50% {
+        -webkit-transform: scale(1.1, 0.9);
+        transform: scale(1.1, 0.9);
+    }
+
+    75% {
+        -webkit-transform: scale(0.95, 1.05);
+        transform: scale(0.95, 1.05);
+    }
+}
+.content .video_list .title {
+    height: 55px;
+     overflow: hidden;
+}
+.content .video_list .title a{
+    border-radius: 10px;
+    background-color: #16c8c2;
+    color: #fff;
+    display: block;
+    width: 90%;
+    margin-left: 5%;
+    height: 55px;
+    text-align: center;
+    line-height: 58px;
+    font-size: 18px;
+    margin-top: -6px;
+    cursor: pointer;
+    box-shadow: 1px 3px 6px 1px #ddd;
+}
+.content .video_list .title a:hover{
+    text-decoration: none;
+}
+.content .video_list .video{
+    margin-top: 1em;
+}
+.content .video_list .meeting{
+    height: 55px;
+    padding: 0;
+}
+.content .video_list .meeting ul li{
+    list-style: none;
+    display: inline-block;
+    line-height: 80px;
+    margin-left: 15px;
+    color: #c6c6c6;
+}
+.content .video_list .meeting ul li a{
+    color: #c6c6c6;
+}
+.content .video_list  .video_show {
+    margin-top: 32px;
+    position: relative;
+}
+.content .video_list  .video_show embed{
+    cursor: pointer;
+    height:180px;
+    width: 90%;
+    margin-left: 5%;
+}
+.content .video_list  .video_show img{
+    margin-left: 5%;
+    cursor:pointer;
+    border-radius: 3px;
+    width:90%;
+    height:180px;
+}
+.content .video_list  .video_show:hover{
+    opacity:0.75;
+    -webkit-transition: all .4s ease-out;
+    -moz-transition: all .4s ease-out;
+    -ms-transition: all .4s ease-out;
+    -o-transition: all .4s ease-out;
+    transition: all .4s ease-out;
+}
+.content .video_list  .video_show .video_name{
+    font-size: 15px;
+    margin-left: 5%;
+    color: #333;
+    vertical-align: middle;
+    line-height: 45px;
+}
+.play{
+    width: 80px !important;
+    height: 80px !important;
+    position: absolute;
+    left: 35%;
+    top: 24%;
+}
+.new_live img{
+    margin-left: 11% !important;
+    width: 195px !important;
+    height:250px !important;
+    box-shadow: 2px 2px 2px 2px #ddd;
+}
+.new_live img:hover{
+    border:1px solid #428bca;
+}
+.new_live p{
+    text-align: center;
+    margin-top: 1em;
+}
+.new_live a:hover{
+    text-decoration: none;
+}
+.new_live span{
+    float: right;
+    display: block;
+    width: 75px;
+    height: 23px;
+    background: #fff;
+    border: 1px solid;
+    text-align: center;
+    margin-right: 30px;
+}
+.new_live .video_show{
+    margin-top: 40px;
+}
+.banner_left,.banner_right{
+    position: absolute;
+    top: 56px;
+    height: 400px;
+    opacity: .9;
+    background: #fff;
+    z-index:9;
+}
+.banner_left{
+    left:0;
+}
+.banner_right{
+    right:0;
+}
+.swiper-button-prev, .swiper-button-next{
+    width: 32px !important;
+    height: 55px !important;
+    background-color: #eee !important;
+    opacity: 0.5 !important;
+    background-size: 30px 40px !important;
+}

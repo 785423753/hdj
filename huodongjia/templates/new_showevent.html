@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/base.css?t={{now}}.css"/>
+    <link href="http://pic.huodongjia.com/static/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <script src="http://pic.huodongjia.com/static/js/jquery-1.8.3.min.js"></script>
+    <script src="http://pic.huodongjia.com/static/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../static/css/new_showevent.css">
+</head>
+<body>
+<div class="main">
+    <!--banner-->
+    <div class="banner"><img width="100%" src="../static/images/banner.png" alt=""></div>
+    <!--nav-->
+    <div class="event_nav">
+        <div class="container">
+            <ul>
+                <li class="e_title" data-plne="meeting_1">会议介绍</li>
+                <li class="e_title" data-plne="meeting_2">会议日程</li>
+                <li class="e_title" data-plne="meeting_3">会议嘉宾</li>
+                <li class="e_title" data-plne="meeting_4">会议门票</li>
+                <li class="e_title" data-plne="meeting_5">往期回顾</li>
+                <li class="e_title blue_color" data-plne="meeting_0">参会报名</li>
+                <li class="share">
+                    <div class="collect"><i class="fa fa-star-o"></i>收藏</div>
+                    <div class="bdsharebuttonbox">
+                        <span style="line-height: 2.6;">分享:</span>
+                        <a href="#" class="bds_weixin fa fa-weixin" data-cmd="weixin" title="分享到微信"></a>
+                        <a href="#" class="bds_sqq fa fa-qq" data-cmd="sqq" title="分享到QQ好友"></a>
+                        <a href="#" class="bds_tsina fa fa-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+                        <a href="#" class="bds_tieba youhua" data-cmd="tieba" title="分享到百度贴吧">&#xe605;</a>
+                        <a href="#" class="bds_douban youhua" data-cmd="douban" title="分享到豆瓣网">&#xe606;</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--main message -->
+    <div class="main_message">
+        <div class="container">
+            <div class="e_message">
+                <p class="bread_nav"><a href="/">首页</a>&gt;<a href="/">商务会议</a>&gt;<a>IT互联网</a>&gt;<a>CCAI2016中国人工智能大会</a></p>
+                <div class="media">
+                    <div class="media-left"><a href="#"><img width="139" class="media-object" src="http://pic.huodongjia.com/event/2016-06-14/1465874116.76.jpg" alt=""></a></div>
+                    <div class="media-body">
+                        <h4 class="media-heading">CCAI2016中国人工智能大会</h4>
+                        <span>时间：2016-08-03 8:00至2016-08-06 18:00结束</span><br>
+                        <span>地点：北京&nbsp;<a class="blue_color" href="">北京国际饭店会议中心</a>&nbsp;建国门内大街9号</span>
+                    </div>
+                </div>
+            </div>
+            <div class="around">
+                <p>发布时间：2016-03-09 12:12:03</p>
+                <p>
+                    <a class="official" href=""><span>&#xe603;</span>官方授权</a>  <a href="" class="sponsor"><span>&#xe601;</span>我要赞助</a><br>
+                    <a class="down_invit" href=""><span>&#xe602;</span>邀请函下载</a>   <a class="down_app" href=""><span>&#xe604;</span>APP下载
+                    <img src="http://pic.huodongjia.com/static/images/APP_erweima.png" alt=""></a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <!--detail message-->
+    <div class="detail_message container">
+        <div class="left">
+            <p  id="meeting_0" class="event_part">会议报名</p>
+            <!--标准-->
+            <div class="Registration">
+                <table>
+                    <tr class="t_head">
+                        <td>门票名称</td><td>单价（￥）</td><td>截止时间</td><td>数量</td>
+                    </tr>
+                    <tr class="t_body choose" data-limit="5">
+                        <td><span class="property">大会优惠票（购买5张以上赠送1张）</span><a>费用说明</a></td><td class="price">1500</td><td>2016-08-08 18:00</td>
+                        <td class="change"><span class="sub forbid">&#xe609;</span><span class="count"><input disabled="disabled" class="number" type="text" value="5"></span><span class="add">&#xe608;</span></td>
+                    </tr>
+                    <tr class="t_body" data-limit="2">
+                        <td><span class="property">大会优惠票（购买5张以上赠送1张）</span><a>费用说明</a></td><td class="price">1500</td><td>2016-08-08 18:00</td>
+                        <td class="change"><span class="sub forbid">&#xe609;</span><span class="count"><input disabled="disabled" class="number" type="text" value="2"></span><span class="add">&#xe608;</span></td>
+                    </tr>
+                    <tr class="t_body" data-limit="3">
+                        <td><span class="property">大会优惠票（购买5张以上赠送1张）</span><a>费用说明</a></td><td class="price">1500</td><td>2016-08-08 18:00</td>
+                        <td class="change" ><span class="sub forbid">&#xe609;</span><span class="count"><input disabled="disabled" class="number" type="text" value="3"></span><span class="add">&#xe608;</span></td>
+                    </tr>
+                    <tr class="t_footer">
+                        <!--标准-->
+                        <td colspan="4">总额：<span>￥1500.0</span> <button id="apply" class="apply">我要报名</button></td>
+                        <!--截止-->
+                        <!--<td colspan="4" class="event_dead">该会议售票已经结束，您可以查看其它相关会议。<button disabled="disabled" class="apply">我要报名</button></td>-->
+                    </tr>
+                </table>
+                <form action="/signup/1635019586/" method="post" name="signup_form">
+                    <!--{% csrf_token %}-->
+                    <input type="hidden" value="" name="price" id="price">
+                    <input type="hidden" value="" name="property" id="property">
+                    <input type="hidden" value="" name="Currency__sign" id="Currency__sign">
+                    <input type="hidden" value="" name="amount" id="amount">
+                </form>
+            </div>
+            <!--标准-->
+            <!--免费-->
+            <!--<div class="Registration free">-->
+                <!--<p>该会议为免费会议，参会请点击 "免费报名" 提交信息，主办方审核通过后会在会前发送参会通知，请大家耐心等待。</p>-->
+                <!--<button id="free_apply" class="apply">免费报名</button>-->
+                <!--<form action="" id="freeForm">-->
+                    <!--<input type="hidden" name="csrfmiddlewaretoken" value="4mb5L0hNjuatN0c6ln5mqJnxed5XZut8">-->
+                    <!--<a class="close">&#xe60a;</a>-->
+                    <!--<p>参会人信息</p>-->
+                    <!--<img src="http://pic.huodongjia.com/static/images/free.png" alt=""><br>-->
+                    <!--<input type="hidden" name="event_id" value="720956815">-->
+                    <!--<label for="name"><span>*</span>姓名</label><input name="name" id="name" type="text" value=""><br>-->
+                    <!--<label for="phone"><span>*</span>手机号</label><input name="phone" id="phone" type="text" value=""><br>-->
+                    <!--<label for="email"><span>*</span>邮箱</label><input name="email" id="email" type="text" value=""><br>-->
+                    <!--<label for="company"><span>*</span>单位</label><input name="company" id="company" type="text" value=""><br>-->
+                    <!--<label for="job"><span>*</span>职位</label><input name="job" id="job" type="text" value=""><br>-->
+                    <!--<label for="checkcode">验证码</label><input name="checkcode" id="checkcode" data-captchaflag="false" type="text" value="">-->
+                    <!--<img id="codeImg" width="40%" style="float: right;margin: 0" onclick="this.setAttribute('src','/get_check_code_image/?position=freesubmit&amp;nocache='+Math.random());" src="/get_check_code_image/?position=freesubmit">-->
+                    <!--<button type="button" id="post">提交</button>-->
+                <!--</form>-->
+            <!--</div>-->
+            <!--免费-->
+            <!--待定-->
+            <!--<div class="Registration free">-->
+                <!--<p>该会议暂无费用信息，您可以点击 "我要咨询" 会议有更新我们将通知您。</p>-->
+                <!--<button id="confirm" class="apply">我要咨询</button>-->
+                <!--<form action="" id="freeForm" style="height: 510px">-->
+                    <!--<input type="hidden" name="csrfmiddlewaretoken" value="4mb5L0hNjuatN0c6ln5mqJnxed5XZut8">-->
+                    <!--<a class="close">&#xe60a;</a>-->
+                    <!--<input type="hidden" name="event_id" value="3861522">-->
+                    <!--<input type="hidden" name="event_name" value="第二届信息获取与知识服务国际学术会议会议">-->
+                    <!--<p style="margin-bottom: 20px">联系人信息</p>-->
+                    <!--<label for="name"><span>*</span>姓名</label><input name="name" id="name" type="text" value=""><br>-->
+                    <!--<label for="phone"><span>*</span>手机号</label><input name="phone" id="phone" type="text" value=""><br>-->
+                    <!--<label for="email"><span>*</span>邮箱</label><input name="email" id="email" type="text" value=""><br>-->
+                    <!--<label for="company">单位</label><input name="company" id="company" type="text" value=""><br>-->
+                    <!--<label for="job">职位</label><input name="job" id="job" type="text" value=""><br>-->
+                    <!--<label for="checkcode">验证码</label><input name="checkcode" id="checkcode" data-captchaflag="false" type="text" value="">-->
+                    <!--<img id="codeImg" width="40%" style="float: right;margin: 0" onclick="this.setAttribute('src','/get_check_code_image/?position=submit&amp;nocache='+Math.random());" src="/get_check_code_image/?position=submit">-->
+                    <!--<label></label><button type="button" id="post" style="width: 83%">提交</button>-->
+                <!--</form>-->
+            <!--</div>-->
+            <!--待定-->
+
+            <div class="event_content">
+                <div class="meetingBgs event_part" id="meeting_1">
+                    <h3>会议介绍</h3>
+                    <p>第2届深圳国际互联网与电子商务博览会将与第11届中国（深圳）国际物流与交通运输博览会同期举办，并在期间举办第2届全球价值链创新发展峰会、第3届跨境电商物流与供应链服务发展论坛、第2届电子商务千人论坛等多场精彩活动，通过以展带展、以会带展的多种形式，搭建行业沟通交流、产业链对接、商机探寻、学术互动交流的高端平台，通过研究全球价值链，理解产业间联系与产业在国内增加值的潜力！</p>
+                </div>
+                <div class="meetingBgs event_part" id="meeting_2">
+                    <h3>会议日程</h3>
+                    <p>第2届深圳国际互联网与电子商务博览会将与第11届中国（深圳）国际物流与交通运输博览会同期举办，并在期间举办第2届全球价值链创新发展峰会、第3届跨境电商物流与供应链服务发展论坛、第2届电子商务千人论坛等多场精彩活动，通过以展带展、以会带展的多种形式，搭建行业沟通交流、产业链对接、商机探寻、学术互动交流的高端平台，通过研究全球价值链，理解产业间联系与产业在国内增加值的潜力！</p>
+                </div>
+                <div class="meetingBgs event_part" id="meeting_3">
+                    <h3>会议嘉宾</h3>
+                    <div class="guest">
+                        <div class="guest_photo"><img width="100%" src="http://pic.huodongjia.com/event/2016-07-09/1468054902.67.png" alt=""></div>
+                        <p class="gues_name">姓名</p>
+                        <p>职位</p>
+                        <p>公司</p>
+                    </div>
+                    <div class="guest">
+                        <div class="guest_photo"><img width="100%" src="http://pic.huodongjia.com/event/2016-07-09/1468054902.67.png" alt=""></div>
+                        <p class="gues_name">姓名</p>
+                        <p>职位</p>
+                        <p>公司</p>
+                    </div>
+                    <div class="guest">
+                        <div class="guest_photo"><img width="100%" src="http://pic.huodongjia.com/event/2016-07-09/1468054902.67.png" alt=""></div>
+                        <p class="gues_name">姓名</p>
+                        <p>职位</p>
+                        <p>公司</p>
+                    </div>
+                </div>
+                <div class="meetingBgs event_part" id="meeting_4">
+                    <h3>会议门票</h3>
+                    <p>第2届深圳国际互联网与电子商务博览会将与第11届中国（深圳）国际物流与交通运输博览会同期举办，并在期间举办第2届全球价值链创新发展峰会、第3届跨境电商物流与供应链服务发展论坛、第2届电子商务千人论坛等多场精彩活动，通过以展带展、以会带展的多种形式，搭建行业沟通交流、产业链对接、商机探寻、学术互动交流的高端平台，通过研究全球价值链，理解产业间联系与产业在国内增加值的潜力！</p>
+                </div>
+                <div class="meetingBgs event_part" id="meeting_5">
+                    <h3>往期回顾</h3>
+                    <div class="review">
+                        <div class="prev"></div><div class="next"></div>
+                        <a title="1"><img width="100%" src="http://pic.huodongjia.com/reviewdocs/2016-01-29/1454057930.38.jpg" alt=""></a>
+                        <a title="2"><img width="100%" src="http://pic.huodongjia.com/reviewdocs/2016-01-29/1454057954.18.jpg" alt=""></a>
+                        <a title="3"><img width="100%" src="http://pic.huodongjia.com/reviewdocs/2016-01-29/1454057930.38.jpg" alt=""></a>
+                    </div>
+                    <p class="tags">标签：<a href="">智能硬件</a></p>
+                </div>
+            </div>
+
+            <!--留言-->
+            <div class="user_message">
+                <h3>用户留言
+                    <!--快速登录：<a class="wx" href="">微信</a><a class="weibo" href="">微博</a><a class="QQ" href="">QQ</a></span>-->
+                    <span style="float: right;color: #DEDEDE;">还可以输入<font id="info" style="font-size: 16px">120</font>个字</span>
+                </h3>
+                <form class="publish" style="width: 100%;">
+                    {% csrf_token %}
+                    <div id="result" style="display: none;"></div>
+                    <textarea class="emotion" rows="5" placeholder="说点什么..." ></textarea><br />
+                    <input type='hidden' id='event_id' value='{{event.event_id}}'/>
+                    <input class="analytic" type="button" value="留言" />
+                    <img  width="100" onclick="this.setAttribute('src','/get_check_code_image/?nocache='+Math.random());" src="/get_check_code_image/" alt="CheckCode" id="cap_img">
+                    <input  type="text" id="code" data-captchaflag="false"/>
+                </form>
+                <p class="all_message">全部留言（{{comments|length}}）</p>
+                <!--<div id="all_messages">-->
+                    <!--{% for msg in comments %}-->
+                    <!--<div class="message">-->
+                        <!--<div class="message1 col-sm-12 col-xs-12">-->
+                            <!--<div style="padding:0;" class="col-sm-1 col-xs-1">-->
+                                <!--{% if msg.user__avatar %}-->
+                                <!--<img width="50" class="img-rounded" src="{{msg.user__avatar}}" alt=""/>-->
+                                <!--{% else %}-->
+                                <!--<img width="50" class="img-rounded" src="/static/images/1.png" alt=""/>-->
+                                <!--{% endif %}-->
+                            <!--</div>-->
+                            <!--<div  class="col-sm-11 col-xs-11 words">-->
+                                <!--<p><span>{% if msg.user__name %}{{msg.user__name}}{% else %}匿名用户{% endif %}</span>{{msg.message_time}}</p>-->
+                                <!--<p style="width: 80%;">{{msg.message}}</p>-->
+                                <!--<p>-->
+                                    <!--{% if msg.reply_content %}-->
+                                    <!--<b>活动家回复</b>： {{msg.reply_content}}-->
+                                    <!--{% endif %}-->
+                                <!--</p>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--{% endfor %}-->
+
+                <!--</div>-->
+
+            </div>
+            <!--相关会议-->
+            <div class="related_event">
+                <p>你可能会关注</p>
+                {% for relate_event in relate_events %}
+                <div class="col-sm-3 col-xs-3">
+                    <a href="{{ relate_event.event_url }}" target="_blank">
+                        {% if relate_event.event_img.0.urls %}
+                        <img width="100%" src="{{ relate_event.event_img.0.server__name }}{{ relate_event.event_img.0.urls }}" alt="{{ relate_event.event_name }}"/>
+                        {% else %}
+                        <img width="100%" src="http://pic.huodongjia.com/static/images/event_default.jpg" alt="{{ relate_event.event_name }}"/>
+                        {% endif %}
+                    </a>
+                    <p><a style="color: #5A6070;" href="{{ relate_event.event_url }}" target="_blank">{{ relate_event.event_name }}</a></p>
+                    <p><span><a href="/{{ relate_event.event_city_info.0.title }}/" target="_blank">{{ relate_event.event_city_info.0.district_name }}</a></span><span style="float: right">{{ relate_event.event_begin_time|date:'Y-m-d' }}</span></p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="right">
+            <div class="right_child">
+                <div class="event_share weixin_share">
+                    <!--<p><span>扫码购票&nbsp;&nbsp;方便快捷</span></p>-->
+                    <div class="col-sm-6 col-xs-6" style="padding: 0;">
+                        <img src="http://pic.huodongjia.com/static/images/1min.png" alt=""/>
+                        <p style="line-height: 22px;font-size: 14px;margin: 10px 0 0">扫一扫立即购票 <br/>安全·方便·快捷</p>
+                    </div>
+                    <div class="qrcode col-sm-6 col-xs-6" style="height: 102px"></div>
+                </div>
+                <div class="event_share" style="padding:0 15px 15px;">
+                    <span class="email_tip">
+                        <img src="../static/images/mail.png" alt="">&nbsp;邮件提醒通知
+                    </span>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="exampleInputAmount" placeholder="输入邮箱地址">
+                        <div class="input-group-addon send_email">确定</div>
+                    </div>
+                    <div class="input-group yzm">
+                        <input type="text" id="emai_code" class="form-control" data-captchaflag="false" />
+                        <img  width="40%" onclick="this.setAttribute('src','/get_check_code_image/?position=email&nocache='+Math.random());" src="http://www.huodongjia.com/get_check_code_image/?position=email" alt="CheckCode" id="capImg">
+                    </div>
+                    </div>
+                </div>
+                {% if event.event_doc %}
+                <div class="event_share e_hide">
+                    <p>往届干货分享</p>
+                    <ul>
+                        {% for doc in event.event_doc|slice:':5' %}
+                        <li>
+                            <p style="font-size: 14px"><a style="color: #505B71;" href="{{ doc.doc_path }}"><span class="fa fa-file-pdf-o"></span>{{ doc.name }}</a></p>
+                            <p class="text-right"><a href="{{ doc.doc_path }}">下载</a></p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% if event.news %}
+                <div class="event_share e_hide">
+                    <p>往届会议报告</p>
+                    <ul class="report">
+                        {% for news in event.news|slice:':5' %}
+                        <li>
+                            <div>
+                                <p class="report_name"><a href="{{ news.url }}" target='_blank'>{{ news.title }}</a></p>
+                                <p ><span style="padding-right: 15px;color:#BDC2D5;">2015-10-29</span></p>
+                            </div>
+                            <div style="width: 40%"><img width="100%" height="80" src="http://pic.huodongjia.com/event/2015-12-05/event1449297767.25.jpg" alt=""/></div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% if event.event_sponsor %}
+                <div class="event_share text-center" style="padding:15px;">
+                    <p style="border: none;line-height: 24px">主办单位</p>
+                    {% for sponsor in event.event_sponsor %}
+                    {% if forloop.first %}
+                    <div class="logo"><a target="_blank"  href="/sponsor-{{ sponsor.id }}.html">
+                        {% if sponsor.ns_pic_urls %}
+                        <img height="40" src="{{ sponsor.img__server__name }}{{ sponsor.ns_pic_urls }}" alt="{{ sponsor.ns_name }}"/></a>
+                        {% else %}
+                        <img height="40" src="http://pic.huodongjia.com/static/images/zbfmor.jpg" alt="{{ sponsor.ns_name }}"/></a>
+                        {% endif %}
+                    </div>
+                    <p class="sponsor_des">{{ sponsor.ns_name }}</p>
+                    <span class="attention" style="border-right: 1px solid #BDC3D3"><font>{{ sponsor.ns_count }}</font><br/>活动数</span>
+                    <span class="attention"><font>{% if sponsor.ns_like_count %}{{ sponsor.ns_like_count }}{% else %}0{% endif %}</font><br/>关注数</span>
+                    {% else %}
+                    <div class="logo" style="border: none;width: 80%">{{ sponsor.ns_name }}</div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% if event.event_sponsor.0.ns_hold_events %}
+                <div class="event_share e_hide">
+                    <p class="text-left">TA还主办了 <a style="float: right" target="_blank" href="/sponsor-{{ event.event_sponsor.0.id }}.html">更多</a></p>
+                    <ul class="else_event">
+                        {% for ev in event.event_sponsor.0.ns_hold_events|slice:':3' %}
+                        <li>
+                            <p><a href="/event-{{ ev.old_event_id }}.html">{{ ev.name }}</a></p>
+                            <p><span><a href="/{{ ev.city__title }}/" style="color:#7C8393 !important;font-size: 15px">{{ ev.city__district_name }}</a></span><span style="float: right;color: #7C8393">{{ ev.begin_time|date:'Y-m-d' }}</span></p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<!--登录-->
+{% if request.session.usercenter_user %}
+{% else %}
+<div id="login">
+    <div class="loginContent">
+        <span class="close">&#xe60a;</span>
+        <h3>请先登录</h3>
+        <p>免注册，使用合作网站登录</p>
+        <div class="loginBtn">
+            <a rel="nofollow" class="qq" href="/usercenter/login/account?type=qq&prev_url={{request.path}}"><i class="fa fa-qq"></i>QQ登录</a>
+            <a rel="nofollow" class="weixin" href="/usercenter/wechat/account?type=wechat&prev_url={{request.path}}"><i class="fa fa-weixin "></i>微信登录</a>
+            <a rel="nofollow" class="weibo" href="/usercenter/login/account?type=weibo&prev_url={{request.path}}"><i class="fa fa-weibo "></i>微博登录</a>
+            <a rel="nofollow" class="alipay" href="/usercenter/login/account?type=alipay&prev_url={{request.path}}"><i class="bgIcon3 alipay"></i>支付宝登录</a>
+            <a rel="nofollow" class="douban" href="/usercenter/login/account?type=douban&prev_url={{request.path}}"><i class="bgIcon3 douban"></i>豆瓣登录</a>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+</div>
+{% endif %}
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":$(".share_text").text(),"bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+</body>
+<script src="../static/js/new_shoevent.js"></script>
+</html>

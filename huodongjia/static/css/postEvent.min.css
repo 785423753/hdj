@@ -1,0 +1,104 @@
+@font-face{font-family:"myiconfont";src:url("http://pic.huodongjia.com/static/css/iconfont/iconfont_post.ttf")}
+.content{padding:0;margin-top:15px;color:#7C8395}
+.bread_nav a,.bread_nav{color:#CACFDB}
+.content_left{padding:0;margin-bottom:30px}
+.attention{width:52%;float:left;padding:0 20px;color:#6C707B;line-height:21px;margin-bottom:25px}
+.attention span{font-size:16px;line-height:30px}
+.event_info,.spon_info{clear:both;margin-bottom:25px;padding-bottom:30px;background:#FFF}
+.info_title{margin-bottom:20px}
+.info_title span{color:#fff!important;font-size:18px;display:block;width:125px;height:50px;line-height:50px;text-align:center;background:#2E83DD;border-bottom-right-radius:8px;border-bottom-left-radius:8px}
+.event_info label,.spon_info label{font-weight:normal;font-size:14px;color:#1d1d1d;text-align:right;padding-right:10px;width:100px}
+.event_info label font,.spon_info label font{color:red}
+.event_info input[type='text'],select,.spon_info input[type='text']{border:1px solid #ACB0BB;height:35px;padding-left:10px;margin-bottom:15px;color:#9497A6}
+.spon_info input[type='text']{width:50%}
+.spon_info>span{color:#B0B7C7;padding-left:10px}
+#checkcode{width:35%}
+#title{width:50%}
+#start_day,#end_day{width:26.7%;margin-right:10px;position:relative;top:6px}
+#start_time,#end_time{width:10%;padding:0;position:relative;top:1px}
+.zhi{border-top:1px solid #CBD1E1;padding:0 20px;position:relative;top:10px}
+#end_day{margin-left:15px}
+#province,#city{width:22%;margin-right:10px;position:relative;top:4px}
+#address{width:31%;position:relative;top:10px}
+textarea{width:100%;border:0;resize:none}
+.meeting_des{border:1px solid #CAC5C5;padding:0;position:relative;left:-3px;top:5px;margin-bottom:25px;width:85%;display:inline-block;z-index:1}
+.meeting_des ul{background:#F7F8FC;border-bottom:1px solid #CDD1DC}
+.nav-pills>li{float:left;width:25%;margin-left:0!important;text-align:center}
+.nav-pills>li>a{color:#000}
+.nav-pills>li.active>a,.nav-pills>li.active>a:hover,.nav-pills>li.active>a:focus{color:#fff;background-color:#2E83DD;border-radius:0;border:0}
+.meeting_des .nav{height:auto}
+.event_detail{float:left;margin-top:15px}
+#event_cat{width:20%}
+.event_tag{padding-left:100px;margin-bottom:15px}
+.event_tag label{width:auto;margin-right:8px;color:#9497A6}
+.event_tag .event_cat_tag,.proof input,.invoice input{margin-right:5px;margin-bottom:5px}
+.fee,.invoice,.proof{width:auto!important;margin-right:10px;margin-top:5px}
+.fee span,.invoice span,.proof span{padding-left:10px;color:#9497A6}
+.ticket{width:85%;margin-left:100px;margin-top:5px;margin-bottom:5px}
+.ticket td{width:18%}
+.not{border:1px solid red!important}
+.t_head{border-top:1px solid #CCC7C7;border-bottom:1px solid #CCC7C7}
+.t_head td{background:#F0F0F0;padding:8px 0;text-align:center}
+.project{border-bottom:1px dotted #eee}
+.project td{padding:10px;text-align:center;background-color:#FCFCFC}
+.add_div{width:100%;border:1px solid #ccc;float:left;padding:10px}
+.add_div_div{width:50%;float:right;padding-top:7px;margin-right:7px}
+label[for="serve"]{float:left;margin-bottom:0;text-align:left;line-height:1}
+#serve{width:100%;height:99px;padding:5px 8px;border:1px solid #ACB0BB}
+.add_div input{height:30px!important;width:30%}
+#Fee_name{margin-top:11px}
+.save{width:77px;height:30px;background:#64A5FF;color:#fff;border:0;float:right;margin-top:10px;-webkit-transition:all .2s linear;-moz-transition:all .2s linear}
+.save:hover{background:#5c97ea}
+.cancel{width:77px;height:30px;border:0;background:0;float:right;margin-top:10px;outline:0}
+.add td{padding:10px 0}
+.myfont{font-family:"myiconfont"}
+.edit{cursor:pointer}
+.edit:hover{color:#000}
+#post{width:260px;height:40px;border:0;background:#2E83DD;color:#fff;margin-top:25px;margin-left:100px;margin-right:20px;font-size:16px}
+#post:hover{background:#2b7acd}
+#preview{width:120px;height:40px;color:#7D8296;background:0;font-size:16px;border:1px solid #CDD1DC}
+#preview:hover{border:1px solid #2E83DD}
+.content_right{padding-left:25px}
+.content_right>div{background:#FFF}
+.content_right p{height:60px;text-align:center;border-bottom:1px solid #BDC3D3;line-height:60px;font-size:18px;color:#53596F}
+.content_right ul{padding:0 15px 39px;width:100%;margin:0}
+.content_right ul li{width:100%;list-style:none;border-bottom:1px dotted #BCC3D3;padding:5px 0}
+.content_right ul li span a{color:#A4AABA}
+.content_right ul li a{color:#525461;font-size:14px;line-height:27px}
+.content_right ul li a:hover{color:#2E83DD}
+.laydate_body .laydate_y .laydate_yms ul li{width:50%!important}
+#start_day,#end_day,#deadline{background:url("http://pic.huodongjia.com/static/images/rili1.png") no-repeat;background-position:97% 48%}
+.start_time,.end_time{display:inline-block;width:10%;overflow:hidden;height:36px;position:relative;top:13px;border:1px solid #ACB0BB}
+#start_time,#end_time{width:120%;border:0}
+.start_time img,.end_time img{position:absolute;right:4px;top:23%;z-index:1000}
+#title,#scale{margin-bottom:10px}
+#scale{width:21%}
+.nav-pills li a:hover{color:#000!important}
+.nav-pills .active a:hover{color:#fff!important}
+#province option{text-align:center}
+option{padding:5px}
+.captcha_btn{display:inline-block;text-align:center;font-size:14px;color:#fff;margin-left:10px;cursor:pointer;width:14%;background:#55A9FF;border:0;height:35px;position:relative;bottom:6px;outline:0}
+.captcha_btn:hover{background:#4889d2}
+#add_price{width:100px;height:35px;margin-bottom:15px;color:#4C9DEF;background:0;border:1px dashed #4C9DEF;outline:0}
+.ac-renderer{z-index:1000}
+@font-face{font-family:'close_font';src:url('//at.alicdn.com/t/font_1456711057_4151645.eot');src:url('//at.alicdn.com/t/font_1456711057_4151645.eot?#iefix') format('embedded-opentype'),url('//at.alicdn.com/t/font_1456711057_4151645.woff') format('woff'),url('//at.alicdn.com/t/font_1456711057_4151645.ttf') format('truetype'),url('//at.alicdn.com/t/font_1456711057_4151645.svg#iconfont') format('svg')}
+.close{font-family:"close_font";position:absolute;right:15px;top:15px;font-size:22px}
+#login{width:100%;height:1000px;position:fixed;top:0;background:rgba(0,0,0,0.2);z-index:8888}
+.loginContent{width:420px!important;height:360px;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;background:#FFF;margin:250px auto;padding:40px 0;box-shadow:0 0 1px 1px rgba(148,148,148,0.62);position:relative;text-align:center}
+.collect,.collection{cursor:pointer}
+#login a{display:block;float:left;width:139px;height:32px;text-align:center;border-radius:16px;line-height:32px;font-size:15px;color:#fff;margin-bottom:20px;padding:0}
+#login h3{font-size:20px;margin-top:7px;margin-bottom:16px}
+#login p{margin-bottom:38px}
+#login i{margin-right:10px}
+#login a.qq{background-color:#3ab7f1;background-image:none}
+#login a.weixin{background-color:#34d578;margin-left:12px;background-image:none}
+#login a.weibo{background-color:#f35353;background-image:none}
+#login a.alipay{background-color:#3095ed}
+#login a.douban{background-color:#34d578}
+#login i.alipay{width:22px;background-position:-16px 0}
+#login i.douban{width:17px}
+.mainWrapper{background-color:#fff}
+.loginFoot{background-color:#fff;text-align:center;margin-top:30px}
+.loginFoot a,.loginFoot p{font-size:12px;color:#bbb}
+#login .loginBtn{margin:0 auto;width:295px}
+.bgIcon3{background:url("http://pic.huodongjia.com/static/usercenter/images/douzhi.png") no-repeat;display:inline-block;width:16px;height:16px;vertical-align:middle;background-size:auto 100%}

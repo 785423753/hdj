@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% if seo %}{{ seo.title }}{% else %}{{head.title}}{% endif %}</title>
+    <meta name="keywords" content="{% if seo %}{{ seo.keywords }}{% else %}{{head.keywords}}{% endif %}"/>
+    <meta name="description" content="{% if seo %}{{ seo.description }}{% else %}{{head.description}}{% endif %}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta property="wb:webmaster" content="f8b759b681dff9f2" />
+    <!--<script type='text/javascript'>window._ty_rum&&window._ty_rum.server||function(t){function e(t){switch(typeof t){case"object":if(!t)return"null";if(t instanceof Array){for(var r="[",n=0;n<t.length;n++)r+=(n>0?",":"")+e(t[n]);return r+"]"}var r="{",n=0;for(var a in t)if("function"!=typeof t[a]){var i=e(t[a]);r+=(n>0?",":"")+e(a)+":"+i,n++}return r+"}";case"string":return'"'+t.replace(/([\"\\])/g,"\\$1").replace(/\n/g,"\\n")+'"';case"number":return t.toString();case"boolean":return t?"true":"false";case"function":return e(t.toString());case"undefined":default:return'"undefined"'}}function r(t){return B?B(t):t}function n(){return Date.now?Date.now():(new Date).valueOf()}function a(t,e,r){function n(){var t=A.args.apply(this,arguments);return e(i,t,r)}var a,i=t[t.length-1];if("function"==typeof i){switch(i.length){case 0:a=function(){return n.apply(this,arguments)};break;case 1:a=function(t){return n.apply(this,arguments)};break;case 2:a=function(t,e){return n.apply(this,arguments)};break;case 3:a=function(t,e,r){return n.apply(this,arguments)};break;case 4:a=function(t,e,r,a){return n.apply(this,arguments)};break;case 5:a=function(t,e,r,a,i){return n.apply(this,arguments)};break;default:for(var o=[],s=0,u=i.length;u>s;s++)o.push("_"+s);a=eval("(function(){return function("+o.join(",")+"){var args = [].slice.call(arguments, 0);return e(i, args, r);};})();")}t[t.length-1]=a}return t}function i(t,e){return t&&e&&(t.moduleName=e),t}function o(t,e,r){return function(){try{k=e,r&&s(e),t.apply(this,arguments),r&&u()}catch(n){throw r&&u(),i(n,e)}}}function s(e){A.each(["setTimeout","setInterval"],function(r){A.wrap(!0,t,r,function(t){return function(){var r,n=A.args.apply(this,arguments),a=n[0];return"function"==typeof a&&(r=o(a,e,!0)),r&&(n[0]=r),t.apply?t.apply(this,n):Function.prototype.apply.apply(t,[t,n])}})})}function u(){A.each(["setTimeout","setInterval"],function(e){A.unwrap(t,e)})}function c(t){q&&A.wrap(!1,q.prototype,"addEventListener",function(e){return function(){var r,n=A.args.apply(this,arguments),a=n[1];return"function"==typeof a&&(r=o(a,t,!0)),r&&(n[1]=r),e.apply(this,n)}}),s(t)}function f(){q&&A.unwrap(q.prototype,"addEventListener"),u()}function p(t){return function(t,e){}}function l(){if(this.errors.length){var t=function(t){var e=[],r={};A.each(t,function(t){var e=_(t[1],t[2],t[3],t[6]);r[e]?r[e][4]+=1:r[e]=[t[1],t[2],t[3],"#"==t[4]?R.URL:t[4],1,t[5],t[6],t[7]]});for(var n in r)e.push(r[n]);return e}(this.errors),e=this;A.POST(A.mkurl(D.server.beacon,"err",{fu:C?C:C++,os:parseInt((n()-(N||D.st))/1e3)}),A.stringify({datas:t}),{},function(t,r){t||(e.errors=[])})}}function d(){U.initend()}function h(){"complete"===R.readyState&&U.initend()}function m(t){function e(){U.send()}return D.load_time?!0:(U.initend(),D.load_time=n(),void(9===t?e():setTimeout(e,0)))}function y(){X||m(9),A.bind(l,U)(),X=1}function v(){U.touch||(U.touch=n())}function g(t){if(t[6]){var e=t[4],r=t[5];if(r&&"string"==typeof r&&e){r=r.split(/\n/);var n=O.exec(r[0]);n||(n=O.exec(r[1])),n&&n[1]!=e&&(t[4]=n[1]||e,t[2]=n[2]||t[2],t[3]=n[3]||t[3])}}}function _(t,e,r,n){return t+e+r+(n?n:"")}function w(e){var r=arguments,a="unknown",i=[n()];if(0!=r.length){if("string"==typeof e){var o=r.length<4?r.length:4;i[1]=r[0],o>2&&(i[2]=r[2],i[3]=0,i[4]=r[1]),o>3&&r[3]&&(i[3]=r[3])}else if(e instanceof Event||t.ErrorEvent&&e instanceof ErrorEvent){if(i[1]=e.message||(e.error&&e.error.constructor.name)+(e.error&&e.error.message)||"",i[2]=e.lineno?e.lineno:0,i[3]=e.colno?e.colno:0,i[4]=e.filename||e.error&&e.error.fileName||e.target&&e.target.baseURI||"",i[4]==R.URL&&(i[4]="#"),e.error){i[5]=e.error.stack,i[6]=e.error.moduleName;var s=_(i[1],i[2],i[3],i[6]);i[7]=j[s]?0:1,j[s]=!0}else i[5]=null,i[6]=null,i[7]=0;if(i[1]===a&&i[4]===a)return;g(i)}U.errors.push(i)}}function S(t,e,r){for(var n="o."+e+"(",a=0;a<r.length;a++)n+=(a>0?",":"")+"a["+a+"]";return n+=");",new Function(n)()}function T(t){return function(){var e=arguments;if(!this._ty_wrap){var r=A.args.apply(this,e);this._ty_rum={method:r[0],url:r[1],start:n()}}try{return t.apply(this,e)}catch(a){return this.open=t,S(this,"open",e)}}}function b(e){return"string"==typeof e?e.length:t.ArrayBuffer&&e instanceof ArrayBuffer?e.byteLength:t.Blob&&e instanceof Blob?e.size:e&&e.length?e.length:0}function E(e){return function(){function r(t){var e,r,a=l._ty_rum;if(a){if(4!==a.readyState&&(a.end=n()),a.s=l.status,""==l.responseType||"text"==l.responseType)a.res=b(l.responseText);else if(l.response)a.res=b(l.response);else try{a.res=b(l.responseText)}catch(i){a.res=0}if(a.readyState=l.readyState,a.cb_time=d,e=[a.method+" "+a.url,a.s>0?a.end-a.start:0,d,a.s,a.s>0?0:t,a.res,a.req],a.r&&(r=o(l),r&&(r=r.xData)&&(e.push(r.id),e.push(r.action),e.push(r.time&&r.time.duration),e.push(r.time&&r.time.qu))),D.aa.push(e),D.server.custom_urls&&D.server.custom_urls.length&&!U.ct){if(!D.pattern){D.pattern=[];for(var s=0;s<D.server.custom_urls.length;s++)D.pattern.push(new RegExp(D.server.custom_urls[s]))}for(var s=0;s<D.pattern.length;s++)if(a.url.match(D.pattern[s])){U.ct=a.end+d;break}}U.sa(),l._ty_rum=null}}function a(){4==l.readyState&&r(0)}function o(e){var r;if(e.getResponseHeader){var n=A.parseJSON(e.getResponseHeader("X-Tingyun-Tx-Data"));n&&n.r&&e._ty_rum&&n.r+""==e._ty_rum.r+""&&(r={name:e._ty_rum.url,xData:n},F&&t._ty_rum.c_ra.push(r))}return r}function c(t){return function(){var e,r;4==l.readyState&&l._ty_rum&&(l._ty_rum.end=e=n(),l._ty_rum.readyState=4);try{k&&s(k),r=t.apply(this,arguments),k&&u()}catch(o){throw o=i(o,k),k&&u(),k=null,o}return 4==l.readyState&&(d=n()-e),a(),r}}function f(t){return function(){var e=l._ty_rum;return e?"progress"==t?!0:("abort"==t?r(905):"loadstart"==t?e.start=n():"error"==t?r(990):"timeout"==t&&r(903),!0):!0}}function p(t,e){e instanceof Array||(e=[e]);for(var r=0;r<e.length;r++){var n=e[r];A.sh(t,n,f(n),!1)}}if(!this._ty_wrap){this._ty_rum.start=n(),this._ty_rum.req=arguments[0]?b(arguments[0]):0;var l=this,d=0,h=A.wrap(!1,this,"onreadystatechange",c);h||A.sh(this,"readystatechange",a,!1),p(this,["error","progress","abort","load","loadstart","loadend","timeout"]),h||setTimeout(function(){A.wrap(!1,l,"onreadystatechange",c)},0)}var m=function(){function t(t){var e={},r=/^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?/.exec(t);return r&&(e.protocol=r[1]?r[1]+":":"http:",e.hostname=r[3],e.port=r[4]||""),e}return function(e){var r=location;if(e=A.trim(e)){if(e=e.toLowerCase(),e.startsWith("//")&&(e=r.protocol+e),!e.startsWith("http"))return!0;var n=t(e),a=n.protocol===r.protocol&&n.hostname===r.hostname;return a&&(a=n.port===r.port?!0:!r.port&&("http:"===r.protocol&&"80"===n.port||"https:"===r.protocol&&"443"===n.port)),a}return!1}}(),y=arguments;try{try{var v=D.server;v&&v.id&&this._ty_rum&&m(this._ty_rum.url)&&(this._ty_rum.r=(new Date).getTime()%1e8,this.setRequestHeader&&this.setRequestHeader("X-Tingyun-Id",v.id+";r="+this._ty_rum.r))}catch(g){}return e.apply(this,y)}catch(g){return this.send=e,S(this,"send",y)}}}var k,x=t.XMLHttpRequest,R=document,L=Object.defineProperty,P=t.define,q=t.EventTarget,C=0,O=new RegExp("([a-z]+:/{2,3}.*):(\\d+):(\\d+)"),B=t.encodeURIComponent,N=null,A={wrap:function(t,e,r,n,a){try{var i=e[r]}catch(o){if(!t)return!1}if(!i&&!t)return!1;if(i&&i._ty_wrap)return!1;try{e[r]=n(i,a)}catch(o){return!1}return e[r]._ty_wrap=[i],!0},unwrap:function(t,e){try{var r=t[e]._ty_wrap;r&&(t[e]=r[0])}catch(n){}},each:function(t,e){if(t){var r;for(r=0;r<t.length&&(!t[r]||!e(t[r],r,t));r+=1);}},mkurl:function(e,a){var i=arguments,o=/^https/i.test(R.URL)?"https":"http";if(o=o+"://"+e+"/"+a+"?av=1.0.0&v=1.3.2&key="+r(D.server.key)+"&ref="+r(R.URL)+"&rand="+n()+"&pvid="+H,"pf"!==a&&D&&(D.agent=D.agent||t._ty_rum.agent,D.agent&&D.agent.n&&(o+="&n="+r(D.agent.n))),i.length>2){var s=i[2];for(var u in s)o+="&"+u+"="+s[u]}return o},GET:function(t,e){function r(){e&&e.apply(this,arguments),n.parentNode&&n.parentNode.removeChild(n)}if(navigator&&navigator.sendBeacon&&M.test(t))return navigator.sendBeacon(t,null);var n=R.createElement("img");return n.setAttribute("src",t),n.setAttribute("style","display:none"),this.sh(n,"readystatechange",function(){("loaded"==n.readyState||4==n.readyState)&&r("loaded")},!1),this.sh(n,"load",function(){return r("load"),!0},!1),this.sh(n,"error",function(){return r("error"),!0},!1),R.body.appendChild(n)},fpt:function(t,e,r){function n(t,e,r){var n=R.createElement(t);try{for(var a in e)n[a]=e[a]}catch(i){var o="<"+t;for(var a in e)o+=" "+a+'="'+e[a]+'"';o+=">",r||(o+="</"+t+">"),n=R.createElement(o)}return n}var a=n("div",{style:"display:none"},!1),i=n("iframe",{name:"_ty_rum_frm",width:0,height:0,style:"display:none"},!1),o=n("form",{style:"display:none",action:t,enctype:"application/x-www-form-urlencoded",method:"post",target:"_ty_rum_frm"},!1),s=n("input",{name:"data",type:"hidden"},!0);return s.value=e,o.appendChild(s),a.appendChild(i),a.appendChild(o),R.body.appendChild(a),o.submit(),i.onreadystatechange=function(){("complete"===i.readyState||4===i.readyState)&&(r(null,i.innerHTML),R.body.removeChild(a))},!0},POST:function(e,r,n,a){if(this.ie)return this.fpt(e,r,a);if(navigator&&navigator.sendBeacon&&M.test(e)){var i=navigator.sendBeacon(e,r);return a(!i),i}var o;if(t.XDomainRequest)return o=new XDomainRequest,o.open("POST",e),o.onload=function(){a(null,o.responseText)},this.sh(o,"load",function(){a(null,o.responseText)},!1),this.sh(o,"error",function(){a("POST("+e+")error")},!1),this.wrap(!0,o,"onerror",function(t){return function(){return a&&a("post error",o.responseText),!0}}),o.send(r),!0;if(!x)return!1;o=new x,o.overrideMimeType&&o.overrideMimeType("text/html");try{o._ty_wrap=1}catch(s){}var u=0;o.onreadystatechange=function(){4==o.readyState&&200==o.status&&(0==u&&a(null,o.responseText),u++)},o.onerror&&this.wrap(!0,o,"onerror",function(t){return function(){return a("post error",o.responseText),"function"==typeof t?t.apply(this,arguments):!0}});try{o.open("POST",e,!0)}catch(s){return this.fpt(e,r,a)}for(var c in n)o.setRequestHeader(c,n[c]);return o.send(r),!0},sh:function(t,e,r,n){return t.addEventListener?t.addEventListener(e,r,n):t.attachEvent?t.attachEvent("on"+e,r):!1},args:function(){for(var t=[],e=0;e<arguments.length;e++)t.push(arguments[e]);return t},stringify:e,parseJSON:function(e){if(e&&"string"==typeof e){var r=t.JSON?t.JSON.parse:function(t){return new Function("return "+t)()};return r(e)}return null},trim:I?function(t){return null==t?"":I.call(t)}:function(t){return null==t?"":t.toString().replace(/^\s+/,"").replace(/\s+$/,"")},extend:function(t,e){if(t&&e)for(var r in e)e.hasOwnProperty(r)&&(t[r]=e[r]);return t},bind:function(t,e){return function(){t.apply(e,arguments)}}},D=t._ty_rum=A.extend({st:n(),ra:[],c_ra:[],aa:[],snd_du:function(){return this.server.adu?1e3*this.server.adu:1e4},cc:function(){return this.server.ac?this.server.ac:10}},t._ty_rum||{});var ty_rum=D;ty_rum.server = {id:'28tO4SoppYM',beacon:'beacon.tingyun.com',beacon_err:'beacon-err.tingyun.com',key:'SAknMh6HrHY',trace_threshold:7000,custom_urls:[],sr:1.0};if(D.server&&!(D.server.sr&&Math.random()>=D.server.sr)){var I=String.prototype.trim;String.prototype.startsWith||(String.prototype.startsWith=function(t,e){return e=e||0,this.indexOf(t,e)===e});var M=/^http/i,H=function(){function t(){return(65536*(1+Math.random())|0).toString(16).substring(1)}return t()+"-"+t()+t()}();try{L&&L(t,"define",{get:function(){return P},set:function(t){"function"==typeof t&&(t.amd||t.cmd)?(P=function(){var e=A.args.apply(this,arguments);if(3!==e.length)return t.apply(this,e);var r="string"==typeof e[0]?e[0]:"anonymous";return t.apply(this,a(e,function(t,e,r){var n;try{k=r,c(r),n=t.apply(this,e),f()}catch(a){throw f(),i(a,r)}return n},r))},A.extend(P,t)):P=t},configurable:!0})}catch($){}var F=t.performance?t.performance:t.Performance;F&&(A.sh(F,"resourcetimingbufferfull",function(){var t=F.getEntriesByType("resource");t&&(D.ra=D.ra.concat(t),F.clearResourceTimings())},!1),A.sh(F,"webkitresourcetimingbufferfull",function(){var t=F.getEntriesByType("resource");t&&(D.ra=D.ra.concat(t),F.webkitClearResourceTimings())},!1));for(var U=D.metric={ready:function(){return D.load_time},initend:function(){function t(){U.sa()}D.end_time||(D.end_time=n(),this._h=setInterval(t,2e3))},send:function(){function e(){function e(t){return a[t]>0?a[t]-o:0}var n={};if(F&&F.timing){var a=F.timing;o=a.navigationStart;var i=e("domainLookupStart"),s=e("domainLookupEnd"),u=e("redirectStart"),c=e("redirectEnd"),f=e("connectStart"),p=e("connectEnd");n={f:e("fetchStart"),qs:e("requestStart"),rs:e("responseStart"),re:e("responseEnd"),os:e("domContentLoadedEventStart"),oe:e("domContentLoadedEventEnd"),oi:e("domInteractive"),oc:e("domComplete"),ls:e("loadEventStart"),le:e("loadEventEnd")},p-f>0&&(n.cs=f,n.ce=p),s-i>0&&(n.ds=i,n.de=s),(c-u>0||c>0)&&(n.es=u,n.ee=c),0==n.le&&(n.ue=D.load_time-o);var l;if(a.msFirstPaint)l=a.msFirstPaint;else if(t.chrome&&chrome.loadTimes){var d=chrome.loadTimes();d&&d.firstPaintTime&&(l=1e3*d.firstPaintTime)}else D.firstPaint&&(l=D.firstPaint);l&&(n.fp=Math.round(l-o)),a.secureConnectionStart&&(n.sl=e("secureConnectionStart"))}else n={t:o,os:D.end_time-o,ls:D.load_time-o};n.je=U.errors.length,U.ct&&(n.ct=U.ct-o),U.touch&&(n.fi=U.touch-o);var h=D.agent||t._ty_rum&&t._ty_rum.agent;return h&&(n.id=r(h.id),n.a=h.a,n.q=h.q,n.tid=r(h.tid),n.n=r(h.n)),n.sh=t.screen&&t.screen.height,n.sw=t.screen&&t.screen.width,n}function a(e){var r=t._ty_rum.c_ra;if(e)for(var n=r.length-1;n>=0;n&#45;&#45;)if(e.indexOf(r[n].name)>-1)return r[n].xData;return null}function i(t){function e(t){return f[t]>0?f[t]:0}if(t<D.server.trace_threshold)return null;var n=F;if(n&&n.getEntriesByType){var i={tr:!0,tt:r(R.title),charset:R.characterSet},s=D.ra,u=n.getEntriesByType("resource");u&&(s=s.concat(u),n.webkitClearResourceTimings&&n.webkitClearResourceTimings(),n.clearResourceTimings&&n.clearResourceTimings()),i.res=[];for(var c=0;c<s.length;c++){var f=s[c],p={o:e("startTime"),rt:f.initiatorType,n:f.name,f:e("fetchStart"),ds:e("domainLookupStart"),de:e("domainLookupEnd"),cs:e("connectStart"),ce:e("connectEnd"),sl:e("secureConnectionStart"),qs:e("requestStart"),rs:e("responseStart"),re:e("responseEnd")},l=a(f.name);l&&(p.aid=l.id,p.atd=l.trId,p.an=l.action,p.aq=l.time&&l.time.qu,p.as=l.time&&l.time.duration),i.res.push(p)}if(U.errors.length){i.err=[];for(var c=0,d=U.errors,h=d.length;h>c;c++)i.err.push({o:Math.round(d[c][0]-o),e:d[c][1],l:d[c][2],c:d[c][3],r:d[c][4],ec:h,s:d[c][5],m:d[c][6],ep:d[c][7]})}return i}return null}if(this.sended)return!1;if(!this.ready())return!1;var o=D.st,s={};try{pf=e(),s=i(pf.ls>0?pf.ls:D.load_time-o)}catch(u){}s=s?A.stringify(s):"";var c=A.mkurl(D.server.beacon,"pf",pf);N=n(),0!=s.length&&A.POST(c,s,{},p("POST"))||A.GET(c);var f=A.bind(l,this);return f(),setInterval(f,1e4),this.sended=!0,this.sa(1),!0},sa:function(t){(this.ready()||t)&&(t||(t=!this._last_send||n()-this._last_send>D.snd_du()||D.aa.length>=D.cc()),D.aa.length>0&&t&&(this._last_send=n(),A.POST(A.mkurl(D.server.beacon,"xhr"),A.stringify({xhr:D.aa}),{},p("POST")),D.aa=[]))},errors:[]},X=null,j={},z=[["load",m],["beforeunload",y],["pagehide",y],["unload",y]],J=0;J<z.length;J++)A.sh(t,z[J][0],z[J][1],!1);t.addEventListener?A.sh(t,"error",w,!1):t.onerror=function(t,e,r,n,a){var i=[t,r,n,e==R.URL?"#":e];if(a){var o=_(t,r,n,a.moduleName);i=i.concat([1,a.stack,a.moduleName,j[o]?0:1]),j[o]=!0}g(i),U.errors.push(i)};for(var W=[["scroll",v],["keypress",v],["click",v],["DOMContentLoaded",d],["readystatechange",h]],J=0;J<W.length;J++)A.sh(R,W[J][0],W[J][1],!1);if(A.wrap(!1,t,"requestAnimationFrame",function(e){return function(){return D.firstPaint=n(),t.requestAnimationFrame=e,e.apply(this,arguments)}}),x)if(x.prototype)A.wrap(!1,x.prototype,"open",T),A.wrap(!1,x.prototype,"send",E);else{A.ie=7;var G=x;t.XMLHttpRequest=function(){var t=new G;return A.wrap(!1,t,"open",T),A.wrap(!1,t,"send",E),t}}else t.ActiveXObject&&(A.ie=6)}}(window);</script>-->
+    <link rel="shortcut icon" type="image/x-icon" href="http://www.huodongjia.com/favicon.ico" media="screen" />
+    <link href="http://pic.huodongjia.com/static/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/main.css">
+    <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/base.css?t={{now}}.css"/>
+    {%block add_st%}
+    <link rel="alternate" media="only screen and(max-width: 640px)" href="http://m.huodongjia.com{{request.get_full_path}}" >
+    {%endblock%}
+
+    {% block addstyle %}
+    {% endblock %}
+    <!--百度统计代码-->
+    <script>
+        var host = "www.huodongjia.com";
+        if(window.location.host==host){
+            var _hmt = _hmt || [];
+            (function() {
+                  var hm = document.createElement("script");
+                    hm.src = "//hm.baidu.com/hm.js?388950f5fe8dce1409ec7843101f9730";
+                      var s = document.getElementsByTagName("script")[0]; 
+                        s.parentNode.insertBefore(hm, s);
+            })();
+            //
+            //var _vds = _vds || [];
+            //window._vds = _vds;
+            //(function(){
+            //    _vds.push(['setAccountId', 'bfcde55a34679bc9']);
+            //    (function() {
+            //        var vds = document.createElement('script');
+            //        vds.type='text/javascript';
+            //        vds.async = true;
+            //        vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+            //        var s = document.getElementsByTagName('script')[0];
+            //        s.parentNode.insertBefore(vds, s);
+            //    })();
+            //})();
+        }
+    </script>
+</head>
+<style>
+</style>
+<body>
+{% block baiduautopush %}
+<!--百度页面访问自动推送-->
+<script>                                                                         
+    var host = "www.huodongjia.com";                                             
+    if(window.location.host==host){                                              
+        (function(){                                                             
+        var bp = document.createElement('script');                       
+        bp.src = '//push.zhanzhang.baidu.com/push.js';                   
+        var s = document.getElementsByTagName("script")[0];              
+        s.parentNode.insertBefore(bp, s);                                
+    })();                                                                    
+    <!---->                                                                  
+    (function(){                                                             
+        var src = document.location.protocol +'//js.passport.qihucdn.com/11.0.1.js?bc6e333c247b87d154a2b11caf40aa0a';
+        document.write('<script src="' + src + '" id="sozz"><\/script>');
+        })();                                                                    
+    }                                                                            
+</script>
+<!---->
+{% endblock %}
+<div class="nav">
+    <div class="container" >
+       <div class="col-sm-3 col-xs-3">
+           {% if index %}
+           <h1 style="margin: 11px 0"><a  href="/"><img alt="找会议，上活动家" width="251" src="/static/images/newhdj_logo(1).png" alt="找会议，上活动家"/></a></h1>
+           {% else %}
+           <span style="margin: 11px 0"><a  href="/"><img alt="找会议，上活动家" width="251" src="/static/images/newhdj_logo(1).png" alt="找会议，上活动家"/></a></span>
+           {% endif %}
+       </div>
+        <div class="col-sm-9 col-xs-9 menus">
+            <ul>
+                <li style="width:30px;"></li>
+                <li class="menue  business"><a target="_blank" href="/business/">商务会议 <span class="fa fa-angle-down"></span></a>
+                    <div class="business_menue">
+                    </div>
+                </li>
+                <li class="menue"><a href="http://news.huodongjia.com/" target="_blank">会议资讯</a></li>
+                <li class="menue"><a href="/guest/" target="_blank" >演讲经纪</a></li>
+                <li class="postevent"><a href="/postevent/"  target="_blank">免费发布活动</a></li>
+                <li class="search" >
+                    <form action="/search/"><input name="keyword" type="text" placeholder="输入您要找的会议"/><span class="m-search m_iconfont">&#xe607;</span></form>
+                </li>
+                <li class="ordersearch"><a href="/searchorder/" target="_blank" style="font-size: 14px">订单查询</a></li>
+                <li class="login">
+                    <a href="/usercenter/login/" rel="nofollow">
+                      {% if request.session.usercenter_user %}
+                          <img style="border-radius: 16px;" width="32px" height="32px" src='{{  request.session.usercenter_user.avatar }}' />
+                        <!--<span class="Login" style="font-size: 14px">个人中心</span>-->
+                      {% else %}
+                        
+                          <!--<span class="m_iconfont not_login">&#xe600;&nbsp;</span>-->
+                              <span class="Login" style="font-size: 14px">登录</span>
+                      {% endif %}
+                    </a>
+                    <ol>
+                        <li><a href="/usercenter/index/" rel="nofollow">我的积分</a></li>
+                        <li><a href="/usercenter/index/?ind=showorder" rel="nofollow">我的订单</a></li>
+                        <li><a href="/usercenter/index/?ind=myevent" rel="nofollow">我的发布</a></li>
+                        <li><a href="/usercenter/index/?ind=showcollection" rel="nofollow">我的收藏</a></li>
+                      {% if request.session.usercenter_user %}
+                        <li class="exit"><a href="/usercenter/logout/"  rel="nofollow">退出</a></li>
+                      {% endif %}
+                    </ol>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+{% block banner%}
+{% endblock %}
+{% block content%}
+{% endblock %}
+<div class="footer">
+    <div class="container">
+       <div class="col-sm-2 col-xs-2 footer1">
+           <ul>
+               <li class="title">关于我们</li>
+               <li><a href="/contactus/" rel="nofollow">关于活动家</a></li>
+               <li><a href="/mediareport/" rel="nofollow">媒体报道</a></li>
+               <li><a href="/friendLinks/" rel="nofollow">友情链接</a></li>
+               <li><a href="/app/" target="_blank" rel="nofollow">APP下载</a></li>
+           </ul>
+       </div>
+        <div class="col-sm-2 col-xs-2 footer1">
+            <ul>
+                <li class="title">更多服务</li>
+                <li><a href="/business/" target="_blank" rel="nofollow">商务会议</a></li>
+                <li><a href="/guest/" target="_blank" rel="nofollow">出席嘉宾</a></li>
+                <li><a href="/listsponsor/" target="_blank" rel="nofollow">会议主办方</a></li>
+                <li><a href="/listvenue/" target="_blank" rel="nofollow">会议场地</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-4 col-xs-4 footer1 contact">
+            <ul>
+                <li class="title">联系我们</li>
+                <li style="line-height: 17px;padding: 15px 0"><img src="/static/images/new_phone.png" alt=""/></li>
+                <li style="line-height: 17px;position: relative;">
+                    <img class="kefu " src="http://pic.huodongjia.com/static/images/hdjkefu.png" alt=""/>
+                    <span class="erweima"><img src="http://pic.huodongjia.com/static/images/iconfont-erweima.png" alt=""/></span><a style="font-size: 14px;display: inline-block;">活动家微信客服 <br/>（微信号：hdjkefu）</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-2 col-xs-2 footer1 weixin">
+            <p>活动家微信</p>
+            <img width="100" src="http://pic.huodongjia.com/static/images/about_uus_erweima.jpg" alt=""/>
+            <p style="color: #A0A8B7;font-size: 12px;padding: 5px">优质会议及时推荐，查 <br/>询会议更方便</p>
+        </div>
+        <div class="col-sm-2 col-xs-2 footer1 weixin">
+            <p>APP下载</p>
+            <img width="100" src="http://pic.huodongjia.com/static/images/APP_erweima.png" alt=""/>
+            <p style="color: #A0A8B7;font-size: 12px;padding: 5px">下载活动家APP，随 <br/>时随地方便报名参会</p>
+        </div>
+        <div class="introduce">
+            <p>活动家介绍：<br/>
+            {{ seo.intro }}
+            </p>
+            <p>热门关键词：<br/>
+            <a href="/tag/2561/">互联网金融</a>  <a href="/tag/969/">大数据</a>  <a href="/tag/805/">创业</a>  <a href="/tag/4710/">智能硬件</a>  <a href="/tag/902/">投融资</a>  <a href="/tag/3758/">金融创新</a>  <a href="/tag/2379/">移动医疗</a>  <a href="/tag/4341/">健康产业</a>  <a href="/tag/459/">医疗器械</a>  <a href="/tag/1018/">环保</a>  <a href="/tag/4070/">石墨烯</a>  <a href="/tag/3189/">幼教</a>  <a href="/tag/4331/">养猪</a>  <a href="/tag/4765/">苗木</a>  <a href="/tag/2676/">无人机</a>  <a href="/tag/5512/">商业地产</a>  <a href="/tag/2610/">新媒体</a>  <a href="/tag/3363/">零售业</a>  <a href="/tag/980/">物流</a>  <a href="/tag/3372/">企业家</a></p>
+            {% block seo_fridendly_link %}
+            {% if site_links %}
+            <p>友情链接：<br/>
+            {% for link in site_links %}
+                <a href="{{ link.url }}" target="_blank">{{ link.name }}</a>
+            {% endfor%}
+            {% endif %}
+            {% endblock %}
+            <hr style="border-top: 1px solid #4B4F52;"/>
+            <p class="text-center">CopyRight <a rel="nofollow" target="_blank" href="http://www.huodongjia.com/">活动家</a> huodongjia.com <a rel="nofollow" target="_blank" href="http://www.miibeian.gov.cn/">蜀ICP备13006805号-5</a>,增值电信业务经营许可证编号川B2-20130143</p>
+        </div>
+    </div>
+</div>
+<!--<script charset="utf-8" type="text/javascript" async src="http://wpa.b.qq.com/cgi/wpa.php?key=XzkzODE2MTUwNV8zNTA1MzFfNDAwMDAzMzg3OV8"></script>-->
+</body>
+<script src="http://pic.huodongjia.com/static/js/jquery-1.8.3.min.js"></script>
+<script src="http://pic.huodongjia.com/static/js/bootstrap.js"></script>
+<script src="http://pic.huodongjia.com/static/js/jquery.lazyload.min.js"></script>
+<script src="http://pic.huodongjia.com/static/js/home_banner.js"></script>
+<script src="http://pic.huodongjia.com/static/js/index.js"></script>
+<script>
+    var _menue="<div class='col-sm-12 col-xs-12 industry'>按行业</div>{% for cat in main_cats %}" +
+            "<div class='col-sm-3 col-xs-3 '><a target='_blank' href='/{{ cat.ename }}/'>{{ cat.name }}</a></div>{% endfor %}" +
+            "<div class='col-sm-12 col-xs-12 time'><span class='col-sm-3 col-xs-3'>按时间</span><span class='col-sm-3 col-xs-3'><a target='_blank' href='/business/13/'>最近一周</a></span>" +
+            " <span class='col-sm-3 col-xs-3'><a target='_blank' href='/business/14/'>最近一月</a></span><span class='col-sm-3 col-xs-3'><a target='_blank' href='/business/15/'>最近三月</a></span></div>" +
+            "<div class='col-sm-12 col-xs-12 city'>按城市</div>{% for city in main_cities %}" +
+            "<div class='col-sm-2 col-xs-2 '><a target='_blank' href='/{{ city.title }}/'>{{ city.district_name }}</a></div>{% endfor %}"
+    $(".business_menue").html(_menue)
+    $(".business").hover(function () {
+        $(".business_menue").fadeIn(10)
+    }, function () {
+        $(".business_menue").fadeOut(10)
+    })
+</script>
+{% block js %}
+{% endblock %}
+</html>

@@ -1,0 +1,323 @@
+@font-face {
+    font-family: "home_pagefont";
+    src: url("http://pic.huodongjia.com/static/fonts/event_iconfont.ttf");
+}
+.myfont{
+    font-family: "home_pagefont";
+    color: #3DA6E8;
+    font-size: 28px;
+    line-height: 20px;
+    padding-right: 10px;
+}
+.content{
+    border: 1px solid #ECECF3;
+    background: #FFF;
+    margin: 20px auto 100px;
+    padding: 30px 0 0;
+}
+.content_top{
+    float: left;
+    width: 100%;
+    padding: 20px 40px;
+    border-bottom: 1px solid #E9E8F0;
+}
+.content_top p{
+    float: left;
+    width: 42%;
+}
+.content_top p span{
+    font-size: 18px;
+    color: #000;
+}
+.content_top p {
+    color: #54596F;
+}
+#ApplyForm{
+    clear: both;
+    margin: 0 auto;
+    /*border: 1px solid red;*/
+    padding-left: 5%;
+    width: 410px;
+}
+.form_title{
+    text-align: center;
+    margin: 20px 0;
+    float: left;
+    width: 100%;
+    font-size: 22px;
+    color: #1266C6;
+    padding: 0 30px;
+}
+.form_title span{
+    font-size: 15px;
+    color: #7D8393;
+}
+#ApplyForm input[type="text"]{
+    width: 300px;
+    height:35px;
+    border: 1px solid #BDC3D3;
+    border-radius: 4px;
+    background: #FCFCFC;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    margin-right: 7px;
+}
+#ApplyForm textarea{
+    width: 300px;
+    border: 1px solid #BDC3D3;
+    border-radius: 4px;
+    background: #FCFCFC;
+    margin-bottom: 10px;
+    padding: 10px;
+    resize: none;
+}
+#ApplyForm span{
+    color: #E44E4F;
+}
+.invoice{
+    display: none;
+}
+#save{
+    width: 300px;
+    height:40px;
+    border: none;
+    border-radius: 4px;
+    background: #E64D4F;
+    color: #fff;
+    font-size: 18px;
+    margin-top: 15px;
+}
+label[for='invoice']{
+    color: #848B9B;
+    font-weight: normal;
+}
+.pay_way{
+    padding: 20px 0;
+    border-top: 1px solid #E9E8F0;
+    border-bottom: 1px solid #E9E8F0;
+    margin-top: 20px;
+}
+.ways{
+    border-bottom: 2px solid #CCD3DD;
+    border-top: 2px solid #CCD3DD;
+    padding: 45px 7%;
+    background: #F9FAFC;
+}
+.pay_way>p{
+    font-size: 22px;
+    color: #1266C6;
+    margin: 5px 0 20px;
+}
+.ways li{
+    display: inline-block;
+    width: 24%;
+    text-align: center;
+    font-size: 18px;
+    color: #666666;
+    *float: left;
+    -float: left;
+}
+.ways li span{
+    cursor: pointer;
+    border: 1px solid #CED5DB;
+    padding: 9px 0;
+    display: inline-block;
+    width: 80%;
+    border-radius: 4px;
+}
+.ways li:first-child{
+    color: #3DA6E8;
+}
+.ways li .active{
+    border: 1px solid #E64D4F;
+}
+.content_bottom{
+    width: 100%;
+    padding: 0 30px;
+    clear: left;
+}
+.order{
+    clear: both;
+}
+.order>p{
+    font-size: 22px;
+    color: #1266C6;
+    margin: 15px 0 20px;
+}
+.order_detail{
+    background: #F9FAFC;
+    margin: 0;
+}
+.order_details{
+    border-top: 1px solid #E9E8F0;
+}
+.order_detail li{
+    list-style: none;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 17px;
+    color: #7C8395;
+}
+.order_details li{
+    line-height: 7;
+    color: #495061;
+}
+.order_details .event_name{
+    line-height: 1;
+    padding-top: 30px;
+}
+.event_name div{
+    width: 60%;
+    float: left;
+    text-align: left;
+    padding-left: 15px;
+}
+.event_name div p{
+    color: #495061;
+    font-size: 16px;
+    height: 40px;
+    line-height: 20px;
+}
+.event_name div span{
+    color: #7B8493;
+    font-size: 14px;
+    line-height: 20px;
+}
+.post_order{
+    width: 100%;
+    float: left;
+    border-top: 1px solid #EBEAF1;
+    margin: 15px 0 0px;
+    padding: 30px;
+}
+.post_order>div{
+    padding: 0;
+    color: #7F8697;
+    line-height: 35px;
+    font-size: 16px;
+    height: 105px;
+}
+#post_order{
+    width: 160px;
+    height: 40px;
+    border: none;
+    border-radius: 4px;
+    background: #E64D4F;
+    color: #fff;
+    font-size: 18px;
+    position: relative;
+    top: -13px;
+    -webkit-transition: all .3s linear;
+    -moz-transition: all .3s linear;
+    -ms-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    transition: all .3s linear;
+}
+#post_order:hover{
+    background: #cc4547;
+}
+.post_order .text-right{
+    padding-top: 68px;
+    font-size: 18px;
+}
+.post_order .text-right font{
+    margin-right: 30px;
+    font-size: 25px;
+    color: #E74E50;
+}
+#checkcode{
+    width: 150px !important;
+}
+.change{
+    color: #E54C4E;
+    font-size: 15px;
+    padding-left: 30px;
+    cursor: pointer;
+    display: none;
+}
+.linkman{
+    width: 100%;
+    padding: 30px;
+    float: left;
+    display: none;
+}
+.linkman label{
+    color: #535971;
+    font-weight: normal;
+    font-size: 16px;
+}
+.linkman span{
+    color: #7B8294;
+    line-height: 25px;
+    font-size: 16px;
+}
+.link_name{
+    padding-right: 80px;
+}
+.link_invoice_title,.link_email_addr{
+    display: none;
+}
+.card{
+    width: 100% !important;
+    padding: 10px 2.4% 0;
+    text-align: left;
+    display: inline-block;
+    display: none;
+    *float: left;
+}
+.ways>.card{
+    width: 100% !important;
+    padding: 10px 2.4% 0;
+    text-align: left;
+    display: inline-block;
+    display: none;
+}
+.card ul{
+    width: 100%;
+}
+.card ul li{
+    border:1px solid #F9FAFC;
+    float: left;
+    width: 134px;
+    height: 42px;
+    text-align: left;
+    margin-right: 5%;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+    position: relative;
+}
+.card ul .xuanzhong{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.card ul .choosed{
+    border: 1px solid #E64D4F;
+}
+.card ul .choose_card{
+    width: 100%;
+    color: #5C6274;
+    font-size: 16px;
+    margin: 0;
+}
+.card ul .choose_card span{
+    border: none;
+    width: auto;
+    color: #6d7381;
+    font-size: 13px;
+    padding-left: 10px;
+}
+.post_order form input{
+    border: none;
+    background: none;
+    /*width: 186px;*/
+    height: 35px;
+}
+
+.back{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 100;
+}

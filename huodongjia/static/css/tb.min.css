@@ -1,0 +1,17 @@
+@font-face{font-family:tb_iconfont;src:url(//at.alicdn.com/t/font_1472785974_2250874.eot);src:url(//at.alicdn.com/t/font_1472785974_2250874.eot?#iefix) format('embedded-opentype'),url(//at.alicdn.com/t/font_1472785974_2250874.woff) format('woff'),url(//at.alicdn.com/t/font_1472785974_2250874.ttf) format('truetype'),url(//at.alicdn.com/t/font_1472785974_2250874.svg#iconfont) format('svg')}
+.call_serve{line-height:17px;margin:15px 0;width:170px;height:40px;background:url(http://pic.huodongjia.com/static/images/hdj_allbgs.png) no-repeat 0 -597px}
+.kefu{width:96px;height:101px;background:url(http://pic.huodongjia.com/static/images/hdj_allbgs.png) no-repeat 0 -456px}
+.erweima{width:18px;height:18px;background:url(http://pic.huodongjia.com/static/images/hdj_allbgs.png) no-repeat 0 -557px}
+.APP_erweima,.wxchat{display:inline-block;width:100px;height:100px;background:url(http://pic.huodongjia.com/static/images/hdj_allbgs.png) no-repeat 0 -19px}
+.APP_erweima{background:url(http://pic.huodongjia.com/static/images/hdj_allbgs.png) no-repeat 0 -260px}
+.tb_font{font-family:tb_iconfont}
+.business .tb_font{position:absolute;top:4px}
+.calendar .tb_font{position:relative;top:-2px}
+.bdsharebuttonbox .tb_font{font-size:31px;padding:0;position:relative;top:3px}
+.loginBtn .tb_font{font-size:38px!important}
+.bdsharebuttonbox .bds_weixin,.t_wx{color:#0FCE6E!important}
+.bdsharebuttonbox .bds_sqq,.t_qq{color:#56ABE4!important}
+.bdsharebuttonbox .bds_tsina,.t_sina{color:#EA4E35!important}
+.collect .tb_font{font-size:24px}
+.share>div{height:55px!important;line-height:55px!important}
+.share>.collect{line-height:50px!important}

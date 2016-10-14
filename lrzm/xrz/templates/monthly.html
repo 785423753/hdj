@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block mystyle %}
+<style>
+    .right>div{
+        margin: 10px 0;
+    }
+    .right>div>div{
+        width: 100%;
+        height: 300px;
+    }
+</style>
+{% endblock %}
+{% block right %}
+<div  class='col-sm-10 right'>
+    <div class="select">
+        <input value="" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="start_time_1">至
+        <input value='' onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="end_time_1"><button>确定</button>
+    </div>
+    <div class="col-sm-6 col-xs-12"><p>下载量趋势图</p><div id="download"></div></div>
+    <div class="col-sm-6 col-xs-12"><p>注册量及VIP用户趋势图</p><div id="sign"></div></div>
+    <div class="col-sm-6 col-xs-12"><p>小店数量</p><div id="shop"></div></div>
+    <div class="col-sm-6 col-xs-12"><p>匠人数量</p><div id="craftsman"></div></div>
+    <div class="col-sm-6 col-xs-12"><p>美文数量</p><div id="article"></div></div>
+    <div class="col-sm-6 col-xs-12"><p>浏览数量</p><div id="flow"></div></div>
+    <div class="col-sm-12 col-xs-12"><p>互动数量</p><div id="interact"></div></div>
+    <p class="line"></p>
+    <div class="select">
+        <input value="" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="start_time_2">至
+        <input value='' onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="end_time_2"><button>确定</button>
+    </div>
+    <div class="col-sm-12 col-xs-12"><p>七日留存</p><div id="lc"></div></div>
+</div>
+{% endblock %}
+{% block myscript %}
+<script src="/static/js/monthly.js"></script>
+{% endblock %}

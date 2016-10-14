@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load page_nav %}
+{% block addstyle %}
+<link rel="stylesheet" type="text/css" href="http://pic.huodongjia.com/static/css/sweet-alert.css">
+<link rel="stylesheet" type='text/css' href='/static/css/guest.css' />
+<style>
+    /*.like{
+        position: absolute;
+        color: #fff;
+        left: 47.5%;
+        top: 63px;
+        font-size: 12px;
+    }*/
+    .content{background: #F7F8FC !important;margin-bottom: 35px;}
+    .banner .fa-heart{
+        color: #E74E51;
+        font-size: 18px;
+    }
+    .content_left{background: white;}
+
+    #DonateForm{
+        clear: both;
+        margin: 0 auto;
+        /*border: 1px solid red;*/
+        padding-left: 5%;
+        width: 410px;
+        margin-bottom:10px;
+    }
+
+    #DonateForm input[type="text"]{
+        width: 300px;
+        height:35px;
+        border: 1px solid #BDC3D3;
+        border-radius: 4px;
+        background: #FCFCFC;
+        margin-bottom: 10px;
+        padding-left: 10px;
+        margin-right: 7px;
+    }
+
+    #DonateForm span{
+        color: #E44E4F;
+    }
+    #save{
+        width: 300px;
+        height:40px;
+        border: none;
+        border-radius: 4px;
+        background: #2E83DD;
+        color: #fff;
+        font-size: 18px;
+        margin-top: 15px;
+    }
+    
+    .content_right{background: white;}
+    .content_right ul{list-style:none;margin-top:20px;margin-left:15px;padding-right:5px;}
+    .content_right ul li{margin-top:10px;}
+    .why_donate{width:90%;background:#E9EAEF;margin:auto;margin-top:10px;}
+    .why_donate p{font-size:16px;margin:5 5 2 10;}
+</style>
+{% endblock %}
+{% block content %}
+<div class="container content">
+    <p class="bread_nav">
+        <span><a href="/" target="_blank">首页</a>&gt;我要赞助</span>
+    </p>
+    <div class="content_left">
+        <div class='donate_des' style='width:95%;margin:auto;margin-top:25px;'>
+            {% if event %}
+            <p>由{{event.event_sponsor.0.ns_name}}主办的“{{event.event_name}}”会议将于{{event.event_begin_time|date:'Y-m-d'}}在{{event.event_venue_info.0.title}}举办,会议赞助正在火热招商中...</p>
+            {% endif %}
+            <p style='font-size:16px;color:#999;'>会议采用多种赞助方案，如需要了解具体赞助方案，请提交你的联系方式，稍后客服将与你取得联系。</p>
+        </div>
+        <div style='margin:auto;width:95%;'>
+            <hr>
+        </div>
+        <div class='donate_form'>
+            <form id="DonateForm" method='post'  action="/donate/">
+              {% csrf_token %}
+              <input type="hidden"  id="event_id" name='event_id' value='{{event.id}}' />
+              <input type="text"  id="name" name='name' placeholder="姓名"/><span>*必填</span><br/>
+              <input type="text"  id="phone" name='phone' placeholder="手机号"/><span>*必填</span><br/>
+              <input type="text"  id="email" name='email' placeholder="邮箱"/><span>*必填</span><br/>
+              <input type="text"  id="company" name='company' placeholder="单位"/><span>*必填</span><br/>
+              <input type="text"  id="job" name='job' placeholder="职位"/><br/>
+              <input type="text" name="checkcode" id="checkcode" placeholder="验证码" data-captchaflag="false"/>
+                <img onclick="this.setAttribute('src','/get_check_code_image/?nocache='+Math.random());" src="/get_check_code_image/" alt="CheckCode" style="width: 138px" id="cap_img"><br/>
+                <br/>
+                <button type="button" id="save">提交</button>
+            </form>
+        </div>
+    </div>
+    <div class="content_right">
+        <div class='why_donate'>
+            <p>&nbsp;&nbsp;赞助商须知：</p>
+        </div>
+        <div>
+            <ul>
+                <li>1、请完整填写需要赞助的会议活动，以方便客服人员与您联系。</li>
+                <li>2、请保持电话畅通，客服人员将在1个工作日内与您联系。</li>
+                <li>3、赞助方式分为现金赞助、奖品赞助、食宿赞助、交通赞助、宣传赞助等。</li>
+                <li>4、赞助提供的权益分为冠名、演讲、专场推介、嘉宾礼遇、会员资格、形象宣传与广告等.</li>
+                <li>5、赞助会议您将获得全方位品牌宣传、产品销售提升、扩大用户群、商业人脉提升，以及赠票.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+
+
+<script src="http://pic.huodongjia.com/static/js/sweet-alert.min.js"></script>
+<script src="/static/js/jquery.placeholder.min.js"></script>
+<script type='text/javascript'>
+    sweetAlertInitialize();
+    {% if flag == 'true'%}
+        swal('提交成功！','我们及时联系您!','success');
+    {%elif flag == 'false' %}
+        swal('提交失败！','请重新提交！');
+    {%endif%}
+    $('#save').click(function(){
+        var checkcode = $('input[id=checkcode]').val();
+        var name = $('input[id=name]').val();
+        var phone = $('input[id=phone]').val();
+        var email = $('input[id=email]').val();
+        var company = $('input[id=company]').val();
+        var job = $('input[id=job]').val();
+
+        //验证验证码
+        var csrf = document.getElementsByName('csrfmiddlewaretoken')[0];
+            var captcha = $("#checkcode").val();
+            var submitflag = true;
+            $.ajax({
+                url: "/verify_captcha/",
+                dataType: "json",
+                type: "post",
+                async: false,
+                data: {
+                    csrfmiddlewaretoken: csrf.value,
+                    captcha: captcha
+                },
+                success: function (data) {
+                    if (data.flag == 'false') {
+                        swal('验证码错误！');
+                        $("#checkcode").attr({"data-captchaflag":false})
+                        $("#cap_img").click()
+                    }else{
+                        $("#checkcode").attr({"data-captchaflag":true})
+
+                        if(name && phone && email && company){
+                           $('#DonateForm').submit();
+
+                        }else{
+                           swal('信息不完整!');        
+                        }
+                    }
+                }
+            });
+    });
+        $("#DonateForm input").placeholder()
+</script>
+
+{% endblock %}

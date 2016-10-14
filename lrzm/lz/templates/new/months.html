@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block style %}
+<style>
+    .select {
+        left: 2%;
+        top: 28px;
+    }
+    .right_bottom{
+        float: left;
+        margin-right: 2%;
+    }
+    .abs{
+        position: absolute;
+        z-index: 999;
+        right: 5px;
+        top: 46%;
+    }
+    @media (max-width:1420px) {
+        .right_bottom{
+            width: 49% !important;
+            margin-right: 1%;
+        }
+    }
+    @media (max-width:768px) {
+        .right_bottom{
+            width: 100% !important;
+            margin-right: 0;
+        }
+        .select {
+            top: 68px;
+        }
+    }
+</style>
+{% endblock %}
+{% block right %}
+<div class='col-sm-10 col-xs-12 right' style=''>
+    <h2 align='center'>核心月度数据</h2>
+    <div class="select"><input value={{ default_time.start_day.strftime('%Y-%m-%d') }} onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="start_time">至
+        <input value={{ default_time.end_day.strftime('%Y-%m-%d') }} onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="end_time"><button>确定</button></div>
+    <div class="right_bottom" style="width:48%;height: 450px;">
+        <div id='right_curveoforder_1' style="width: 100%;height: 100%"></div>
+    </div>
+    <div class="right_bottom" style="width:48%;height: 450px;">
+        <div id='right_curveoforder_2' style="width: 100%;height: 100%"></div>
+    </div>
+    <div class="right_bottom" style="width:48%;height: 450px;">
+        <div id='right_curveoforder_3' style="width: 100%;height: 100%"></div>
+    </div>
+    <div class="right_bottom" style="width:48%;height: 450px;">
+        <div id='right_curveoforder_4' style="width: 100%;height: 100%"></div>
+    </div>
+    <div class="right_bottom" style="width:48%;height: 450px;">
+        <div id='right_curveoforder_5' style="width: 100%;height: 100%"></div>
+    </div>
+    <div class="right_bottom" style="width:48%;height: 450px;">
+        <div id='right_curveoforder_6' style="width: 100%;height: 100%"></div>
+    </div>
+    <div class="right_bottom" style="width:48%;height: 450px;">
+        <div id='right_curveoforder_7' style="width: 100%;height: 100%"></div>
+    </div>
+    <div class="right_bottom" style="width:48%;height: 450px;">
+        <div id='right_curveoforder_8' style="width: 100%;height: 100%"></div>
+    </div>
+    <div class="right_bottom" style="width:48%;height: 450px;">
+        <div class="abs">
+            <span class="avg"></span><br>
+            <span class="buy_rate"></span>
+        </div>
+        <div id='right_curveoforder_9' style="width: 100%;height: 100%"></div>
+    </div>
+    <div class="right_bottom" style="width:48%;height: 450px;font-size: 16px;line-height: 30px;padding:20px 15px">
+        <span style="color: #E46666">GMV(Gross Merchandise Volume)</span>：网站成交金额，包含已消费、待消费、已退款、待支付、已取消、已过期的订单金额总和。<br>
+        <span style="color: #E46666">销售额</span>：实际成交金额，包括：已消费、待消费、已退款、已过期的订单总金额。<br>
+        <span style="color: #E46666">ARPU(AverageRevenuePerUser)</span> : 每用户平均收入。数据=销售额/对应的下单用户数</div>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+<script type="text/javascript" src="../static/js/monthlyData.js"></script>
+{% endblock %}

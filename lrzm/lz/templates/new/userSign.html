@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block right %}
+<div class='col-sm-10 col-xs-12  right' style=''>
+    <h2 align='center'>注册用户分析</h2>
+    <div class="select"><input value="2016-04-01" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="start_time">至
+        <input value="2016-04-20" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="end_time"><button>确定</button></div>
+    <div class="right_bottom" style="width: 100%;height: 500px;float: left">
+        <h2 style="font-size: 16px" align='center'>每日新增及总数</h2>
+        <div id='right_curveoforder_1' style="width: 90%;height: 420px;margin: auto"></div>
+    </div>
+    <!--<div class="right_bottom" style="width: 38%;height: 500px;float: right">-->
+        <!--<h2 align='center'>城市汇总数据</h2>-->
+        <!--<div id='right_curveoforder_2' style="width: 100%;height: 400px;"></div>-->
+    <!--</div>-->
+</div>
+{% endblock %}
+{% block footer %}
+<script type="text/javascript" src="../static/js/userSign.js"></script>
+{% endblock %}

@@ -1,0 +1,140 @@
+<html xmlns:wb="http://open.weibo.com/wb">
+<head>
+    <title>收藏的活动_活动家</title>
+    <meta name="keywords" content="收藏活动，活动家" />
+    <meta name="description" content="在活动家收藏的活动汇总。找会议，上活动家！" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="http://pic.huodongjia.com/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://pic.huodongjia.com/static/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://pic.huodongjia.com/static/usercenter/css/index.css"/>
+    <!--[if lt IE 9]>
+    <script src="http://pic.huodongjia.com/static/js/html5shiv.min.js"></script>
+    <link href="http://huodongjia-yun.b0.upaiyun.com/static/css/non-responsive.css?t=20151030.css" rel="stylesheet">
+    <![endif]-->
+</head>
+<style>
+    .pageNumber a{
+        background: #C0C0C0;
+        color: #fff;
+        width: 35px;
+        border:none;
+    }
+    .pageNumber a:hover{
+        background: #4693E3;
+    }
+</style>
+<body id="collection">
+    <!--<h3>我的收藏</h3>-->
+    {% if collect_lst %}
+    <table width="888px">
+        <thead>
+        <tr>
+            <th colspan="2">会议信息</th>
+                <th>会议状态</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for collec in collect_lst %}
+            <tr>
+                <td width="200px">
+                    {% if collec.event_img %}
+                    <img width="160px" height="100px" style="margin: 20px" src="http://huodongjia-yun.b0.upaiyun.com/{{collec.event_img}}" alt="{{collec.event_name}}"/>
+                    {% else %}
+                    <img width="160px" height="100px" style="margin: 20px" src="http://huodongjia-yun.b0.upaiyun.com/img/default19000.jpg" class="listPic" alt="{{collec.event_name}}">
+                    {% endif %}
+                </td>
+                <td width="480px" style="text-align: left;padding: 20px 10px;vertical-align: top;position: relative;">
+                    <a target="_blank" href="/event-{{collec.old_event_id}}.html">{{collec.event_name}}</a>
+                    <div style="position: absolute;bottom: 20px;left: 10px;">
+                    <p style="font-size: 14px;color: #666666">地点：{{collec.event_city}}</p>
+                    <p style="font-size: 14px;color: #666666">时间：{{collec.event_time}}</p>
+                    </div>
+                </td>
+                {% ifequal collec.event_status 0 %}
+                <td class="eIng">
+                    正在进行中
+                </td>
+                {%else%}
+                {% ifequal collec.event_status 1 %}
+                <td class="eEnd">
+                    成功举办
+                </td>
+                {%else%}
+                {% ifequal collec.event_status 2 %}
+                <td class="eSoon">
+                    距离会议开始 <br/>
+                    还有<span>{{ collec.day}}天</span>
+                    <p><a style="width: 90px;height: 24px;line-height: 24px;color: #fff;display:block;margin: 20px auto 0;background-color: #e64d4f;border-radius: 5px" target="_blank" href="/event-{{collec.old_event_id}}.html">参会报名</a></p>
+                </td>
+                {%endifequal%}
+                {%endifequal%}
+                {%endifequal%}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="pageNumber">
+        {% if firstPage != 'false' %}
+        <a href="{{firstPage}}" class="nextPage">首页</a>
+        {% endif %}
+        {% for page in pageList %}
+        {% ifequal page.flag 'true' %}
+        <a href="{{page.pageurl}}" class="active">{{page.page}}</a>
+        {% else %}
+        <a href="{{page.pageurl}}" class="">{{page.page}}</a>
+        {% endifequal %}
+        {% endfor %}
+        {% ifequal nextPage "false" %}
+
+
+        {% else %}
+        <span class="morePage">...</span>
+        <a href="{{nextPage}}" class="nextPage">下一页</a>
+        {% endifequal %}
+    </div>
+    {% else %}
+    <p class="nullTitle">很遗憾，您的收藏夹为空。</p>
+    <p>你值得收藏的会议 <a href="/business" style="font-size: 14px;color: #999;float: right;" target="_blank">更多</a></p>
+    <div class="collectionNull">
+    </div>
+    {% endif %}
+    <script src="http://cdn.bootcss.com/jquery/1.7/jquery.min.js"></script>
+    <script>
+        $("#collection .collectionNull").on('click','.nullButton>a', function () {
+            var $this = $(this)
+            $.ajax({
+                url:"/usercenter/collect/",
+                type:"get",
+                data:{old_event_id:$(this).parents(".nullLists").attr("data-eventid")},
+                success: function (data) {
+                    var s=eval("("+data+")")
+                    if(s.code == "1"){
+                        $this.text("已收藏").addClass("flaeTrue");
+                    }else if(s.code == "2"){
+                        top.frames.swal("已收藏");
+                    }
+                }
+            })
+        })
+        $("table tbody tr:odd").addClass("trEven")
+        $("table tbody tr:even").addClass("trOdd")
+        $.ajax({
+            url:"/usercenter/recommend/",
+            type:"get",
+            success: function (data) {
+                var s = eval("("+data+")").share_events,_html="";
+                for(var i=0;i< s.length;i++){
+                    _html += '<div class="nullLists" data-eventid="'+s[i].event_id+'">' +
+                            '<a target="_blank" href="/event-'+s[i].event_id+'.html"><img width="198px" height="124px" src="'+s[i].event_img+'" alt="'+s[i].event_name+'"/></a>' +
+                            '<p class="nullName"><a target="_blank" href=/event-'+s[i].event_id+'.html>'+s[i].event_name+'</a></p>' +
+                            '<p class="nullCity">地点：'+s[i].city+'</p>' +
+                            '<p class="nullTime">时间：'+s[i].begin_time+'</p>' +
+                            '<p class="nullButton"><a>收藏</a></p></div>'
+                }
+                $(".collectionNull").html(_html)
+            }
+        })
+    </script>
+</body>
+</html>

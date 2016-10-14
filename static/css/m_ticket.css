@@ -1,0 +1,137 @@
+*{
+    font-family: "CTHeiTiSJ","Microsoft YaHei", \5fae\8f6f\96c5\9ed1, arial, \5b8b\4f53;
+}
+hr{
+    margin-top: 10px;
+    margin-bottom: 10px;;
+    border-top: 1px solid #e6e6e6;
+}
+.check_header{
+    padding-top: 10px;
+}
+.check_header .check_boder,.check .check_boder{
+    border: 1px solid #dcdcdc;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.check_header div{
+    width: 50%;
+    display: inline-block;
+}
+.check_header div{
+    display: table-cell;
+    vertical-align: middle;
+}
+.check_header .district{
+    padding-left: 30px;
+}
+.check_header .header_img{
+    border-radius: 5px;
+    overflow: hidden;
+}
+.check_header .header_img img{
+    width: 100%;
+}
+.check_header .header_text{
+    padding-left: 10px;
+ }
+ .check_header .header_text h2{
+     font-size: 4vw;
+     font-weight: 600;
+     margin-bottom: 30px;
+ }
+ .check_header .header_text span{
+     color: #a3a3a3;
+ }
+ /*价格显示*/
+.check{
+    margin-top: 15px;
+}
+ .check .form_number{
+     height: 100%;
+     background-color: #fff;
+ }
+ .check .borer_top{
+     height: 15px;
+     background-image: url("http://pic1.qkan.com/static/images/ii.jpg");
+     background-size: 5%;
+ }
+.check .check_boder{
+    padding: 0px;
+}
+ .check .price_type p{
+     font-size: 15px;
+     color: #a3a3a3;
+     display: inline-block;
+ }
+.check .price_type h2{
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+.check .price_type a{
+    float: right;
+    color: #a3a3a3;
+}
+.check .price_content{
+     margin: 14px 0;
+}
+.check .form_number p{
+    font-size: 28px;
+    color: red;
+}
+.check .form_number label{
+    font-size: 15px;
+    font-weight: 400;
+}
+.check .form_number .number{
+    display: inline-block;
+}
+.check .form_number .number input[type=text],.check .form_number .number i{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #dcdcdc;
+}
+.check .form_number .number i{
+    font-size: 30px;
+    line-height: 1;
+    text-align: center;
+    font-style: normal;
+    position: relative;
+    top: 7px;
+}
+.check .form_number .number input[type=text]{
+    border-left: none;
+    border-right: none;
+    text-align: center;
+}
+.click_submit a{
+    display: block;
+    background-color: #ff9933;
+    height: 40px;
+    text-align: center;
+    color: #fff;
+    line-height: 40px;
+    font-size: large;
+    margin-top: 30px;
+    border-radius: 5px;
+}
+header{
+    text-align: center;
+}
+header a{
+    float: left;
+    line-height: 60px;
+    color: #fff;
+    font-size: 19px;
+}
+header i{
+    font-size: 30px;
+}
+header h2{
+    display: inline-block;
+    color: #fff;
+    line-height: 60px;
+    position: relative;
+    left: -.5em;
+}

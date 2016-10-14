@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+    .trade a{
+        font-size: 12px;
+        background: #E3FBE3;
+        padding: 10px;
+        margin-right: 24px;
+        display: inline-block;
+        margin-bottom: 20px;
+        color: #000;
+    }
+</style>
+<body>
+<table border="0" cellpadding="0" cellspacing="0" class="zhwd-mobile-fullwidth" style="background-color:#f7f9fa" width="100%">
+    <tbody>
+    <tr>
+        <td align="center" class="zhwd-mobile-fullwidth" style="background-color: #F7F9FA" width="100%">
+            <table border="0" cellpadding="0" cellspacing="0" class="zhwd-mobile-fullwidth" style="background-color:#f7f9fa" width="552">
+                <tbody>
+                <tr>
+                    <td height="0" style="font-size:0px; line-height: 0px; color: #f7f9fa">
+                        这是一封根据你的兴趣定制的精华合集，希望你每期都能遇见不同的精彩。
+                    </td>
+                </tr>
+                <tr class="zhwd-mobile-hide">
+                    <td>
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tbody>
+                            <tr>
+                                <td height="40" style="font-size:0px; line-height: 0px">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" style="font-size:12px;color:#b6c2cc">
+                                    为了您能够正常收到活动家的会议推荐通知，请将<span style="color: #2C84DB;">business@qkan.com</span>添加进您的通讯录
+                                </td>
+                                <td width="35">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="20" style="font-size:0px; line-height: 0px">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table cellpadding="0" cellspacing="0" class="zhwd-mobile-no-radius" style="border-radius:4px;border:1px solid #dedede;margin:0 auto;background-color:#ffffff">
+                            <tbody>
+                            <tr>
+                                <td style="padding:45px 35px 45px 35px" class="zhwd-mobile-collapse-padding" align="left">
+                                    <table border="0" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td valign="middle" width="51" style="vertical-align:middle" class="zhwd-high-res-img-wrap zhwd-zhihu-logo">
+                                                            <a href="http://www.huodongjia.com/" target="_blank">
+                                                                <img src="http://pic.huodongjia.com/static/images/hdj.png" style="outline:none;text-decoration:none;border:none;margin:0;padding:0;display:block" width="90"></a>
+                                                        </td>
+                                                        <td align="left" style="font-size:24px;color:#202121">每周精选</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td height="45" style="font-size:0px; line-height: 0px">
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <table border="0" cellpadding="0" cellspacing="0">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td height="35" style="font-size:0px; line-height: 0px;border-top:1px #f1f4f6 solid">
+                                                            &nbsp;
+                                                        </td>
+                                                    </tr>
+                                                    <!--会议-->
+                                                    {% for ev in events %}
+                                                    <tr>
+                                                        <td>
+                                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <a href="http://www.huodongjia.com{{ ev.event_url }}" style="font-size:17px;font-weight:bold;text-decoration:none;color:#259;border:none;outline:none" target="_blank">
+                                                                            {{ ev.event_name }}
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="zhwd-mobile-no-fullwidth">
+                                                                            <tbody>
+                                                                            <tr>
+                                                                                <td height="15" style="font-size:0px; line-height: 0px">
+                                                                                    &nbsp;
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td align="left">
+                                                                                    {% for tag in ev.event_tag_info %}<span style="font-size:13px;color:#666;margin-right: 10px">{{ tag.name }}</span>{% endfor %}
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td height="12" style="font-size:0px; line-height: 0px">
+                                                                                    &nbsp;
+                                                                                </td>
+                                                                            </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <table border="0" cellpadding="0" cellspacing="0">
+                                                                            <tbody>
+                                                                            <tr>
+                                                                                <td style="word-break:break-all">
+                                                                                    <a href="http://www.huodongjia.com{{ ev.event_url }}" style="font-size:13px;line-height:22px;text-decoration:none;color:#333;display:block" target="_blank">
+                                                                                        {{ev.event_intro|slice:"75"}}...
+                                                                                        <span style="font-size:13px;display:inline-block;color:#259">&nbsp;查看详情</span></a>
+                                                                                    <p>{{ev.event_city_info.0.district_name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ ev.event_begin_time|date:'Y-m-d' }}</p>
+                                                                                </td>
+                                                                            </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td height="15" style="font-size:0px; line-height: 0px;border-bottom: 1px solid #eee;">
+                                                                        &nbsp;
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td height="15" style="font-size:0px; line-height: 0px;">
+                                                                        &nbsp;
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+
+                                                    <!--更多-->
+                                                    <tr>
+                                                        <td>
+                                                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td style="font-size:16px;font-weight:bold;color:#333333">
+                                                                        <strong>不感兴趣?查看更多</strong>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td height="10" style="font-size:0px; line-height: 0px">
+                                                                        &nbsp;
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="trade"><a style="text-decoration: none"  href="http://www.huodongjia.com/it/">IT互联网</a><a style="text-decoration: none"  href="http://www.huodongjia.com/medical/">医疗行业</a>	<a style="text-decoration: none" href="http://www.huodongjia.com/energy/">能源化工</a><a style="text-decoration: none" href="http://www.huodongjia.com/finance/">金融财经</a>
+                                                                        <a style="text-decoration: none"  href="http://www.huodongjia.com/agricultur/">农业牧渔</a><a style="text-decoration: none"  href="http://www.huodongjia.com/edutrain/">教育培训</a>
+                                                                        <a  style="text-decoration: none"  href="http://www.huodongjia.com/manufact/">加工制造</a><a style="text-decoration: none"  href="http://www.huodongjia.com/realestate/">地产建筑</a><a style="text-decoration: none"  href="http://www.huodongjia.com/culmedia/">文化传媒</a>
+                                                                        <a  style="text-decoration: none"  href="http://www.huodongjia.com/servindust/">服务行业</a><a style="text-decoration: none" href="http://www.huodongjia.com/tralogist/">交通物流</a><a style="text-decoration: none" href="http://www.huodongjia.com/trade/">其他行业</a></td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="28" style="font-size:0px; line-height: 0px">
+                                                            &nbsp;
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="35" style="font-size:0px; line-height: 0px;border-top:1px #f1f4f6 solid">
+                                                            &nbsp;
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <table align="left" width="238" border="0" cellpadding="0" cellspacing="0" class="zhwd-mobile-centered-table" style="border:1px solid #FFFFFF;border-collapse:collapse">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td bgcolor="#FFFFFF">
+                                                                        <p style="mso-table-lspace:0;mso-table-rspace:0">
+                                                                        </p>
+                                                                        <table border="0" cellpadding="0" cellspacing="0" align="left">
+                                                                            <tbody>
+                                                                            <tr>
+                                                                                <td class="zhwd-high-res-img-wrap zhwd-zhihu-square">
+                                                                                    <img src="http://pic.huodongjia.com/static/images/zh.png" width="180">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td height="14" style="font-size:0px; line-height: 0px">
+                                                                                    &nbsp;
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td align="center" colspan="3">
+                                                                                    <table width="179" border="0" cellpadding="0" cellspacing="0" style="background-color:#d4d9de;border-radius:5px;text-align:center" height="38">
+                                                                                        <tbody>
+                                                                                        <tr>
+                                                                                            <td height="38" valign="middle" style="padding-right:5px;padding-left:20px;line-height:0">
+                                                                                                <a href="nofollow" href="http://pic.huodongjia.com/app/hdj2015917.apk" target="_blank"><span class="zhwd-high-res-img-wrap zhwd-zhihu-apple"><img src="http://s3.zhimg.com/edm/weekly_digest/apple.png" width="23" height="26" style="outline:none;text-decoration:none;border:none;margin:0;padding:0;display:block"></span></a>
+                                                                                            </td>
+                                                                                            <td style="color:#333333;font-weight:bold;padding-right:20px;white-space:nowrap">
+                                                                                                <a href="https://itunes.apple.com/cn/app/huo-dong-jia-hui-yi-zhan-hui/id731753448?mt=8" style="border:none;color:#0084b4;text-decoration:none;color:#ffffff;font-size:15px;font-weight:bold" target="_blank">iPhone 版</a>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td height="12" style="font-size:0px; line-height: 0px">
+                                                                                    &nbsp;
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td align="center" colspan="3">
+                                                                                    <table width="179" border="0" cellpadding="0" cellspacing="0" style="background-color:#d4d9de;border-radius:5px;text-align:center" height="38">
+                                                                                        <tbody>
+                                                                                        <tr>
+                                                                                            <td height="38" valign="middle" style="padding-right:5px;padding-left:20px;line-height:0">
+                                                                                                <a href="http://tmail.zhihu.com/t?u=aHR0cDovL3d3dy56aGlodS5jb20vYXBwLz91dG1fY2FtcGFpZ249d2Vla2x5MjE0JnV0bV9zb3VyY2U9d2Vla2x5LWRpZ2VzdCZ1dG1fbWVkaXVtPWVtYWls&amp;i=919221607&amp;l=zhihu&amp;s=48&amp;c=aT05MTkyMjE2MDcmbD16aGlodSZzPTQ4" target="_blank"><span class="zhwd-high-res-img-wrap zhwd-zhihu-android"><img src="http://s3.zhimg.com/edm/weekly_digest/Android.png" width="23" height="26" style="outline:none;text-decoration:none;border:none;margin:0;padding:0;display:block"></span></a>
+                                                                                            </td>
+                                                                                            <td style="color:#333333;font-weight:bold;padding-right:20px;white-space:nowrap">
+                                                                                                <a href="http://tmail.zhihu.com/t?u=aHR0cDovL3d3dy56aGlodS5jb20vYXBwLz91dG1fY2FtcGFpZ249d2Vla2x5MjE0JnV0bV9zb3VyY2U9d2Vla2x5LWRpZ2VzdCZ1dG1fbWVkaXVtPWVtYWls&amp;i=919221607&amp;l=zhihu&amp;s=49&amp;c=aT05MTkyMjE2MDcmbD16aGlodSZzPTQ5" style="border:none;color:#0084b4;text-decoration:none;color:#ffffff;font-size:15px" target="_blank">Android 版</a>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </td>
+                                                                            </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                        <p>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <table align="left" width="238" border="0" cellpadding="0" cellspacing="0" class="zhwd-mobile-centered-table zhwd-mobile-centered-table-wmt" style="border:1px solid #FFFFFF;border-collapse:collapse">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td bgcolor="#FFFFFF">
+                                                                        <p style="mso-table-lspace:0;mso-table-rspace:0">
+                                                                        </p>
+                                                                        <table border="0" cellpadding="0" cellspacing="0" align="right">
+                                                                            <tbody>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <a><img src="http://pic.huodongjia.com/static/images/APP_erweima.png" style="font-size:14px;color:#0077d9;outline:none;text-decoration:none;border:none;margin:0;padding:0;display:block" width="128" class="zhwd-responsive-image" ></a>
+                                                                                </td>
+                                                                            </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                        <p>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tbody>
+                            <tr>
+                                <td style="padding:20px 25px 45px 25px;font-size:12px;color:#b6c2cc;line-height:17px" class="zhwd-mobile-small-footer" align="center">
+                                    <span>该邮件由<a href="" style="color: #2C84DB;" >活动家官网</a>整理，如果你、您不希望在收到类似的信息服务，点击这里<a href="" style="color: #F0C76D;">退订</a></span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

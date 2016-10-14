@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/static/laydate/laydate.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/base.css">
+</head>
+<style>
+    .content .part{
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    .content .part>div{
+        width: 100%;
+        height:350px;
+    }
+    .select,.money{
+        position: absolute;
+    }
+    .select{
+        left: 10%;
+        top: 25px;
+    }
+    .money{
+        right:10%;
+        top: 28px;
+    }
+    .money span{
+        color: #848281;
+        font-size: 14px;
+        margin-left: 30px;
+    }
+    .money span font{
+        color: rgba(118, 210, 247, 1);
+        text-shadow: 0 0 5px #57BBF7;
+        font-size: 18px;
+        font-family: 'EURASIA';
+        letter-spacing: 1px;
+    }
+    .jiao{
+        position: absolute;
+        top:11.5%;
+        left:4%;
+        z-index:99;
+    }
+    .all{
+        width: 50% !important;
+        padding:5%;
+    }
+    .all span{
+        color: #848281;
+        font-size: 16px;
+        margin-right: 30px;
+        line-height: 2.5;
+    }
+    .all span font{
+        color: rgba(118, 210, 247, 1);
+        text-shadow: 0 0 5px #57BBF7;
+        font-size: 20px;
+        font-family: 'EURASIA';
+        letter-spacing: 1px;
+    }
+</style>
+<body>
+<canvas class="bg"></canvas>
+<div class="head">
+    <span class="logo">可视化管理</span>
+    <ul>
+        <li data-url="zonglan_1.png" data-old="zonglan.png"><a href="/" title="总览图"><img src="http://pic.huodongjia.com/static/vision/images/zonglan.png" alt=""></a></li>
+        <li class="order" data-url="dingdan_1.png" data-old="dingdan.png">
+            <a class="act" title="订单可视化" href="/newordervis/salesanalysis/"><img src="http://pic.huodongjia.com/static/vision/images/dingdan_1.png" alt=""></a>
+        </li>
+        <li data-url="bianji_1.png" data-old="bianji.png"><a href="/neweventvis/showevents/" title="编辑可视化"><img src="http://pic.huodongjia.com/static/vision/images/bianji.png" alt=""></a></li>
+        <li class="operate" data-url="qita_1.png" data-old="qita.png">
+            <a href="/newoperation/op_datas/" title="运营推广数据可视化"><img src="http://pic.huodongjia.com/static/vision/images/qita.png" alt=""></a>
+            <!--<div class="menue" ><a href="">订单来源渠道</a><a href="">订单来源渠道</a><a href="">订单来源渠道</a></div>-->
+        </li>
+        <li data-url="app_1.png" data-old="app.png"><a href="/newordervis/app/" title="活动家APP"><img src="http://pic.huodongjia.com/static/vision/images/app.png" alt=""></a></li>
+    </ul>
+</div>
+<div class="menue"><a class="choose" href="/newordervis/salesanalysis/">销售额对比分析</a><a href="/newordervis/top20/">销售榜单分析</a>
+    <a href="/newordervis/contrastwithpast/">历届会议对比</a><a href="/newordervis/bizcoopanalysis/">商务合作分析</a><a href="/newordervis/order_source/">其他维度分析</a>
+    <div class="industry">
+        <span>行业分类:</span>&nbsp;&nbsp;&nbsp;<font data-cat="">全部</font>
+        <ul></ul>
+    </div>
+</div>
+<div class='content'>
+        <div class="select"><input value="" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="start_time">至
+            <input value='' onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="end_time"><button>确定</button></div>
+        <div class="money"><span>总销售额：<font class="total"></font></span><span>退款金额：<font  class="refund"></font></span></div>
+    <div class="part">
+        <!--<img class="jiao" src="jiao_1.png" alt="">-->
+        <div id="month"></div>
+    </div>
+    <p style="clear: both;margin:auto;border-top: 1px solid #29396D;margin-bottom: 10px;width: 93%"></p>
+    <div class="part" style="width:50%;"><h3>最近12周销售额对比</h3><div id="week_12"></div></div>
+    <div class="part" style="width:50%;"><h3>最近12月销售额对比</h3><div id="month_12"></div></div>
+    <p style="clear: both;margin:auto;border-top: 1px solid #29396D;margin-bottom: 10px;width: 93%"></p>
+    <div class="part" style="width:50%;"><h3>成交价格段</h3><div id="price"></div></div>
+    <div class="part all"><span>总金额：<span style=" color: rgba(118, 210, 247, 1);margin: 0;">￥</span>
+        <font class="all_money"></font></span><span>订单量：<font class="order_num"></font></span><br><span>平均客单价：<font style="font-size: 2em" class="average"></font><span style=" color: rgba(118, 210, 247, 1);margin: 0;"> 元/单</span></span></div>
+</div>
+</body>
+<script>
+    $('#end_time').attr('value',laydate.now())
+    var s_time=laydate.now().split('-')[0]+'-'+laydate.now().split('-')[1]+'-01'
+    $('#start_time').attr('value',s_time)
+</script>
+<script src="/static/js/echarts.js"></script>
+<script src="/static/js/dark.js"></script>
+<script src="/static/js/infographic.js"></script>
+<script src="/static/js/price.js"></script>
+<script src="/static/js/canvas.js"></script>
+</html>

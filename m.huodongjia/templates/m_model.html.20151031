@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+{% block meta %}
+    <title>{{head.title}}</title>
+    <meta http-equiv="pragram" content="no-cache"> 
+    <meta http-equiv="cache-control" content="no-cache, must-revalidate">
+    <meta http-equiv="expires" content="0"> 
+    <meta name="description" content="{{head.description}}" />
+    <meta name="keywords" content="{{head.keywords}}" />
+{% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=no,minimal-ui" />
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="applicable-device" content="mobile">
+    <meta content="no-cache" http-equiv="Pragma">
+    <meta content="no-cache" http-equiv="Cache-Control">
+    <meta content="0" http-equiv="Expires">
+    <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://pic.huodongjia.com/static/mobile/new_mobiles.css">
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <style>
+        .hidden-div{
+            margin-top:-59px
+        }
+    </style>
+    {% block request %}
+	<link rel="canonical" href="http://www.huodongjia.com{{request.get_full_path}}" >
+    {% endblock %}
+{% block cssStyle %}
+{% endblock %}
+</head>
+<body style="height: 100%">
+<div style="display:none">
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?7dce5762be86c04d74cdf23183cc9558";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</div>
+{% block container %}
+<div class="container" id="home_con">
+    <!--header start-->
+    {% block header %}
+    <div class="row">
+        <header class="col-sm-12 col-xs-12" style="padding:0">
+            <a href="/" class="back" style="display: none;"><i class="iconfont">&#xf006b;</i></a>
+            <h1 style="padding:0;margin-left:0;" class="header_list">
+                <img style="width:76px" src="http://pic.huodongjia.com/static/images/new_logo.jpg" alt="活动家手机站-专业商务会议网"/>
+                <!--<img class="xiala" src="http://pic.huodongjia.com/static/images/iconfont-xialaxiangxia.png" alt="活动家手机站-专业商务会议网">-->
+            </h1>
+            <!--<a class="publish" style="padding: 0;"  rel="nofollow">活动发布</a>-->
+        </header>
+        <section class="col-sm-12 col-xs-12 hidden-div">
+            <ul>
+                <li><a>找会议</a></li>
+                <li><a>会议主办方</a></li>
+                <li><a>会议场馆</a></li>
+                <li><a>会议嘉宾</a></li>
+                <li><a>活动发布</a></li>
+            </ul>
+        </section>
+    </div>
+    {% endblock %}
+    <!--center start-->
+        {% block banner %}
+    <!-----banner---->
+    <div class="row">
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-wrap="true">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                {%for ad in advert_info%}
+                <li data-target="#carousel-example-generic" data-slide-to="0" id='circle_for_ad' class=""></li>
+                {%endfor%}
+                <script type="text/javascript">
+                    $('#circle_for_ad').each(function(index){
+                        if(index==0){
+                            $(this).attr('class','active');
+                        }
+                    });
+                </script>
+                <!-- <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2"></li> -->
+            </ol>
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                
+				{%for ad in advert_info%}
+					<div class="item">
+						<a href="{{ad.ad_url}}"><img  src="http://pic.huodongjia.com/{{ad.ad_pic}}" alt=""/></a>
+                    	<div class="carousel-caption"></div>
+               	 	</div>
+
+				{%endfor%}
+				<script>
+					console.log($('.item'));
+                    $('.item').each(function(index){
+                        if(index==0){
+                            $(this).attr('class','item active');
+                        }
+                    });
+				</script>
+                <!--
+                <div class="item active">
+                    <a href="http://m.huodongjia.com/event-2416759.html"><img  src="http://pic.huodongjia.com/event/2015-07-02/event1435809839.7.jpg" alt="品途网111"/></a>
+                    <div class="carousel-caption"></div>
+                </div>
+                <div class="item">
+                    <img src="http://pic.huodongjia.com/static/images/newMobile_bg.jpg" alt="找会议，上活动家"/>
+                    <div class="carousel-caption"></div>
+                </div>
+                
+                <div class="item">
+                    <img id="down" src="http://pic.huodongjia.com/static/images/newMobile_bg1.jpg" alt="活动家app下载"/>
+                    <div class="carousel-caption"></div>
+				</div>-->
+            </div>
+        </div>
+    </div>
+        {% endblock %}
+        <!--------nav start--------->
+    {% block Navlist %}
+    <div class="row">
+        <nav class="col-sm-12 col-xs-12">
+            <ul>
+                {% for cat in hot_cat %}
+                <li class="col-sm-3 col-xs-3"><a href="{{cat.url}}"><img src="{{cat.img}}" alt="{{cat.alt}}"><h2>{{cat.name}}</h2></a></li>
+                {% endfor %}
+                <li class="col-sm-3 col-xs-3" id="down_app"><a href="http://www.huodongjia.com/app/" rel="nofollow"><img src="http://pic.huodongjia.com/static/images/class8.png" alt="活动家APP客户端下载"><h2>客户端</h2></a></li>
+            </ul>
+        </nav>
+    </div>
+    {% endblock %}
+
+    {% block info %}
+    <!----metting---->
+    <div class="row">
+        <section  class="col-sm-12 col-xs-12 recommend" style="margin-top: -8px;">
+            <a class="blue"></a><label>精选会议，限时优惠</label>
+        </section>
+
+        {% for event in list %}
+        <section  class="col-sm-12 col-xs-12 meeting" data-href="{{event.event_id}}">
+            <dl>
+                <dt>
+                {% if event.price_return_flag%}
+                    <img  class="Return" src="http://pic.huodongjia.com/static/images/youhui.png" alt="会议门票优惠">
+                {%endif%}
+                    <img src="{{event.event_img}}" alt="{{event.event_name}}" >
+                </dt>
+                <dd>
+                    <ul>
+                        <a href="/event-{{event.event_id}}.html">
+                            <h3 class="pic-opa-title">{{event.event_name}}</h3>
+                        </a>
+                        <p class="home-time">{{event.event_begin_time}}</p>
+                        <p class="home-city"><a href="/{{event.district_title}}/business/" style="color:#b5b5b5;">{{event.district_name}}</a></p>
+                        <span class="home-days">距报名结束<a style="color: red">{{event.close_days}}</a>天</span>
+                    </ul>
+                </dd>
+            </dl>
+        </section>
+        {%endfor%}
+    </div>
+
+    <div class="row">
+        <section  class="col-sm-12 col-xs-12 recommend">
+            <a class="blue"></a><label>最新会议，近期热门</label><a class="more" href="/business/">更多></a>
+        </section>
+        {% for event in newly %}
+        <section  class="col-sm-12 col-xs-12 meeting" data-href="{{event.event_id}}">
+            <dl>
+                <dt>
+                    {% if event.price_return_flag%}
+                        <img  class="Return" src="http://pic.huodongjia.com/static/images/youhui.png" alt="会议门票优惠">
+                    {%endif%}
+                    <img src="{{event.event_img}}" alt="{{event.event_name}}" >
+                </dt>
+                <dd>
+                    <ul>
+                        <a href="/event-{{event.event_id}}.html">
+                            <h3 class="pic-opa-title">{{event.event_name}}</h3>
+                        </a>
+                        <p class="home-time">{{event.event_begin_time}}</p>
+                        <p class="home-city"><a href="/{{event.district_title}}/business/" style="color:#b5b5b5;">{{event.district_name}}</a></p>
+                        <ul class="meeting-active">
+                            {% for tag in event.event_tag|slice:':3' %}
+                            <li><a href="/tag/?keyword={{tag}}" style="color: #5F5F5F">{{tag}}</a></li>
+                            {% if not forloop.last%}{% endif %}{% endfor %}
+                        </ul>
+                    </ul>
+                </dd>
+            </dl>
+        </section>
+        {%endfor%}
+    </div>
+    {% endblock %}
+    {% block footer %}
+   <!----footer---->
+    <div class="row">
+        <footer class="col-sm-12 col-xs-12">
+            <div class="footTop">
+                <p><img src="http://pic.huodongjia.com/static/images/oxp-phone.gif">&nbsp;<a class="tel" href="tel:400-003-3879">400-003-3879</a>&nbsp;(9:00-18:00)</p>
+                <p>CopyRight 活动家 huodongjia.com<a href="/about/" class="about" rel="nofollow"> | 关于我们</a></p>
+            </div>
+        </footer>
+    </div>
+    {% endblock %}
+    </div>
+{% endblock %}
+<script type="text/javascript" src="http://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.js"></script>
+<script type="text/javascript" src="http://pic.huodongjia.com/static/mobile/new_mobile1.js?t={{time}}.js"></script>
+{% block footerjs %}
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,358 @@
+{% extends "base.html" %}
+
+{% load spot_tag %}
+
+
+{% block myContainer %}myContainer{% endblock%}
+{% block search%}
+  {% include "searchComponent.html" %}
+{% endblock %}
+{% block content%}
+
+  
+
+  <div class="container mainContent events myContainer">
+        {% if navigationList %}
+      {% include "navigationList.html" %}
+      {% endif %}
+      <div class="row"  >
+          <div class="col-sm-8" style="border-right:1px solid #dbdada;margin-top:1em;">
+                <h1 style="margin-top:5px;margin-bottom:1em;font-size:20px;text-align:center;">
+                    {{spot.spot_name}}
+                </h1>
+          
+          			 <div style="float:left;">
+              <blockquote>
+                 
+                  
+                  <span class="icon-quote-left" style="color:#999;"></span>    
+                    {% autoescape off %}
+					{{spot.spot_desc}}
+					{% endautoescape %}
+                  
+                  
+                  <span class="icon-quote-right" style="color:#999;"></span>
+                <p></p>
+                 {% if spot.spot_addr %}
+                <small style="text-align:right;">
+                   {{spot.spot_addr}}
+                </small>
+                  {% endif %}
+              </blockquote>
+            </div>      
+                
+                
+                
+                
+       <div class="row">
+			  <div class="col-md-12">   
+			 
+                
+                <h5>
+                  时&nbsp;&nbsp;&nbsp;&nbsp;间:&nbsp;&nbsp;<span class="time">{{spot.spot_begin_time}}~{{spot.spot_end_time}}</span>
+                </h5>
+		
+		 {% ifnotequal spot.spot_city.count 0 %}
+                <h5>
+                  城&nbsp;&nbsp;&nbsp;&nbsp;市:&nbsp;&nbsp;
+                  {% for city in spot.spot_city.all %}
+                    <span class="city">{{city.district_name}} </span>
+                  {% endfor %}
+                </h5>
+                 {% endifnotequal %}
+                                 {% ifnotequal  spot.spot_cat.count 0 %}
+                <h5>                
+                 	 分&nbsp;&nbsp;&nbsp;&nbsp;类:&nbsp;&nbsp;       
+                  {% for event in spot.spot_cat.all %}
+                    <span class="city"> <a  class="glyphiconWord" href="/spot/{% if event.cat_ename %}{{event.cat_ename}}{% else %}{{event.cat_id}}{% endif %}/" target="_blank"> {{event.cat_name}}</a> </span>
+                  {% endfor %}
+                </h5>
+                 {% endifnotequal %}
+		
+                 
+                  {% ifnotequal  spot.spot_event.count 0 %}
+               <div class="clearfix">
+                  	 <h5 style="width:5em;float:left;margin-top:0;">相关活动:</h5> 
+                  <ul style="float: left;width:80%;display: block;list-style:none;padding-left:0;">  
+                  {% for event in spot.spot_event.all %}
+                  <li><a style="padding-bottom: 1px;display: block;" href="/event-{{event.event_id}}.html" target="_blank">{{event.event_name}}</a></li>
+                  {% endfor %}
+                  </ul>
+               </div>
+                 {% endifnotequal %}
+                 
+  
+
+                
+     
+            </div>    
+			  
+			  <div class="col-md-12">   
+			     
+                
+                 
+              
+               
+                <div class="jiathis_style_32x32 clearfix" style="width:20em;float:right;margin-top:2.8em;position:relative;left:3em;">
+                    <span style="font-size:14px;float:left;line-height:38px;padding-right:5px;">分享到:</span>
+                    <a class="jiathis_button_tsina"></a>
+                    <a class="jiathis_button_tqq"></a>
+                    <a class="jiathis_button_weixin"></a>
+                    <a class="jiathis_button_cqq"></a>
+                </div>
+                <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8" style="margin-top:7em;width:15em;float:right;"></script>
+               </div>   
+			   </div>    
+              
+              
+              </div>
+              <div class="col-sm-4">
+                  <h4 style="text-align:center;padding:.5em;margin:0 auto; ">微信扫一扫，分享有惊喜</h4>
+                  <img src="http://pic.huodongjia.com/static/images/huodongjia_erweima.jpg" style="display:block;margin:.6em auto;">
+              </div>
+      </div>
+      <div class="row">
+         <div id="tabDiv" class="spotTab">
+           <ul class="nav nav-tabs">
+           
+           {% for  key  in   nav_name  %}
+          
+                {% if forloop.first %}
+                  <li class="active"><h2 href="#{{forloop.counter}}" data-toggle="tab">{{key}}</h2></li>
+                {% else %}
+                  <li><h2 href="#{{forloop.counter}}" data-toggle="tab">{{key}}</h2></li>
+                {% endif %}
+              {% endfor %}
+           </ul>
+           <div class="tab-content" style="MARGIN-TOP: 20px ">
+                            
+	 
+			 
+           
+           
+           {% for  key  in   spot_tab_arr  %}
+              <div style="MIN-HEIGHT:120px;MARGIN-BOTTOM: 20px " class="tab-pane  {% if forloop.first %} active  {% endif %} " id="{{forloop.counter}}">
+           {% for t in key   %}    
+  
+ 
+  {% ifnotequal  t.txt_img.count 0 %}
+     
+  		{% ifequal  t.txt_img.count 1 %}
+  		
+  		{% if forloop.counter|divisibleby:"2" %} 
+
+            <div class="row">
+			  <div class="col-md-3">
+
+                    {% for img in t.txt_img.all %}
+                    
+                    <a href="{{img.urls|cut:"pic1.qkan.com" }}" class="thumbnail" target="_blank">
+      <img data-src="holder.js/100%x180"  alt="{{spot.spot_name}}"  src="{{img.urls|cut:"pic1.qkan.com" }}">
+    </a>
+                    
+              
+                    {% endfor %}
+                    
+           
+
+			</div>
+			  <div class="col-md-9 text-left text-justify">
+			  
+			  
+	  
+				{% if t.name and t.name != ''  %}
+               <h4 >   {{t.name}}  </h4>
+                  {% endif %}  
+             
+                  <div class="well well-large"> 
+                  {% autoescape off %}
+					{{t.txt}}
+					{% endautoescape %}
+                  </div>
+                  
+                  
+              {% if t.tag and t.tag != '' %}
+              <blockquote>	             
+					<p class="text-capitalize text-right"> <small> {{t.tag}}</small></p>
+				</blockquote>	
+                  {% endif %}     
+			 
+			</div>
+			</div>
+			
+		{% else %}	
+			 <div class="row">
+			  <div class="col-md-9 text-left text-justify">
+			 
+			  
+			  
+				{% if t.name and t.name != ''  %}
+                 <h4 >   {{t.name}}  </h4>
+                  {% endif %}  
+             
+                  <div class="well well-large"> 
+                  {% autoescape off %}
+					{{t.txt}}
+					{% endautoescape %}
+                  </div>
+                  
+                  
+                      {% if t.tag and t.tag != '' %}
+              <blockquote>	             
+					<p class="text-capitalize text-right"><small> {{t.tag}}</small></p>
+				</blockquote>	
+                  {% endif %}    
+			 
+			</div>
+			  <div class="col-md-3">
+            
+                     	 
+      	 
+                 
+                    {% for img in t.txt_img.all %}
+                    
+                                  <a href="{{img.urls|cut:"pic1.qkan.com" }}" class="thumbnail" target="_blank">
+      <img data-src="holder.js/100%x180"  alt="{{spot.spot_name}}"  src="{{img.urls|cut:"pic1.qkan.com" }}">
+    </a>   
+                    {% endfor %}
+                    
+           
+
+			</div>
+			 
+			</div>
+		
+		{% endif %}   
+			
+		{% else %}
+		
+		 <div class="row">
+	 
+			  <div class="col-md-12 ">
+			  
+			  {% if t.name %}
+                 <h4 >   {{t.name}}  </h4>
+                 {% endif %} 
+                 {% if t.txt %}
+                 <div class="well well-large"> 
+                  {% autoescape off %}
+					{{t.txt}}
+				  {% endautoescape %}
+                  </div>    
+			   {% endif %} 
+			  </div>
+	 
+			  </div>
+			 <div class="row ">
+			  <div class="col-md-2">  
+			  </div>
+			  <div class="col-md-8">  
+	 		  
+	 		  <div id="carousel-{{t.id}}-{{forloop.counter}}" class="carousel slide " data-ride="carousel"  >
+				  <!-- Indicators -->
+				  <ol class="carousel-indicators">
+				  {% for img in t.txt_img.all %}
+				    <li data-target="#carousel-{{t.id}}" data-slide-to="{{forloop.counter}}" class=" {% if forloop.first %} active {% endif %}"></li>
+				  {% endfor %}			 
+				  </ol>
+				
+				  <!-- Wrapper for slides -->
+				  <div class="carousel-inner" role="listbox">
+				  
+				   {% for img in t.txt_img.all %}
+				   <div class="item  {% if forloop.first %} active {% endif %} ">
+				      <img src="{{img.urls|cut:"pic1.qkan.com" }}" class="img-responsive" alt="{{spot.spot_name}}">
+				      <div class="carousel-caption">
+				        {{img.name}}
+				      </div>
+				    </div>   
+                    
+                    
+                      
+                    {% endfor %}
+				  
+			 
+				    
+				  </div>
+				
+				  <!-- Controls -->
+				  <a class="left carousel-control" href="#carousel-{{t.id}}-{{forloop.counter}}" role="button" data-slide="prev">
+				    <span class="glyphicon glyphicon-chevron-left"></span>
+				    <span class="sr-only">Previous</span>
+				  </a>
+				  <a class="right carousel-control" href="#carousel-{{t.id}}-{{forloop.counter}}" role="button" data-slide="next">
+				    <span class="glyphicon glyphicon-chevron-right"></span>
+				    <span class="sr-only">Next</span>
+				  </a>
+				</div>
+	 		  
+	 		  
+	 		  
+	 		  
+	 		  
+	 		  
+	 		   
+			                {% if t.tag and t.tag != '' %}
+              <blockquote>	             
+						<p class="text-capitalize text-right"><small> {{t.tag}}</small></p>
+				</blockquote>	
+                  {% endif %} 
+			  
+			</div>
+			 <div class="col-md-2">  
+			  </div>
+			</div>
+			  		
+			  		
+  		
+  		
+  		{% endifequal %}  
+  		
+  		
+  		{% else %}
+  	 
+		  <div class="col-md-12 ">
+		
+			  {% if t.name %}
+                <h4 >   {{t.name}}  </h4>
+                 {% endif %} 
+                 {% if t.txt %}
+                 <div class="well well-large">  
+                  {% autoescape off %}
+					{{t.txt}}
+				  {% endautoescape %}
+                    </div>   
+			   {% endif %} 
+			   {% if t.tag and t.tag != '' %}
+			     <blockquote>
+				<p class="text-capitalize text-right"><small> {{t.tag}}</small></p>
+				 </blockquote>
+			    {% endif %} 
+			   
+			   
+			  </div>	
+			
+            
+        {% endifnotequal %}          
+                  
+                  
+                  
+                  
+
+                  
+                  
+
+                 
+                  
+                 <p  >&nbsp;</p> 
+               {% endfor %} 
+              </div>
+             
+            {% endfor %}
+           </div>
+         </div>
+      </div>
+  </div>
+{% endblock %}
+ 
+

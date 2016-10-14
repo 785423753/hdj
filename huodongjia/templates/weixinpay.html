@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% block addstyle %}
+<style type="text/css" xmlns="http://www.w3.org/1999/html">
+    /*全局设置*/
+    .mainWrapper{
+        background-color: #f4f3f3;
+    }
+    .row{
+        margin-right:0px;
+        margin-left: 0px;
+        //border:1px solid red;
+    }
+    #container_body{
+        background-color:#fff;
+        border: 1px solid #ddd;
+        margin-top: 2.5em;
+        padding-left: 2%;
+        padding-right: 2%;
+        padding-bottom: 5em;
+        border-radius: 2px;
+    }
+
+    .info p{
+        line-height: 15px;
+        color:#686868;
+        font-size: 15px;
+    }
+    .content{
+        background-color: #f4f3f3;
+        border: 1px solid #ddd;
+        height: 600px;
+    }
+    #CountMsg{
+        text-align: center;
+        font-size: 45px;
+    }
+    #CountMsg strong{
+        text-align: center;
+        font-weight: inherit;
+    }
+</style>
+{%endblock%}
+
+{% block content%}
+<div class="container" id="container_body">
+    <div class="row">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 col-lg-offset-1" style="margin-top: 5em">
+            <p style="font-size: 15px">你好，你预定的<a href="{{event_url}}" style="color:#3366cc">{{event_name}}</a>,请尽快完成付款。</p>
+            <p style="font-size: 15px">应付金额:<label style="font-size:22px;font-weight:inherit">{{order_price}}元</label></p>
+            <p style="font-size: 15px;">二维码url:<label style="font-size:22px;font-weight:inherit" id="qrcode_url">{{qrcode_url}}</label></p>
+            <p style="font-size: 22px;display: none;" class="url_info" >提示:<label style="font-size:15px;" id="qrcode_info"></label></p>
+            <div style="float: right;margin-top: -3em;">
+                <div class="row">
+                    <div id="CountMsg">
+                        <strong id="EndTimeMsg"></strong>
+                        <strong id="RemainD" style="display:none">00</strong>
+                        <strong id="RemainH" style="display:none">00</strong>
+                        <strong id="RemainM">00</strong>:<strong id="RemainS">00</strong>:<strong id="RemainSS">00</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 content">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-lg-offset-2 erwei">
+                    <div id="code" style="width: 225px;
+        height: 225px; margin-top: 5em;"></div><br/>
+                    <img src="http://pic.huodongjia.com/static/images/alipy_weixin_03.jpg" style="  margin-left: -23px;
+  margin-top: 2em;">
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 info">
+                    <img src="http://pic.huodongjia.com/static/images/weixin_erwei.png" style="margin-top:4.9em">
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 col-lg-offset-2" style="  margin-top: 2.5em;">
+                    <p>如果您在支付中遇到问题欢迎拨打服务热线400-003-3879咨询。 报名成功后，将会发送电子票到您的手机和邮箱，请注意查收。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="http://pic.huodongjia.com/static/js/jquery-1.8.3.min.js"></script>
+<script src="http://pic.huodongjia.com/static/js/jquery.qrcode.min.js"></script>
+<script type="text/javascript">
+    function toUtf8(str) {
+        var out, i, len, c;
+        out = "";
+        len = str.length;
+        for(i = 0; i < len; i++) {
+            c = str.charCodeAt(i);
+            if ((c >= 0x0001) && (c <= 0x007F)) {
+                out += str.charAt(i);
+            } else if (c > 0x07FF) {
+                out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));
+                out += String.fromCharCode(0x80 | ((c >>  6) & 0x3F));
+                out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));
+            } else {
+                out += String.fromCharCode(0xC0 | ((c >>  6) & 0x1F));
+                out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));
+            }
+        }
+        return out;
+    }
+    var qrcode_url =$("#qrcode_url").text();
+    if(qrcode_url==""){
+        $("#qrcode_info").text("您的订单异常,请拨打服务热线400-003-3879咨询。");
+        $(".url_info").css({display:"block"})
+    }
+    var str = toUtf8(qrcode_url);
+    $('#code').qrcode({
+        render: "table", // 渲染方式有table方式（IE兼容）和canvas方式
+        width: 225, //宽度
+        height:225, //高度
+        text: str, //内容
+        typeNumber:-1,//计算模式
+        correctLevel:2,//二维码纠错级别
+        background:"#ffffff",//背景颜色
+        foreground:"#000000"  //二维码颜色
+
+    });
+    $('#code').find("canvas").css({
+        width:"225px",
+        height:"225px"
+    })
+
+    $.ajax({
+        url:''
+    })
+</script>
+<script src="http://pic.huodongjia.com/static/js/times.js"></script>
+{% endblock %}
+

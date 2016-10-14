@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/static/laydate/laydate.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/base.css">
+</head>
+<style>
+    .content{
+        width: 95%;
+        margin: auto;
+        padding: 15px 0;
+        height: 900px;
+    }
+    .title div{
+        height: 40px;
+        padding:0;
+    }
+    .title .left{
+        font-size: 18px;
+        color: #73E0EE;
+        line-height: 40px;
+    }
+    .select{
+        position: relative;
+        top:7px;
+    }
+    .right{
+        text-align: right;
+        position: relative;
+        top:7px;
+    }
+    .right span{
+        color: #445483;
+        background: rgba(14, 24, 55, 0.8);
+        padding: 0px 20px;
+        border-radius: 5px;
+        font-size: 12px;
+        display: inline-block;
+        height: 25px;
+        line-height: 25px;
+        transition: all .2s linear;
+        cursor: pointer;
+        position: relative;
+    }
+    .right .choose{
+        color: #62d1fa;
+        background: rgba(32, 44, 84, 0.5);
+        z-index: 2;
+    }
+    table {
+        width: 100%;
+        color: #F4FCFE;
+    }
+    td{
+        padding: 10px 10px;
+    }
+    table tr td{
+        width: 7%;
+    }
+    table tr td:nth-child(1){
+        width: 20%;
+        padding-left: 2%;
+    }
+    table tr td:nth-child(3){
+        width: 30%;
+    }
+    .t_head{
+        margin: 10px 0;
+    }
+    .t_head tr{
+        background: rgba(10, 22, 72, 0.8);
+    }
+    .t_body tr:nth-child(odd){
+        background: rgba(14, 26, 64, 0.8);
+    }
+    .t_body tr:nth-child(even){
+        background: rgba(13, 22, 55, 0.8);
+    }
+    .t_body span{
+        color: #828DA0;
+        font-size: 12px;
+    }
+    .score{
+        border-radius: 4px;
+        padding:2px 7px;
+        color: #fff !important;
+    }
+    .t_body{
+        opacity: 0;
+        position: absolute;
+    }
+    .active{
+        transition: all 1s linear;
+        opacity:1;
+    }
+</style>
+<body>
+{{cat}}
+<canvas class="bg"></canvas>
+<div class="head">
+    <span class="logo">可视化管理</span>
+    <ul>
+        <li data-url="zonglan_1.png" data-old="zonglan.png"><a href="/" title="总览图"><img src="http://pic.huodongjia.com/static/vision/images/zonglan.png" alt=""></a></li>
+        <li class="order" data-url="dingdan_1.png" data-old="dingdan.png">
+            <a class="act" title="订单可视化" href="/newordervis/salesanalysis/"><img src="http://pic.huodongjia.com/static/vision/images/dingdan_1.png" alt=""></a>
+        </li>
+        <li data-url="bianji_1.png" data-old="bianji.png"><a href="/neweventvis/showevents/" title="编辑可视化"><img src="http://pic.huodongjia.com/static/vision/images/bianji.png" alt=""></a></li>
+        <li class="operate" data-url="qita_1.png" data-old="qita.png">
+            <a href="/newoperation/op_datas/" title="运营推广数据可视化"><img src="http://pic.huodongjia.com/static/vision/images/qita.png" alt=""></a>
+            <!--<div class="menue" ><a href="">订单来源渠道</a><a href="">订单来源渠道</a><a href="">订单来源渠道</a></div>-->
+        </li>
+        <li data-url="app_1.png" data-old="app.png"><a href="/newordervis/app/" title="活动家APP"><img src="http://pic.huodongjia.com/static/vision/images/app.png" alt=""></a></li>
+    </ul>
+</div>
+<div class="menue">
+    <a  href="/newordervis/salesanalysis/">销售额对比分析</a><a class="choose" href="/newordervis/top20/">销售榜单分析</a>
+    <a href="/newordervis/contrastwithpast/">历届会议对比</a><a href="/newordervis/bizcoopanalysis/">商务合作分析</a><a href="/newordervis/order_source/">其他维度分析</a>
+    <div class="industry">
+        <span>行业分类:</span>&nbsp;&nbsp;&nbsp;<font data-cat="{% ifequal ret.0.id 0 %}{% else %}{{ret.0.id}}{% endifequal %}">{{ret.0.name}}</font>
+        <ul>
+            <li data-cat="">
+               全部
+            </li>
+            {% for item in ret.1 %}
+                <li data-cat="{{item.id}}">
+                    {{ item.name }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<div class="content">
+    <div class="title row">
+        <div class="col-sm-2 col-xs-2 left">会议排行TOP20</div>
+        <div class="select col-sm-8 col-xs-8">
+            <input value="{{ ret.2.stime }}" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="start_time">至
+            <input value="{{ ret.2.etime }}" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="end_time"><button>确定</button>
+        </div>
+        <div class="col-sm-2 col-xs-2 right"><span class="choose">订单量</span><span style="right: 7px">订单金额</span></div>
+    </div>
+    <table class="t_head">
+        <tr><td>会议信息</td><td>分类</td><td>主办方</td><td>订单量</td><td>订单金额</td><td>排名</td></tr>
+    </table>
+    <table class="t_body active">
+        {% for ev in ret.4 %}
+        <tr><td>{{ ev.event_name }}<br><span>{{ ev.begin_time }} &nbsp;   {{ ev.city }}</span></td><td>{{ ev.cat_name }}</td><td>{{ ev.sponsor }}</td><td>{{ ev.total_amount }}单</td><td>￥{{ ev.total_pay }}</td><td><span class="score">{{ ev.rank }}</span></td></tr>
+        {% endfor %}
+    </table>
+    <table class="t_body">
+        {% for ev in ret.4 %}
+        <tr><td>{{ ev.event_name }}<br><span>{{ ev.begin_time }} &nbsp;   {{ ev.city }}</span></td><td>{{ ev.cat_name }}</td><td>{{ ev.sponsor }}</td><td>{{ ev.total_amount }}单</td><td>￥{{ ev.total_pay }}</td><td><span class="score">{{ ev.rank }}</span></td></tr>
+        {% endfor %}
+    </table>
+</div>
+</body>
+<script src="/static/js/canvas.js"></script>
+<script>
+    $('.content').css({height:$('.t_body').height()+120+'px'})
+    $('.right span').click(function () {
+        var _index=$(this).index()
+        $('.right span').removeClass('choose')
+        $(this).addClass('choose')
+        $('.t_body').removeClass('active')
+        $('.t_body').eq(_index).addClass('active')
+    })
+    $('.t_body').each(function(){
+        $($(this).find('.score')[0]).css({background:'#E75453'})
+        $($(this).find('.score')[1]).css({background:'#E2622A'})
+        $($(this).find('.score')[2]).css({background:'#E5A14F'})
+    })
+    $('.select button').click(function () {
+        var start_day=$('#start_time').val(),end_day=$('#end_time').val()
+        var parm=$('.industry font').attr('data-cat')
+        window.location.href='/newordervis/top20/?start_time='+start_day+'&end_time='+end_day+'&cat='+parm
+    })
+    $('.industry li').click(function () {
+        var start_day=$('#start_time').val(),end_day=$('#end_time').val()
+        var parm=$(this).attr('data-cat')
+        window.location.href='/newordervis/top20/?start_time='+start_day+'&end_time='+end_day+'&cat='+parm
+    })
+</script>
+</html>

@@ -1,0 +1,348 @@
+﻿{% extends 'base.html' %}
+{% block addstyle %}
+  <!-- <script src="/static/js/goog/base.js"></script>
+  <script>
+    goog.require('goog.ui.ac.Remote');
+  </script>
+  -->
+  <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/acdemo.css">
+  <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/autocomplete.css">
+<link rel="stylesheet" type='text/css' href='http://pic.huodongjia.com/static/css/postEvent.css?t={{now}}.js' />
+<style>
+.autocomplete-suggestions { border: 1px solid #999; background: #FFF; cursor: default; overflow: auto; -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); -moz-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); }
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-no-suggestion { padding: 2px 5px;}                                
+.autocomplete-selected { background: #F0F0F0; }
+    #cke_dialog_contents_176{
+        height: 165px !important;
+    }
+    .cke_toolbar_break{
+        display: none !important;
+    }
+    .error{
+        position: absolute;
+        color: #c91505;
+        top: 14px;
+        left: 139px;
+        background: #fff;
+        width: 300px;
+        /* border: 1px solid red; */
+        padding: 7px;
+        font-size: 12px;
+        border-radius: 5px;
+        display: none;
+        box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    }
+    .arrow{
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 14px solid #fff;
+        position: absolute;
+        top: 57px;
+        left: 179px;
+        display: none;
+    }
+    .tips {
+        float: none;
+        background: #E7F1FD;
+        margin-bottom: 10px;
+        padding: 20px 10px;
+    }
+    .tips h3{
+        font-size: 22px;
+        margin: 0;
+        color: #303135;
+    }
+    .media{
+        margin-top: 25px;
+    }
+    .media-left{
+        padding:0 25px;
+    }
+    .media-body{
+        font-size: 14px;
+        color: #8891A0;
+    }
+    .media-heading{
+        font-size: 16px;
+        color: #303135;
+    }
+    .content_right ul li font{
+        display: inline-block;
+        width: 80%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+ .loginContent{height: 290px;padding-top: 10px}
+#login a {
+    display: inline-block;
+    width: 60px;
+    height: 45px;
+    border-radius: 100%;
+    margin-bottom: 20px;
+    padding: 0;
+    line-height: 45px;
+    font-size: 24px;
+    float: none;
+}
+#login h3{
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+.loginBtn span{
+    display: inline-block;
+    width: 45px;
+    color: #000;
+    font-size: 16px;
+}
+#login a.weixin{margin: 0 15px}
+
+</style>
+{% endblock %}
+{% block content %}
+<div class="container content">
+    <div class="col-sm-9 col-xs-9 content_left">
+        <div class="tips">
+            <h3>活动发布</h3>
+            <div class="media">
+                <div class="media-left">
+                    <a><img class="media-object" src="/static/images/paio.png" alt=""></a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">仅发布对外公开售卖门票的商务会议</h4>
+                    由会务公司、协会、学会主承办的行业高峰论坛、研讨会、论坛、年会等大会。
+                </div>
+            </div>
+            <div class="media">
+                <div class="media-left">
+                    <a><img class="media-object" src="/static/images/jinzhi.png" alt=""></a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">禁止发布与商务会议无关的活动</h4>
+                    如：展览、培训课程、分享会、交流会、讲座沙龙、小型娱乐活动等，一经发现，立即删除。
+                </div>
+            </div>
+            <div class="media">
+                <div class="media-left">
+                    <a><img class="media-object" src="/static/images/lanren.png" alt=""></a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">生活方式类活动</h4>
+                    如：同城活动、美食、周边游、运动、度假、演唱会、话剧、音乐会、读书会、展览、户外、酒吧、购物、电影、公益、商业等，
+                    请绕道<a target="_blank" rel="nofollow" href="http://ba.lanrenzhoumo.com/account/common/register">懒人周末发布平台</a>
+                </div>
+            </div>
+        </div>
+       <!--会议信息    -->
+        <div class="event_info" style="position:relative;">
+            <span class="error"></span><div class="arrow"></div>
+            <p class="info_title"><span>会议基本信息</span></p>
+            <label for="title"><font>*</font>会议标题</label><input class="mes" id="title" type="text"/>
+            <label for="scale" style="width: 50px">规模</label><input placeholder="如：500人" class="mes" id="scale" type="text"/><br/>
+            <label for="start_day"><font>*</font>会议时间</label><input class="mes" id="start_day"  value="{{now|date:'Y-m-d'}} 00:00" type="text"/>
+            <span class="zhi"></span>
+            <input id="end_day" class="mes" value="{{now|date:'Y-m-d'}} 00:00"  type="text"/>
+            <br/>
+            <label><font>*</font>会议地点</label><select class="mes" id="province">
+                    {% for province in provinces %}
+                    <option value="{{ province.id }}"> 
+                    {{ province.district_name }}
+                    </option> 
+                    {% endfor %}
+                </select>
+            <select class="mes" id="city"></select><input class="mes" id="address" type="text" placeholder="请输入会议场馆，如：国家会议中心"/><br/>
+            <label class="event_detail"><font>*</font>会议详情</label>
+            <div class=" meeting_des">
+                <div >
+                    <ul class="nav nav-pills">
+                        <li class="active c1"><a href="#home" data-toggle="tab"  contenteditable="true">会议通知</a></li>
+                        <li class="c2" ><a href="#second" data-toggle="tab"  contenteditable="true">会议日程</a></li>
+                        <li class="c3" ><a href="#third" data-toggle="tab"  contenteditable="true">会议嘉宾</a></li>
+                        <li class="c4" ><a href="#four" data-toggle="tab"  contenteditable="true">会议门票</a></li>
+                    </ul>
+                </div>
+                <div >
+                    <div class="tab-content" style="position: relative">
+                        <div class="tab-pane fade in active" id="home" >
+                            <textarea name="notice"  rows="15"  ></textarea>
+                        </div>
+                        <div class="tab-pane fade" id="second" >
+                            <textarea name="meeting_date"   rows="15"></textarea>
+                        </div>
+                        <div class="tab-pane fade" id="third" >
+                            <textarea name="guest"   rows="15"></textarea>
+                        </div>
+                        <div class="tab-pane fade" id="four">
+                            <textarea name="meeting_ticket"   rows="15"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <label><font>*</font>会议分类</label>
+            <select  id="event_cat" class="mes">
+                {% for cat in main_cats %}
+                <option value="{{ cat.id }}">
+                {{ cat.name }}
+                </option>
+                {% endfor %}
+            </select>
+            <div class="event_tag">
+                <label><input class="event_cat_tag" value="1" type="checkbox"/><span>大数据</span></label>
+            </div>
+            <label><font>*</font>会议费用</label>
+            <label class="fee"><input type="radio" name="fee" id="fee" checked="checked"/><span>收费票</span></label>
+            <!--<label class="fee"><input type="radio" name="fee" id="free"/><span>免费票</span></label><br/>-->
+            <table class="ticket" >
+                <tr class="t_head" style="display: none;" >
+                    <td >票价类型</td>
+                    <td>单价（元）</td>
+                    <td>报名截止时间</td>
+                    <td style="width: 38%">费用说明</td>
+                    <td style="width: 10%"></td>
+                </tr>
+                <tr class="add" style="width: 100%">
+                    <td colspan="6">
+                        <div class="add_div">
+                            <div class="add_div_div">
+                                <label for="serve">费用说明</label><br/>
+                                <textarea id="serve" placeholder="费用提供的服务"></textarea>
+                                <button class="cancel" type="button">取消</button><button class="save" type="button" >保存</button>
+                            </div>
+                            <label for="Fee_name">票价类型</label><input id="Fee_name" type="text" placeholder="例如普通参会、vip等" value=""/><br/>
+                            <label for="deadline">报名截止时间</label><input  id="deadline"  value="{{now|date:'Y-m-d'}} 00:00"  type="text"/><br/>
+                            <label for="price" >单价（元）</label><input id="price" style="width: 25%" placeholder="如：1000" type="text"/><span style="position: relative;left: 5px;bottom: 5px;">元/张</span><br/>
+                            <!--<span style="margin-left: 17%">（免费请填数字0）</span>-->
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><button id="add_price">+新增票价</button></td>
+                </tr>
+            </table>
+            <label>发票</label>
+            <label class="invoice"><input type="radio" name="pathway" value="0"/><span>会前快递</span></label>
+            <label class="invoice"><input type="radio" name="pathway" value="1" /><span>现场领取</span></label>
+            <label class="invoice"><input type="radio" name="pathway"  value="2"/><span>会后快递</span></label>
+            <label class="invoice"><input type="radio" name="pathway"  value="3"/><span>无发票</span></label><br/>
+            <label style="position:relative;top: -25px;">参会凭证</label>
+            <div style="width: 68%;display: inline-block;">
+            <label class="proof"><input type="checkbox" name="evidence" value="4" /><span>凭活动家报名成功后的短信</span></label>
+            <label class="proof"><input type="checkbox" name="evidence" value="2" /><span>现场签到（凭参会者姓名签到）</span></label>
+            <label class="proof"><input type="checkbox" name="evidence" value="0" /><span>电子票</span></label>
+            <label class="proof"><input type="checkbox" name="evidence" value="1" /><span>纸质门票</span></label>
+            <label class="proof"><input type="checkbox" name="evidence" value="3" /><span>邮件或短信确认通知参会</span></label>
+            </div>
+        </div>
+        <!--主办方信息-->
+        {% csrf_token %}
+        <div class="spon_info">
+            <p class="info_title"><span>主办方信息</span></p>
+            <label for="name"><font>*</font>联系人</label><input class="mes" id="name" type="text"/><br/>
+            <label for="sponsor"><font>*</font>主办单位</label><input class="mes" id="sponsor" type="text"/><span>多个主办方请用逗号"，"隔开</span><br/>
+            <label for="phone"><font>*</font>手机号码</label><input class="mes" id="phone" type="text"/><span>用于接受活动审核通知和用户报名通知</span><br/>
+            <label for="checkcode"><font>*</font>验证码</label><input class="mes" id="checkcode" data-captcha="false" type="text"/>
+            <img id="cap_img" style="position: relative;top: -8px" width="125" onclick="this.setAttribute('src','/get_check_code_image/?nocache='+Math.random());" src="/get_check_code_image/"/>
+            <br/>
+            <label for="email"><font>*</font>邮箱地址</label><input class="mes" id="email" type="text"/><span>用于接受活动审核通知和用户报名通知</span><br/>
+            <label for="url">活动来源网址</label><input class="mes" id="url" type="text"/><br/>
+            <label style="width: 50%;display: block;text-align: center"><input id="rule" type="checkbox"><span>同意<a target="_blank" href="/law?sponsor">《活动家服务条款》</a></span></label>
+            <button id="post" data-sign="{% if request.session.usercenter_user %}1{% else %}0{% endif %}">提交</button><button id="preview">预览</button>
+        </div>
+    </div>
+    <div class="col-sm-3 col-xs-3 content_right">
+        <div>
+            <p style="text-align: left;padding-left: 15px">活跃主办方</p>
+            <ul>
+                {% for new_event in new_events %}
+                <li>
+                    <span><font style="color: #53596F;">{{new_event.event_sponsor.0.ns_name}}</font><span style="position:relative;top: -4px;">发布了</span></span><br>
+                <!--&lt;!&ndash;<span>1个小时前主办方发布了</span>&ndash;&gt;<br/>-->
+                    <a href="{{ new_event.event_url }}">{{ new_event.event_name }}</a><br/>
+                <span><a href="/{{new_event.event_city_info.0.title}}/">{{new_event.event_city_info.0.district_name}}</a></span><span style="float: right;position: relative;top: 7px;">{{ new_event.event_begin_time|date:'Y-m-d'}}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% if request.session.usercenter_user %}
+{% else %}
+<div id="login" style="display: none;">
+    <div class="loginContent">
+        <span class="close">&#xe60d;</span>
+        <h3>请先登录</h3>
+        <p>免注册，使用合作网站登录</p>
+        <div class="loginBtn">
+            <a rel="nofollow" class="tb_font t_qq" href="/usercenter/login/account?type=qq&prev_url={{request.path}}">&#xe603;</a>
+            <a rel="nofollow" class="tb_font t_wx" href="/usercenter/wechat/account?type=wechat&prev_url={{request.path}}">&#xe607;</a>
+            <a rel="nofollow" class="tb_font t_sina" href="/usercenter/login/account?type=weibo&prev_url={{request.path}}">&#xe600;</a>
+            <div style="clear: both;"></div>
+            <span>QQ</span> <span style="margin: 0 15px">微信</span> <span>微博</span>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+{% block js %}
+<script src="http://pic.huodongjia.com/static/laydate/laydate.js"></script>
+<script src="http://pic.huodongjia.com/static/js/ckeditor1/ckeditor.js"></script>
+<script src="http://pic.huodongjia.com/static/js/postEvent.js?t={{now}}.js"></script>
+<script type="text/javascript" src="http://pic.huodongjia.com/static/js/jquery.autocomplete.js"></script>
+<script>
+    //ac
+    //var title_input = document.getElementById('title');
+    //var title_ac = new goog.ui.ac.Remote('/publish/title_suggest', title_input);
+
+    //var addr_input = document.getElementById('address');
+    //var addr_ac = new goog.ui.ac.Remote('/publish/addr_suggest', addr_input);
+
+    //var sponsor_input = document.getElementById('sponsor');
+    //var sponsor_ac = new goog.ui.ac.Remote('/publish/sponsor_suggest', sponsor_input);
+$('#title').autocomplete({                                          
+    serviceUrl: '/publish/title_suggest'
+})
+$('#address').autocomplete({                                          
+    serviceUrl: '/publish/addr_suggest'
+})
+$('#sponsor').autocomplete({                                          
+    serviceUrl: '/publish/sponsor_suggest'
+})
+$('.close').on('click', function () {
+    $('#login').fadeOut()
+})
+    CKEDITOR.on('dialogDefinition', function(ev) {
+        var dd = ev.data.definition;
+        if(ev.data.name == 'image') {
+            dd.onShow = function () {
+                var dialog = CKEDITOR.dialog.getCurrent();
+                // make upload default tab
+                this.selectPage('Upload');
+                // hide unwanted tab
+                dialog.hidePage( 'Link' );
+                dialog.hidePage( 'advanced' );
+                dialog.hidePage('info');
+                //dialog.okButton.hide();
+                var uploadTab = dd.getContents('Upload');
+                var uploadButton = uploadTab.get('uploadButton');
+                var imgOk = dialog._.buttons['ok'];
+                $(".cke_dialog_ui_button_ok").css('display', 'none'); //TODO
+                $(".cke_dialog_ui_labeled_label").css('display', 'none'); //TODO
+                uploadButton['filebrowser']['onSelect'] = function( fileUrl, errorMessage ) {
+                    var txtUrlObj = dialog.getContentElement('info', 'txtUrl');
+                    var txtUrlId = txtUrlObj.getInputElement().$.id;
+                    var urlObj = document.getElementById(txtUrlId);
+                    urlObj.value = fileUrl;
+                    $(".cke_dialog_ui_button_ok span").click();
+                }
+            };
+        }
+    });
+
+</script>
+<script>
+
+</script>
+{% endblock %}

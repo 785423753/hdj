@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <title>会议门票支付_活动家</title>
+    <link rel="stylesheet" href="/static/wapstatic/css/apply.css"/>
+</head>
+<body>
+<header>
+    <a class="back" href="javascript:history.back(-1)"><span class="myfont" style="float: left;color:#1161AC;">&#xe74e;</span></a>
+    <span style="line-height: 30px;font-size: 21px">会议门票</span>
+    <a class="home" href="/">
+        <span class="myfont" style="float: right;color:#1161AC">&#xe6b2;</span><br style="clear: both"/></a>
+</header>
+<div>
+    <div class="row event" style="border-top: none;margin-top: 10px !important;" >
+        <div class="col-sm-5 col-xs-5 img">
+            <img class="img-responsive" width="100%" src="{{event.event_img.0.server__name}}{{event.event_img.0.urls}}" alt=""/></div>
+        <p>{{event.event_name}}</p>
+        <span class="event_city">{{event.event_city_info.0.district_name}}</span><span class="event_time">{{event.event_begin_time|date:'Y-m-d'}}</span>
+    </div>
+    <ul>
+        <li style="width: 100%;border-top: 1px solid #DCDCDC;padding-bottom: 5px;"></li>
+        <li>类型: <span>{{price_property}}</span></li>
+        <li>数量: <span>{{amount}}</span></li>
+        <li>单价: <span>{{event.event_price_unit.0.Currency__sign}}{{price}}</span></li>
+        <li>总价: <span style="color: red" >{{event.event_price_unit.0.Currency__sign}}{{total_price}}</span></li>
+    </ul>
+</div>
+<form action="/submitorder/" id="ticketForm" method='post'>
+    <div class="content" style="text-align: left;color: #9D9D9D;padding-bottom: 10px">
+        {% csrf_token %}
+        <input type="hidden" name="event_name" value="{{event.event_name}}"/>
+        <input type="hidden" name="event_id" value="{{event.event_id}}"/>
+        <input type="hidden" name="amount" value="{{amount}}"/>
+        <input type="hidden" name="price" value="{{price}}"/>
+        <input type="text" name="name" placeholder="联系人"/>
+        <input type="text" name="phone" placeholder="联系电话"/>
+        <!--<input name="checkcode" type="text" placeholder="验证码"/><div class="checkcode"></div>-->
+        <input type="text" name="email"  placeholder="电子邮箱"/>
+        <input type="checkbox" id="invoice" name="invoice"/> <label for="invoice">是否需要发票</label>
+        <div class="invoiceDiv">
+            <input type="text" name="invoice_title" placeholder="发票抬头"/>
+            <input type="text" name="invoice_addr" placeholder="邮寄地址"/>
+        </div>
+    </div>
+    <div class="pay_way" >
+        <p>支付方式</p>
+        <input type="hidden" name="pay_way" value="alipay"/>
+
+	<div class="col-sm-12 col-xs-12 way switch" id="weixinjspay" style='display:none;'>
+            <img   width="30" src="/static/wapstatic/images/weixinjspay.png" alt="支付宝支付"/>
+            <div style="display: inline-block;color: #000;">微信支付<br/><span style="color: #9D9D9D;font-size: 14px">推荐微信用户使用</span></div>
+            <span class="myfont" id="weixin" >&#xe641;</span></div>
+
+
+        <div class="col-sm-12 col-xs-12 way switch"  id="zfb">
+            <img   width="30" src="/static/wapstatic/images/zhifubao.png" alt="支付宝支付"/>
+            <div style="display: inline-block;color: #000;">支付宝支付<br/><span  style="color: #9D9D9D;font-size: 14px">推荐支付宝用户使用</span></div>
+            <span class="myfont" style="color: #FD85AB;" id="alipay" >&#xe641;</span></div>
+        <div class="col-sm-12 col-xs-12 switch" id="kuaisu">
+            <img width="30"  src="/static/wapstatic/images/kuaisu.png" alt="银行卡快捷支付"/>
+            <div style="display: inline-block;color: #000;">银行卡快捷支付 <br/><span style="color: #9D9D9D;font-size: 14px">储蓄卡、信用卡快捷支付，无需网银</span></div>
+            <span class="myfont" id="alipay" >&#xe641;</span></div>
+        
+                <p class="page-header"/>
+        <p class="inform">支付成功后，客服将在2小时内与您确认参会人信息，并提供参会凭证。</p>
+        <p class="inform">应支付: <span style="color: red;font-size: 20px">{{event.event_price_unit.0.Currency__sign}}{{total_price}}</span></p>
+        <button id="post">去付款</button>
+    </div>
+</form>
+<script src="/static/wapstatic/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/static/wapstatic/js/wexin_note_to_wap.js"></script>
+<script>
+    if(browser.versions.weixing){
+      $("input[name='pay_way']").attr('value','wxjspay');
+      $('#weixinjspay').find('.myfont').css('color','#FD85AB');
+      $('#weixinjspay').show();
+      $('#zfb').hide();
+      $('#kuaisu').hide();
+    }
+
+    $("input[name=invoice]").on('click', function () {
+        if($(this).is(":checked")){
+            $(".invoiceDiv").show()
+            $(this).val(1);
+        }else{
+            $(".invoiceDiv").hide()
+            $(this).val(0);
+        }
+    })
+    $(".switch").click(function () {
+        $(".switch .myfont").css({color:"#ECECEC"})
+        $(this).find(".myfont").css({color:"#FD85AB"})
+        $("input[name='pay_way']").attr("value",$(this).find(".myfont")[0].id)
+    })
+
+    $("#ticketForm").submit(function(){
+        if($.trim($("input[name='name']").val())!=""){
+            if($.trim($("input[name='phone']").val()).match(/0?(13|14|15|18|17)[0-9]{9}/)){
+                if($.trim($("input[name='email']").val()).match(/\w+((-w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+/)){
+
+                }else{
+                    alert("请输入正确的邮箱")
+                    return(false)
+                }
+            }else{
+                alert("请输入正确的联系电话")
+                return(false)
+            }
+        } else{
+            alert("请输入姓名")
+            return(false)
+        }
+    })
+</script>
+</body>
+</html>

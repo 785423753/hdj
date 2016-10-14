@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/static/laydate/laydate.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/base.css">
+</head>
+<style>
+    .content{
+        position: relative;
+    }
+    .content .part{
+        width: 100%;
+    }
+    .content .part>div{
+        width: 50%;
+        float: left;
+    }
+    .menue{
+        line-height: 50px;
+        font-size: 16px;
+        color: rgba(118, 210, 247, 1);
+        position: relative;
+    }
+    .select{
+        position: absolute;
+        right: 5%;
+        top:-37px;
+    }
+    .money{
+        text-align: center;
+    }
+    .money span{
+        color: #848281;
+        font-size: 14px;
+        margin-left: 30px;
+    }
+    .money span font{
+        color: rgba(118, 210, 247, 1);
+        text-shadow: 0 0 5px #57BBF7;
+        font-size: 20px;
+        font-family: 'EURASIA';
+        letter-spacing: 1px;
+    }
+    .info{
+        width: 100%;
+        border:1px solid #202C51;
+    }
+    .info td{
+        padding: 10px;
+        color: #B9BDC8;
+        font-size: 12px;
+    }
+    .info tr:nth-child(even){
+        background: #0E1A41;
+    }
+    .info tr:nth-child(odd){
+        background: #0C1737;
+    }
+    .info tr:nth-child(1){
+        background: #182245;
+    }
+    .meeting{
+        padding-left: 3%;
+    }
+    .flow{
+        padding-right: 3%;
+        position: relative;
+        margin-bottom: 15px;
+    }
+    .flow>div{
+        border:1px solid #202C51;
+        background: #0C1737;
+    }
+    .flow p{
+        text-align: center;
+        margin: 13px 0;
+        color: #536DB9;
+    }
+    .flow .num{
+        position: absolute;
+        left: 50%;
+        top:33px;
+        line-height: 17px;
+        text-align: left;
+    }
+    .title{
+        text-align: center;
+        margin:0px 0 10px;
+        color: rgba(118, 210, 247, 1);
+    }
+    .line{
+        clear: both;margin:auto;border-top: 1px solid #29396D;margin-bottom: 20px;width: 93%
+    }
+    .rankings{
+        padding: 0 3%;
+    }
+    .rankings>p{
+        text-align: left;
+    }
+    .rankings span{
+        display: inline-block;
+        width: 39%;
+        text-align: center;
+        color: #124289;
+        margin-top: 12px;
+    }
+    .rankings font{
+        font-family: 'EURASIA';
+        font-size:2.5em;
+        color: rgba(118, 210, 247, 1);
+        text-shadow: 0 0 5px #57BBF7;
+        line-height: 2;
+    }
+    .rankings .line{
+        width: 100%;
+        margin: 30px 0;
+    }
+    .rank{
+        width: 100%;
+        margin-bottom: 20px;
+        border:1px solid #202C51;
+    }
+    .rank td{
+        color: #B9BDC8;
+        padding: 10px 0;
+        text-align: center;
+        font-size: 12px;
+    }
+    .rank tr:nth-child(even){
+        background: #0E1A41;
+    }
+    .rank tr:nth-child(odd){
+        background: #0C1737;
+    }
+    .rank tr:nth-child(1) td{
+        background: #182245;
+        color: #20509E;
+        border-bottom:1px solid #051030;
+    }
+    .rank tr td:nth-child(1){
+        color: #20509E;
+    }
+</style>
+<body>
+<canvas class="bg"></canvas>
+<div class="head">
+    <span class="logo">可视化管理</span>
+    <ul>
+        <li data-url="zonglan_1.png" data-old="zonglan.png"><a href="/" title="总览图"><img src="http://pic.huodongjia.com/static/vision/images/zonglan.png" alt=""></a></li>
+        <li class="order" data-url="dingdan_1.png" data-old="dingdan.png">
+            <a title="订单可视化" href="/newordervis/salesanalysis/"><img src="http://pic.huodongjia.com/static/vision/images/dingdan_1.png" alt=""></a>
+        </li>
+        <li data-url="bianji_1.png" data-old="bianji.png"><a href="/neweventvis/showevents/" title="编辑可视化"><img src="http://pic.huodongjia.com/static/vision/images/bianji.png" alt=""></a></li>
+        <li class="operate" data-url="qita_1.png" data-old="qita.png">
+            <a class="act"  href="/newoperation/op_datas/" title="运营推广数据可视化"><img src="http://pic.huodongjia.com/static/vision/images/qita.png" alt=""></a>
+        </li>
+        <li data-url="app_1.png" data-old="app.png"><a href="/newordervis/app/" title="活动家APP"><img src="http://pic.huodongjia.com/static/vision/images/app.png" alt=""></a></li>
+    </ul>
+</div>
+<div class="menue">运营推广数据</div>
+<div class='content'>
+    <div class="select"><input value="2016-04-01" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="start_time">至
+        <input value="2016-04-20" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" id="end_time"><button>确定</button>
+    </div>
+    <div class="money"><span>网站总流量：<font>2,804,000.0</font></span><span>WAP站总流量：<font>14,000.0</font></span></div>
+    <div id="event_1" style="width: 100%;height: 400px"></div>
+    <div class="col-sm-8 col-xs-8 meeting">
+        <table class="info">
+            <tr><td>会议名称</td><td>城市</td><td>分类</td><td>主办方</td><td>ip数</td><td>ID</td><td>趋势</td></tr>
+            <tr><td>2016国际体验设计大会</td><td>北京</td><td>IT互联网</td><td>IXDC</td><td>200</td><td>7854585</td><td></td></tr>
+            <tr><td>2016国际体验设计大会</td><td>北京</td><td>IT互联网</td><td>IXDC</td><td>200</td><td>7854585</td><td></td></tr>
+            <tr><td>2016国际体验设计大会</td><td>北京</td><td>IT互联网</td><td>IXDC</td><td>200</td><td>7854585</td><td></td></tr>
+            <tr><td>2016国际体验设计大会</td><td>北京</td><td>IT互联网</td><td>IXDC</td><td>200</td><td>7854585</td><td></td></tr>
+            <tr><td>2016国际体验设计大会</td><td>北京</td><td>IT互联网</td><td>IXDC</td><td>200</td><td>7854585</td><td></td></tr>
+            <tr><td>2016国际体验设计大会</td><td>北京</td><td>IT互联网</td><td>IXDC</td><td>200</td><td>7854585</td><td></td></tr>
+            <tr><td>2016国际体验设计大会</td><td>北京</td><td>IT互联网</td><td>IXDC</td><td>200</td><td>7854585</td><td></td></tr>
+        </table>
+    </div>
+    <div class="col-sm-4 col-xs-4 flow">
+        <p class="num"><span style="color:#3487D5">283789次</span><br><span style="color:#4F99E0">28379次</span><br><span style="color:#74B8F7">2839次</span></p>
+        <div><p>站外流量</p><div id="event_2" style="height: 250px"></div></div>
+    </div>
+    <p class="line"></p>
+    <div class="col-sm-6 col-xs-6" style="border-right: 1px solid #29396D;margin-bottom: 20px">
+        <p class="title">订单来源竞价</p>
+        <div id="event_3" style="height: 250px"></div>
+    </div>
+    <div class="col-sm-6 col-xs-6">
+        <p class="title">订单来源SEO</p>
+        <div id="event_4" style="height: 250px;"></div>
+    </div>
+    <p class="line"></p>
+    <div class="col-sm-6 col-xs-6" style="border-right: 1px solid #29396D;margin-bottom: 20px">
+        <p class="title">订单来源外链、合作</p>
+        <div id="event_5" style="height: 300px"></div>
+    </div>
+    <div class="col-sm-6 col-xs-6 rankings">
+        <p class="title">未过期会议收录</p>
+        <span style="margin-left: 10%"><font>5,236</font><br>收录量</span>
+        <span><font>50%</font><br>收录率</span>
+        <p class="line"></p>
+        <p class="title">未过期会议排名</p>
+        <span style="margin-left: 10%"><font>5,236</font><br>排名数</span>
+        <span><font>50%</font><br>排名率</span>
+    </div>
+    <p class="line"></p>
+    <div class="col-sm-12 col-xs-12" style="padding: 0 3%">
+        <table class="rank">
+            <tr>
+                <td></td>
+                <td>it互联网</td>
+                <td>金融财经</td>
+                <td>医疗医学</td>
+                <td>能源化工</td>
+                <td>农林牧渔</td>
+                <td>教育培训</td>
+                <td>加工制造</td>
+                <td>地产建筑</td>
+                <td>文化传媒</td>
+                <td>服务行业</td>
+                <td>交通物流</td>
+                <td>其他行业</td>
+            </tr>
+            <tr>
+                <td>收录量</td>
+                <td>1280</td>
+                <td>980</td>
+                <td>542</td>
+                <td>420</td>
+                <td>200</td>
+                <td>150</td>
+                <td>125</td>
+                <td>500</td>
+                <td>100</td>
+                <td>90</td>
+                <td>50</td>
+                <td>80</td>
+            </tr>
+            <tr>
+                <td>收录率</td>
+                <td>70%</td>
+                <td>80</td>
+                <td>50%</td>
+                <td>60%</td>
+                <td>55%</td>
+                <td>20%</td>
+                <td>70%</td>
+                <td>80</td>
+                <td>50%</td>
+                <td>60%</td>
+                <td>55%</td>
+                <td>20%</td>
+            </tr>
+            <tr>
+                <td>排名数</td>
+                <td>1280</td>
+                <td>980</td>
+                <td>542</td>
+                <td>420</td>
+                <td>200</td>
+                <td>150</td>
+                <td>125</td>
+                <td>500</td>
+                <td>100</td>
+                <td>90</td>
+                <td>50</td>
+                <td>80</td>
+            </tr>
+            <tr>
+                <td>排名率</td>
+                <td>70%</td>
+                <td>80</td>
+                <td>50%</td>
+                <td>60%</td>
+                <td>55%</td>
+                <td>20%</td>
+                <td>70%</td>
+                <td>80</td>
+                <td>50%</td>
+                <td>60%</td>
+                <td>55%</td>
+                <td>20%</td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+<script src="/static/js/echarts.js"></script>
+<script src="/static/js/infographic.js"></script>
+<script src="/static/js/canvas.js"></script>
+<script src="/static/js/operate.js"></script>
+</html>

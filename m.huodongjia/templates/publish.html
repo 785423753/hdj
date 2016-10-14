@@ -1,0 +1,224 @@
+﻿{% extends "base.html" %}
+{% block myStyle %}
+<link rel="stylesheet" href="http://pic1.qkan.com/static/css/postevent.css?t={{time}}.css"
+      xmlns="http://www.w3.org/1999/html">
+{% endblock %}
+{% block myContainer %}myContainer{% endblock%}
+{% block search%}
+{% include "searchComponent.html" %}
+{% endblock %}
+{% block content %}
+<div>
+    <img src="http://pic1.qkan.com/static/images/发布.png" width="100%" alt=""/>
+</div>
+<div class="content">
+    <div class="head_title">
+        <div class="container">
+            <h1 class="col-lg-12">发布活动</br></h1>
+                <span class="red_blod_span col-lg-12">&divonx; 仅支持会议、沙龙讲座、演出、亲子、美食烹饪、极限运动、有趣味的同城活动，当地体验等活动发布。营销，虚假，培训，会展，线上活动等不提供发布，请你谅解。</span>
+        </div>
+    </div>
+    {% if flag %}
+    {% ifequal flag 1%}
+    <script>
+        $(function () {
+            $("body").dialog();
+        });
+    </script>
+    {% else %}
+    <script>
+        show_popup('发布',"发布失败","发布失败，你可以再次发布或发邮件到wangping@veryevent.com。")
+    </script>
+    {% endifequal %}
+    {% endif %}
+    <div class="container">
+        <div class="col-lg-8 col-md-8 col-xs-12 left">
+              <form role="form" id="activities" class="form-horizontal" enctype="multipart/form-data"  method="post" rel="nofollow" action="/postevent/" onsubmit="return mySubmit(true)">
+                  <ul>
+                    <li><label for="title"><span class="xing">&lowast;</span>活动标题</label></li>
+                    <li><input type="text" id="title" name="title" autofocus="autofocus" style="resize: none; width: 70%"></textarea></li>
+                    <li><label for="begin_time"><span class="xing">&lowast;</span>活动开始时间</label></li>
+                    <li>
+                        <input type="text" class="Wdate w221px_input start_time" name="begin_time" id="begin_time"
+                               onFocus="WdatePicker({dateFmt:'yyyy-M-d H:mm:ss',minDate:'%y-%M-{%d+7}-00-00-00'})"/><span class="red_blod_span">(请在活动开始前一周提交)</span>
+                    </li>
+                    <li><label for="end_time"><span class="xing">&lowast;</span>活动结束时间</label></li>
+                    <li>
+                        <input type="text" class="Wdate w221px_input end_time" name="end_time" id="end_time"
+                               onFocus="WdatePicker({dateFmt:'yyyy-M-d H:mm:ss',minDate:'#F{$dp.$D(\'begin_time\');}'})"/>
+                    </li>
+                    <li><label class="x_file" for=""><span class="xing">&lowast;</span>活动链接或文档(二者任选一)</label></li>
+                    <li class="file-ui">
+                        <input class="w221px_input" type="text" id="url" name="url">
+                        <button href="" class="btns file-btn">上传文件</button>
+                        <input type="file" class="file-uploader" name="uploadDataField" name="file_content" id="file_content"/></br>
+                        <div style="clear: both;"></div>
+                        <span class="grey_span">只能上传doc和pdf文档 ,大小要小于2M</span>
+                    </li>
+                    <li style="clear: both;"><label for="telephone"><span class="xing">&lowast;</span>手机号</label></li>
+                    <li><input class="w221px_input" type="text" id="telephone" name="telephone"/>
+                        <button
+                                id="obtain" class="btns grey_btn">获取验证码
+                        </button>
+                    </li>
+                    <li><label for="verification" class="yzts">我们已发送<span class="red_blod_span">验证码</span>短信到手机号,请输入手机验证码</label>
+                    </li>
+                    <li><input class="w221px_input" type="text" id="verification" name="verification"/>
+                        </br><span class="grey_span">请查收手机短信，并填写短信中的验证码</span></li>
+                    <li><label for="host_name"><span class="xing">&lowast;</span>主办方</label></li>
+                    <li><input type="text" class="w348px_input" id="host_name" name="host_name"/></li>
+                    <li><label for="qq"><span class="xing">&lowast;</span>QQ</label></li>
+                    <li><input type="text" class="w348px_input" id="qq" name="qq"/></br><span class="grey_span">请输入你的QQ方便与您联系</span></li>
+                    <li><label for="mail"><span class="xing">&lowast;</span>邮箱</label></li>
+                    <li><input type="text" class="w348px_input" id="mail" name="mail"/></br><span class="grey_span">活动审核情况会发邮件通知你</span></li>
+                </ul>
+                <input type="submit" value="提交" class="btns submit_btn"/>
+            </form>
+        </div>
+        <div class="col-lg-4 col-md-4 col-xs-4 right">
+            <h3>活动家</h3>
+
+            <p>更专业的<span class="sp1">会议营销推广</span>平台</p>
+
+            <p>线上推广渠道<span class="sp2">全覆盖</span></p>
+
+            <p>累计销售超<span class="sp3">10万</span>张门票</p>
+        </div>
+    </div>
+</div>
+<div class="rule"></div>
+<div class="container">
+    <div class="col-lg-12 col-md-12 col-xs-12 provide">
+        <h4>我们为你提供</h4>
+        <div class="pr pr1 col-lg-3 col-md-3 col-xs-3">
+            <ul>
+                <li><h4>会议直播</h4></li>
+                <li>
+                    <div style="display: table">
+                        <div style="vertical-align: middle;display:table-cell;text-align: left;padding: 10px">
+                            <p>论坛峰会网上直播加速会议传播速度扩大会议影响力提升品牌形象。</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="pr pr4 col-lg-3 col-md-3 col-xs-3">
+            <ul>
+                <li><h4>在线选座</h4></li>
+                <li>
+                    <div style="display: table">
+                        <div style="vertical-align: middle;display:table-cell;text-align: left;padding: 10px">
+                            <p>线上选座，融入社交，每个座位都标记参会人士的社会属性，方便参会者知道附近就坐的人士情况，进行商务社交</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="pr pr2 col-lg-3 col-md-3 col-xs-3"  >
+            <ul>
+                <li><h4>HTML5移动页面</h4></li>
+                <li>
+                    <div style="display: table">
+                        <div style="vertical-align: middle;display:table-cell;text-align: left;padding: 10px">
+                            <p>专业 时尚 大气 的HTML5手机页面才符合当下移动互联网时代</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="pr pr2 col-lg-3 col-md-3 col-xs-3">
+            <ul>
+                <li><h4>活动舆情监控</h4></li>
+                <li>
+                    <div style="display: table">
+                        <div style="vertical-align: middle;display:table-cell;text-align: left;padding: 10px">
+                            <p>会前挖掘出最有效的会议传播宣传渠道社交媒体监测及时发现舆论点。会后对会议舆情做深度数据总结报告。</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="pr pr3 col-lg-3 col-md-3 col-xs-3">
+            <ul>
+                <li><h4>免费专题制作</h4></li>
+                <li>
+                    <div style="display: table">
+                        <div style="vertical-align: middle;display:table-cell;text-align: left;padding: 10px">
+                            <p>高品质的活动专题网页，让活动呈现不一样的特质。</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="pr pr1 col-lg-3 col-md-3 col-xs-3">
+            <ul>
+                <li><h4>票务分销代理</h4></li>
+                <li>
+                    <div style="display: table">
+                        <div style="vertical-align: middle;display:table-cell;text-align: left;padding: 10px">
+                            <p>进行票务分销代理合作，活动家拥有超10万场票务合作经验，在活动门票领域拥有强大的线上线下推广营销资源。</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="pr pr3 col-lg-3 col-md-3 col-xs-3">
+            <ul>
+                <li><h4>活动营销推广</h4></li>
+                <li>
+                    <div style="display: table">
+                        <div style="vertical-align: middle;display:table-cell;text-align: left;padding: 10px">
+                            <p>一站式会议/活动推广营销解决方案。近百家媒体宣传，三大搜索引擎排名优化，线上广告，社交媒体强势推广等</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="pr pr4 col-lg-3 col-md-3 col-xs-3">
+            <ul>
+                <li><h4>会议签到</h4></li>
+                <li>
+                    <div style="display: table">
+                        <div style="vertical-align: middle;display:table-cell;text-align: left;padding: 10px">
+                            <p>嘉宾vip签到、电子签到、微信扫码、会议纸质门票可以满足你任何签到需求。</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-xs-12 cooperation">
+        <h4>合作方</h4>
+        <a><img src="http://pic1.qkan.com/static/images/合作伙伴LOGO/1.jpg" alt=""/></a><a  ><img src="http://pic1.qkan.com/static/images/合作伙伴LOGO/2.jpg" alt=""/></a><a ><img src="http://pic1.qkan.com/static/images/合作伙伴LOGO/4.jpg" alt=""/></a><a ><img
+            src="http://pic1.qkan.com/static/images/合作伙伴LOGO/5.jpg" alt=""/></a><a ><img src="http://pic1.qkan.com/static/images/合作伙伴LOGO/6.jpg" alt=""/></a><a ><imgs rc="http://pic1.qkan.com/static/images/合作伙伴LOGO/7.jpg" alt=""/></a><a ><img src="http://pic1.qkan.com/static/images/合作伙伴LOGO/8.jpg" alt=""/></a><a ><img src="http://pic1.qkan.com/static/images/合作伙伴LOGO/9.jpg" alt=""/></a><a ><img
+src="http://pic1.qkan.com/static/images/合作伙伴LOGO/10.jpg" alt=""/></a><a ><img
+src="http://pic1.qkan.com/static/images/合作伙伴LOGO/11.jpg" alt=""/></a><a ><img
+src="http://pic1.qkan.com/static/images/合作伙伴LOGO/12.jpg" alt=""/></a><a ><img
+src="http://pic1.qkan.com/static/images/合作伙伴LOGO/13.jpg" alt=""/></a><a ><img
+src="http://pic1.qkan.com/static/images/合作伙伴LOGO/14.jpg" alt=""/></a><a ><img
+src="http://pic1.qkan.com/static/images/合作伙伴LOGO/15.jpg" alt=""/></a><a ><img
+src="http://pic1.qkan.com/static/images/合作伙伴LOGO/16.jpg" alt=""/></a>
+    </div>
+</div>
+<div id="popup">
+
+</div>
+<div class="con">
+    <div class="popup_head">
+        <h2>活动家提示</h2>
+        <a class="clear text-center"><img class="chahao" src="/static/images/iconfont-chahao.png"></a>
+        <h3></h3>
+    </div>
+    <div class="popup_body">
+        <p></p>
+    </div>
+    <div class="popup_foot">
+        <button class="btns center-block clear_btn">确定</button>
+    </div>
+</div>
+{% endblock%}
+{% block myscript %}
+<script src="http://pic1.qkan.com/static/js/jquery.form.js?t={{time}}.js"></script>
+<script src="http://pic1.qkan.com/static/js/postenent.js?t={{time}}.js"></script>
+<script src="http://pic1.qkan.com/static/js/WdatePicker.js?t={{time}}.js"></script>
+{% endblock %}

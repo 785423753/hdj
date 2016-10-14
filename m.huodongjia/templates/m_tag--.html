@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=no" />
+    <meta charset="UTF-8">
+    <title>Meeting</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/Meeting.css">
+{% load page_nav_m %}
+{% cityNav %}
+{{city_py}}|{{cat}}
+{% endcityNav %}
+
+</head>
+<body>
+<div class="container">
+    <!--header start-->
+    <div class="header">
+        <div class="icon-left"><a href="javascript :;" onClick="javascript :history.back(-1);"><i class="iconfont">&#xe66b;</i></a></div>
+
+        <h2>{{keyword}}</h2>
+
+    </div>
+    <div class="gotop"><a href="javascript:goTop();" class="sidetop">顶部</a></div>
+    <div id="cityMap">
+        {% for ci in city_Nav %}
+        <ul>
+            <li style="font-weight: bold;font-size: 1em;">{{ci.district_name}}</li>
+            {% for c in ci.child|slice:":8"%}
+            <li><a href="/{{c.title}}/" style="color:#fff;font-size: 0.9em">{{c.district_name}}</a></li>
+            {% endfor %}
+        </ul>
+        {% endfor %}
+    </div>
+    <div id="catMap">
+        <ul>
+            {% for first in cat_Map %}
+            <ul >
+                {% for second in first.child%}
+                <li {% ifequal second.flag 'true' %}class="selected"{% endifequal %}><span
+                    ></span><a href="{{second.caturl}}"  style="font-size: 1.1em; color: #fff;">{{second.catname}}</a>
+                <ul>
+                    {% for third in second.child%}
+                    <li {% ifequal third.flag 'true' %}class="selected"{% endifequal %} ><a
+                        href="{{third.caturl}}"  style="font-size: 0.9em; color: #fff;">{{third.catname}}</a></li> {% endfor %}
+                </ul>  {% endfor %}
+            </ul>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="opaci1"></div>
+    <div class="opaci2"></div>
+
+    <!--center start-->
+    <div class="center">
+        <!--------nav start--------->
+        <div class="nav">
+            <ul class="clearfix" id="navUl">
+
+                <li>
+                    <a href="{{nav.url}}" style="color:#777374;" {{keyword}}</a>
+                </li>
+
+            </ul>
+        </div>
+
+        <!--------pic start--------->
+        <div class="div-hr"></div>
+        <div class="center-pic" data-key="{{keyword}}" data-page="{{page}}" data-offset="{{offset}}">
+            <ul class="center-pic-one">
+                {% for event in list%}
+                <li>
+                    <div class="big-div">
+                        <div class="big-div-img">
+                            <a href="/event-{{event.event_id}}.html" target="_blank">
+                                <img src="{{event.event_img}}"  alt="{{event.event_name}}" >
+                            </a>
+                        </div>
+                        <div class="big-div-info">
+                            <a href="/event-{{event.event_id}}.html" target="_blank"><p class="big-div-info-title"{% if event.cat_name or event.event_venue.venue_title %}{% endif %}>
+                                {{event.event_name}}</p></a>
+                            <p class="big-div-info-time">时间：{{event.event_begin_time}}{% ifnotequal event.event_begin_time event.event_end_time%}&nbsp;至&nbsp;{{event.event_end_time}}{%endifnotequal%}</p>
+                            <p class="big-div-info-city">地点：<a href="/{{event.district_title}}/" style="color: #4d4d4d" target="_blank">{{event.district_name}}</a>{% if event.event_venue %},{{event.event_venue}} {% endif %}{% if event.event_address %},{{event.event_address}} {% endif %}</p>
+                            {% if event.event_discount_price %}
+                            <span class="money" data-priceStyle="{{event.event_price_unit}}">{{event.event_discount_price}}</span>
+                            {% else %}
+                            <span class="money " id="cener" data="{{event.event_price}}" data-priceStyle="{{event.event_price_unit}}">{{event.event_price}}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="center-last"></div>
+    </div>
+
+    <!------footer start---------->
+    <div class="footer">
+        <div class="div-hr"></div>
+        <ul class="foot-nav-icon">
+            <li class="home"> <a href="/"><i class="iconfont">&#xe66e;<br/><span>首页</span></i></a></li>
+            <li class="classify"><a href="#"><i class="iconfont">&#xe60d;<br/><span>分类</span></i></a></li>
+            <li class="citymap"><a href="#"><i class="iconfont">&#xe62d;<br/><span>城市</span></i></a></li>
+            <li class="searchorder"><a href="/searchorder/"><i class="iconfont">&#xe68d;<br/><span>查订单</span></i></a></li>
+        </ul>
+    </div>
+
+
+</div>
+<script src="/static/js/jquery.js" type="text/javascript"></script>
+<script src="/static/js/meeting.js" type="text/javascript"></script>
+<script src="/static/js/all.js"></script>
+
+<script type="text/javascript">
+
+var page_num=2;
+$(document).ready(function(){
+    $(".center-pic-one > li").each(function(index){
+    	pr=$(this).find('.money').html().split("/"); 
+   		//alert($(this).find('.money').html())
+	if (pr.length==1)
+		{
+		$(this).find('.money').html(pr[0])
+		}
+	else
+		{
+		var min_pr=0;
+		$.each(pr,function(index){
+			p=pr[index]
+			if(!isNaN(p)){
+				if (min_pr==0)
+				{
+					min_pr=p;
+				}
+				else{
+					if (p<min_pr)min_pr=p;	
+				}						   
+			}
+		})
+		if (min_pr!=0){
+			$(this).find('.money').html(min_pr)
+		}
+		}
+	
+    }) 
+	
+  $(window).scroll(function(){
+    if($(document).scrollTop()>=$(document).height()-$(window).height()){
+ key=$(".center-pic").attr("data-key")
+ page= $(".center-pic").attr("data-page")
+ offset= $(".center-pic").attr("data-offset")
+
+len_list=parseInt({{len_list}})
+	if (offset>0 && offset==len_list ){
+		new_page=(parseInt(page)+1).toString()
+		$.ajax ({
+		    type: "GET",
+		    url: "/tag_ajax/?keyword="+key+"&page="+new_page+"&offset="+offset,
+		    cache: false,
+		    success: function(json) {
+		    	$(".center-pic").attr("data-page",new_page)
+		        if (json && json.code==1 && json.list.length>0) {
+		        	$(".center-pic").attr("data-offset",offset)
+
+		            for (var pid in json.list) {
+		                    $(".center-pic-one").append("<li>"+json.list[pid].event_name +"</li>");
+		            }
+		        }else{
+		        	$(".center-pic").attr("data-offset",0)
+		        }
+		    }
+		});
+	 }
+
+    }
+  })
+})
+
+</script>
+</body>
+</html>

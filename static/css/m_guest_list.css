@@ -1,0 +1,104 @@
+@font-face {
+    font-family: "guestfont";
+    src: url("http://pic.huodongjia.com/static/css/guest/iconfont.ttf");
+}
+.intro{
+    width: 100%;
+    /*height: 2em;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.myguestfont{
+    font-family: "guestfont";
+    color: #95BDF4 !important ;
+    font-size: 1.3em;
+}
+.guest_list {
+    overflow: hidden;
+    /*border: 1px solid red;*/
+}
+.guest span{
+    color: #BBBBBB;
+}
+.guest{
+    background: #fff;
+    margin-top: 10px;
+    padding-top:10px;
+    font-size: 1em;
+    border-top: 1px solid #E4E4E4;
+    border-bottom: 1px solid #E4E4E4;
+}
+a{
+    text-decoration: none;
+}
+.apply{
+    width: 50%;
+    height: 35px;
+    border: 1px solid #95BDF4;
+    border-radius:20px;
+    color: #95BDF4;
+    line-height: 35px;
+    text-align: center;
+    margin-top: 10px;
+    float: right;
+}
+.more_guest {
+    background: #fff;
+    padding: 10px 0;
+    text-align: center;
+    border-bottom: 1px solid #E4E4E4;
+}
+.cat_list{
+    border-top: 1px solid #E4E4E4;
+    margin-top: 10px;
+    background: #fff;
+    padding: 10px 0;
+}
+.cat_list ul li a{
+    font-size: 3.3em;
+    font-family: "guestfont";
+    text-align: center;
+    line-height: 50px;
+}
+.cat_list ul li{
+    font-size: 1em;
+    text-align: center;
+    /*padding-top: 5px;*/
+}
+.it a{
+    color: #549DF7;
+}
+.finance a{
+    color: #F59F4A;
+}
+.energy a{
+    width: 50px;
+    height: 50px ;
+    padding: 5px;
+    border-radius: 50px;
+    color: #D787EF;
+    font-size: 2em !important ;
+    border: 2px solid #D787EF;
+}
+.medical a{
+    width: 50px;
+    height: 50px ;
+    padding: 5px;
+    border-radius: 50px;
+    color: #F26A6B;
+    font-size: 2em !important ;
+    border: 2px solid #F26A6B;
+}
+.agricultur a{
+    color: #3EC2C1;
+}
+.other a{
+    width: 50px;
+    height: 50px ;
+    padding: 5px;
+    border-radius: 50px;
+    color: #666666;
+    font-size: 2em !important ;
+    border: 2px solid #666666;
+}

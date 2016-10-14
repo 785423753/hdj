@@ -1,0 +1,21 @@
+{% extends "m_model.html" %}
+{% block cssStyle %}
+<title>{{error_msg}}</title>
+<meta name="description" content="活动家，亚洲最大的活动网聚合平台，为您提供海量会议,公开课,会展,极限运动,当地体验,夜生活,演出折扣票,同城活动查询,特色旅游，门票预订,报名,参加活动,请上活动家手机站！服务热线:400-003-3879" />
+<meta name="keywords" content="活动,活动网,线下活动,会议网,同城活动" />
+{% endblock %}
+{% block container %}
+<div class="container_not">
+{% block header %}
+    <header class="header">
+        <a  href="javascript:history.go(-1)"><i class="iconfont">&#xf006b;</i></a>
+        <h2>页面错误</h2>
+    </header>
+{% endblock %}
+    {% block content %}
+    <div class="center">
+        <p class="sorry"><img src="http://pic.huodongjia.com/static/images/iconfont-tanhao.png"  class="cry" alt="活动家手机站-专业商务会议网">&nbsp;&nbsp;{{error_msg}}</p>
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}

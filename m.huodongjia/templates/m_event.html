@@ -1,0 +1,151 @@
+{% extends "m_model.html" %}
+{% block meta %}
+<link href="http://cdn.bootcss.com/Swiper/3.0.7/css/swiper.css" rel="stylesheet">
+{% endblock %}
+{% block container %}
+<!--邀请函-->
+<!--详情-->
+<header class="Notice-header">
+    <a href="/m/"><i class="iconfont">&#xf006b;</i></a>
+    <h2>{{event.event_name}}</h2>
+</header>
+<section class="swiper-container col-sm-12 col-xs-12">
+    <article class="swiper-wrapper">
+        <article class="Notice_body swiper-slide Invitation"  id="eventIt">
+            <article class="Invitation_info ">
+                <h3 class="pic-opa-titles" {% if event.cat_name or event.event_venue.venue_title %}{% endif %}>
+                    {{event.event_name}}</h3>
+                <hr>
+                <span class="h_time" data-state="0">时间:{{event.ymd_time}}&nbsp;&nbsp;&nbsp;地点:<a href="/{{event.district_title}}/" target="_blank">{{event.district_name}}</a></span>
+                </article>
+            <article class="Invitation_button ">
+                {%for item in event.event_content%}
+                {%ifequal item.0|safe '会议通知'%}
+                <div class="button_div">
+                    <i class="newicon">&#xe60e;</i><span>会议通知</span>
+                </div>
+                {%endifequal%}
+                {%endfor%}
+                {%for item in event.event_content%}
+                {%ifequal item.0|safe '会议日程'%}
+                <div class="button_div">
+                    <i class="newicon" id="newicon">&#xe615;</i><span>会议日程</span>
+                </div>
+                {%endifequal%}
+                {%endfor%}
+                {%for item in event.event_content%}
+                {%ifequal item.0|safe '会议嘉宾'%}
+                <div class="button_div">
+                    <i class="newicon">&#x3455;</i><span>会议嘉宾</span>
+                </div>
+                {%endifequal%}
+                {%endfor%}
+                <article class="button_div" id="button_div">
+                    <span class="buy">参会报名</span>
+                </article>
+            </article>
+        </article>
+        {%for item in event.event_content%}
+        {%ifequal item.0|safe '会议通知'%}
+        <article class="Notice_body swiper-slide">
+            <article class="tabs">
+                <a class="tab_btn active" href="#">{{item.0|safe}}</a>
+                <a href="/m/ticket/{{event.event_id}}/" type="hidden"></a>
+            </article>
+            {{item.1|safe}}
+        </article>
+        {%endifequal%}
+        {%endfor%}
+        {%for item in event.event_content%}
+        {%ifequal item.0|safe '会议日程'%}
+        <article class="Notice_body swiper-slide">
+            <article class="tabs">
+                <a class="tab_btn active" href="#">{{item.0|safe}}</a>
+                <a href="/m/ticket/{{event.event_id}}/" type="hidden"></a>
+            </article>
+            {{item.1|safe}}
+        </article>
+        {%endifequal%}
+        {%endfor%}
+        {%for item in event.event_content%}
+        {%ifequal item.0|safe '会议嘉宾'%}
+        <article class="Notice_body swiper-slide">
+            <article class="tabs">
+                <a class="tab_btn active" href="#">{{item.0|safe}}</a>
+                <a href="/m/ticket/{{event.event_id}}/" type="hidden"></a>
+            </article>
+            {{item.1|safe}}
+        </article>
+        {%endifequal%}
+        {%endfor%}
+        <article class="Notice_body swiper-slide check_meeting">
+            <section  class="col-sm-12 col-xs-12">
+                <dl>
+                    <dt>
+                        <a href="/m{{event.event_url}}">
+                            <img src="{{event.event_img}}" alt="{{event.event_name}}">
+                        </a>
+                    </dt>
+                    <dd>
+                        <a href="/m{{event.event_url}}" target="_blank">
+                            <h3 class="pic-opa-title">{{event.event_name}}</h3>
+                        </a>
+                    <p class="home-time">{{event.event_begin_time}}&nbsp;&nbsp;|&nbsp;&nbsp;<a  class="home-city" href="/m/{{event.district_title}}/" >{{event.district_name}}</a></p>
+                    </dd>
+                </dl>
+            </section>
+            <form action="/m/order/{{event.event_id}}/" method="post" id="price_form">
+                {% for p in event.price_unit_info %}
+                {% ifequal p.status 1 %}
+                <setion class="col-xs-12 check {% if forloop.last %}checkeds{% endif %}">
+                    <div class="check_boder">
+                        <div class="price_type">
+                            <div class="col-sm-12 price_content">
+                                <h2>{%if p.property%}{{p.property}}{%else%}会务费{%endif%}</h2>
+                                <p>报名截止:{% if event.event_islongtime %}长期{% else %}{{p.end_time}}{% endif %}</p><a class="open">{%if p.content%}展开<i class="iconfont" style="font-size:1.2em">&#xe62b;</i>{%endif%}</a>
+                                <hr/>
+                                <div class="content" style="display: none" data="{{p.content}}">
+                                    {{p.content}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form_number">
+                            <div class="borer_top"></div>
+                            <div class="col-sm-12 price_content">
+                                <p class="sums_price">{{event.event_price_unit_sign}}{{p.price}}</p>
+                                <hr/>
+                                <label for="number">请选择数量：</label>
+                                <div class="number"><i class="number_old" {% ifequal p.status 1 %}{%else%}disabled="true"{%endifequal%}>-</i><input id="number" readonly="readonly"  value="0" type="text"/><i class="number_add">+</i></div>
+                                <div class="fanli">
+                                    <span></span>
+                                </div>
+                                <input type="hidden" class="return_price" data-return="{{p.price_return}}" data-sign="{{event.event_price_unit_sign}}">
+                                <input type="hidden" class="price" value="{{p.price}}" data-price="{{p.price}}" data-priceType="{{event.event_price_unit}}" data-sign="{{event.event_price_unit_sign}}"/>
+                            </div>
+                        </div>
+                    </div>
+                </setion>
+                {%endifequal%}
+                {%endfor%}
+                    <setion class="col-xs-12 click_submit">
+                        <a>提交</a>
+                    </setion>
+                <input type="hidden" class="hide_price" name="price" value="">
+                <input type="hidden" class="order-number" name="number" value="">
+                <input type="hidden" class="returnprice" name="returnprice" value="">
+                <input type="hidden" value="{{ event.event_id }}" name="event_id"/>
+                <input type="hidden" name="event_name" value="{{ event.event_name }}"/>
+            </form>
+        </article>
+    </article>
+    <input type="hidden" id="contents" data-thisprice="{{event.event_price}}">
+    <!-- Add Arrows -->
+    <div class="swiper-scrollbar"></div>
+</section>
+{% endblock %}
+{%block footerjs%}
+<script type="text/javascript" src="http://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/Swiper/3.0.7/js/swiper.jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/Swiper/3.0.7/js/swiper.min.js"></script>
+<script type="text/javascript" src="http://pic1.qkan.com/static/js/m_event.js"></script>
+{%endblock%}

@@ -1,0 +1,30 @@
+@color: #4D926F;
+@contentW:100vw;
+@contentH:100vh;
+*{
+  box-sizing:border-box;
+  margin:0;
+}
+.allborder{
+  border: 1px solid red;
+}
+.div {
+  width: @contentW;
+  height: @contentH;
+  background-color: @color;
+  .allborder;
+  //.div2{
+  //  .allborder;
+  //  display: inline-block;
+  //}
+}
+.div1 {
+  width: @contentW/2;
+  height: @contentH/2;
+  color: @color + #666;
+  .allborder;
+}
+.div2{
+  width: 100px;
+  border: 1px solid blue;
+}

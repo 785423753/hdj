@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="http://pic.huodongjia.com/static/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/wapstatic/css/wapvenueSponsor.css"/>
+    <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/head.css">
+    {% include 'seo_base.html' %}
+    {% block myhead %}
+    <title>{{city_now.0.district_name}}{{venue_name}}会议场地信息大全_{{city_now.0.district_name}}{{venue_name}}适合会议的场地介绍_活动家会场</title>
+    <meta name="description" content="找{{city_now.0.district_name}}{{venue_name}}会议场地信息，就到活动家huodongjia.com！会场是举办会议的场地，活动家提供最新最全的{{city_now.0.district_name}}{{venue_name}}会议场馆信息，会议场地详细介绍，以及该场地近期举行的会议。还能推荐优质会场，免费发布会议信息，是你查询会议场地的最佳途径。">
+    <meta name="keywords" content="{{city_now.0.district_name}}{{venue_name}}会议场地,{{city_now.0.district_name}}{{venue_name}}会场,{{city_now.0.district_name}}{{venue_name}}活动场地">
+    {% endblock %}
+</head>
+<body>
+{% block header %}
+<header  style="padding:0;border: none;line-height: normal !important;">
+    <table>
+        <tr>
+            <td class="left"><a href="javascript:history.back(-1)">&#xe601;</a></td>
+            <td>会议场地</td>
+            <td class="right"><a class="menue">&#xe602;</a></td>
+        </tr>
+    </table>
+</header>
+{% endblock %}
+{% block mymenue %}
+<!--分类列表-->
+<div class="bg"></div>
+<section class="hidden-cat">
+    <ul>
+        <li class="col-sm-12 col-xs-12" style="color: #FA9D42;padding:0"><h4>商务会议</h4></li>
+        <li class="col-sm-3 col-xs-3"><a href="/it/">IT互联网</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/finance/">金融财经</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/medical/">医疗医学</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/energy/">能源化工</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/agricultur/">农业牧渔</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/edutrain/">教育培训</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/manufact/">加工制造</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/realestate/">地产建筑</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/culmedia/">文化传媒</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/servindust/">服务行业</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/tralogist/">交通物流</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/trade/">其他行业</a></li>
+    </ul>
+    <ul>
+        <li class="col-sm-12 col-xs-12" style="color: #FA9D42;padding: 0"><h4>更多服务</h4></li>
+        <li class="col-sm-3 col-xs-3"><a href="/postevent/">活动发布</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/searchorder/">订单查询</a></li>
+        <li class="col-sm-3 col-xs-4"><a href="/listsponsor/">会议主办方</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/listvenue/">会议场地</a></li>
+    </ul>
+</section>
+{% endblock %}
+{% block mysearch %}
+<form class="searchForm" action="/searchvenue/?keyword=" method="get" rel="nofollow">
+        <input type="text" id="bdcsMain" class="searchInput yahei" name="keyword" placeholder="请输入会场名称">
+        <i class="myfont " id="searchIcon">&#xe629;</i>
+</form>
+{% endblock %}
+{% block container %}
+<style>
+    .city-list div{
+        width: 49%;
+        height: 45px;
+        display: inline-block;
+        text-align: center;
+        line-height: 45px;
+        color: #717171;
+    }
+</style>
+<!--城市列表-->
+<div class="city-list">
+    <div class="city">{% if city_now %}{{city_now.0.district_name}}{% else %}城市{% endif %}<span class="fa fa-angle-down"></span></div>
+    <div class="classic">{% if venue_name %}{{venue_name}}{% else %}类型{% endif %}<span class="fa fa-angle-down"></span></div>
+</div>
+<section class="cityList">
+    <div>
+    <img  src="http://pic.huodongjia.com/static/images/jiantou.png" class="center-block jiantou" />
+    <ul>
+        <li style="border: 1px solid rgba(0,0,0,0)"><a class="any {% if not city_now %}active{% endif %}" href="/listvenue/{%if venue_class%}{{venue_class}}/{%endif%}">不限</a></li>
+        {% for city in venue_cities %}
+        <li><a lang="{{city.title}}" href="/listvenue/{{city.title}}/{%if venue_class%}{{venue_class}}/{%endif%}">{{city.district_name}}</a></li>
+        {% endfor %}
+    </ul>
+    </div>
+</section>
+<section class="venueClassList">
+    <div>
+        <img  src="http://pic.huodongjia.com/static/images/jiantou.png" class="center-block jiantou" />
+        <ul>
+            <li style="border: 1px solid rgba(0,0,0,0)"><a class="any {% if not venue_class %}active{% endif %}" href="/listvenue/{%if city_now %}{{city_now.0.title}}/{%endif%}">不限</a></li>
+            <li><a lang="conference_center" href="/listvenue/{% if city.title %}{{ city_now.0.title }}/{% endif %}conference_center/">会展中心</a></li>
+            <li><a lang="hotel" href="/listvenue/{% if city_now %}{{ city_now.0.title}}/{% endif %}hotel/">酒店</a></li>
+            <li><a lang="university" href="/listvenue/{% if city_now %}{{ city_now.0.title }}/{% endif %}university/">高校</a></li>
+        </ul>
+    </div>
+</section>
+<!--场馆列表-->
+<div class="venue_list row">
+    {% for venue in venues %}
+    <div class="venue col-sm-12 col-xs-12">
+        <div class="col-sm-5 col-xs-5" style="padding: 0 10px"><a href="/venue-{{venue.id}}.html">
+            {% if venue.nv_img_urls %}
+            <img width="130" class="img-responsive img-rounded" src="{{venue.nv_img_urls}}" alt="{{venue.nv_name}}"/>
+            {% else %}
+            <img width="130" class="img-responsive img-rounded" src="http://pic.huodongjia.com/static/images/venue_default.jpg" alt=""/>
+            {% endif %}
+        </a></div>
+        <div class="col-sm-7 col-xs-7" style="padding: 0 10px">
+            <a href="/venue-{{venue.id}}.html">
+            <h2 style='color: #000'>{{venue.nv_name}}</h2>
+            <p>{% if venue.nv_content %}会场介绍：{{venue.nv_content}}{% endif %}</p>
+            </a>
+        </div>
+        <div class="message">
+            <span style="float: right">共举办 <span class="active">{{venue.nv_event_cnt}}场</span>会议</span><span>{{venue.nv_city.district_name}}</span>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<p class="text-center" style="padding:5px 0;width: 100%;background: #fff;margin: 0"><a title="{{nextPage}}" class="loading" style="color: #aaa">下拉显示更多</a>
+    <span class="load fa fa-spinner fa-pulse fa-2x" style="display: none"></span>
+    <span class="loads" style="color: #aaa;display: none">加载完成!</span>
+    <span class="loadfail" style="color: #aaa;display: none">加载失败！</span>
+
+</p>
+<!--footer-->
+<footer>
+    <a href="http://m.huodongjia.com/">首页</a>&gt;<h1 style="display: inline;"><a href="http://m.huodongjia.com/listvenue/" style="color: #000;font-size: 14px">{% for city in city_info %}{% if city.current_city_flag %} {{city.city_name}} {% endif%}{% endfor %}会议场地</a></h1>
+    <hr style="margin:4px 0;border-top: 1px solid rgba(215, 215, 215, 0.57)"/>
+    <ul>
+        <li class=""><a href="http://www.huodongjia.com/?mobile" rel="nofollow"><span class="fa fa-desktop"></span>电脑端</a></li>
+        <li class=""><a class="appdownload" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.dahuodong.veryevent" rel="nofollow" >下载APP</a></li>
+        <li class=""><a href="http://m.huodongjia.com/about/">关于我们</a></li>
+    </ul>
+    <div class="text-center">CopyRight 活动家 huodongjia.com</div>
+</footer>
+{% endblock %}
+<div class="top_back"><span class="fa fa-chevron-up"></span></div>
+</body>
+<script src="http://pic.huodongjia.com/static/js/jquery-1.8.3.min.js"></script>
+<script>
+  
+    $("#searchIcon").click(function () {
+        $(".searchForm").submit();
+    })
+    $(".menue").click(function () {
+        $("body").toggleClass("Body");
+        $(".bg").fadeToggle(10);
+        $(".hidden-cat").slideToggle(200)
+        $(".menue").toggleClass("choose")
+        event.stopPropagation()
+    })
+    $(".bg").click(function () {
+        $(".hidden-cat").slideUp(200)
+        $("body").removeClass("Body");
+        $(".menue").removeClass("choose")
+        $(this).fadeOut(10)
+    })
+    $(window).scroll(function () {
+        var sTop=document.documentElement.scrollTop+document.body.scrollTop;
+        var top=$(".top_back")[0];
+        if(sTop>0) {
+            top.style.bottom = "20px"
+        }else{
+            top.style.bottom = "-40px"
+        }
+    });
+    //    回到顶部
+    $(".top_back").click(function pageScroll(){window.scrollBy(0,-300);
+                scrolldelay = setTimeout(pageScroll,50);
+                var sTop=document.documentElement.scrollTop+document.body.scrollTop;
+                if(sTop==0) clearTimeout(scrolldelay);
+            }
+    )
+</script>
+{% block myscript %}
+<script>
+$(document).ready(function(){
+    $(".cityList ul li").each(function (i) {
+        if("{{city_now.0.title}}"==$(this).find("a").attr('lang')){
+            $(this).find('a').addClass('active')
+        }
+    })
+    $(".venueClassList ul li").each(function (i) {
+        if("{{venue_class}}"==$(this).find("a").attr('lang')){
+            $(this).find('a').addClass('active')
+        }
+    })
+    $(".city").click(function () {
+        $(".cityList").slideToggle(200)
+        $(".venueClassList").slideUp(200)
+        $(this).toggleClass("active")
+        $("body").toggleClass("Body")
+        event.stopPropagation()
+        $(".classic").removeClass('active')
+    })
+    $(".classic").click(function () {
+        $(".venueClassList").slideToggle(200)
+        $(".cityList").slideUp(200)
+        $(this).toggleClass("active")
+        $("body").toggleClass("Body")
+        event.stopPropagation()
+        $(".city").removeClass('active')
+    })
+    $("body").click(function () {
+        $(".cityList").slideUp(200)
+        $(".venueClassList").slideUp(200)
+        $("body").removeClass("Body");
+        $(".more").removeClass("choose")
+//        $(".bg").fadeOut(10)
+    })
+//    显示更多
+    $(window).scroll(function () {
+        if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
+            var pageurl=$(".loading")[0].title        //下一页的url
+            var pages;
+            $(".load").show();
+            $(".loading").hide()
+            if(pageurl!="false"){     //最后一页
+                $.ajax({
+                    type:'get',
+                    url :pageurl,
+                    dataType : 'json',
+                    success  : function(data) {
+                        console.log(data)
+                        pages=data.cur_page
+//                        for(var i=0;i<data.pageList.length;i++){
+//                            if(data.pageList[i].flag=="true"){
+//                                pages=data.pageList[i].page             //获取当前页码
+//                                break
+//                            }
+//                        }
+                        if(1) {         //防止重复加载
+                            var next_page=parseInt(data.cur_page)+1
+                            console.log(next_page)
+                            $(".loading")[0].title ="/listvenue/{{city_now.0.title}}page-"+next_page+"/"
+                            for (var i = 0; i < data.venues.length; i++){
+                                var pic;
+                                if (!data.venues[i].nv_img_urls){        //图片为空加上默认图片
+                                    pic = "http://pic.huodongjia.com/static/images/venue_default.jpg"
+                                } else {
+                                    pic = data.venues[i].nv_img_urls;
+                                }
+                                $(".venue_list").append("<div class='venue col-sm-12 col-xs-12' >" +
+                                        "<div class='col-sm-5 col-xs-5' style='padding: 0 10px'>"+
+                                        "<a href='/venue-"+data.venues[i].id+".html'>"+
+                                        "<img width='130' class='img-responsive img-rounded' src='"+pic+"' alt='"+data.venues[i].nv_name+"'/></a></div>"+
+                                        "<div class='col-sm-7 col-xs-7' style='padding: 0 10px'>"+
+                                        "<a href='/venue-"+data.venues[i].id+".html'><h2 style='color: #000'>"+data.venues[i].nv_name+"</h2><p>会场介绍："+data.venues[i].nv_content+"</p></a></div>" +
+                                        "<div class='message'>"+
+                                        "<span style='float: right'>共举办<span class='active'> 场</span>会议</span><span> </span>")
+                            }
+                            $(".loading").show();
+                            $(".load").hide()
+                        }
+                    },
+                    error : function() {
+                        console.log('fail');
+                        $(".load").hide()
+                        $(".loadfail").show()
+                    }
+                })
+            }else{
+                $(".loads").show();
+                $(".load").hide();
+                $(".loading").hide();
+            }
+        }
+    });
+})
+    //test
+</script>
+{% endblock %}
+</html>

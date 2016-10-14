@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{head.title}}</title>
+    <meta name="description" content="{{head.description}}" />
+    <meta name="keywords" content="{{head.keywords}}" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/wapstatic/css/wapFreeSignUp.css"/>
+    <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/head.css">
+
+</head>
+
+<body>
+<header style="padding: 0;border: none">
+    <table>
+        <tr>
+            <td class="left"><a href="javascript:history.back(-1)">&#xe601;</a></td>
+            <td style="line-height: 45px;font-size: 18px;">免费报名</td>
+            <td class="right"><a href="/" style="font-size: 36px;">&#xe600;</a></td>
+        </tr>
+    </table>
+</header>
+   <div class="content">
+       <p class="meeting_name" >{{event_name}}</p>
+       <p class="addr">{{district_name}}&nbsp;&nbsp; {{event_begin_time}}</p>
+       <hr/>
+       <form>
+           {%csrf_token%}
+           <input name="user_name" type="text" placeholder="姓名"/>
+           <input name="company" type="text" placeholder="公司"/>
+           <input name="position" type="text" placeholder="职务"/>
+           <input name="phone" type="text" placeholder="手机号码"/>
+           <input name="e-mail" type="text" placeholder="电子邮箱"/>
+           <span>注:免费票需审核并一人只限一张</span>
+           <button type="button" class="post">提交</button>
+       </form>
+   </div>
+<div class="tanchuang">
+    <div>
+        <p>您好，您已成功申请。 请耐心等待主办方审核身份，审核通过后您将收到参会凭证。</p>
+        <button><a style="color: #000" href="{{event_url}}">确定</a></button>
+    </div>
+</div>
+</body>
+<script src="/static/wapstatic/js/jquery-1.8.3.min.js"></script>
+<script>
+    $(".post").click(function () {
+        var name=$("input[name='user_name']").val();
+        var company=$("input[name='company']").val();
+        var position=$("input[name='position']").val();
+        var phone=$("input[name='phone']").val();
+        var mail=$("input[name='e-mail']").val();
+        var csrf = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+        if($.trim(name)!=""){
+            if($.trim(company)!=""){
+                if($.trim(position)!=""){
+                    if($.trim(phone).match(/0?(13|14|15|18|17)[0-9]{9}/)){
+                        if($.trim(mail).match(/\w+((-w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+/)){
+                            $.ajax({
+                                url:"/dofreesignup/",
+                                dataType:"json",
+                                type:"post",
+                                async:false,
+                                data:{
+                                    csrfmiddlewaretoken: csrf,
+                                    name:name,
+                                    company:company,
+                                    job:position,
+                                    phone:phone,
+                                    email:mail,
+                                    event_id:{{id}},
+                                },
+                                success: function(data){
+                                    if(data.code==1){
+                                        $(".tanchuang div").show(300)
+                                    }
+
+                                }
+                            });
+                        }else{
+                            alert("请填写正确的邮箱")
+                        }
+                    }else{
+                        alert("请填写正确的手机号码")
+                    }
+                }else{
+                    alert("请填写职务名称")
+                }
+            }else{
+                alert("请填写公司名称")
+            }
+        }else{
+            alert("请填写姓名")
+        }
+    })
+
+</script>
+<!--百度统计代码-->
+<script>
+var _hmt = _hmt || [];
+(function() {
+      var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?7dce5762be86c04d74cdf23183cc9558";
+          var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</html>

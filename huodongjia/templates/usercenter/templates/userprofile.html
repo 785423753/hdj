@@ -1,0 +1,130 @@
+<html xmlns:wb="http://open.weibo.com/wb">
+<head>
+    <title>个人资料设置_活动家</title>
+    <meta name="keywords" content="个人资料，活动家" />
+    <meta name="description" content="在活动家设置个人资料。找会议，上活动家！" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="http://pic.huodongjia.com/static/css/sweet-alert.css" rel="stylesheet">
+    <link href="http://pic.huodongjia.com/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://pic.huodongjia.com/static/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://pic.huodongjia.com/static/usercenter/css/index.css"/>
+    <!--[if lt IE 9]>
+    <script src="http://pic.huodongjia.com/static/js/html5shiv.min.js"></script>
+    <link href="http://huodongjia-yun.b0.upaiyun.com/static/css/non-responsive.css?t=20151030.css" rel="stylesheet">
+    <![endif]-->
+</head>
+<style>
+ .notUpForm table td{
+     padding: 15px;
+     color: #646778;
+     position: relative;
+     width: 4%;
+ }
+ .notUpForm table td:nth-child(odd){
+     text-align: right;
+ }
+    .red{
+        color: red;
+    }
+ .notUpForm table td input, .notUpForm table td select{
+     border:1px solid #D7D7D7;
+     padding-left: 10px;
+     color: #8e91a9;
+ }
+    .notUpForm .interest span{
+        border-radius: 0;
+        background: #F0F0F0;
+        color: #999999 !important;
+        cursor: pointer;
+        margin-right: 15px;
+        outline: none;
+        display: inline-block;
+        margin-bottom: 8px;
+    }
+ .notUpForm .interest span:hover{
+     /*border:1px solid #7FB4F6;*/
+ }
+ .notUpForm .interest .choose{
+     color: #fff !important;
+     background: #7FB4F6;
+ }
+    .form-horizontal button{
+        height: 38px;
+        width: 318px;
+        background: #549BF3;
+        color: #fff;
+        border:none;
+        outline:none;
+        margin: 0px 0 15px;
+        transition: all .3s linear;
+    }
+ .form-horizontal button:hover{
+     background: #4570b8;
+ }
+ .error{
+     font-size: 12px;
+     padding-left: 5px;
+     position: absolute;
+     width: 55px;
+     top: 26px;
+ }
+ .form-horizontal input[type="text"], #settings select{
+     width: 80% !important;
+ }
+ .notUpForm table .interest{
+        padding-right: 9%;
+    }
+</style>
+<body id="settings">
+<div class="container notUpForm">
+    <form style="height: 930px;" class="form-horizontal" data-status="{{curuser.status}}" action="/usercenter/userprofile/" method="post">
+        {% csrf_token %}
+        <p style="font-size: 20px;padding: 10px 0;border-bottom: 1px solid #eee;">个人资料设置</p>
+        <table>
+            <tr><td colspan="2" style="padding: 20px 0;text-align: center"><img width="75" class="img-circle" src="{{  request.session.usercenter_user.avatar }}" alt=""></td></tr>
+            <tr><td style="text-align: right;font-size: 16px">姓名</td><td><input  id="username" name="username"  type="text" value="{{curuser.name}}"></td></tr>
+            <tr><td style="text-align: right;font-size: 16px">性别</td>
+                <td>
+                    <label><input type="radio" name="usersex" id="inlineRadio1" value="1" {% if curuser.sex == 1 %}checked="checked" {% endif%}> 男</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="usersex" id="inlineRadio2" value="0" {% if curuser.sex == 0 %}checked="checked" {% endif%}> 女</label>
+                </td>
+            </tr>
+            <tr><td style="text-align: right;font-size: 16px"><span class="red">*</span>手机号</td><td><input type="text" id="telephone" name="telephone" {% if curuser.telephone%} value='{{curuser.telephone}}' {%endif%} required></td></tr>
+            <tr><td style="text-align: right;font-size: 16px"><span class="red">*</span>邮箱</td><td><input type="text" id="email" name="email"  value='{% if curuser.email %}{{curuser.email}}{% endif %}'></td></tr>
+            <tr><td style="text-align: right;font-size: 16px"><span class="red">*</span>所属行业</td>
+                <td>
+                    <select  id="industry"  name="industry">
+                        {% for i in industry %}
+                        <option name="industry" value='{{i.id}}' {% if i.selected %} selected="selected" {% endif %}>{{i.name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr style="position: relative;"><td style="text-align: right;font-size: 16px">兴趣<input type="hidden" name="tags" id="tags"></td><td class="interest">
+                {% for i in selected%}
+                <span class="choose">{{i}}</span>
+                {% endfor %}
+                {% for i in for_select%}
+                <span>{{i}}</span>
+                {% endfor %}
+            </td></tr>
+            <tr><td></td><td><button type="submit">确认修改</button>
+                <br><span style="font-size: 12px"><span class="font" style="font-size: 16px;color: #CBCBCB;">&#xe601;&nbsp;</span>完善个人资料可获得20个积分奖励</span></td></tr>
+        </table>
+    </form>
+</div>
+<script src="http://pic.huodongjia.com/static/js/jquery-1.8.3.min.js"></script>
+<script src="http://pic.huodongjia.com/static/js/sweet-alert.min.js"></script>
+<!--[if !IE]><!-->
+<script src="http://pic.huodongjia.com/static/js/user.js"></script>
+<!--<![endif]-->
+<!--[if gte IE 8]>
+<script src="http://pic.huodongjia.com/static/js/user.js"></script>
+<![endif]-->
+<!--[if lte IE 7]>
+<script src="http://pic.huodongjia.com/static/js/ie_user.js"></script>
+<![endif]-->
+</body>
+<!--test-->
+</html>

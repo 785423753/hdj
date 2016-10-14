@@ -1,0 +1,525 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    {% include 'seo_base.html' %}
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/bootstrap.min.css">
+    <link href="http://pic.huodongjia.com/static/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/wapstatic/css/wapShowEvent.css?t={{now}}.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="http://www.huodongjia.com/favicon.ico" media="screen" />
+    <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/head.css">
+    <!-- seo使用 -->
+    <link rel="canonical" href="http://www.huodongjia.com/event-{{event.event_id}}.html"/>
+    <style>
+        .bdshare-button-style1-16 a{
+            float: none !important;
+            display: inline-block;
+        }
+        .close_share{
+            display: block;
+            width: 200px;
+            line-height: 28px;
+            background: #ededed;
+            border-radius:4px;
+            text-align:center;
+            font-size:14px;
+            margin:10px auto;
+        }
+        .gues_mes{
+            text-align: center;height: 220px;width: 49%;display: inline-block;
+            vertical-align: top;
+        }
+    </style>
+</head>
+<body>
+<div class="bg_1"></div>
+<section class="hidden-cat">
+    <ul>
+        <li class="col-sm-12 col-xs-12" style="color: #FA9D42;padding:0"><h4>商务会议</h4></li>
+        <li class="col-sm-3 col-xs-3"><a href="/it/">IT互联网</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/finance/">金融财经</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/medical/">医疗医学</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/energy/">能源化工</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/agricultur/">农业牧渔</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/edutrain/">教育培训</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/manufact/">加工制造</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/realestate/">地产建筑</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/culmedia/">文化传媒</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/servindust/">服务行业</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/tralogist/">交通物流</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/trade/">其他行业</a></li>
+    </ul>
+    <ul>
+        <li class="col-sm-12 col-xs-12" style="color: #FA9D42;padding: 0"><h4>更多服务</h4></li>
+        <li class="col-sm-3 col-xs-3"><a href="/postevent/">活动发布</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/searchorder/">订单查询</a></li>
+        <li class="col-sm-3 col-xs-4"><a href="/listsponsor/">会议主办方</a></li>
+        <li class="col-sm-3 col-xs-3"><a href="/listvenue/">会议场地</a></li>
+    </ul>
+</section>
+<header>
+    <table>
+        <tr>
+            <td class="left"><a href="javascript:history.back(-1)">&#xe601;</a></td>
+            <td><img width="65" height="20" src="http://pic.huodongjia.com/static/images/m_hdj.png" alt="找会议，上活动家"></td>
+            <td class="right"><a class="cat">&#xe602;</a></td>
+        </tr>
+    </table>
+</header>
+<div class="eventImg">
+    <img width="100%" height="auto" src="{{event.event_img.0.server__name}}{{event.event_img.0.urls}}!hdj123" alt="{{event.event_name}}"/>
+    <h1><span class="eventName">{{event.event_name}}</span></h1>
+    <p class="eventTime">
+        <span><font class="s_font">&#xe60e;</font>{{event.event_begin_time|date:'Y-m-d'}} 至  {{event.event_end_time|date:'Y-m-d'}}</span>
+        <span><font class="s_font">&#xe60f;</font>{{event.event_city_info.0.district_name}} &nbsp; {{event.event_venue_info.0.title}}</span>
+        {% if event.event_scale %}<span><font class="e_font">&#xe603;</font>会议规模：{{event.event_scale}}人</span>{% endif%}
+        <span><font class="e_font">&#xe602;</font>主办单位：{{event.event_sponsor.0.ns_name}}</span>
+    </p>
+</div>
+
+{% ifequal event.event_price_type 6 %}
+{% if event.event_price_valid and event.event_price_unit %}
+{% for content in event.event_paragraph_info %}
+<div class="paragraph">
+    <h2><span class="fa fa-volume-up"></span>{{content.name}}</h2>
+    {% if content.name == '会议嘉宾'%}
+    {% if event.event_guest %}
+    <div class="paragraphBody">
+        {% for guest in event.event_guest %}
+        <div class="gues_mes">
+            <div class="gues_pic" style="width: 100px;height: 100px;border-radius: 100%;overflow: hidden;margin: 0 auto">
+                <img alt="{{ guest.job__name }}{{ guest.name }}" width="100" height="100" class="lazy" src="http://pic.huodongjia.com/static/images/guest_default(1).jpg!hdj123"  data-original="{{ guest.img__server__name}}{{ guest.img__urls }}!hdj123"  />
+            </div>
+            <p>{{ guest.name }}</p>
+            <p class="gues_company">{{ guest.company__name }}</p>
+            <p class="gues_job">{{ guest.job__name }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="paragraphBody">{{content.txt|safe}}</div>
+    {% endif %}
+    {% else %}
+    <div class="paragraphBody">{{content.txt|safe}}</div>
+    {% endif %}
+</div>
+{% endfor %}
+<div class="relevant">
+    <div class="relevantTitle">
+        <h3>相关会议</h3>
+    </div>
+    {% for rel_event in relate_events %}
+    <div class="relevantCat col-xs-6" data-href="{{rel_event.event_id}}">
+        <div class="imgTime">
+            <a href="{{rel_event.event_url}}">
+                <img class="lazy" src="http://pic.huodongjia.com/static/images/event_default.jpg!hdj123" data-original="{{rel_event.event_img.0.server__name}}{{rel_event.event_img.0.urls}}!hdj123" alt="{{rel_event.event_name}}"/>
+            </a>
+            <span class="relevantTime">{{rel_event.event_end_time|date:'Y-m-d'}}</span>
+            <a href="/{{rel_event.event_city_info.0.title}}/">  <span class="relevantCity">{{rel_event.event_city_info.0.district_name}}</span></a>
+        </div>
+        <div class="relevantName">
+            {{rel_event.event_name}}
+        </div>
+    </div>
+    {% endfor %}
+    <div style="clear: both;"></div>
+</div>
+{% else %}
+<p class="col-xs-12 col-sm-12 tips">温馨提示：你浏览的会议<span>报名已截止</span>，以下是热门会议</p>
+<div style="clear: both;"></div>
+<div class="relevant">
+    <div class="relevantTitle">
+        <h3>相关会议</h3>
+    </div>
+    {% for rel_event in relate_events %}
+    <div class="relevantCat col-xs-6" data-href="{{rel_event.event_id}}">
+        <div class="imgTime">
+            <a href="{{rel_event.event_url}}">
+                <img class="lazy" src="http://pic.huodongjia.com/static/images/event_default.jpg!hdj123" data-original="{{rel_event.event_img.0.server__name}}{{rel_event.event_img.0.urls}}!hdj123" alt="{{rel_event.event_name}}"/>
+            </a>
+            <span class="relevantTime">{{rel_event.event_end_time|date:'Y-m-d'}}</span>
+            <a href="/{{rel_event.event_city_info.0.title}}/">  <span class="relevantCity">{{rel_event.event_city_info.0.district_name}}</span></a>
+        </div>
+        <div class="relevantName">
+            {{rel_event.event_name}}
+        </div>
+    </div>
+    {% endfor %}
+    <div style="clear: both;"></div>
+</div>
+{% for content in event.event_paragraph_info %}
+<div class="paragraph">
+    <h2><span class="fa fa-volume-up"></span>{{content.name}}</h2>
+    {% if content.name == '会议嘉宾'%}
+    {% if event.event_guest %}
+    <div class="paragraphBody">
+        {% for guest in event.event_guest %}
+        <div class="gues_mes">
+            <div class="gues_pic" style="width: 100px;height: 100px;border-radius: 100%;overflow: hidden;margin: 0 auto">
+                <img alt="{{ guest.job__name }}{{ guest.name }}" width="100" height="100" class="lazy" src="http://pic.huodongjia.com/static/images/guest_default(1).jpg!hdj123"  data-original="{{ guest.img__server__name}}{{ guest.img__urls }}!hdj123"  />
+            </div>
+            <p>{{ guest.name }}</p>
+            <p class="gues_company">{{ guest.company__name }}</p>
+            <p class="gues_job">{{ guest.job__name }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="paragraphBody">{{content.txt|safe}}</div>
+    {% endif %}
+    {% else %}
+    <div class="paragraphBody">{{content.txt|safe}}</div>
+    {% endif %}
+</div>
+{% endfor %}
+{% endif %}{% else %}
+{% for content in event.event_paragraph_info %}
+<div class="paragraph">
+    <h2><span class="fa fa-volume-up"></span>{{content.name}}</h2>
+    {% if content.name == '会议嘉宾'%}
+    {% if event.event_guest %}
+    <div class="paragraphBody">
+        {% for guest in event.event_guest %}
+        <div class="gues_mes">
+            <div class="gues_pic" style="width: 100px;height: 100px;border-radius: 100%;overflow: hidden;margin: 0 auto">
+                <img alt="{{ guest.job__name }}{{ guest.name }}" width="100" height="100" class="lazy" src="http://pic.huodongjia.com/static/images/guest_default(1).jpg!hdj123"  data-original="{{ guest.img__server__name}}{{ guest.img__urls }}!hdj123"  />
+            </div>
+            <p>{{ guest.name }}</p>
+            <p class="gues_company">{{ guest.company__name }}</p>
+            <p class="gues_job">{{ guest.job__name }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="paragraphBody">{{content.txt|safe}}</div>
+    {% endif %}
+    {% else %}
+    <div class="paragraphBody">{{content.txt|safe}}</div>
+    {% endif %}
+</div>
+{% endfor %}
+<div class="relevant">
+    <div class="relevantTitle">
+        <h3>相关会议</h3>
+    </div>
+    {% for rel_event in relate_events %}
+    <div class="relevantCat col-xs-6" data-href="{{rel_event.event_id}}">
+        <div class="imgTime">
+            <a href="{{rel_event.event_url}}">
+                <img class="lazy" src="http://pic.huodongjia.com/static/images/event_default.jpg!hdj123" data-original="{{rel_event.event_img.0.server__name}}{{rel_event.event_img.0.urls}}!hdj123" alt="{{rel_event.event_name}}"/>
+            </a>
+            <span class="relevantTime">{{rel_event.event_end_time|date:'Y-m-d'}}</span>
+            <a href="/{{rel_event.event_city_info.0.title}}/">  <span class="relevantCity">{{rel_event.event_city_info.0.district_name}}</span></a>
+        </div>
+        <div class="relevantName">
+            {{rel_event.event_name}}
+        </div>
+    </div>
+    {% endfor %}
+    <div style="clear: both;"></div>
+</div>
+{% endifequal%}
+
+<!-- 底部 -->
+<div id="footer" style="margin-bottom: 65px">
+    <div class="col-xs-12 navigation">
+        <ul>
+            <li><a href="http://m.huodongjia.com">首页</a><span>&gt;</span></li>
+            <li><a href="http://m.huodongjia.com/business/">商务会议</a><span>&gt;</span></li>
+            <li><a href="http://m.huodongjia.com/{{event.event_cat_info.0.ename}}/">{{event.event_cat_info.0.name}}</a><span>&gt;</span></li>
+            <li class="navLast">详情页</li>
+        </ul>
+    </div>
+    <ul>
+        <li class=""><a href="http://www.huodongjia.com/?mobile" rel="nofollow"><span class="fa fa-desktop"></span>电脑端</a></li>
+        <li class=""><a class="appdownload" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.dahuodong.veryevent" rel="nofollow" >下载APP</a></li>
+        <li class=""><a href="http://m.huodongjia.com/about/">关于我们</a></li>
+    </ul>
+    <p>CopyRight 活动家 huodongjia.com</p>
+</div>
+<!-- 报名按钮 -->
+<div class="navbar-fixed-bottom fixedBottom" style="line-height: normal">
+     <div class="row" style="background: #FDFDFD;margin: 0;padding: 5px 0;border-top: 1px solid #D7D7D7;">
+              <div class="col-sm-3 col-xs-3" style="border-right:1px solid #D7D7D7;padding: 5px 0"> 关注数 <br>{{event.visit}}</div>
+            <div class="col-sm-3 col-xs-3 share_event">
+                <span class="share">&#xe604;</span><br>分享
+            </div>
+              {% ifequal event.event_price_type 6 %}
+              {% if event.event_price_valid and event.event_price_unit %}
+            <div  class="col-sm-6 col-xs-6 apply" data-href="{{event.event_id}}">
+                <a href="/signup/{{event.event_id}}/" style="background: #FF8500;" class="signUp" rel="nofollow">参会报名</a>
+            </div>
+              {% else %}
+              <div  class="col-sm-6 col-xs-6">
+                  <a class="signUp signUpEnd">报名截止</a>
+              </div>
+              {% endif %}
+              {% endifequal %}
+              {% ifequal event.event_price_type 5 %}
+              <div  class="col-sm-6 col-xs-6">
+                  <a class="signUp stayTuned">敬请期待</a>
+              </div>
+              {% endifequal %}
+              {% ifequal event.event_price_type 7 %}
+              <div  class="col-sm-6 col-xs-6">
+                  <a class="signUp stayTuned">敬请期待</a>
+              </div>
+              {% endifequal %}
+              {% ifequal event.event_price_type 9 %}
+              <div  class="col-sm-6 col-xs-6">
+                  <a class="signUp stayTuned">敬请期待</a>
+              </div>
+              {% endifequal %}
+              {% ifequal event.event_price_type 4 %}
+              {% if event.event_begin_time < now %}
+              <div  class="col-sm-6 col-xs-6">
+                  <a class="signUp signUpEnd">免费报名</a>
+              </div>
+              {% else %}
+              <div  class="col-sm-6 col-xs-6">
+                  <a class="signUp stayTuned" href="/freesignup/{{event.event_id}}/">免费报名</a>
+              </div>
+              {% endif %}
+              {% endifequal %}
+          </div>
+</div>
+<!--分享-->
+<div class="bdsharebuttonbox" style="text-align: center">
+    <p>分享到</p>
+    <a class="wx" data-cmd="" title="分享到朋友圈" style="display: none">
+        <img width="40" height="40" src="http://pic.huodongjia.com/static/images/pengyouquan.png" alt="分享到朋友圈"><br>朋友圈
+    </a>
+    <a class="wx" data-cmd="" title="分享到微信好友" style="display:none;">
+        <img width="40" height="40" src="http://pic.huodongjia.com/static/images/weixin.png"  alt="分享给微信好友"><br>微信好友
+    </a>
+    <a class="bds_tqq" data-cmd="sqq" title="分享到QQ好友">
+        <span>QQ好友</span>
+    </a>
+    <a class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">
+        <span>微博</span>
+    </a>
+    <!--<a class="bds_tmail" data-cmd="mail" title="分享到邮件分享">-->
+        <!--<span>邮箱</span>-->
+    <!--</a>-->
+    <span class="close_share">关闭</span>
+</div>
+<div class="wx_tc" >
+    <span>请点击右上角分享</span>
+<img src="http://pic.huodongjia.com/static/images/tanchuang.png" width="100%" height="auto" />
+</div>
+<div class="bg"></div>
+<div  class="top" style="position:fixed;bottom: -40px;right: 10px;width: 30px;height: 30px;padding:5px;background: #fff;z-index:999;" ><img width="20" height="20" src="http://pic.huodongjia.com/static/images/top.png" alt="回到顶部"/></div>
+<script src="/static/wapstatic/js/clamp.min.js"></script>
+<script src="http://pic.huodongjia.com/static/js/jquery-1.8.3.min.js"></script>
+<script src="http://pic.huodongjia.com/static/js/jquery.lazyload.min.js"></script>
+<script>
+    $(".lazy").lazyload({threshold : 0 , effect:"show", placeholder : "http://pic.huodongjia.com/static/images/event_default.jpg", event:"scroll"});
+    if(sessionStorage.close=='true'){
+        $('.app_down').hide()
+    }
+    $('.close_down').click(function () {
+        $('.app_down').hide()
+        sessionStorage.close='true';
+    })
+    var mtitle="{{event.event_name}}_活动家_参会_报名"
+    if(window.location.href.split('?')[1]=="apply=1"){
+        mtitle="我刚刚报名了{{event.event_name}}，你也来看一下吧！"
+    }
+    window._bd_share_config={"common":{"bdSnsKey":{},"bdText":mtitle,"bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+    $('.share_event').click(function () {
+        $(".bg").show()
+        $('.bdsharebuttonbox').slideDown(200)
+    })
+    $('.close_share').click(function () {
+        $(".bg").hide()
+        $('.bdsharebuttonbox').slideUp(200)
+    })
+    $('.bg').click(function(){
+        $(".bg").hide()
+        $('.bdsharebuttonbox').slideUp(200)
+        $('.wx_tc').hide()
+    })
+    $(".cat").click(function () {
+        $(".bg_1").fadeToggle(10)
+        $(".hidden-cat").slideToggle(200)
+        $(".cat").toggleClass("choose")
+        $("body").toggleClass("Body");
+    })
+    $(".bg_1").click(function () {
+        $("body").removeClass("Body");
+        $(".hidden-cat").slideUp(200)
+        $(".cat").removeClass("choose")
+        $(this).fadeOut(10)
+    })
+    var s = document.getElementsByClassName("relevantName");
+    for (var i = 0; i < s.length; i++) {
+        $clamp(s[i], {clamp: 2});
+    }
+    $(window).scroll(function () {
+        var sTop=document.documentElement.scrollTop+document.body.scrollTop;
+        var top=$(".top")[0];
+        if(sTop>10) {
+            top.style.bottom = "65px"
+        }else{
+            top.style.bottom = "-40px"
+        }
+    });
+    //    回到顶部
+    $(".top").click(function(){
+        $('html, body').animate({scrollTop: 0},500);
+    })
+
+</script>
+<script>
+    var width=$($(".imgTime")[0]).width()
+    $(".relevant .relevantCat img").css({height:(width-10)/1.6+"px"})
+    var browser = {
+        versions: function() {
+            var u = navigator.userAgent, app = navigator.appVersion;
+            return {//移动终端浏览器版本信息
+                trident: u.indexOf('Trident') > -1, //IE内核
+                presto: u.indexOf('Presto') > -1, //opera内核
+                webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+                mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端
+                ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+                iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+                iPad: u.indexOf('iPad') > -1, //是否iPad
+                webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
+                weixing: u.indexOf("MicroMessenger") > -1
+            };
+        }(),
+        language: (navigator.browserLanguage || navigator.language).toLowerCase()
+    }
+    if(browser.versions.weixing){
+        $('.wx').show()
+        $('.wx').click(function () {
+            $('.wx_tc').show()
+        })
+    }
+
+    $(".apply").on("click", function (event) {
+        var hrefs = $(this).attr("data-href");
+        event.stopPropagation();
+        window.location.href = "/signup/" + hrefs;
+    });
+    $(".paragraph h2").each(function (i) {
+        if($($(".paragraph h2")[i]).text()=="会议日程"){
+            $($(".paragraph h2")[i]).find("span").removeClass("fa-volume-up").addClass("fa-calendar");
+        }
+        if($($(".paragraph h2")[i]).text()=="会议嘉宾"){
+            $($(".paragraph h2")[i]).find("span").removeClass("fa-volume-up").addClass("fa-user");
+        }
+    });
+    var Signature,Noncestr,Timestamp
+    $.ajax({
+        url:"/getwxsignature/?url="+encodeURIComponent(window.location.href.split("#")[0]),
+        async:false,
+        type:"get",
+        success: function (data) {
+            console.log(data)
+            Signature=data.signature
+            Noncestr=data.noncestr
+            Timestamp=data.timestamp
+        }
+    });
+//    var signature = hex_sha1(Signature);
+    wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: 'wx3306d928595c4c08', // 必填，公众号的唯一标识
+        timestamp:Timestamp, // 必填，生成签名的时间戳
+        nonceStr: Noncestr, // 必填，生成签名的随机串
+        signature: Signature,// 必填，签名，见附录1
+        jsApiList: [
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'onMenuShareQZone',
+            'hideMenuItems',
+            'showMenuItems',
+            'hideAllNonBaseMenuItem',
+            'showAllNonBaseMenuItem',
+            'translateVoice',
+            'startRecord',
+            'stopRecord',
+            'onVoiceRecordEnd',
+            'playVoice',
+            'onVoicePlayEnd',
+            'pauseVoice',
+            'stopVoice',
+            'uploadVoice',
+            'downloadVoice',
+            'chooseImage',
+            'previewImage',
+            'uploadImage',
+            'downloadImage',
+            'getNetworkType',
+            'openLocation',
+            'getLocation',
+            'hideOptionMenu',
+            'showOptionMenu',
+            'closeWindow',
+            'scanQRCode',
+            'chooseWXPay',
+            'openProductSpecificView',
+            'addCard',
+            'chooseCard',
+            'openCard'
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+
+    wx.ready(function () {
+        var m_title="{{event.event_name}}"
+        if(window.location.href.split('?')[1]=="apply=1"){
+            m_title="我刚刚报名了{{event.event_name}}，你也来看一下吧！"
+        }
+        wx.onMenuShareTimeline({
+            title:m_title,
+            link:window.location.href.split("?")[0],
+            imgUrl: "{{event.event_img.0.server__name}}{{event.event_img.0.urls}}",
+            trigger: function (res) {
+                // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
+            },
+            success: function (res)  {
+
+            },
+            cancel: function (res) {
+            },
+            fail: function (res) {
+
+            }
+        });
+        wx.onMenuShareAppMessage({
+            title: m_title, // 分享标题
+            desc: '', // 分享描述
+            link: window.location.href.split("?")[0], // 分享链接
+            imgUrl: '{{event.event_img.0.server__name}}{{event.event_img.0.urls}}', // 分享图标
+            type: 'link', // 分享类型,music、video或link，不填默认为link
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+    })
+
+</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="/static/wapstatic/js/sha1.js"></script>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?7dce5762be86c04d74cdf23183cc9558";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+</body>
+</html>

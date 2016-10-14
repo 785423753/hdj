@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% block style %}
+<style>
+    h2{
+        position: relative;
+        z-index:999;
+    }
+    .right{
+        padding:10px 5px;
+    }
+    .right_bottom{
+        /*box-shadow: none;*/
+        /*border:1px solid #ccc;*/
+        margin: 5px 10px 10px;
+    }
+    .down p{
+        border-bottom: 1px dotted #ccc;
+        height:37%;
+    }
+    .down p span{
+        display: block;
+        height:50%;
+        line-height: 4;
+        text-align: center;
+        font-size: 22px;
+    }
+    .right_bottom h2{
+        padding:0;
+        font-size: 16px;
+    }
+    table td{
+        border-bottom:1px solid #7B7B7B;
+        height: 49px;
+        overflow: hidden;
+        font-size: 12px;
+        color: #f4f4f4;
+    }
+    table td:last-child{
+        /*border:none;*/
+    }
+    .bus{
+        padding: 10px 0;
+    }
+    .bus p{
+        width: 49%;
+        display: inline-block;
+        border-right:1px dotted #ccc;
+        height:100%;
+    }
+    .bus p span{
+        display: block;
+        line-height: 2;
+        font-size: 16px;
+        text-align: center;
+        position: relative;
+        top:24%;
+    }
+    .all p{
+        border-bottom:1px solid #ccc;
+        margin: 10px 0;
+        height: 30%;
+    }
+    .all p span{
+        display: inline-block;
+        width: 49%;
+        height:80%;
+        border-right: 1px solid #ccc;
+        text-align: center;
+        line-height: 2;
+
+    }
+    .all p span:last-child{
+        border:none;
+    }
+    td span{
+        /*width: 100%;*/
+        /*text-overflow: ellipsis;*/
+        /*overflow: hidden;*/
+        /*white-space:nowrap;*/
+    }
+    @media (min-width: 768px){
+        .col-sm-5 {
+            width: 43%;
+        }
+        .col-sm-6 {
+            width: 51%;
+        }
+    }
+    @media (max-width:1420px) {
+        .col-sm-6 {
+            width: 52%;
+        }
+    }
+    @media (max-width:768px) {
+        .down,.bus{
+            height: 200px !important;
+        }
+        .down p span{
+            line-height: 1;
+        }
+        .bus p span{
+            line-height: 1.5;
+        }
+        .right_bottom{
+            margin:  5px 0 10px !important;
+        }
+        .down p{
+            height:27%;
+        }
+    }
+</style>
+{% endblock %}
+{% block right %}
+<div class='col-sm-10 right'  style="">
+    <!--<h2 align='center'>总表</h2>-->
+    <div class="right_bottom col-sm-3 col-xs-12" style="height: 300px;">
+        <h2>下载总量</h2>
+        <div id='right_curveoforder_1'class="col-xs-12" style="height: 80%;width:100%;padding: 0;"></div>
+    </div>
+    <div class="right_bottom  col-sm-2 col-xs-12 down" style="height: 300px;">
+            <h2 >昨日新增下载</h2>
+            <p><span class="new_down"></span></p>
+            <h2 >昨日新增注册</h2>
+            <p style="border: none;"><span class="new_sign"></span></p>
+    </div>
+    <div class="right_bottom col-sm-3 col-xs-12 bus" style="height: 300px;">
+        <p><span>商家总数</span><span class="shop_total" style="font-size: 22px"></span><span>昨日新增商家 </span><span class="new_shop" style="font-size: 22px"></span></p>
+        <p style="border: none;"><span >活动总数 </span><span class="act_total" style="font-size: 22px"></span><span>昨日新增活动 </span><span class="new_act" style="font-size: 22px"></span></p>
+    </div>
+    <div class="right_bottom col-sm-3 col-xs-12" style="height: 300px;">
+        <h2>热门活动TOP5</h2>
+        <table width="100%" class="top_act">
+        </table>
+    </div>
+
+    <div class="right_bottom col-sm-3 col-xs-3 all" style="height: 300px;">
+        <p><span>订单总量 <br><font class="order_total" style="font-size: 22px"></font></span><span>昨日新增订单量 <br><font class="new_order" style="font-size: 22px"></font></span></p>
+        <p><span>订单销售金额 <br><font class="money_total" style="font-size: 22px"></font></span><span>昨日新增订单金额 <br><font class="new_money" style="font-size: 22px"></font></span></p>
+        <p style="border: none;"><span>退款总金额 <br><font class="refunds_total" style="font-size: 22px"></font></span><span>昨日退款金额 <br><font class="new_refunds" style="font-size: 22px"></font></span></p>
+    </div>
+    <div class="right_bottom  col-sm-5 col-xs-12" style="height: 300px;padding-top: 10px">
+        <!--<h2>下载总量</h2>-->
+        <div id='right_curveoforder_4' style="height: 100%;width:100%;padding: 0;"></div>
+    </div>
+    <div class="right_bottom col-sm-3 col-xs-12" style="height: 300px;">
+        <h2>热门商家TOP10</h2>
+        <table width="48%" class="top_shop_1" style="float: right">
+
+        </table>
+        <table width="48%" class="top_shop_2" >
+
+        </table>
+    </div>
+
+    <div class="right_bottom col-sm-5 col-xs-12 sign" style="height: 400px;padding-top: 10px;">
+        <!--<h2>下载总量</h2>-->
+        <div id='right_curveoforder_3'class="col-xs-12" style="height: 100%;width:100%;padding: 0;"></div>
+    </div>
+
+
+
+    <div class="right_bottom  col-sm-6 col-xs-12" style="height: 400px;">
+        <h2>活动类型分布</h2>
+        <div id='right_curveoforder_2' style="height: 85%;width: 100%;"></div>
+    </div>
+
+
+</div>
+{% endblock %}
+{% block footer %}
+<script type="text/javascript" src="../static/js/index_1.js"></script>
+{% endblock %}

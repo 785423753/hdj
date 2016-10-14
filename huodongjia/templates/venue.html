@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load page_nav %}
+{% block addstyle %}
+<link rel="stylesheet" href="http://pic.huodongjia.com/static/css/venue.css"/>
+<link rel="alternate" media="only screen and(max-width: 640px)" href="http://m.huodongjia.com{{request.get_full_path}}" >
+<meta name="mobile-agent" http-equiv="mobile-agent" content="format=html5;url=http://m.huodongjia.com{{request.get_full_path}}" />
+<!--[if lt IE 9]>
+<script src="http://pic.huodongjia.com/static/js/html5shiv.min.js"></script>
+<style>
+    body{
+        background: #f7f8fb;
+    }
+</style>
+<![endif]-->
+<script type="text/javascript">
+    var browser = {
+        versions: function() {
+            var u = navigator.userAgent, app = navigator.appVersion;
+            return {//移动终端浏览器版本信息
+                trident: u.indexOf('Trident') > -1, //IE内核
+                presto: u.indexOf('Presto') > -1, //opera内核
+                webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+                mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端
+                ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                //<!-- android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器 -->
+                android: u.indexOf('Android') > -1, //android终端或者uc浏览器 -->
+                iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+                iPad: u.indexOf('iPad') > -1, //是否iPad
+                webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+            };
+        }(),
+        language: (navigator.browserLanguage || navigator.language).toLowerCase()
+    }
+    if (browser.versions.iPhone || browser.versions.iPad || browser.versions.android) {
+        var url =  location.href
+        url=url.replace("http://www.huodongjia","http://m.huodongjia")
+
+        window.location=url;
+    }
+</script>
+{%endblock%}
+{% block content %}
+<div class="container">
+    {% if venue %}
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 spon_header" style="padding: 0">
+            <ul class="col-lg-12 col-md-12 col-xs-12 col-sm-12 ul_left">
+                <li ><a href="/" target="_blank">活动家</a>&gt;</li>
+                <li><a href="/listvenue/" target="_blank">会议场地</a>&gt;</li>
+                <li><a href="" class="venue_url"><h1>{{ venue.nv_name }}</h1></a></li>
+                <span style="float: right;">更新时间：{{ venue.nv_events.0.event_release_time|date:"Y-m-d" }}</span>
+            </ul>
+
+            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12  spon_info">
+                {% if venue.nv_img_urls %}
+                <img src="{{ venue.nv_img_urls }}"   class="spon_info_img" alt="{{ venue.nv_name  }}">
+                {% else %}
+                <img src="http://pic.huodongjia.com/event/2015-06-17/event1434525054.73.jpg" class="spon_info_img" alt="{{event.sponsor_name}}">
+                {% endif %}
+                    {% autoescape off %}
+                {{ venue.nv_content }}
+                {% endautoescape %}
+                </br><p style="margin-top:25px"><b>会场地址:</b>{{ venue.nv_addr }}</p>
+            </div>
+            </div>
+        </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 spon_content">
+            <p class="active">正在报名会议</p>
+            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 hr"></div>
+            {% if venue.nv_events %}
+            <div class="active-div">
+            {% for event in venue.nv_events %}
+            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 active_info">
+                <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12 active_img">
+                    <a href="/event-{{ event.event_id }}.html" target="_blank">
+                        <img src="{{event.event_img.0.server__name}}{{ event.event_img.0.urls }}" alt="{{event.event_name}}">
+                        </a>
+                </div>
+                <div class="col-lg-9 col-md-9 col-xs-12 col-sm-12 active_info_text">
+                    <div class="active_div">
+
+                        <a href="/event-{{ event.event_id }}.html" target="_blank"> <p class="active_info_title"  {% if event.cat_name or event.event_venue.venue_title %}{% endif %}>{{event.event_name}}</p></a>
+
+                    <p class="active_info_intro">简介：{{ event.event_intro }}</p>
+                        <span class="foot_time">时间：{{ event.event_begin_time|date:'Y-m-d' }}</span>
+                        <span class="foot_city">主办方：
+                            {% if event.event_sponsor %}
+                                <a href="/sponsor-{{ event.event_sponsor.0.id }}.html" target="_blank" style="color: #656666;">{{ event.event_sponsor.0.ns_name }}</a>
+                            {% else %}
+                            <a style="color: #656666;">暂无</a>
+                            {% endif %}
+                       </span><span class="join"><a href="/event-{{ event.event_id }}.html" target="_blank">我要报名>></a></span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+            {% else %}
+            <p style="color: #868586;margin-top:12%;font-size: 16px;text-align: center;">暂时没有会议或我有会议<a href="/postevent/" target="_blank">提交给活动家</a>。</p>
+            {% endif %}
+    </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 spon_foot">
+            <p class="active">往期会议回顾</p>
+            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 hr"></div>
+            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 spon_foot_info">
+                <ul>
+                    {% for event in venue.nv_hold_events %}
+                    <li> <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12 spon_foot_div">
+                        <a href="/event-{{ event.old_event_id }}.html" target="_blank">
+                        <p class="spon_foot_title">{{event.name}}</p></a>
+                        <span
+                            class="foot_time">时间：{{ event.begin_time|date:'Y-m-d' }}</span><span
+                            class="foot_city">主办方：
+                        {% if event.sponsor__name %}
+                        <a href="/sponsor-{{ event.sponsor__id|encodeid }}.html" target="_blank" style="color: #656666;">{{event.sponsor__name}}</a>
+                        {% else %}
+                        <a style="color: #656666;">暂无</a>
+                        {% endif %}
+                    </span>
+                    </div></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="noinfo">
+        <div class="noinfo_div">
+            <img src="http://pic.huodongjia.com/static/images/noinfo.gif">
+            <span>指定的场馆不存在</span >
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="http://pic.huodongjia.com/static/js/sponsor_list.js"></script>
+<script type="text/javascript">
+    var hrefs = window.location.href;
+    $(".venue_url").attr("href",hrefs);
+</script>
+{% endblock %}

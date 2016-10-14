@@ -1,0 +1,97 @@
+{% extends "wapModel.html" %}
+{% block cssStyle %}
+
+{% endblock %}
+{% block container %}
+<div class="container" id="list_con">
+    <header class="col-sm-12 col-xs-12" style="padding:0;border: none;">
+        <table>
+            <tr>
+                <td class="left"><a href="javascript:history.back(-1)">&#xe601;</a></td>
+                <td>搜索结果</td>
+                <td class="right"><a class="cat">&#xe602;</a></td>
+            </tr>
+        </table>
+    </header>
+    <section class="hidden-cat">
+        <ul>
+            <li class="col-sm-12 col-xs-12" style="color: #FA9D42;padding: 10px 0"><h4>商务会议</h4></li>
+            {% for cat in main_cats %}
+            <li class="col-sm-3 col-xs-3"><a href="/{{cat.ename}}/">{{cat.name}}</a></li>
+            {% endfor %}
+        </ul>
+        <ul>
+            <li class="col-sm-12 col-xs-12" style="color: #FA9D42;padding: 0"><h4>更多服务</h4></li>
+            <li class="col-sm-3 col-xs-3"><a href="/postevent/">活动发布</a></li>
+            <li class="col-sm-3 col-xs-3"><a href="/searchorder/">订单查询</a></li>
+            <li class="col-sm-3 col-xs-3"><a href="/listvenue/">会议场地</a></li>
+            <li class="col-sm-3 col-xs-4"><a href="/listsponsor/">会议主办方</a></li>
+        </ul>
+    </section>
+    <div class="bg"></div>
+    <section class="col-sm-12 col-xs-12 list-seacher" style="display: block">
+        <form action="/search/" method="get" class="myForm">
+            <a href="javascript:validate()"><i class="col-sm-1 col-xs-1 iconfont list_seach">&#xe61b;</i></a>
+            <input type="search" class="form-control" name="keyword" placeholder="请输入关键词">
+        </form>
+    </section>
+    {% if error_msg %}
+    <div class="row">
+        <div class="col-sm-6">
+            <span>{{error_msg}}</span>
+        </div>
+    </div>
+    {% endif %}
+    {% if message %}
+        <div class="col-sm-6" style="margin-top:2em;">
+            <span style="font-weight:bold;font-size:18px;">{{message}}</span>
+        </div>
+    {% endif %}
+    {% if events %}
+        {% for event in events%}
+        <section class="col-sm-12 col-xs-12 meeting" data-href="{{event.event_id}}">
+            <dl>
+                <dt>
+                    <img src="{{event.event_img.0.server__name}}{{event.event_img.0.urls}}" alt="{{event.event_name}}">
+                </dt>
+                <dd>
+                    <h3 class="pic-opa-title" {% if event.cat_name or event.event_venue.venue_title %}{% endif %}>{{event.event_name}}</h3>
+                    {% if event.event_price_type == 6%}
+                        {% if event.event_price_unit %}
+                        <span class="home-money " data-price="{{event.price_unit_info.0.price}}"
+                              data-priceType="{{event.event_price_unit}}"
+                              data-price_return="{{event.price_unit_info.0.price_return}}">{{event.event_price_unit.0.Currency__sign}}{{event.event_price_unit.0.price}}</span>
+                        {% else %}
+                        <span class="home-money">{{event.event_price_model_str}}</span>
+                        {% endif %}
+                    {% endif %}
+                    {% if event.event_price_type == 4%}
+                        <span class="home-money">免费</span>
+                    {% endif %}
+                    {% if event.event_price_type == 5%}
+                        <span class="home-money">待定</span>
+                    {% endif %}
+                    <label class="home-time">
+                        {% if event.event_begin_time%}{{ event.event_begin_time|date:'Y-m-d' }}{%else%}
+                        {{event.event_end_time|date:'Y-m-d'}}{%endif%}
+                        &nbsp;</label>
+                    <label class="home-city" style="margin-top:73px">
+                        <a href="/{{event.event_city_info.0.title}}/" target="_blank">{{event.event_city_info.0.district_name}}</a>
+                    </label>
+                </dd>
+            </dl>
+        </section>
+        {% endfor %}
+    {% endif %}
+        <input value="{{currentPage}}" class="page" type="hidden"/>
+        <input value="{{keyword}}" class="keyword" type="hidden"/>
+        <input value="{{m_key}}" class="m_key" type="hidden"/>
+    </div>
+{% endblock %}
+{% block footerjs%}
+<script>
+    function validate() {
+        $(".myForm").submit()
+    }
+</script>
+{%endblock%}

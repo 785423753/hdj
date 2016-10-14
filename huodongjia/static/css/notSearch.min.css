@@ -1,0 +1,29 @@
+.content{margin-top:15px}
+#search{width:66%;height:40px;border:1px solid #C0C6D5;padding:10px;margin-right:7px}
+#post{width:70px;height:40px;border:0;background:#54A1F1;color:#fff}
+#post:hover{background:#4d93dc}
+.content_left{background:#FFF;padding:25px 15px;margin-top:15px}
+.search_result{text-align:center;font-size:18px;color:#505B6D;line-height:30px}
+.search_result font{color:#E64D50}
+.search_result span{font-size:16px;color:#7C8393}
+.pls{color:#4F5A70;font-size:16px;font-weight:bold;border-bottom:1px solid #BDC3D3;padding-bottom:10px;margin:40px 0 30px}
+#searchForm{width:45%;margin:20px auto}
+#searchForm label{width:23%;font-weight:normal;text-align:right;padding-right:20px;font-size:16px;color:#52586E}
+#searchForm input{width:77%;height:40px;border:1px solid #BDC3D3;border-radius:4px;background:#FCFCFC;margin-top:15px}
+#searchForm textarea{width:77%;border:1px solid #BDC3D3;border-radius:4px;background:#FCFCFC;margin-top:15px;resize:none}
+.addition{position:relative;top:-45px}
+#searchForm span{color:#7B8493;font-size:14px;padding-left:6px}
+#checkcode{width:37%!important}
+.searchPost{width:180px;height:40px;border:0;border-radius:4px;background:#2E83DD;color:#fff;font-size:16px;margin-left:23%;margin-top:25px}
+.content_right{margin-top:15px;padding:0 20px}
+.content_right>div{background:#FFF;box-shadow:0 0 3px 1px rgba(180,180,180,0.29);border-radius:5px;margin-bottom:20px}
+.content_right .postevent{width:100%;height:40px;background:#2E83DD;border:0;border-radius:4px;font-size:16px;margin-bottom:15px;color:#fff}
+.content_right .postevent a{color:#fff!important}
+.content_right>div>p{padding:10px 10px;font-size:16px;color:#525B6C;border-bottom:1px solid #BDC3D3}
+@font-face{font-family:"close_font";src:url("http://pic.huodongjia.com/static/css/close_iconfont.ttf")}
+.Close{font-family:"close_font";font-size:12px;float:right;display:none}
+.content_right>div>ul>li{list-style:none;font-size:16px;width:100%;height:40px;line-height:40px;padding:0 10px;cursor:pointer}
+.history .Close{display:block;cursor:pointer}
+.content_right>div>ul>li:hover .Close{display:block}
+.content_right>div>ul>li>a{text-overflow:ellipsis;white-space:nowrap;overflow:hidden;width:90%;display:inline-block}
+.content_right .postevent a{display:inline-block;width:100%}

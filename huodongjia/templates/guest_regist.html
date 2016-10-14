@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{%block add_st%}
+{%endblock%}
+{% block addstyle %}
+<link rel="stylesheet" href="http://pic.huodongjia.com/static/css/guest_regist.css">
+{% endblock %}
+{% block content %}
+<div class=" container" style="margin: 5px auto 10px">
+    <img src="http://www.huodongjia.com/static/images/banner_guest.jpg" alt="活动家">
+</div>
+<div class="container">
+    <div class="row">
+        <div class=" col-xs-12 col-sm-12 content">
+            <div class="col-xs-9 col-sm-9 left">
+                <div class="col-xs-12 col-sm-12 left_div">
+                    <p>信息填写</p>
+                    {% csrf_token %}
+                    <div class="col-xs-7 col-sm-7 contact">
+                        <label for="name"><span class="mustFill">*</span>姓名</label>
+                        <input class="user_name" id="name" name="name" type="text" data-judge="false"><br/>
+
+                        <label for="mobilphone"><span class="mustFill">*</span>手机号</label>
+                        <input type="text" class="mobilphone" id="mobilphone" name="mobilphone"><br/>
+
+                        <label for="captcha"><span class="mustFill">*</span>验证码</label>
+                        <input style="width: 50%;" data-captcha="" class="captcha" id="captcha" name="captcha" type="text">
+                        <img id="cap_img" width="110"  onclick="this.setAttribute('src','/get_check_code_image/?nocache='+Math.random());" src="/get_check_code_image/"/>
+                        <br/>
+                        <label for="industry"><span class="mustFill">*</span>所属行业</label>
+                        <select id="industry">
+                            {% for cat in main_cats %}
+                            <option value="{{ cat.id }}">{{ cat.name }}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+                    <div class="col-xs-5 col-sm-5 pic">
+                        <label for="name"><span style="color: red">*</span>上传照片</label>
+                        <div class="Upload">
+                            <p><img id="imgView" src="" /></p>
+                            <p><input type="file" id="file1" name="imgView" onchange="PreviewImage(this,'imgView','divNewPreview')"/></p>
+                            <div id="divNewPreview"></div>
+                        </div>
+                        <div class="mustFills" style="position:absolute;top: 75px;right: 0;">
+                            <span >照片上传要求：</span><br>
+                            <span>1、图片不大于2MB</span><br>
+                            <span>2、图片格式为：JPG、GIF、PNG</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 resume">
+                        <label>阅历介绍</label>
+                        <textarea rows="8" placeholder="请在此输入你的个人介绍或演讲经历" id="textarea"></textarea>
+                        <button id="sendMessage">提交</button>
+                        <!--<div style="text-align: center">-->
+                        <!--<a id="sendMessage">确认提交</a>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-3 right">
+                <!--<div class="right_div">-->
+                <h4>关于演讲嘉宾</h4>
+                <h5>1.为什么要成为演讲嘉宾？</h5>
+                <div class="info">
+                    <p>建立你的个人品牌，让与会者成为你的粉丝。</p>
+                    <p>传播你的影响力，获取你的演讲收益。</p>
+                    <p>活动家为作为你的会议经纪人，为你量身打造会议和个人演讲。</p>
+                </div>
+                <h5>2.怎么成为演讲嘉宾？</h5>
+                <div class="info">
+                    <p> 按要求填写演讲者信息并上传照片。</p>
+                    <p>个人信息审核通过后，我们会安排专人与你取得联系并核对信息。</p>
+                    <p>恭喜你，已获得活动家演讲嘉宾认证，成为活动家合作的演讲嘉宾。</p>
+                </div>
+                <h5>3.成为演讲者有什么要求？</h5>
+                <div class="info">
+                    <p style="margin-top: 20px;">或者你有精彩的故事诉说。</p>
+                    <p>或者你在某个行业有丰富的经验.</p>
+                    <p>欢迎来活动家报名，实现你的演讲梦。</p>
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div style="height: 50px"></div>
+{% endblock %}
+{% block js %}
+<script src="http://pic.huodongjia.com/static/js/guest_regist.js"></script>
+<script src="http://pic.huodongjia.com/static/js/ajaxFile.js"></script>
+{% endblock %}

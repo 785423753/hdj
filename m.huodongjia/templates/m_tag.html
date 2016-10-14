@@ -1,0 +1,95 @@
+﻿{% extends "m_model.html" %}
+{% block cssStyle %}
+{% endblock %}
+
+{% block container %}
+<div class="container_tag">
+    <div class="gohome"><a href="http://m.huodongjia.com/"> <i class="icon iconfont">&#xe66e;</i></a></div>
+{% block header %}
+<div class="header">
+    <div class="icon-left"><a href="javascript:;" onClick="javascript :history.back(-1);"><i class="iconfont">&#xe66b;</i></a></div>
+    <h2>{{keyword}}</h2>&nbsp;<span class="header-city"><a  style="color:#fff;font-size: 0.9em">{% if city %}{{city}}{% else %}城市{% endif %}<img src="/static/images/city-select.png"></a></span>
+    <div class="icon-class"><i class="iconfont start-class">&#xe627;</i></div>
+</div>
+{% endblock %}
+
+{% block Navlist %}{% endblock %}
+
+{% block content %}
+<div class="center">
+    <div class="select_city">
+        <img src="/static/images/select.png" class="selectcity">
+        <div id="cityMap">
+            <ul class="internal">
+                <p>国内热门 </p>
+                {% for ci in city_Nav %}
+                {% if  forloop.last %}
+            </ul>
+            <ul class="abroad ">
+                <p>国外热门</p>
+                {% for c in ci.child|slice:":9"%}
+                <li><a href="/{{c.title}}/" style="color:#333;font-size: 0.9em">{{c.district_name}}</a></li>
+                {% endfor %}
+                {% else %}
+                {% for c in ci.child|slice:":8"%}
+                <li><a href="/{{c.title}}/" style="color:#333;font-size: 0.9em">{{c.district_name}}</a></li>
+                {% endfor %}
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div  class="hidden_table">
+        <img src="/static/images/select.png" class="selecttable">
+        <table cellspacing="0" cellpadding="0">
+            <tr>
+                {% for first in cat_Map|slice:":3" %}
+                <td><a href="{{first.caturl}}">{{first.catname}}</a></td>
+                {% endfor %}
+            </tr>
+            <tr>
+                {% for first in cat_Map  %}
+                {% if  forloop.last %}
+                <td><a href="{{first.caturl}}">{{first.catname}}</a></td>
+                {% endif %}
+                {% endfor %}
+                <td><a href="/searchorder/" rel="nofollow">查询订单</a></td>
+            </tr>
+        </table>
+    </div>
+<div class="list-div-hr"></div>
+<div class="tag-center-pic" data-key="{{keyword}}" data-page="{{page}}" data-offset="{{offset}}" data-tag="{{len_list}}">
+    <ul class="tag-center-pic-one">
+        {% for event in list%}
+        <li>
+            <div class="tag-big-div">
+                <div class="tag-big-div-img">
+                    <a href="/event-{{event.event_id}}.html" target="_blank">
+                        <img src="{{event.event_img}}"  alt="{{event.event_name}}" >
+                    </a>
+                </div>
+                <div class="tag-big-div-info">
+                    <a href="/event-{{event.event_id}}.html" target="_blank"><h3 class="tag-big-div-info-title"{% if event.cat_name or event.event_venue.venue_title %}{% endif %}>
+                        {{event.event_name}}</h3></a>
+                    <p class="tag-big-div-info-time">时间：{{event.event_begin_time}}{% ifnotequal event.event_begin_time event.event_end_time%}&nbsp;至&nbsp;{{event.event_end_time}}{%endifnotequal%}</p>
+                    <p class="tag-big-div-info-city">地点：<a href="/{{event.district_title}}/" style="color: #4d4d4d" target="_blank">{{event.district_name}}</a>{% if event.event_venue %},{{event.event_venue}} {% endif %}{% if event.event_address %},{{event.event_address}} {% endif %}</p>
+                    {% if event.event_discount_price %}
+                    <span class="tag-money" data-priceStyle="{{event.event_price_unit}}">{{event.event_discount_price}}</span>
+                    {% else %}
+                    <span class="tag-money " id="tag-cener" data="{{event.event_price}}" data-priceStyle="{{event.event_price_unit}}">{{event.event_price}}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+</div>
+{% endblock %}
+{% endblock %}
+{% block footerjs %}
+<script type="text/javascript">
+    tag();
+    search();
+</script>
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends "m_model.html" %}
+{% block meta %}
+<title>活动家-亚洲最大的活动网聚合平台</title>
+<meta name="description" content="活动家，亚洲最大的活动网聚合平台，为您提供海量会议,公开课,会展,极限运动,当地体验,夜生活,演出折扣票,同城活动查询,特色旅游，门票预订,报名,参加活动,请上活动家手机站！服务热线:400-003-3879" />
+<meta name="keywords" content="活动,活动网,线下活动,会议网,同城活动" />
+{% endblock %}
+{% block cssStyle %}
+{% endblock %}
+{% block container %}
+<div class="container_form">
+    <div class="gohome"><a href="http://m.huodongjia.com/"> <i class="icon iconfont">&#xe66e;</i></a></div>
+{% block header %}
+<div class="header">
+    <div class="icon-left"><a href="javascript:;" onClick="javascript :history.back(-1);"><i class="iconfont">&#xe66b;</i></a></div>
+    <h2>提交订单</h2>
+    <div class="icon-class"><i class="iconfont start-class">&#xe627;</i></div>
+</div>
+{% endblock %}
+{% block Navlist %}
+{% endblock %}
+{% block content %}
+<div class="center">
+    <div  class="hidden_table">
+        <img src="/static/images/select.png" class="selecttable">
+        <table cellspacing="0" cellpadding="0">
+            <tr>
+                {% for first in cat_Map|slice:":3" %}
+                <td><a href="{{first.caturl}}">{{first.catname}}</a></td>
+                {% endfor %}
+            </tr>
+            <tr>
+                {% for first in cat_Map  %}
+                {% if  forloop.last %}
+                <td><a href="{{first.caturl}}">{{first.catname}}</a></td>
+                {% endif %}
+                {% endfor %}
+                <td><a href="/searchorder/"  rel="nofollow">查询订单</a></td>
+            </tr>
+        </table>
+    </div>
+    <form role="form" id="orderForm" class="form-horizontal" method="post" rel="nofollow" action="/submitorder/" onsubmit="return tijiao();">
+        <div class="center-info">
+            <p>{{event.event_name}}</p>
+            <div class="booking">
+                <span class="num">订票数量</span>
+                <a id="cut" class="productdetail-buy-num-btn" rel="nofollow" style="width:20px;height: 20px;text-align:center;background-color: #e3e3e3;display:inline-block;">-</a>
+                <input type="text" value="{{ticketNum}}" id="num"  name="number" style="width:20px;height: 20px;text-align:center"/>
+                <a id="add" class="productdetail-buy-num-btn" rel="nofollow" style="width:20px;height: 20px;text-align:center;background-color: #e3e3e3;display: inline-block;">+</a>
+                <span class="paper">张</span>
+            </div>
+            {% ifnotequal price_unit_name '人民币' %}
+            <span class="form-money" data="{{price}}"><span class="pricemoney">单价：</span>{{raw_price}}({{price_unit_name}})</span>
+            {% else %}
+            <span class="form-money" id="money" data="{{price}}"><span class="pricemoney">单价：</span>￥{{price}}</span>
+            {% endifnotequal %}
+        </div>
+        <div class="order-person">
+            <p>订单联系人</p>
+        </div>
+        <div class="order-contact">
+            {% csrf_token %}
+            <ul class="person-info">
+                <li><div class="info"><span><b>*</b>姓 名：</span></div></li>
+                <li><div  class="info"><span><b>*</b>联系地址：</span></div></li>
+                <li><div  class="info"><span><b>*</b>手机号码：</span></div></li>
+                <li><div  class="info" id="yanzheng"><span><b>*</b>验证码：</span></div></li>
+                <li><div class="textarea-li"><span>添加备注:</span></div></li>
+            </ul>
+            <ul class="person_input">
+                <li><input type="text" id="name1" name="name" style="width: 60%;height: 22px"></li><img class="cha1" src="/static/images/chahao.png">
+                <li><input type="text" id="address1" name="address" style="width: 60%;height: 22px"></li><img class="cha2" src="/static/images/chahao.png">
+                <li><input type="text" id="mobilphone1" name="mobilphone" style="width: 45%;height: 22px" class="form-phone" btvd-type="required" btvd-el="/^1[3-8]+\d{9}$/" btvd-class="btvdclass" btvd-err="请填写正确的手机号码" ><a id="captchaImg" onclick="yanzhengma()">发送验证码</a></li>
+                <li><input type="text" id="captcha1" name="captcha" style="width: 45%;height: 22px" btvd-type="required" btvd-class="btvdclass" btvd-err="必须填写验证码"></li>
+                <li><textarea class="form-control" rows="3" name="remark" id="remark" btvd-el="!/(h|H)(r|R)(e|E)(f|F)(\s)*=(\s)*('|&quot;)?[A-zA-Z0-9#]+(.)+[A-zA-Z0-9#]+('|&quot;)?/" btvd-class="btvdclass" btvd-err="亲，咨询内容不允许有链接" placeholder="如需发票或选择活动日期等额外信息请写入备注框内"></textarea></li>
+            </ul>
+            <div class="hide" style="display: none">
+                <input type="text" name="event_name" value="{{event.event_name}}">
+                <input type="text" name="price" value="{{price}}">
+                <input type="text" id="event_id" name="event_id" value="{{event.event_id}}">
+            </div>
+            <ul class="info-pay">
+                <li>
+                    <label class="checkbox-inline zhifubao_checkbox" for="optionsRadios2">
+                        <img src="/static/images/alipy.png"><span>支付宝支付</span>
+                        <input type="radio" checked name="payMode" id="optionsRadios2" value="alipay">
+                    </label>
+                </li>
+                <li>
+                    <label class="checkbox-inline" for="optionsRadios3">
+                        <img src="/static/images/bank.png"><span>银行卡转账</span>
+                        <input type="radio" name="payMode" id="optionsRadios3" value="bank">
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <!-------footer--------------->
+        <div class="foot">
+            <span class="alipymoney">支付：￥<span class="total"></span></span>
+            <button id="sbmitOrder1" class="btn btn-lg" type='submit' >提交订单</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+</div>
+{% endblock %}
+{% block footerjs %}
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="http://m.huodongjia.com/weixin/weixin_self.php"></script>
+<script >
+wx.ready(function () {
+wx.checkJsApi({
+    jsApiList: ['chooseImage'],success: function(res) {if (res.checkResult.chooseImage){
+        $('#orderForm').attr('action','/submitOrder_weixin/');
+        $('#orderForm').attr('method','get');
+        $('#sbmitOrder1').text('微信安全支付').css({
+            width:"34%",
+            fontSize:"0.8em"
+
+        });
+        $('.info-pay').css({
+            display:"none"
+        });
+
+    }}});});
+</script>
+{% endblock %}

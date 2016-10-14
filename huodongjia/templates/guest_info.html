@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load page_nav %}
+{%block add_st%}
+{%endblock%}
+{% block addstyle %}
+<link rel="stylesheet" type='text/css' href='http://pic.huodongjia.com/static/css/guest_info.css'>
+{% endblock %}
+{% block content %}
+<div class="banner">
+<div class="container">
+    <a href="/jiabin/apply_guest/" target="_blank">
+        <img src="http://pic.huodongjia.com/static/images/guest.jpg" alt="找会议嘉宾，上活动家">
+    </a>
+</div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 spon_header">
+            <ul class="col-lg-12 col-md-12 col-xs-12 col-sm-12 ul_left">
+                <li><a href="/" target="_blank">首页</a>&gt;</li>
+                <li><a href="/guest/">嘉宾列表</a>&gt;</li>
+                <li><span>{{ guest.name }}</span>&gt;</li>
+                <li><span style="color: #545C70;">邀请{{ guest.name }}出席会议</span></li>
+            </ul>
+        </div>
+        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 content">
+            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12  meeasge_div">
+                <div class="col-sm-12 col-xs-12 pic">
+                    <!--<img src="{{  guest.img__server__name }}{{ guest.img__urls }}" alt="{{ guest.company__name }}{{ guest.job__name }}{{ guest.name }}">-->
+                    <p class="text-left"><span class="guestName">{{ guest.name }}</span>
+                    <span class="guestWork">{{ guest.job__name }}</span>
+                    <span class="guestCompany">{{ guest.company__name }}</span></p>
+                </div>
+                <div class="col-xs-12 col-sm-12 intro">
+                    {{ guest.intro }}
+                    <!--<span class="more">了解更多>></span>-->
+                </div>
+                <div class="col-xs-12 col-sm-12  hr"></div>
+            </div>
+            <input type="hidden" value="{{ guest.id|encodeid }}" id="ids">
+            <div class="col-lg-8 col-md-8 col-xs-8 col-sm-8 col-lg-offset-2  meeasge_form">
+                <form action="/jiabin/send_guest_invitation/" method="post" id="guest">
+                    {% csrf_token %}
+                    <div>
+                        <h4 class="info">邀请人信息</h4>
+                    </div>
+                        <label for="company"><span class="mustFill">*</span>单位名称</label>
+                        <input placeholder="主办方单位" class="company" id="company" name="company" type="text" data-judge="false"><br/>
+
+                        <label for="meeting"><span class="mustFill">*</span>主办会议名称</label>
+                        <input class="meeting " id="meeting" name="meeting" type="text" data-judge="false"><br/>
+
+                        <label for="name"><span class="mustFill">*</span>联系人</label>
+                        <input class="user_name" id="name" name="name" type="text" data-judge="false"><br/>
+
+                        <label for="mobilphone"><span class="mustFill">*</span>联系电话</label>
+                        <input type="text" name="mobilphone" id="mobilphone" class="mobilphone"><br/>
+
+                        <label for="captcha"><span class="mustFill">*</span>验证码</label>
+                        <input type="text" name="captcha" id="captcha"  data-captchaflag="false" class="captcha"  style="width: 45%;">
+                        <img id="cap_img" width="120"  onclick="this.setAttribute('src','/get_check_code_image/?nocache='+Math.random());" src="/get_check_code_image/"/><br/>
+
+                        <label for="message" style="float: left;margin-top: 20px;">补充信息</label>
+                        <textarea name="message" id="message" cols="40" rows="4" placeholder="请将需要嘉宾了解的信息填写在这里。"></textarea><br/>
+                    <input type="hidden" name="in_company" class="in_company">
+                    <input type="hidden" name="in_meeting" class="in_meeting">
+                    <input type="hidden" name="event_id"   class="event_id"/>
+                    <input type="hidden" name="in_name"    class="in_name"/>
+                    <input type="hidden" name="in_mobilphone" class="in_mobilphone"/>
+                    <input type="hidden" name="in_message" class="in_message"/>
+                    <input type="hidden" name="in_guest" class="in_guest"/>
+                        <a id="send_message">确认发送</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="http://pic.huodongjia.com/static/js/guest_infos.js"></script>
+{% endblock %}
+

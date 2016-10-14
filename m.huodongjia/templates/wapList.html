@@ -1,0 +1,170 @@
+﻿{% extends "wapModel.html" %}
+{% block link_seo %}
+<link rel="canonical" href="http://www.huodongjia.com{{request.get_full_path}}"/>
+{% endblock%}
+{% block container %}
+{% if cat_name and not month_name and not city_name %}
+<div class="tags" style="display: none;">
+    <div class="tagList">
+        <span class="close">&#xe60d;</span>
+        <h3>请选择关键词</h3>
+        <p>
+            <a class="all">不限</a>
+            {% for tag in tags_cloud %}
+                <a href="/tag/{{tag.tag__id}}/">{{tag.tag__name}}</a>
+            {% endfor %}
+
+        </p>
+    </div>
+</div>
+{% endif %}
+<div class="container" id="list_con">
+    <section class="black-div"></section>
+    <header class="col-sm-12 col-xs-12" style="padding:0;border: none;">
+        <table>
+            <tr>
+                <td class="left"><a href="/" style="font-size: 36px;">&#xe600;</a></td>
+                <td>商务会议</td>
+                <td class="right"><a class="search header_seachs">&#xe603;</a><a class="cat">&#xe602;</a></td>
+            </tr>
+        </table>
+    </header>
+
+    <div class="bg"></div>
+    <section class="hidden-cat">
+        <ul>
+            <li class="col-sm-12 col-xs-12" style="color: #FA9D42;padding: 10px 0"><h4>商务会议</h4></li>
+            {% for cat in main_cats %}
+            <li class="col-sm-3 col-xs-3"><a href="/{{cat.ename}}/">{{cat.name}}</a></li>
+            {% endfor %}
+        </ul>
+        <ul>
+            <li class="col-sm-12 col-xs-12" style="color: #FA9D42;padding: 10px 0"><h4>更多服务</h4></li>
+            <li class="col-sm-3 col-xs-3"><a href="/postevent/">活动发布</a></li>
+            <li class="col-sm-3 col-xs-3"><a href="/searchorder/">订单查询</a></li>
+            <li class="col-sm-3 col-xs-4"><a href="/listsponsor/">会议主办方</a></li>
+            <li class="col-sm-3 col-xs-3"><a href="/listvenue/">会议场地</a></li>
+        </ul>
+
+    </section>
+    <section class="col-sm-12 col-xs-12 list-seacher" >
+        <form action="/tag/" method="get" class="myForm" rel="nofollow">
+            <a  href="javascript:validate()"  style="color: #ddd"><i class="col-sm-1 col-xs-1 iconfont list_seach">&#xe61b;</i></a>
+            <input type="search" class="form-control" name="keyword" placeholder="请输入关键词">
+        </form>
+    </section>
+    <!--分类-->
+    <article class="col-sm-12 col-xs-12" id="list_nav"></article>
+    {% if cat_name and not month_name and not city_name %}
+    <div class="all_tag">
+        您是不是在找：
+        {% for tag in tags_cloud|slice:'3' %}
+        <a href="/tag/{{tag.tag__id}}/">{{tag.tag__name}}</a>
+        {% endfor %}
+        <a class="more_tag">·  ·  ·</a>
+    </div>
+    {% endif %}
+    <!---meeting list-->
+    {% if events %}
+        {% for event in events%}
+        <section  class="col-sm-12 col-xs-12 meeting" data-href="{{event.event_id}}" data-page="{% for b in pageList %}{% ifequal b.flag 'true'%}{{b.page}}{%endifequal%}{%endfor%}">
+            <dl>
+                <dt>
+                <img height="94" width="150" src="{{event.event_img.0.server__name}}{{event.event_img.0.urls}}!hdj123"  alt="{{event.event_name}}" >
+                </dt>
+                <dd>
+                    <a href="/event-{{event.event_id}}.html"><h3 class="pic-opa-title" {% if event.cat_name or event.event_venue.venue_title %}{% endif %}>{{event.event_name}}</h3></a>
+                    {% ifequal event.event_price_type 6 %}
+                    {% if event.event_price_unit|length == 0 or not event.event_price_valid %}
+                    <span class="home-money " >报名截止</span>
+                    {% else %}
+                    <span class="home-money " >{{event.event_price_unit.0.Currency__sign}}{{event.event_price_unit.0.price}}</span>
+                    {% endif %}
+                    {% endifequal %}
+                    {% ifequal event.event_price_type 4 %}
+                    <span class="home-money " >免费</span>
+                    {% endifequal %}
+                    {% ifequal event.event_price_type 5 %}
+                    <span class="home-money " >待定</span>
+                    {% endifequal %}
+                    {% ifequal event.event_price_type 7 %}
+                    <span class="home-money " >待定</span>
+                    {% endifequal %}
+                    {% ifequal event.event_price_type 9 %}
+                    <span class="home-money " >待定</span>
+                    {% endifequal %}
+
+                    <label class="home-time">{{event.event_begin_time|date:'Y-m-d'}}{% ifnotequal event.event_begin_time event.event_end_time%}{%endifnotequal%}&nbsp;&nbsp;</label>
+                    <a class="home-city" style="margin-top:79px" href="/{{event.event_city_info.0.title}}/">{{event.event_city_info.0.district_name}}</a>
+                </dd>
+            </dl>
+        </section>
+        {% endfor %}
+    {% else %}
+    <p style="text-align: center"><span>暂无符合要求的会议，为您推荐相关会议</span></p>
+        {% for event in recommend %}
+        <section  class="col-sm-12 col-xs-12 meeting" data-href="{{event.event_id}}" data-page="{% for b in pageList %}{% ifequal b.flag 'true'%}{{b.page}}{%endifequal%}{%endfor%}">
+            <dl>
+                <dt>
+                    <img height="94" width="150" src="{{event.event_img.0.server__name}}{{event.event_img.0.urls}}!hdj123"  alt="{{event.event_name}}" >
+                </dt>
+                <dd>
+                    <a href="/event-{{event.event_id}}.html"><h3 class="pic-opa-title" {% if event.cat_name or event.event_venue.venue_title %}{% endif %}>{{event.event_name}}</h3></a>
+                    {% ifequal event.event_price_type 6 %}
+                    {% if event.event_price_unit|length == 0 or not event.event_price_valid %}
+                    <span class="home-money " >报名截止</span>
+                    {% else %}
+                    <span class="home-money " >{{event.event_price_unit.0.Currency__sign}}{{event.event_price_unit.0.price}}</span>
+                    {% endif %}
+                    {% endifequal %}
+                    {% ifequal event.event_price_type 4 %}
+                    <span class="home-money " >免费</span>
+                    {% endifequal %}
+                    {% ifequal event.event_price_type 5 %}
+                    <span class="home-money " >待定</span>
+                    {% endifequal %}
+                    {% ifequal event.event_price_type 7 %}
+                    <span class="home-money " >待定</span>
+                    {% endifequal %}
+                    {% ifequal event.event_price_type 9 %}
+                    <span class="home-money " >待定</span>
+                    {% endifequal %}
+
+                    <label class="home-time">{{event.event_begin_time|date:'Y-m-d'}}{% ifnotequal event.event_begin_time event.event_end_time%}{%endifnotequal%}&nbsp;&nbsp;</label>
+                    <a class="home-city" style="margin-top:79px" href="/{{event.event_city_info.0.title}}/">{{event.event_city_info.0.district_name}}</a>
+                </dd>
+            </dl>
+        </section>
+        {% endfor %}
+    {% endif %}
+    </div>
+    <input value="{{ajax_city}}" class="h_city" type="hidden"/>
+    <input value="{{ajax_cat}}" class="h_cat" type="hidden"/>
+    <input value="{{ajax_month}}" class="h_month" type="hidden"/>
+    <input value="{{ajax_tag}}" class="h_tag" type="hidden"/>
+    <input value="{{cur_page}}" class="page" type="hidden"/>
+    <section  id="loading">
+        <span>加载中</span>
+        <img width="45" height="45" src="http://pic.huodongjia.com/static/images/2222023L0-8.gif!hdj123" style="width:45px;height: 45px" alt="活动家">
+    </section>
+    <section id="loadings" style="display: none;text-align: center;">
+            <span>已加载完成！</span>
+    </section>
+    <section  style="text-align: center;bottom:0">
+        <span>CopyRight 活动家 huodongjia.com<a href="http://m.huodongjia.com/about/" class="about" rel="nofollow"> | 关于我们</a></span>
+    </section>
+<div class="top_back"><span style="line-height: 0;" class="fa fa-chevron-up"></span></div>
+{% endblock %}
+{% block footerjs%}
+<script type="text/javascript">
+    var html = "";
+    html+='<nav class="col-sm-12 col-xs-12 list-nav"><ul class="list_btn"><li data-value="month">';
+    html+='{% if month_name %}{% ifnotequal month_name "不限" %}<span style="color:#36C;">{{month_name}}</span>{%else%}月份{%endifnotequal%}{%else%}月份{%endif%}<i class="iconfont">&#xe62b;</i><section class="month"><section><ul class="month_ul"><li><a href="{%if city_url %}/{{city_url}}{% endif %}{%if industry_url %}/{{industry_url}}{% endif %}/">不限</a></li>{%for a in months%}<li><a href="{%if city_url %}/{{city_url}}{% endif %}{%if industry_url %}/{{industry_url}}{% endif %}/{{a.id}}/">{{a.name|safe}}</a></li>{%endfor%} </ul></section></section></li><li data-value="list_city">';
+    html+=' {% if city_name %}{% ifnotequal city_name "不限" %}<span style="color:#36C;">{{city_name}}</span>{%else%}城市{%endifnotequal%}{%else%}城市{%endif%}<i class="iconfont">&#xe62b;</i> <section  class="list_city"> <section> <ul class="city_ul"><li><a href="{% if industry_url %}/{{industry_url}}/{% endif %}{% if month_url %}{{month_url}}/{% endif %}">不限</a></li>{%for a in main_cities%}<li><a href="/{{a.title}}/{% if industry_url %}{{industry_url}}/{% endif %}{% if month_url %}{{month_url}}/{% endif %}">{{a.district_name|safe}}</a></li> {%endfor%}' +
+            '</ul></section></section></li><li data-value="list_class">';
+    html+='<span style="color:#36C;" id="cat_li" >{% if cat_name  %}{{cat_name}}{%else%}商务会议{%endif%}</span><i class="iconfont">&#xe62b;</i><section class="list_class" id="list_class1" data-value="{{current_catid}}"><section><ul class="cat_ul" style="background-color: #E8E8E8;height:100%"><li><a href="/{%if city_url %}{{city_url}}/{% endif %}business/{% if month_url %}{{month_url}}/{% endif %}">不限</a></li>{% for cat in main_cats%}<li><a id="{{cat.id|safe}}" href="/{%if city_url %}{{city_url}}/{% endif %}{{cat.ename}}/{% if month_url %}{{month_url}}/{% endif %}" >{{ cat.name|safe}}</a></li>{% endfor %}</ul></section></section>';
+    html+='</section></li></ul></nav>';
+    $("#list_nav").html(html)
+</script>
+<script type="text/javascript" src="http://pic.huodongjia.com/static/js/m_List.min.js"></script>
+{%endblock%}

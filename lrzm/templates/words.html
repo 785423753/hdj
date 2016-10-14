@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <!-- // <script src="http://pic.huodongjia.com/static/js/jquery-1.8.3.min.js"></script> -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="../laydate/laydate.js"></script>
+    <!-- 百度echart插件 -->
+    <!-- 自定义css和js -->
+    <link rel="stylesheet" type="text/css" href="../static/css/index.css">
+</head>
+<style>
+    .select {
+        left: 10%;
+        top: 28px;
+    }
+    .right_bottom{
+        width: 23%;
+        float: left;
+        margin:10px;
+        padding: 0;
+    }
+    .right_bottom h2{
+        padding: 0;
+    }
+    @media (max-width:768px) {
+        .right_bottom{
+            margin:10px 0;
+            height: 300px !important;
+            width: 100% !important;
+        }
+    }
+</style>
+<body>
+<div class='container main'>
+    <div class='row'>
+        <!-- 左侧控制面板开始 -->
+        <div class='col-sm-2  left' style=''>
+            <div class='text-center left-title'><h4 style='color:white;'>懒人周末可视化数据</h4></div>
+            <div class='left-item-top'>
+                <h4 class='left-item-title'><a href="/lrzm/templates/index.html"><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>总表</a></h4>
+            </div>
+            <div class='left-item-middle'>
+                <h4 class='left-item-title'><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>用户分析</h4>
+                <ul class="menue" style='margin-left:20px;'>
+                    <li><a href="/lrzm/templates/userDownload.html" class='left-item-option'>下载用户</a></li>
+                    <li><a href="/lrzm/templates/userSign.html" class='left-item-option'>注册用户</a></li>
+                    <li><a href="/lrzm/templates/userAct.html" class='left-item-option'>有操作行为用户</a></li>
+                    <li><a href="/lrzm/templates/usreProperty.html" class='left-item-option'>用户属性</a></li>
+                </ul>
+            </div>
+            <div class='left-item-bottom'>
+                <h4 class='left-item-title'><a href=""><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>订单分析</a></h4>
+            </div>
+            <div class='left-item-bottom'>
+                <h4 class='left-item-title'><a href=""><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>商家及活动分析</a></h4>
+            </div>
+            <div class='left-item-bottom'>
+                <h4 class='left-item-title'><a href=""><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>活动类别及标签分析</a></h4>
+            </div>
+            <div class='left-item-bottom'>
+                <h4 class='left-item-title'><a href=""><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>语义分析</a></h4>
+            </div>
+        </div>
+        <!-- 左侧控制面板结束 -->
+        <!-- 右侧祥情开始 -->
+        <div class='col-sm-10 col-xs-12 right' style=''>
+            <div class="right_bottom col-xs-12" style="height: 400px;width: 47%">
+                <h2 align='center'>活动热门词汇</h2>
+                <div id='right_curveoforder_7' style="width: 100%;height: 90%;"></div>
+            </div>
+            <div class="right_bottom col-xs-12" style="height: 400px;">
+                <h2 align='center'>北京热门词汇</h2>
+                <div id='right_curveoforder_1' style="width: 100%;height: 90%;"></div>
+            </div>
+            <div class="right_bottom col-xs-12" style="height: 400px;">
+                <h2 align='center'>上海热门词汇</h2>
+                <div id='right_curveoforder_2' style="width: 100%;height: 90%;"></div>
+            </div>
+            <div class="right_bottom col-xs-12" style="height: 400px;">
+                <h2 align='center'>广州热门词汇</h2>
+                <div id='right_curveoforder_3' style="width: 100%;height: 90%;"></div>
+            </div>
+            <div class="right_bottom col-xs-12" style="height: 400px;">
+                <h2 align='center'>成都热门词汇</h2>
+                <div id='right_curveoforder_4' style="width: 100%;height: 90%;"></div>
+            </div>
+            <div class="right_bottom  col-xs-12" style="height: 400px;">
+                <h2 align='center'>深圳热门词汇</h2>
+                <div id='right_curveoforder_5' style="width: 100%;height: 90%;"></div>
+            </div>
+            <div class="right_bottom  col-xs-12" style="height: 400px;">
+                <h2 align='center'>杭州热门词汇</h2>
+                <div id='right_curveoforder_6' style="width: 100%;height: 90%;"></div>
+            </div>
+
+        </div>
+        <!-- 右侧祥情结束 -->
+    </div>
+</div>
+</body>
+<script src="http://echarts.baidu.com/build/dist/echarts.js "></script>
+<script type="text/javascript">
+    // 路径配置
+    require.config({
+        paths: {
+            echarts: 'http://echarts.baidu.com/build/dist'
+        }
+    });
+    // 使用
+    require(
+            [
+                'echarts',
+                'echarts/chart/wordCloud',
+            ],
+            function (ec,theme) {
+                // 基于准备好的dom，初始化echarts图表)
+
+                var myChart1 = ec.init(document.getElementById('right_curveoforder_1'),theme);
+                var myChart2 = ec.init(document.getElementById('right_curveoforder_2'),theme);
+                var myChart3 = ec.init(document.getElementById('right_curveoforder_3'),theme);
+                var myChart4 = ec.init(document.getElementById('right_curveoforder_4'),theme);
+                var myChart5 = ec.init(document.getElementById('right_curveoforder_5'),theme);
+                var myChart6 = ec.init(document.getElementById('right_curveoforder_6'),theme);
+                var myChart7 = ec.init(document.getElementById('right_curveoforder_7'),theme);
+                function createRandomItemStyle() {
+                    return {
+                        normal: {
+                            color: 'rgb(' + [
+                                Math.round(Math.random() * 160),
+                                Math.round(Math.random() * 160),
+                                Math.round(Math.random() * 160)
+                            ].join(',') + ')'
+                        }
+                    };
+                }
+
+                var option1 = {
+                    tooltip: {
+                        show: true
+                    },
+                    series: [
+                        {
+                        name: '北京热门词汇',
+                        type: 'wordCloud',
+                        size: ['80%', '80%'],
+                        textRotation : [0, 45, 90, -45],
+                        textPadding: 0,
+                        autoSize: {
+                            enable: true,
+                            minSize: 14
+                        },
+                        data: [
+                            {
+                                name: "Sam S Club",
+                                value: 10000,
+                                itemStyle: {
+                                    normal: {
+                                        color: 'black'
+                                    }
+                                }
+                            },
+                            {
+                                name: "Macys",
+                                value: 6181,
+                                itemStyle: createRandomItemStyle()
+                            },
+                            {
+                                name: "Amy Schumer",
+                                value: 4386,
+                                itemStyle: createRandomItemStyle()
+                            },
+                            {
+                                name: "Jurassic World",
+                                value: 4055,
+                                itemStyle: createRandomItemStyle()
+                            },
+                            {
+                                name: "Charter Communications",
+                                value: 2467,
+                                itemStyle: createRandomItemStyle()
+                            },
+                            {
+                                name: "Chick Fil A",
+                                value: 2244,
+                                itemStyle: createRandomItemStyle()
+                            },
+                            {
+                                name: "Planet Fitness",
+                                value: 1898,
+                                itemStyle: createRandomItemStyle()
+                            },
+                            {
+                                name: "Pitch Perfect",
+                                value: 1484,
+                                itemStyle: createRandomItemStyle()
+                            },
+                            {
+                                name: "Express",
+                                value: 1112,
+                                itemStyle: createRandomItemStyle()
+                            },
+                            {
+                                name: "Home",
+                                value: 965,
+                                itemStyle: createRandomItemStyle()
+                            },
+                            {
+                                name: "Johnny Depp",
+                                value: 847,
+                                itemStyle: createRandomItemStyle()
+                            },
+                            {
+                                name: "Lena Dunham",
+                                value: 582,
+                                itemStyle: createRandomItemStyle()
+                            },
+                            {
+                                name: "Lewis Hamilton",
+                                value: 555,
+                                itemStyle: createRandomItemStyle()
+                            },
+                            {
+                                name: "KXAN",
+                                value: 550,
+                                itemStyle: createRandomItemStyle()
+                            },
+                            {
+                                name: "Mary Ellen Mark",
+                                value: 462,
+                                itemStyle: createRandomItemStyle()
+                            },
+                            {
+                                name: "Farrah Abraham",
+                                value: 366,
+                                itemStyle: createRandomItemStyle()
+                            },
+                            {
+                                name: "Rita Ora",
+                                value: 360,
+                                itemStyle: createRandomItemStyle()
+                            },
+                            {
+                                name: "Serena Williams",
+                                value: 282,
+                                itemStyle: createRandomItemStyle()
+                            },
+                            {
+                                name: "NCAA baseball tournament",
+                                value: 273,
+                                itemStyle: createRandomItemStyle()
+                            },
+                            {
+                                name: "Point Break",
+                                value: 265,
+                                itemStyle: createRandomItemStyle()
+                            }
+                        ]
+                    }
+                    ]
+                };
+                var option2 = {
+                    tooltip: {
+                        show: true
+                    },
+                    series: [
+                        {
+                            name: '上海热门词汇',
+                            type: 'wordCloud',
+                            size: ['80%', '80%'],
+                            textRotation : [0, 45, 90, -45],
+                            textPadding: 0,
+                            autoSize: {
+                                enable: true,
+                                minSize: 14
+                            },
+                            data: [
+                                {
+                                    name: "Sam S Club",
+                                    value: 10000,
+                                    itemStyle: {
+                                        normal: {
+                                            color: 'black'
+                                        }
+                                    }
+                                },
+                                {
+                                    name: "Macys",
+                                    value: 6181,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Amy Schumer",
+                                    value: 4386,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Jurassic World",
+                                    value: 4055,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Charter Communications",
+                                    value: 2467,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Chick Fil A",
+                                    value: 2244,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Planet Fitness",
+                                    value: 1898,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Pitch Perfect",
+                                    value: 1484,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Express",
+                                    value: 1112,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Home",
+                                    value: 965,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Johnny Depp",
+                                    value: 847,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Lena Dunham",
+                                    value: 582,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Lewis Hamilton",
+                                    value: 555,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "KXAN",
+                                    value: 550,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Mary Ellen Mark",
+                                    value: 462,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Farrah Abraham",
+                                    value: 366,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Rita Ora",
+                                    value: 360,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Serena Williams",
+                                    value: 282,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "NCAA baseball tournament",
+                                    value: 273,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Point Break",
+                                    value: 265,
+                                    itemStyle: createRandomItemStyle()
+                                }
+                            ]
+                        }
+                    ]
+                };
+                var option3 = {
+                    tooltip: {
+                        show: true
+                    },
+                    series: [
+                        {
+                            name: '广州热门词汇',
+                            type: 'wordCloud',
+                            size: ['80%', '80%'],
+                            textRotation : [0, 45, 90, -45],
+                            textPadding: 0,
+                            autoSize: {
+                                enable: true,
+                                minSize: 14
+                            },
+                            data: [
+                                {
+                                    name: "Sam S Club",
+                                    value: 10000,
+                                    itemStyle: {
+                                        normal: {
+                                            color: 'black'
+                                        }
+                                    }
+                                },
+                                {
+                                    name: "Macys",
+                                    value: 6181,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Amy Schumer",
+                                    value: 4386,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Jurassic World",
+                                    value: 4055,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Charter Communications",
+                                    value: 2467,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Chick Fil A",
+                                    value: 2244,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Planet Fitness",
+                                    value: 1898,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Pitch Perfect",
+                                    value: 1484,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Express",
+                                    value: 1112,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Home",
+                                    value: 965,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Johnny Depp",
+                                    value: 847,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Lena Dunham",
+                                    value: 582,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Lewis Hamilton",
+                                    value: 555,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "KXAN",
+                                    value: 550,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Mary Ellen Mark",
+                                    value: 462,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Farrah Abraham",
+                                    value: 366,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Rita Ora",
+                                    value: 360,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Serena Williams",
+                                    value: 282,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "NCAA baseball tournament",
+                                    value: 273,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Point Break",
+                                    value: 265,
+                                    itemStyle: createRandomItemStyle()
+                                }
+                            ]
+                        }
+                    ]
+                };
+                var option4 = {
+                    tooltip: {
+                        show: true
+                    },
+                    series: [
+                        {
+                            name: '成都热门词汇',
+                            type: 'wordCloud',
+                            size: ['80%', '80%'],
+                            textRotation : [0, 45, 90, -45],
+                            textPadding: 0,
+                            autoSize: {
+                                enable: true,
+                                minSize: 14
+                            },
+                            data: [
+                                {
+                                    name: "Sam S Club",
+                                    value: 10000,
+                                    itemStyle: {
+                                        normal: {
+                                            color: 'black'
+                                        }
+                                    }
+                                },
+                                {
+                                    name: "Macys",
+                                    value: 6181,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Amy Schumer",
+                                    value: 4386,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Jurassic World",
+                                    value: 4055,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Charter Communications",
+                                    value: 2467,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Chick Fil A",
+                                    value: 2244,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Planet Fitness",
+                                    value: 1898,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Pitch Perfect",
+                                    value: 1484,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Express",
+                                    value: 1112,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Home",
+                                    value: 965,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Johnny Depp",
+                                    value: 847,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Lena Dunham",
+                                    value: 582,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Lewis Hamilton",
+                                    value: 555,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "KXAN",
+                                    value: 550,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Mary Ellen Mark",
+                                    value: 462,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Farrah Abraham",
+                                    value: 366,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Rita Ora",
+                                    value: 360,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Serena Williams",
+                                    value: 282,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "NCAA baseball tournament",
+                                    value: 273,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Point Break",
+                                    value: 265,
+                                    itemStyle: createRandomItemStyle()
+                                }
+                            ]
+                        }
+                    ]
+                };
+                var option5 = {
+                    tooltip: {
+                        show: true
+                    },
+                    series: [
+                        {
+                            name: '深圳热门词汇',
+                            type: 'wordCloud',
+                            size: ['80%', '80%'],
+                            textRotation : [0, 45, 90, -45],
+                            textPadding: 0,
+                            autoSize: {
+                                enable: true,
+                                minSize: 14
+                            },
+                            data: [
+                                {
+                                    name: "Sam S Club",
+                                    value: 10000,
+                                    itemStyle: {
+                                        normal: {
+                                            color: 'black'
+                                        }
+                                    }
+                                },
+                                {
+                                    name: "Macys",
+                                    value: 6181,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Amy Schumer",
+                                    value: 4386,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Jurassic World",
+                                    value: 4055,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Charter Communications",
+                                    value: 2467,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Chick Fil A",
+                                    value: 2244,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Planet Fitness",
+                                    value: 1898,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Pitch Perfect",
+                                    value: 1484,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Express",
+                                    value: 1112,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Home",
+                                    value: 965,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Johnny Depp",
+                                    value: 847,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Lena Dunham",
+                                    value: 582,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Lewis Hamilton",
+                                    value: 555,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "KXAN",
+                                    value: 550,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Mary Ellen Mark",
+                                    value: 462,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Farrah Abraham",
+                                    value: 366,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Rita Ora",
+                                    value: 360,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Serena Williams",
+                                    value: 282,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "NCAA baseball tournament",
+                                    value: 273,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Point Break",
+                                    value: 265,
+                                    itemStyle: createRandomItemStyle()
+                                }
+                            ]
+                        }
+                    ]
+                };
+                var option6 = {
+                    tooltip: {
+                        show: true
+                    },
+                    series: [
+                        {
+                            name: '杭州热门词汇',
+                            type: 'wordCloud',
+                            size: ['80%', '80%'],
+                            textRotation : [0, 45, 90, -45],
+                            textPadding: 0,
+                            autoSize: {
+                                enable: true,
+                                minSize: 14
+                            },
+                            data: [
+                                {
+                                    name: "Sam S Club",
+                                    value: 10000,
+                                    itemStyle: {
+                                        normal: {
+                                            color: 'black'
+                                        }
+                                    }
+                                },
+                                {
+                                    name: "Macys",
+                                    value: 6181,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Amy Schumer",
+                                    value: 4386,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Jurassic World",
+                                    value: 4055,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Charter Communications",
+                                    value: 2467,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Chick Fil A",
+                                    value: 2244,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Planet Fitness",
+                                    value: 1898,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Pitch Perfect",
+                                    value: 1484,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Express",
+                                    value: 1112,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Home",
+                                    value: 965,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Johnny Depp",
+                                    value: 847,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Lena Dunham",
+                                    value: 582,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Lewis Hamilton",
+                                    value: 555,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "KXAN",
+                                    value: 550,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Mary Ellen Mark",
+                                    value: 462,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Farrah Abraham",
+                                    value: 366,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Rita Ora",
+                                    value: 360,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Serena Williams",
+                                    value: 282,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "NCAA baseball tournament",
+                                    value: 273,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Point Break",
+                                    value: 265,
+                                    itemStyle: createRandomItemStyle()
+                                }
+                            ]
+                        }
+                    ]
+                };
+                var option7 = {
+                    tooltip: {
+                        show: true
+                    },
+                    series: [
+                        {
+                            name: '北京热门词汇',
+                            type: 'wordCloud',
+                            size: ['80%', '80%'],
+                            textRotation : [0, 45, 90, -45],
+                            textPadding: 0,
+                            autoSize: {
+                                enable: true,
+                                minSize: 14
+                            },
+                            data: [
+                                {
+                                    name: "Sam S Club",
+                                    value: 10000,
+                                    itemStyle: {
+                                        normal: {
+                                            color: 'black'
+                                        }
+                                    }
+                                },
+                                {
+                                    name: "Macys",
+                                    value: 6181,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Amy Schumer",
+                                    value: 4386,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Jurassic World",
+                                    value: 4055,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Charter Communications",
+                                    value: 2467,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Chick Fil A",
+                                    value: 2244,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Planet Fitness",
+                                    value: 1898,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Pitch Perfect",
+                                    value: 1484,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Express",
+                                    value: 1112,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Home",
+                                    value: 965,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Johnny Depp",
+                                    value: 847,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Lena Dunham",
+                                    value: 582,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Lewis Hamilton",
+                                    value: 555,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "KXAN",
+                                    value: 550,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Mary Ellen Mark",
+                                    value: 462,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Farrah Abraham",
+                                    value: 366,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Rita Ora",
+                                    value: 360,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Serena Williams",
+                                    value: 282,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "NCAA baseball tournament",
+                                    value: 273,
+                                    itemStyle: createRandomItemStyle()
+                                },
+                                {
+                                    name: "Point Break",
+                                    value: 265,
+                                    itemStyle: createRandomItemStyle()
+                                }
+                            ]
+                        }
+                    ]
+                };
+                // 为echarts对象加载数据
+                myChart1.setOption(option1);
+                myChart2.setOption(option2);
+                myChart3.setOption(option3);
+                myChart4.setOption(option4);
+                myChart5.setOption(option5);
+                myChart6.setOption(option6);
+                myChart7.setOption(option7);
+                $(window).resize(function(){
+                    myChart1.resize();
+                    myChart2.resize();
+                    myChart3.resize();
+                    myChart4.resize();
+                    myChart5.resize();
+                    myChart6.resize();
+                    myChart7.resize();
+                });
+            }
+    );
+</script>
+</html>

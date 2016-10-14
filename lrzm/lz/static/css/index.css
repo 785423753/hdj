@@ -1,0 +1,216 @@
+body{
+	font-family: "Microsoft Yahei";
+	background: #333333;
+	color: #FFF;
+}
+.row{
+	margin: 0;
+}
+.main{
+	/*border:1px solid red;*/
+	/*height: 720px;*/
+	height: 100%;
+	width: 100%;
+	padding:0;
+}
+
+/*左侧控制面板*/
+.left{
+	background:#191D28;
+	height:100vh;
+	position: fixed;
+	margin: 0;
+	width: 17%;
+	padding: 0;
+}
+.left-title{
+	margin-top: 46px;
+}
+.left-item-top{
+	margin-top: 46px;
+}
+.left-item-title{
+	-webkit-transition: all .3s linear;
+	-moz-transition: all .3s linear;
+	-ms-transition: all .3s linear;
+	-o-transition: all .3s linear;
+	transition: all .3s linear;
+}
+.left-item-title:hover{
+	background: #333;
+}
+.left-item-title{
+	font-size:16px;
+	color:#f7faff;
+	font-family:"Microsoft Yahei";
+	height: 40px;
+	line-height: 38px;
+	padding-left: 15px;
+}
+.left-item-option{
+	font-size:12px !important;
+	color:#9aa5bf;
+	font-family:"Microsoft Yahei";
+
+}
+
+.left-item-bottom a{
+	color: #fff;
+	text-decoration: none;
+}
+.menue{
+	padding: 0;
+}
+.menue li{
+	list-style: none;
+	padding: 10px 20px;
+	cursor: pointer;
+}
+.menue li:hover a{
+	text-decoration: none;
+	color: #337ab7;
+}
+/*右侧订单交易祥情*/
+.right{
+	width: 83%;
+	min-height: 100vh;
+	padding:0;
+	position: absolute;
+	/*background: #333;*/
+	top:0;
+	right: 0;
+	overflow: hidden;
+}
+
+/*右侧*/
+.dispast,.past{
+	width: 72px;
+	height: 28px;
+	border: none;
+	color: #51637E;
+	border-radius: 4px;
+	background: #0F1319;
+	float: right;
+	position: relative;
+	left: -1%;
+	top: 18px;
+	outline: none;
+}
+.choose{
+	background: #333;
+}
+.choose:hover a{
+	color: #fff !important;
+}
+.right_bottom table tr th{
+	width: 25% !important;
+}
+.right_bottom{
+	margin-top: 20px;
+	box-shadow: 2px 0px 5px #909090;
+	position: relative;
+	-webkit-box-shadow: 2px 0px 5px #909090;
+	-moz-box-shadow: 2px 0px 5px #909090;
+}
+.right_bottom>h2,.right>h2{
+	color: #fff;
+	font-size: 20px;
+	padding: 10px 0;
+}
+.select{
+	position: absolute;
+	left: 2%;
+	top: 26px;
+	color: #736C6C;
+	z-index:999;
+}
+.select input{
+	width: 92px;
+	height: 30px;
+	outline: none;
+	border: 1px solid #4BACC6;
+	margin: 0 5px;
+	padding-left: 5px;
+}
+.select button {
+	outline: none;
+	border: none;
+	background: #4BACC6;
+	color: #fff;
+	height: 27px;
+	font-size: 12px;
+}
+.select button:hover{
+	background: #3e8099;
+}
+#p1,#p2,#p3,.pro{
+	height: 350px;
+	padding:0;
+}
+.laydate_body .laydate_y .laydate_yms ul li{
+	width: 50%;
+}
+header{
+	background: #191D28;
+}
+header ul li a{
+	color: #fff !important;
+}
+.bs-docs-nav .navbar-toggle .icon-bar {
+	 background-color: #fff;
+}
+.set{
+	position: absolute;
+	z-index:9;
+	right: 15px;
+	top: 60%;
+	text-align: right;
+}
+@media (min-width: 768px){
+	header{
+		display: none;
+	}
+}
+
+@media (max-width:1420px) {
+	.left{
+		width: 15%;
+	}
+	.right{
+		width: 85%;
+	}
+}
+@media (max-width:768px) {
+	header{
+		display: block;
+	}
+	.left{
+		display: none;
+	}
+	.right{
+		width: 100%;
+	}
+	#p1,#p2,#p3,.pro{
+		height: 280px;
+	}
+	.right_bottom{
+		width: 100% !important;
+		margin-right: 0;
+	}
+	.right{
+		margin-top: 55px;
+	}
+	.right>h2{
+		margin-bottom: 36px;
+		font-size: 18px;
+	}
+	.right_bottom>h2{
+		font-size: 16px;
+	}
+	.select{
+		top: 64px;
+	}
+	.set{
+		display: none;
+	}
+}

@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load page_nav %}
+{% block addstyle %}
+<link rel="stylesheet" type='text/css' href='http://pic.huodongjia.com/static/css/guest.css' />
+<style>
+    .like{
+        position: absolute;
+        color: #fff;
+        left: 47.5%;
+        top: 63px;
+        font-size: 12px;
+    }
+.banner .fa-heart{
+    color: #E74E51;
+    font-size: 18px;
+}
+</style>
+{% endblock %}
+{% block content %}
+<div class="container content">
+    <p class="bread_nav">
+        <span><a href="/" target="_blank">首页</a>&gt;<a href="/jiabin/" target="_blank">演讲嘉宾</a>&gt;</span>
+        <a style="color: #858B9A !important;">{{guest.name}}</a><span style="float: right;">更新时间：{{ events.0.event_begin_time|date:"Y-m-d" }}</span>
+    </p>
+    <div class="banner">
+        <!-- <p class="like"><span class="fa fa-heart"></span><br/>200人喜欢</p> -->
+        <div class="gues_pic">
+            {% if guest.img__urls %}
+            <img width="100%" src="{{ guest.img__server__name }}{{ guest.img__urls }}" alt="{{guest.company__name}}{{guest.job__name}}{{ guest.name }}照片"/>
+            {% else %}
+            <img width="100%" src="/static/images/guest_default(1).jpg" alt="{{ guest.name }}照片"/>
+            {% endif %}
+        </div>
+        <br/><h1 style="font-size: 18px;display: inline;color: #fff;">{{ guest.name }}</h1><br/><span>{% if guest.company__name %}{{ guest.company__name }}{% endif %}</span><br/><span>{% if guest.job__name %}{{ guest.job__name }}{% endif %}</span></br>
+        <a href='/guest/guest-{{ guest.id|encodeid }}/' target="_blank"><button class="invite">邀请出席</button></a>
+    </div>
+    <div class="content_left">
+        {% if guest.intro %}
+        <div class="guest_des"><p style="margin: 0">{{ guest.intro }} <span class="more">...</span></p></div>
+        {% endif %}
+        <div class="col-sm-2 col-xs-2 schedule">
+            {% for event in events %}
+            <div class="date"><span>{{ event.event_begin_time|date:"Y-m-d" }}</span></div>
+            {%if not forloop.last %}
+            <div class="line"></div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="col-sm-10 col-xs-10 event">
+            {% for event in events %}
+            <div class="event_detail">
+                <span class="fa fa-caret-left"></span>
+                <h3 class="event_name"><a href="{{ event.event_url }}">{{ event.event_name }}</a></h3>
+                <span>时间：{{ event.event_begin_time|date:"Y-m-d" }}</span><span>地点：<a target="_blank" href="/{{ event.event_city_info.0.title }}/">{{ event.event_city_info.0.district_name }}</a></span>
+                <p class="event_des">
+                    {% if event.event_intro %}
+                    {{ event.event_intro }}
+                    {% else %}
+                    <!--{{event.event_paragraph_info.0.txt}}-->
+                    {% endif %}
+                </p>
+                <ul class="event_guest">
+                {% for e_guest in event.event_guest|slice:':6' %}
+                <li>
+                    <a href="/guest-{{ e_guest.id|encodeid }}.html" target="_blank">
+                        <div class='event_pic'>
+                            {% if e_guest.img__urls  %}
+                            <img width="100%" src="{{ e_guest.img__server__name }}{{ e_guest.img__urls }}" alt="{{ e_guest.name }}照片"/>
+                            {% else %}
+                            <img width="100%"  src="/static/images/guest_default(1).jpg" alt="{{ e_guest.name }}照片"/>
+                            {% endif %}
+                        </div>
+                    {{ e_guest.name }}</a>
+                </li>
+                {% endfor %}
+                </ul>
+                <br style="clear: both"/>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="content_right">
+        <div class="hot_guest">
+            <p>热门嘉宾</p>
+            {% for hot_guest in hot_guests %}
+            <a href="/guest-{{ hot_guest.guest__id|encodeid }}.html" target="_blank">
+                 <div style="padding: 10px;min-height: 97px">
+                    {% if hot_guest.guest__img__urls  %}
+                    <img width="30%" src="{{ hot_guest.guest__img__server__name }}{{ hot_guest.guest__img__urls }}" alt="{{ hot_guest.guest__name }}照片"/>
+                    {% else %}
+                    <img width="30%"  src="/static/images/guest_default(1).jpg" alt="{{ hot_guest.guest__name }}照片"/>
+                    {% endif %}
+                <p class="hot">{{ hot_guest.guest__name }}<span>{{hot_guest.guest__company__name}}</span><span>{{ hot_guest.guest__job__name }}</span></p>
+            </div>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="recent_event">
+            <p>相关会议</p>
+            {% for event in relate_events %}
+            <div style="padding: 10px;min-height: 55px">
+                <a href="{{ event.event_url }}" target="_blank">
+                    {% if event.event_img.0.urls %}
+                    <img width="40%" src="{{ event.event_img.0.server__name }}{{ event.event_img.0.urls }}" alt="{{ event.event_name }}"/>
+                    {% else %}
+                    <img  width="40%" src="http://pic.huodongjia.com/static/images/event_default.jpg" alt="{{ event.event_name }}"/>
+                    {% endif %}
+                </a>
+                <p class="e_name"><a style="color: #525A6D;" href="{{ event.event_url }}">{{ event.event_name }}</a><span class="citys" style="float: left">
+                    <a href="/{{ event.event_city_info.0.title }}/" target="_blank" style="color:#525A6D">{{ event.event_city_info.0.district_name }}</a></span><span style="float: right">{{ event.event_begin_time|date:'Y-m-d' }}</span></p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    var H=$(".guest_des p").height()
+    $(".guest_des").click(function () {
+        $(this).find("p").css({"maxHeight":"none","lineClamp":"inherit"})
+        $(".more").hide()
+    })
+</script>
+{% endblock %}

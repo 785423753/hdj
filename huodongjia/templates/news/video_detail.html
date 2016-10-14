@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% block addstyle %}
+<link rel="stylesheet" href="/ganhuo/static/css/scroll.css">
+{% endblock %}
+{% block banner%}
+{% endblock %}
+{% block content%}
+<div class="content container">
+    <div class="bread_nav"><a href="/">首页</a>&gt;<a href="">会议干货</a>&gt;<a href="/dj/ganhuo_listvideos.mpy">会议视频</a>&gt;<h1 style="color: #666">{{video.name}}</h1></div>
+    <div class="doc_browse">
+        {{video.urls |safe}}
+        <div class="wrapper">
+            <div id="container">
+                <div class="parent">
+                    <ul>
+                        <li class="doc_title">播放列表</li>
+                        {% for video in viewer_right_videos %}
+                        <li class="doc_list">
+                            <div class="doc_img"><a href="/dj/ganhuo_video_{{video.id}}.mpy"><img width="110" height="68" src="{{video.video_img}}" alt="{{video.name}}"></a></div>
+                            <div class="doc_name"><p><a href="/dj/ganhuo_video_{{video.id}}.mpy">{{video.name}}</a></p><span><font class="news_font">&#xe614;</font>{{video.visit}}次</span></div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="adhibition video_adhibition">
+            <table  width="100%">
+                <tr>
+                    <td class="adhibition_left" style="width: 610px"><h1>{{video.name}}</h1></td>
+                    <td class="doc_download"><span>播放：{% if video.visit %}{{video.visit}}{% else %}0{% endif %}次</span></td>
+                    <td class="doc_download doc_share">
+                        <a style="position: relative;top: -3px;"><span class="news_font">&#xe608;</span>手机也可以观看</a>
+                        <div class="phone_view">
+                            <div class="line"></div>
+                            <img width="118" height="118" src="http://pic.huodongjia.com/static/images/APP_download.jpg" alt="">
+                            <p>
+                                <span>扫二维码下载<br>或点击下载</span>
+                                <a href=""><span class="news_font">&#xe60a;</span>Android</a>
+                                <a href=""><span class="news_font apple">&#xe610;</span>iOS</a>
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="bdsharebuttonbox">
+                            <span style="position:relative;top: -4px;">分享到:</span>
+                            <a style="position:relative;top: -2px;cursor: pointer;" class="bds_weixin news_font" data-cmd="weixin" title="分享到微信">&#xe603;</a>
+                            <a style="position:relative;top: -2px" href="http://connect.qq.com/widget/shareqq/index.html?title={{video.name}}&url=http://news.huodongjia.com/dj/ganhuo_video_{{video.id}}.mpy" target="_blank" class="bds_sqq news_font" data-cmd="sqq" title="分享到QQ好友">&#xe606;</a>
+                            <a href="http://v.t.sina.com.cn/share/share.php?title={{video.name}}&url=http://news.huodongjia.com/dj/ganhuo_video_{{video.id}}.mpy" target="_blank" class="bds_tsina news_font" data-cmd="tsina" title="分享到新浪微博">&#xe60c;</a>
+                            <a href="http://tieba.baidu.com/f/commit/share/openShareApi?title={{video.name}}&url=http://news.huodongjia.com/dj/ganhuo_video_{{video.id}}.mpy" target="_blank" class="bds_tieba news_font" data-cmd="tieba" title="分享到百度贴吧">&#xe60f;</a>
+                            <a href="http://www.douban.com/recommend/?title={{video.name}}&url=http://news.huodongjia.com/dj/ganhuo_video_{{video.id}}.mpy" target="_blank" class="bds_douban news_font" data-cmd="douban" title="分享到豆瓣网">&#xe60e;</a><br>
+
+                        </div>
+                    </td>
+                </tr>
+                <tr><td class="introduce" colspan="4">
+                    <h2>视频简介</h2>
+                    <p>{{video.intro}}</p>
+                </td></tr>
+            </table>
+        </div>
+    </div>
+    <div class="left">
+        <h2>相关视频</h2>
+        <ul class="video_list">
+            {% for video in relevant_videos %}
+            <li>
+                <a target="_blank" href="/dj/ganhuo_video_{{video.id}}.mpy">
+                    <img width="285" height="178" src="{{video.video_img}}" alt="{{video.name}}">
+                    <div class="play"><span class="news_font">&#xe605;</span></div>
+                </a>
+                <p class="des"><a href="">{{video.name}}</a></p>
+                <p class="down">{{video.visit}}次播放</p>
+            </li>
+            {% endfor %}
+        </ul>
+        <h2>最新会议视频</h2>
+        <ul class="video_list">
+            {% for video in newly_videos %}
+            <li>
+                <a target="_blank" href="/dj/ganhuo_video_{{video.id}}.mpy">
+                    <img width="285" height="178" src="{{video.video_img}}" alt="{{video.name}}">
+                    <div class="play"><span class="news_font">&#xe605;</span></div>
+                </a>
+                <p class="des"><a href="">{{video.name}}</a></p>
+                <p class="down"><span class="tag">{{video.cat_info.name}}</span><span class="download">{{video.visit}}次播放</span></p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="right">
+        <h2>即将举办的会议<a href="">更多</a></h2>
+        <ul class="upcoming upcoming_event">
+            <li class="choose">
+                <a href="">2016第六届产品创新高峰论坛</a>
+                <div class="detail"><a class="event_img" href=""><img width="85" height="55" src="http://pic.huodongjia.com/event/2016-09-19/1474252969.88.jpg!list223139" alt=""></a>
+                    <span><a href="">成都</a><br>2016-09-15</span></div>
+            </li>
+            <li>
+                <a href="">2016第六届产品创新高峰论坛</a>
+                <div class="detail"><a class="event_img" href=""><img width="85" height="55" src="http://pic.huodongjia.com/event/2016-09-19/1474252969.88.jpg!list223139" alt=""></a>
+                    <span><a href="">成都</a><br>2016-09-15</span></div>
+            </li>
+            <li>
+                <a href="">2016第六届产品创新高峰论坛</a>
+                <div class="detail"><a class="event_img" href=""><img width="85" height="55" src="http://pic.huodongjia.com/event/2016-09-19/1474252969.88.jpg!list223139" alt=""></a>
+                    <span><a href="">成都</a><br>2016-09-15</span></div>
+            </li>
+            <li>
+                <a href="">2016第六届产品创新高峰论坛</a>
+                <div class="detail"><a class="event_img" href=""><img width="85" height="55" src="http://pic.huodongjia.com/event/2016-09-19/1474252969.88.jpg!list223139" alt=""></a>
+                    <span><a href="">成都</a><br>2016-09-15</span></div>
+            </li>
+            <li class="more"><a href="">更多相关会议</a></li>
+        </ul>
+        <h2>相关会议文档 <a href="">更多</a></h2>
+        <ul class="upcoming">
+            {% for doc in relevant_docs%}
+            <li><a href="dj/ganhuo_doc_{{doc.id}}.mpy" target="_blank">
+                {% ifequal doc.suffix ".docx" %}
+                <span class="news_font docx">&#xe602;</span>
+                {% endifequal %}
+                {% ifequal doc.suffix ".ppt" %}
+                <span class="news_font ppt">&#xe600;</span>
+                {% endifequal %}
+                {% ifequal doc.suffix ".pdf" %}
+                <span class="news_font pdf">&#xe601;</span>
+                {% endifequal %}
+                {{doc.name}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="Qrcode">
+        <p>分享到微信 <span class="close">×</span></p>
+        <div id="Qrcode"></div>
+        <p style="color: #666">
+            打开微信，点击底部的“发现”，<br>
+            使用“扫一扫”即可将网页分享至朋友圈。
+        </p>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script src="/ganhuo/static/js/scroll.js"></script>
+<script src="/ganhuo/static/js/jquery.qrcode.min.js"></script>
+<script>
+    var this_url=window.location.href
+    if ((navigator.userAgent.indexOf('MSIE') >= 0)
+            && (navigator.userAgent.indexOf('Opera') < 0)){
+        $('#Qrcode').qrcode({width: 180, height: 180, text:this_url ,render:"table"});
+    }else{
+        $('#Qrcode').qrcode({width: 180, height: 180, text:this_url,render:"canvas"});
+    }
+    $('.bds_weixin').on('click',function(){
+        $('.Qrcode').fadeIn()
+        $("html,body").animate({scrollTop: 0})
+    })
+    $('.close').on('click',function(){
+        $('.Qrcode').fadeOut()
+    })
+</script>
+{% endblock %}

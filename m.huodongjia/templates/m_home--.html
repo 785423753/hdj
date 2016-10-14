@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=no" />
+    <meta charset="UTF-8">
+    <title>活动家-亚洲最大的活动网聚合平台-全面、安全、快捷、方便_认准活动家官方网站</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/home.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/all.css">
+{% load page_nav_m %}
+{% cityNav %}
+{{city_py}}|{{cat}}
+{% endcityNav %}
+</head>
+<body>
+<div class="container">
+    <!--header start-->
+    <div class="header">
+        <h2>活动家</h2>
+        <div class="icon-select"><i class="iconfont start-search">&#xe68d;</i></div>
+        <div class="search-div">
+        <form action="/tag/" method="get" class="myForm">
+            <input type="text" class="search" class="form-control" name="keyword" id="centerSearch" placeholder="搜索活动">
+            <img src="/static/images/iconfont-chahao.png" class="cha">
+            <a  href="javascript:validate()"  style="color: #ddd"><i class="icon iconfont"  style="font-size: 1em;color: grey">&#xe68d;</i></a>
+        </form>
+        </div>
+     </div>
+
+    <div class="gotop"><a href="javascript:goTop();" class="sidetop">顶部</a></div>
+    <!-----city map------------>
+
+    <div id="cityMap">
+        {% for ci in city_Nav %}
+        <ul>
+            {% for c in ci.child|slice:":9"%}
+            <li><a href="/{{c.title}}/" style="color:#fff;font-size: 1.1em">{{c.district_name}}</a></li>
+            {% endfor %}
+        </ul>
+        {% endfor %}
+    </div>
+    <div id="catMap">
+        <ul>
+            {% for first in cat_Map %}
+            <ul >
+                {% for second in first.child%}
+                <li {% ifequal second.flag 'true' %}class="selected"{% endifequal %}><span
+                    ></span><a href="{{second.caturl}}"  style="font-size: 1.3em; color: #fff;">{{second.catname}}</a>
+                <ul>
+                    {% for third in second.child%}
+                    <li {% ifequal third.flag 'true' %}class="selected"{% endifequal %} ><a
+                        href="{{third.caturl}}"  style="font-size: 1.1em; color: #fff;">{{third.catname}}</a></li> {% endfor %}
+                </ul>  {% endfor %}
+            </ul>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="opaci1"></div>
+    <div class="opaci2"></div>
+
+
+    <!--center start-->
+    <div class="center">
+
+        <!--------nav start--------->
+        <div class="nav">
+            <ul>
+                {% for cat in hot_cat %}
+                <li><a href="/tag/?keyword={{cat.name}}" style="color: #777374"><img src="{{cat.img}}"><br/><span>{{cat.name}}</span></a></li>
+                {% endfor %}
+            </ul>
+            <div class="div-hr"></div>
+        </div>
+        <div class="hot">
+            <h2>热门榜单</h2>
+            <ul>
+                {% for event in list%}
+                <li>
+                    <div class="hot-div" >
+                        <a href="/event-{{event.event_id}}.html" target="_blank">
+                            <img src="{{event.event_img}}" class="hot-div-img" alt="{{event.event_name}}" >
+                        </a>
+                    </div>
+                    <div class="hot-info">
+                        <a href="/event-{{event.event_id}}.html" target="_blank"> <p class="pic-opa-title"{% if event.cat_name or event.event_venue.venue_title %}{% endif %}>
+                            {{event.event_name}}
+                      </p></a>
+                        <p class="time">时间：{{event.event_begin_time}}{% ifnotequal event.event_begin_time event.event_end_time%}&nbsp;至&nbsp;{{event.event_end_time}}{%endifnotequal%}
+                        </p>
+                        <p class="city">地点：<a href="/{{event.district_title}}/" style="color:#6f6f6f " target="_blank">{{event.district_name}}</a>{% if event.event_venue %},{{event.event_venue}} {% endif %}{% if event.event_address %},{{event.event_address}} {% endif %}</p>
+                        <a href="/event-{{event.event_id}}.html" target="_blank" style="color:#2c3e50;"><div class="join">我要参加</div></a>
+                    </div>
+                </li>
+                <div class="div-hr"></div>
+                {% endfor %}
+            </ul>
+        </div>
+
+
+        <div class="center-last"></div>
+</div>
+
+
+
+    <!------footer start---------->
+    <div class="footer">
+        <div class="div-hr"></div>
+        <ul class="foot-nav-icon">
+            <li class="home"> <a href="/{{city_py}}"><i class="iconfont">&#xe66e;<br/><span>首页</span></i></a></li>
+            <li class="classify"><a href="#"><i class="iconfont">&#xe60d;<br/><span>分类</span></i></a></li>
+            <li class="citymap"><a href="#"><i class="iconfont">&#xe62d;<br/><span>{% if city %}{{city}}{% else %}城市{% endif %}</span></i></a></li>
+            <li class="searchorder"><a href="/searchorder/"><i class="iconfont">&#xe68d;<br/><span>查订单</span></i></a></li>
+        </ul>
+    </div>
+</div>
+<script>
+    function validate(){
+        $('.myForm').submit();
+    }
+</script>
+<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+<script src="/static/js/all.js"></script>
+<script src="/static/js/home.js" type="text/javascript"></script>
+
+</body>
+</html>

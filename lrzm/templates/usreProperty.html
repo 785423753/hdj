@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <!-- // <script src="http://pic.huodongjia.com/static/js/jquery-1.8.3.min.js"></script> -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!-- 百度echart插件 -->
+    <!-- 自定义css和js -->
+    <link rel="stylesheet" type="text/css" href="../static/css/index.css">
+</head>
+<body>
+<div class='container main'>
+    <div class='row'>
+        <!-- 左侧控制面板开始 -->
+        <div class='col-sm-2 left' style=''>
+            <div class='text-center left-title'><h4 style='color:white;'>懒人周末可视化数据</h4></div>
+            <div class='left-item-top'>
+                <h4 class='left-item-title'><a href="/lrzm/templates/index.html"><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>总表</a></h4>
+            </div>
+            <div class='left-item-middle'>
+                <h4 class='left-item-title'><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>用户分析</h4>
+                <ul class="menue" style='margin-left:20px;'>
+                    <li><a href="/lrzm/templates/userDownload.html" class='left-item-option'>下载用户</a></li>
+                    <li><a href="/lrzm/templates/userSign.html" class='left-item-option'>注册用户</a></li>
+                    <li><a href="/lrzm/templates/userAct.html" class='left-item-option'>有操作行为用户</a></li>
+                    <li><a href="/lrzm/templates/usreProperty.html" class='left-item-option'>用户属性</a></li>
+                </ul>
+            </div>
+            <div class='left-item-bottom'>
+                <h4 class='left-item-title'><a href=""><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>订单分析</a></h4>
+            </div>
+            <div class='left-item-bottom'>
+                <h4 class='left-item-title'><a href=""><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>商家及活动分析</a></h4>
+            </div>
+            <div class='left-item-bottom'>
+                <h4 class='left-item-title'><a href=""><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>活动类别及标签分析</a></h4>
+            </div>
+            <div class='left-item-bottom'>
+                <h4 class='left-item-title'><a href=""><span class="glyphicon glyphicon-new-window" aria-hidden="true" style='margin-right:8px;'></span>语义分析</a></h4>
+            </div>
+        </div>
+        <!-- 左侧控制面板结束 -->
+        <!-- 右侧祥情开始 -->
+        <div class='col-sm-10 col-xs-12  right' style=''>
+            <h2 align='center'>用户属性分析</h2>
+            <div class="right_bottom" style="width:100%;height: 860px;">
+                <h2 align='center'></h2>
+                <div id='right_curveoforder_1' style="width: 100%;height: 400px;">
+                    <div id="p1" class="col-sm-4 col-xs-12"></div>
+                    <div id="p2" class="col-sm-4 col-xs-12"></div>
+                    <div id="p3" class="col-sm-4 col-xs-12"></div>
+                </div>
+                <div id='right_curveoforder_2' class="col-sm-6 col-xs-12 pro"></div>
+                <div id='right_curveoforder_3' class="col-sm-6 col-xs-12 pro"></div>
+            </div>
+        </div>
+        <!-- 右侧祥情结束 -->
+    </div>
+</div>
+</body>
+<script src="../echarts-2.2.7/build/dist/echarts.js"></script>
+<script src="../static/js/dark.js"></script>
+<script type="text/javascript" src="../static/js/userProperty.js"></script>
+</html>

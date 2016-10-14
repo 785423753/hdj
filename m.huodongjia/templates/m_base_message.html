@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<style>
+    body{
+        background: #F0F0F0;
+        font-family: "Microsoft Yahei", "微软雅黑", Tahoma, Arial, Helvetica, SimHei;
+    }
+    @font-face {
+        font-family: "Font";
+        src: url("http://pic.huodongjia.com/static/css/pay_iconfont.ttf");
+    }
+    .myfont {
+        font-family: "Font";
+        color: #37C976;
+        font-size: 2em;
+        position: relative;
+        top: 7px;
+    }
+    .message>span{
+        display: inline-block;
+        /*margin-right: 20px;*/
+    }
+    .success{
+        font-size: 18px;
+        color: red;
+        line-height: 2;
+    }
+    .dingdan{
+        font-size:14px;
+        color: #656565;
+        /*line-height: 25px;*/
+        text-align: left;
+        float: right;
+        width: 85%;
+    }
+
+</style>
+<body>
+<div class="text-center message">
+    <span class="myfont">&#xe62e;</span>
+            <span class="dingdan"> <span class="success">支付成功！</span> <br/>订单正在处理中，我们将在1小时内与您联系。
+                <p style="margin: 5px 0">您的订单号为：{{ order_number }}<!--<a href='/searchorder/?order_search={{order_num}}' target='__blank'>查看订单</a><br/>-->
+                    <!--支付金额为： {{ price }}<br/>-->
+                    <!--获得积分：<span style="color: #F4C960">{{ cre_val }}</span>&nbsp;<span style="color: #F4C960" class="fa fa-database"></span></br>-->
+                    <!--登陆个人中心,即可查积分,兑换礼品-->
+                </p>
+            </span>
+</div>
+</body>
+</html>

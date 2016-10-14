@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css"
+          rel="stylesheet">
+    <style type="text/css">
+        body {
+            font-family: Tahoma, Arial, Helvetica, 'Microsoft Yahei', 微软雅黑, SimHei;
+            color: #2c3e50;
+            margin: 0;
+        }
+
+        .main {
+            max-width: 768px;
+            margin: auto;
+        }
+
+        .container {
+            padding: 0 8px;
+            margin-top: 65px;
+            transition: all .2s linear;
+            width: 100%;
+        }
+
+        .img-responsive {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container p {
+            line-height: 25px !important;
+            word-break: break-all;
+            color: #3a3a3a !important;
+            font-size: 16px !important;
+            margin: 0;
+        }
+
+        .container .source {
+            color: #878787 !important;
+            font-size: 14px !important;
+        }
+
+        .container img {
+            margin: 1em auto;
+            display: block;
+            width: 100% !important;
+            height: auto !important;
+        }
+
+        .app-div {
+            text-align: center;
+            margin-top: 2em;
+        }
+
+        .app-div a {
+            display: inline-block;
+            background-color: #fcc746;
+            width: 80%;
+            height: 2em;
+            text-align: center;
+            line-height: 2em;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 15px;
+        }
+
+        .container > div, a, p, h1, h2, h3, h4, span, li {
+            FONT-SIZE: 16px !important;
+        }
+
+        /*//广告条*/
+        .download {
+            width: 100%;
+            height: 66px;
+            padding-right: 3px;
+            background: #fff;
+            padding-top: 10px;
+            border-bottom: 1px solid #bbb;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .download > div {
+            padding: 0;
+            height: 48px;
+            /*border: 1px solid red;*/
+        }
+
+        .download_app {
+            width: 90px;
+            height: 35px;
+            border: none;
+            background: rgba(0, 0, 0, 0);
+            outline: none;
+            color: #fff;
+            margin-top: 10px;
+            position: relative;
+            right: 10px;
+        }
+
+        .center span {
+            color: #919191;
+            line-height: 2;
+            letter-spacing: 5px;
+            font-size: 16px;
+        }
+
+        .download a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            position: absolute;
+            left: 0;
+            top: 6px;
+            z-index: 8;
+            width: 100%;
+        }
+
+        .listContent {
+            margin-bottom: 15px;
+        }
+
+        #navigation span {
+            position: relative;
+            top: -3px;
+        }
+
+        .b_class, .c_class {
+            top: 3px;
+            right: -7px;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        .title_p {
+            margin: 15px auto;
+            letter-spacing: 0px;
+            color: #090909;
+            font-weight: normal;
+            font-size: 1.5em !important;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 15px;
+            line-height: 28px;
+            color: #7F7F7F;
+            padding: 20px 10px;
+            background: #3E3D3D;
+        }
+
+        .lives-info {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="download">
+        <div class="col-sm-3 col-xs-3"
+             style="width:14%;padding-top: 3px;padding-left: 5px">
+            <img width="100%" style="max-width:43px;"
+                 src="http://m.xiaorizi.me/images/xiaori_logo.png" alt=""/>
+        </div>
+        <div class="col-sm-7 col-xs-7 center"
+             style="width:55%;padding-left: 10px">
+            <img width="50" src="http://m.xiaorizi.me/images/xiaori_wenzi.png"
+                 alt=""/><br/>
+            <span>温暖的生活方式</span>
+        </div>
+        <div class="col-sm-2 col-xs-2" style="width:29%;">
+            <button class="download_app">
+                <img src="http://m.xiaorizi.me/images/an.png" width="100%"
+                     style="position: absolute;left: 0;top: 0;z-index: 0;">
+                <a href="http://xiaorizi.me/app/download/?show=page">下载APP</a>
+            </button>
+            <img class="close" src="http://m.xiaorizi.me/images/close.png"
+                 style="position: absolute;top: 35%;right: 0px;width: 20px;opacity: 1; height: auto;">
+        </div>
+    </div>
+    <div class="container">
+        <h2 class="title_p">{{ title }}</h2>
+        {{ content | safe }}
+    </div>
+    <footer>
+        微信公众号：小日子 <br>
+        公关推广：Pr@xiaorizi.me <br>
+        联系我们：<a style="color:#337ab7;" href="tel:400-086-5500">400-086-5500</a>
+    </footer>
+</div>
+</body>
+<script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    $(".container p br").replaceWith("");
+    $('.close').click(function () {
+        $('.download').hide()
+        $('.container').css({marginTop: '5px'})
+    })
+</script>
+</html>

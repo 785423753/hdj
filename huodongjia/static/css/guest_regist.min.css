@@ -1,0 +1,36 @@
+.mainWrapper{background-color:#fff;font-family:"microsoft yahei"}
+body{font-family:"microsoft yahei"}
+.container{min-width:992px}
+.content{padding:0}
+.header_title{height:50px;width:100%;background-color:#0075aa;text-align:center;margin-top:-20px}
+.header_title h3{color:#fff;line-height:50px}
+.contact{margin-top:0!important}
+.contact div{margin-top:36px}
+.contact label{color:#6c6c6c;font-weight:inherit;font-size:16px}
+.contact input,.contact select{outline:0;border:1px solid #ddd;background:#FCFCFC;padding-left:10px;width:75%;margin-top:20px;height:40px;border-radius:5px}
+.contact select{color:#b0b0b0}
+.mustFill{color:red;font-size:.875em}
+.mustFills{color:red!important;font-size:1em}
+.right h4{color:#333335;font-size:20px;padding-left:10px;line-height:50px}
+.right h5{color:#333335;line-height:40px;font-size:16px;background:#F7F8FC;width:90%;margin:16px auto;padding:0 5px}
+.right .info{line-height:25px}
+.right .info p{color:#676767;font-size:15px;width:90%;margin-left:5%;margin-bottom:0}
+.left .pic{height:auto;margin-top:20px;padding-left:15px}
+.left .pic .Upload{width:110px;border-radius:5px;text-align:center;vertical-align:middle;cursor:pointer;height:110px;position:relative;background:#FCFCFC url("http://www.huodongjia.com/static/images/jia.png") center center no-repeat}
+.resume{margin-top:36px}
+.resume label{width:12%;text-align:right;color:#6c6c6c;font-weight:inherit;font-size:16px;padding-right:10px;float:left}
+.resume textarea{outline:0;border:1px solid #ddd;background:#FCFCFC;padding:10px;width:80%;border-radius:5px;resize:none}
+#sendMessage{border:0;border-radius:5px;background-color:#54A1F1;cursor:pointer;color:#fff;line-height:40px;height:40px;width:200px;display:inline-block;font-size:18px;margin-top:25px;margin-left:12%}
+#sendMessage:hover{text-decoration:none;background-color:#4f98e3}
+.TestGetCode{width:22%;height:40px;border:0;outline:0;background:#54A1F1;color:#fff;margin-top:20px;padding:0;border-radius:5px;margin-left:10px}
+.TestGetCode:hover{text-decoration:none}
+#file1{width:100%;height:110px;cursor:pointer;opacity:0;outline:0;position:absolute;top:0}
+#imgView{width:100%;height:110px;border-radius:5px}
+.left,.right{padding:0;height:663px}
+.left{padding-right:15px}
+.left_div{background:#FFF;padding:35px;height:663px}
+label{font-weight:inherit;color:#6c6c6c}
+.left_div>p{font-size:20px;border-bottom:1px solid #E1E2E7;color:#212121;padding-bottom:15px}
+.left_div>div{padding:0}
+.contact label{width:20%;text-align:right;padding-right:10px}
+.container .right{background:#FFF;padding:0 8px}

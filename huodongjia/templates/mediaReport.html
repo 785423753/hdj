@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block m_site %}
+{% endblock%}
+{% block addstyle %}
+<link rel="stylesheet" href="http://pic.huodongjia.com/static/css/site_links.css">
+<style type="text/css">
+    .active_content{
+        margin-top:1em;
+    }
+    .active_content ul{
+        margin-top: 2em;
+        padding: 0;
+    }
+    .active_content ul li{
+        list-style: none;
+        margin-top:1em;
+    }
+    .active_content ul li a{
+        color:#5d5d5d;
+    }
+</style>
+{% endblock %}
+{% block head %}
+{% autoescape off %}
+<title>媒体合作_资源互换_媒体报道_友情链接_活动家</title>
+<meta name="description" content="这里是活动家的商务合作页面，包含媒体合作、资源互换、媒体报道、友情链接交换等各种合作。欢迎各行业平台与本站商务合作。" />
+<meta name="keywords" content="媒体合作,友链交换,活动家" />
+{% endautoescape %}
+{% endblock %}
+{% block myContainer %}myContainer{% endblock%}
+{% block search%}
+{% include "searchComponent.html" %}
+{% endblock %}
+
+{% block content%}
+<div class="container site">
+    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 active_content">
+            <p class="link">媒体报道</p>
+            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 hr"></div>
+            <ul>
+                <li><a href="http://tech.ifeng.com/a/20150704/41125991_0.shtml" target="_blank">活动家：会议门票交易和会议经纪交易平台</a></li>
+                <li><a href="http://www.iyiou.com/p/18860" target="_blank">会务O2O：活动家励志做会务界的“京东”</a></li>
+                <li><a href="http://36kr.com/p/5035320.html" target="_blank">做会议营销的“活动家”,想把演讲嘉宾当成艺人来经纪</a></li>
+                <li><a href="http://www.pintu360.com/article/5590a764824ad9b954f31b87.html" target="_blank">当会议网站也走“经纪人”制 搭建主办方、用户、会议网站三角式“强关系”</a></li>
+                <li><a href="http://business.sohu.com/20150720/n417137009.shtml" target="_blank">活动家王平：会议经济是一个万亿的蓝海市场</a></li>
+                <li><a href="http://www.cyzone.cn/a/20150617/276350.html" target="_blank">解决付费商业会议痛点 活动家发力创造“会议3.0”趋势</a></li>
+                <li><a href="http://www.bianews.com/news/08/n-445808.html" target="_blank">商业会议O2O活动家筹备千万级A轮融资</a></li>
+                <li><a href="http://science.china.com.cn/2015-07/03/content_8042314.htm" target="_blank">跑通商业会议O2O收费模式，他们是活动家</a></li>
+            </ul>
+        </div>
+</div>
+
+
+
+{% endblock %}
+{% block selfLinks %}
+{% endblock %}

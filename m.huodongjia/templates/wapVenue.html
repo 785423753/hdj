@@ -1,0 +1,138 @@
+{% extends "wapVenueList.html" %}
+{% block myhead%}
+<title>{{seo.title}}</title>
+<meta name="description" content="{{seo.description}}" />
+<meta name="keywords" content="{{seo.keywords}}" />
+{% endblock %}
+{% block header %}
+<header  style="padding:0;border: none;line-height: normal !important;">
+    <table>
+        <tr>
+            <td class="left"><a href="javascript:history.back(-1)">&#xe601;</a></td>
+            <td>{{venue.nv_name}}</td>
+            <td class="right"><a class="menue">&#xe602;</a></td>
+        </tr>
+    </table>
+</header>
+{% include 'seo_base.html' %}
+{% endblock %}
+{% block mysearch %}
+{% endblock %}
+{% block container %}
+<!--banner-->
+{% if venue_info.venue_pic_url %}
+<img class="img-responsive" src="{{nv_img_urls}}" alt="{{venue_info.venue_name}}"/>
+{% else %}
+<img class="img-responsive" src="http://pic.huodongjia.com/static/images/venue_default.jpg" alt="{{venue_info.venue_name}}"/>
+{% endif %}
+
+<!--详情-->
+<div class="content">
+    <h1 class="venue_name">{{venue.nv_name}}</h1>
+    <p style="font-size: 16px;color: #5D5A5A;text-align: center">会场地址：{{venue.nv_addr}}</p>
+    <p>{{venue.nv_content|safe}}</p>
+    <p class="c_more" style="text-align: center;margin: 0;color: #000;text-indent: initial;" >全部</p>
+</div>
+<!--正在报名的会议-->
+<div class="meeting_title">
+    <span>正在报名会议</span>
+</div>
+{% if venue.nv_events %}
+<div class="meeting_list row">
+    {% for ev in venue.nv_events|slice:'4' %}
+    <div class="col-sm-6 col-xs-6 meeting" >
+        <div>
+            <a href="{{ev.event_url}}"><img class="img-responsive m_img" src="{{ev.event_img.0.server__name}}{{ev.event_img.0.urls}}" alt="{{ev.event_name}}"/></a>
+            <p><span>{{ev.event_begin_time|date:'Y-m-d'}}</span></p>
+        </div>
+        <a href="{{ev.event_url}}"><p class="son_name">{{ev.event_name}}</p></a>
+        <p class="spon_addr">地点：<a style="color: #A6A6A6" href="/{{ev.event_city_info.0.title}}/">{{ev.event_city_info.0.district_name}}</a>  {{ev.event_venue}}</p>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p class="text-center">暂时没有正在报名的会议！</p>
+{% endif %}
+<p class="loadmore" style="width: 100%;text-align: center;line-height: 3;margin: 0;background: #F0F0F0;">加载更多</p>
+<p class="Load text-center" style="display: none;padding: 5px 0;"><span class=" fa fa-spinner fa-pulse fa-2x" ></span></p>
+<!--往期活动回顾-->
+<div class="meeting_title">
+    <span>往期活动回顾</span>
+</div>
+<div class="Activities_list">
+    {% for ev in venue.nv_hold_events|slice:'5' %}
+    <div class="Activities">
+        <p class="act_name"><a href="{{ev.event_url}}">{{ev.event_name}}</a></p>
+        <p class="act_mess"><span style="color: #A6A6A6">地点：<a style='color: #A6A6A6' href='/{{ev.event_city_info.0.title}}/'>{{ev.event_city_info.0.district_name}}</a></span><span>时间：{{ev.event_begin_time|date:'Y-m-d'}}</span></p>
+    </div>
+    {% endfor %}
+</div>
+<p class="loadMore" style="width: 100%;text-align: center;line-height: 3;margin: 0;background: #FFF;border-bottom: 1px solid #E9E9E9;">加载更多</p>
+<p class="load text-center" style="display: none;padding: 5px 0;background: #FFF"><span class=" fa fa-spinner fa-pulse fa-2x" ></span></p>
+<!--footer-->
+<footer>
+    <a href="http://m.huodongjia.com/">首页</a>&gt;<a href="http://m.huodongjia.com/listvenue/" >会议场地</a>&gt;<h1 style="display: inline"><a href="{{request.path}}"  style="color: #000;font-size: 14px">{{venue_info.venue_name}}</a></h1>
+    <hr style="margin:4px 0;border-top: 1px solid rgba(215, 215, 215, 0.57)"/>
+    <ul>
+        <li class=""><a href="http://www.huodongjia.com/?mobile" rel="nofollow"><span class="fa fa-desktop"></span>电脑端</a></li>
+        <li class=""><a class="appdownload" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.dahuodong.veryevent" rel="nofollow" >下载APP</a></li>
+        <li class=""><a href="http://m.huodongjia.com/about/">关于我们</a></li>
+    </ul>
+    <div class="text-center">CopyRight 活动家 huodongjia.com</div>
+</footer>
+{% endblock %}
+{% block myscript %}
+<script>
+    $(document).ready(function () {
+        $(".content br").after("<span style='padding-left: 2em'></span>")
+        var width=$($(".meeting")[0]).width()
+        $(".m_img").css({maxHeight:(width-10)/1.6+"px"})
+        $(".c_more").click(function () {
+            $(".content p").css({lineClamp:"inherit"})
+            $(this).hide()
+        })
+        if("{{events_expire|length}}"<=5){
+            $(".loadMore").hide();
+        }
+        if("{{events_join|length}}"<=4){
+            $(".loadmore").hide();
+        }
+        $(".loadmore").click(function () {
+            $(".loadmore").hide();
+            $(".Load").show();
+            setTimeout(function () {
+                $(".Load").hide();
+                var e_html="{% for ev in events_join|slice:'4:' %} <div class='col-sm-6 col-xs-6 meeting' ><div>" +
+                        "<a href='{{ev.event_url}}'><img class='img-responsive' src='{{ev.event_img}}' alt='{{ev.event_name}}'/></a>" +
+                        "<p><span>{{ev.event_begin_time}}</span></p></div>" +
+                        "<a href='{{ev.event_url}}'><p class='son_name'>{{ev.event_name}}</p></a>"+
+                        "<p class='spon_addr'>地点：<a style='color: #A6A6A6' href='/{{ev.district_title}}/business/'>{{ev.district_name}}</a>  {{ev.event_venue}}</p>" +
+                        " </div>{% endfor %}"
+                $(".meeting_list").append(e_html)
+            },500)
+        })
+        $(".loadMore").click(function () {
+            $(".load").show()
+            $(".loadMore").hide();
+            setTimeout(function () {
+                $(".load").hide();
+                var _html="{% for ev in events_expire|slice:'5:10' %}<div class='Activities'>" +
+                        "<p class='act_name'><a href='{{ev.event_url}}'>{{ev.event_name}}</a></p>" +
+                        "<p class='act_mess'><span style='color: #A6A6A6'>地点：<a style='color: #A6A6A6' href='/{{ev.district_title}}/business/'>{{ev.district_name}}</a></span><span>时间：{{ev.event_begin_time}}</span></p>" +
+                        "</div>{% endfor %}"
+                $(".Activities_list").append(_html)
+            },500)
+        })
+    })
+</script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
