@@ -5,276 +5,10 @@
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/sweet-alert.min.css"/>
+    <link rel="stylesheet" href="../static/css/signUp.css"/>
 </head>
 <style>
-    body{
-        font-family: '微软雅黑';
-        margin: 0;
-        padding: 0;
-        font-size: 14px;
-        box-sizing: content-box;
-    }
-    .content{
-        width: 100%;
-        /*min-width: 1200px;*/
-    }
-    @font-face {
-        font-family: 'iconfont';
-        src: url('http://at.alicdn.com/t/font_1476546622_5278816.eot'); /* IE9*/
-        src: url('http://at.alicdn.com/t/font_1476546622_5278816.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-        url('http://at.alicdn.com/t/font_1476546622_5278816.woff') format('woff'), /* chrome、firefox */
-        url('http://at.alicdn.com/t/font_1476546622_5278816.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
-        url('http://at.alicdn.com/t/font_1476546622_5278816.svg#iconfont') format('svg'); /* iOS 4.1- */
-    }
-    .red_border{border: 1px solid red !important;}
-    .m_font{
-        font-family: 'iconfont';
-    }
-    a{
-        text-decoration: none;
-        color: #000;
-    }
-    .nav{
-        width: 100%;
-        /*min-width: 1200px;*/
-        height: 50px;
-        background: #000;
-    }
-    .self_center{
-        width: 20%;
-        height: 100%;
-        text-align: center;
-        color: #fff;
-        line-height:50px;
-        background:#ffde00;
-        float: left;
-    }
-    .logo{
-        width: 100px;
-        height:50px;
-        float: right;
-        line-height: 65px;
-        margin-right: 25px;
-    }
-    .left{
-        width: 20%;
-        float: left;
-        background: #feffff;
-        padding-top: 30px;
-    }
-    .left table{
-        width: 100%;
-    }
-    .left td{
-        padding: 20px 0;
-    }
-    .left .img{
-        width: 40%;
-       text-align: right;
-        padding-right: 10px;
-    }
-    .left .yellow{
-        display: none;
-    }
-    .left tr:hover a{
-        color: #ffde00 !important;
-    }
-    .left tr:hover .black,.left .choose .black{
-        display: none;
-    }
-    .left tr:hover .yellow,.left .choose .yellow{
-        display: inline;
-    }
-    .choose_td{position: relative}
-    .choose a{
-        color: #ffde00 !important;
-    }
-    .choose .choose_td:after{
-        content: url("../static/images/san.png");
-        width: 30px;
-        position: absolute;
-        right: -10px;
-        top: -2px;
-    }
-    .right{
-        width: 80%;
-        float: left;
-        background: #f6f7f8;
-    }
-    #myform table{
-        width: 60%;
-        margin: 30px 15% 0;
-        /*border: 1px solid red;*/
-    }
-    #myform td{
-        padding: 10px 0;
-    }
-    #myform tr td:first-child{
-        width: 170px;
-        padding-right: 20px;
-        text-align: right;
-    }
-    #myform td input,#myform td select,#myform td textarea{
-        width: 90%;
-        height: 30px;
-        outline: none;
-        border: none;
-        background: #fff;
-        padding-left: 10px;
-        font-size: 14px;
-    }
-    input[type='text']:focus,textarea:focus{
-        border: 1px solid #ffde00 !important;
-    }
-    #myform td textarea{
-        height: auto;
-        resize: none;
-    }
-    #myform td select{
-        width: 92.5%;
-        border-radius: 0;
-        position: relative;
-    }
-    #myform td #agree{
-        width: 20px;
-        height: 15px;
-        padding: 10px;
-    }
-    .apply{
-        width: 200px;
-        height: 40px;
-        background: #ffde00;
-        border: none;
-        outline: none;
-        color: #fff;
-        font-size: 16px;
-        transition: all .3s linear;
-    }
-    .apply:hover{
-        background: #ffc733;
-    }
-    .self_center .m_font{
-        color: #fff;
-        font-size: 18px;
-        padding-right: 5px;
-    }
-    td{position: relative}
-    .ang_bottom{
-        font-family: 'iconfont';
-        position: absolute;
-        width: 30px;
-        height: 100%;
-        background: #ffde00;
-        right: 0;
-        top: 0;
-        color: #fff;
-        font-size: 22px;
-        text-align: center;
-        line-height: 30px;
-        z-index:99;
-    }
-    .select_30,.select_100{
-        width: 30.8%;
-        float: left;
-        background: #fff;
-        overflow: hidden;
-        position: relative;
-    }
-    .select_100 .ang_bottom{
-        /*left: 0;*/
-        /*right: auto;*/
-    }
-    .select_100{
-        width: 92.5%;
-    }
-     select{
-        width: 110% !important;
-        background: none !important;
-    }
-     .experence{
-         position: relative;
-     }
-     .add_ex{
-         height: 30px;
-         right: -10px;
-         top: 11px;
-     }
-     .del_ex{
-         /*position: static;*/
-         right: -10px;
-         line-height: 34px;
-     }
-     .ang_bottom:hover{
-         background: #ffc733;
-         cursor: pointer;
-     }
-     #myform td font{
-         position: absolute;
-         top: 17px;
-         width: 100%;
-         right: 20px;
-     }
-     .new_exp{position: relative;}
-     .new_exp:after{
-         content: "删除";
-         position: absolute;
-         right: -5px;
-     }
-     .file{
-         width: 92.5%;
-         background: #fff;
-         position: relative;
-     }
-     .file span{
-         position: absolute;
-         left: 0;
-         top: 0;
-         padding: 0 15px;
-         height: 100%;
-         background: #ffde00;
-         color: #fff;
-         line-height: 30px;
-     }
-     .file input{
-         opacity: 0;
-     }
-    @media (max-width:1000px) {
-        #myform table{
-            width: 80%;
-            margin-left: 6%;
-        }
-    }
-    @media (max-width:768px) {
-        body{
-            font-size: 10px;
-        }
-        #myform table{
-            width: 95%;
-            margin-left: 1%;
-        }
-        .left .img{
-            text-align: center;
-        }
-        #myform tr td:first-child{
-            width: auto;
-            padding-right: 5px;
-            text-align: right;
-        }
-        .select_100{
-            width: 95%;
-        }
-        .select_30{
-            width: 31.8%;
-        }
-        #myform td font{
-            right: 5px;
-        }
-        .ang_bottom{
-            width: 25px;
-            font-size: 18px;
-            line-height: 30px;
-        }
-    }
+
 </style>
 <body>
 <div class="content">
@@ -330,9 +64,15 @@
                 </div>
             </td></tr>
             <tr><td>证件类型</td><td >
-                <div class="select_100" >
+                <div class="select select_100">
                     <span class="ang_bottom">&#xe600;</span>
-                    <select  name="card_type" id="card_type"><option value=""></option></select>
+                    <button type="button">请选择</button>
+                    <ul class="menue">
+                        <li data-value="0">a</li>
+                        <li data-value="1">b</li>
+                        <li data-value="2">c</li>
+                    </ul>
+                    <input type="hidden" name="card_type">
                 </div>
             </td></tr>
             <tr><td>证件号码</td><td ><input   name="id_number" type="text"/></td></tr>
@@ -389,6 +129,36 @@
 <script src="../static/js/jquery-1.8.3.min.js"></script>
 <script src="../static/js/sweet-alert.min.js"></script>
 <script>
+    //select
+    menue()
+    function stopEvent(){
+        //取消事件冒泡
+        var e=arguments.callee.caller.arguments[0]||event; //若省略此句，下面的e改为event，IE运行可以，但是其他浏览器就不兼容
+        if (e && e.stopPropagation) {
+            // this code is for Mozilla and Opera
+            e.stopPropagation();
+        } else if (window.event) {
+            // this code is for IE
+            window.event.cancelBubble = true;
+        }
+    }
+    function menue(){
+        $('.select button').on('click',function(){
+            var $this=$(this),$menue=$this.next()
+            $('.menue').fadeOut(0)
+            $menue.fadeIn(0)
+            stopEvent()
+        })
+        $('.menue li').on('click', function () {
+            var $this=$(this),$input=$this.parent().next(),$button=$this.parent().prev()
+            $input.val($this.attr('data-value'))
+            $button.text($this.text())
+            $this.parent().fadeOut(0)
+        })
+        $('body').on('click',function(){
+            $('.menue').fadeOut(0)
+        })
+    }
     $('.add_ex').on('click', function () {
         var $exp=$('.experence')
         $exp.append('<div style="position: relative;margin-top: 20px"><input class="new_exp" name="experence" type="text"/><span onclick="del(this)" class="ang_bottom del_ex">&#xe603;</span></div>')
