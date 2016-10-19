@@ -328,8 +328,9 @@ select{
     font-weight: 500;
 }
 #change_pasw label{padding-right: 15px;}
-#change_pasw input{width: 30%;height: 35px;
+#change_pasw input{width: 30%;height: 35px;font-size: 12px;padding: 0 10px;
     border: none;background: #fff;outline: none;
+    color: #494949;
 }
 #change_pasw button{
     width: 150px;
