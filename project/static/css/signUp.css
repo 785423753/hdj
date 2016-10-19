@@ -4,9 +4,12 @@ body{
     padding: 0;
     font-size: 14px;
     box-sizing: content-box;
+    background: #f6f7f8;
 }
 .content{
     width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
     /*min-width: 1200px;*/
 }
 @font-face {
@@ -52,6 +55,7 @@ a{
     float: left;
     background: #feffff;
     padding-top: 30px;
+    min-height: 88vh;
 }
 .left table{
     width: 100%;
@@ -81,7 +85,7 @@ a{
     color: #ffde00 !important;
 }
 .choose .choose_td:after{
-    content: url("../static/images/san.png");
+    content: url("../images/san.png");
     width: 30px;
     position: absolute;
     right: -10px;
@@ -90,7 +94,6 @@ a{
 .right{
     width: 80%;
     float: left;
-    background: #f6f7f8;
 }
 #myform table{
     width: 60%;
@@ -107,13 +110,16 @@ a{
 }
 #myform td input,#myform td select,#myform td textarea{
     width: 90%;
-    height: 30px;
+    height: 35px;
     outline: none;
     border: none;
     background: #fff;
     padding-left: 10px;
-    font-size: 14px;
+    font-size: 12px;
+    color: #494949;
+    font-family: '微软雅黑';
 }
+button{  font-family: '微软雅黑';}
 input[type='text']:focus,textarea:focus{
     border: 1px solid #ffde00 !important;
 }
@@ -150,34 +156,37 @@ input[type='text']:focus,textarea:focus{
     padding-right: 5px;
 }
 td{position: relative}
-.ang_bottom{
+.ang_bottom,#content-wrap .ang_bottom{
     font-family: 'iconfont';
     position: absolute;
     width: 30px;
     height: 100%;
     background: #ffde00;
-    right: 0;
     top: 0;
     color: #fff;
     font-size: 22px;
     text-align: center;
-    line-height: 30px;
+    line-height: 35px;
     z-index:99;
+}
+#content-wrap .ang_bottom{right: 0;}
+.select_100 .ang_bottom{
+    left: 0;
+}
+.select_30 .ang_bottom{
+    right: 0;
 }
 .select_30,.select_100{
     width: 30.8%;
     float: left;
     background: #fff;
-    overflow: hidden;
+    /*overflow: hidden;*/
     position: relative;
-}
-.select_100 .ang_bottom{
-    /*left: 0;*/
-    /*right: auto;*/
 }
 .select_100{
     width: 92.5%;
 }
+.select_30 button{padding-left: 10px !important;}
 select{
     width: 110% !important;
     background: none !important;
@@ -186,13 +195,13 @@ select{
     position: relative;
 }
 .add_ex{
-    height: 30px;
-    right: -10px;
+    height: 35px;
+    right: 5px;
     top: 11px;
 }
 .del_ex{
     /*position: static;*/
-    right: -10px;
+    right: 5px;
     line-height: 34px;
 }
 .ang_bottom:hover{
@@ -224,7 +233,7 @@ select{
     height: 100%;
     background: #ffde00;
     color: #fff;
-    line-height: 30px;
+    line-height: 35px;
 }
 .file input{
     opacity: 0;
@@ -237,8 +246,13 @@ select{
     width: 100%;
     border:none;
     background: #fff;
-    height: 30px;
+    height: 37px;
     outline: none;
+    text-align: left;
+    padding-left: 40px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #494949;
 }
 .select .menue{
     width: 100%;
@@ -247,19 +261,84 @@ select{
     max-height: 200px;
     background: #fff;
     overflow: auto;
-    /*display: none;*/
+    display: none;
     position: absolute;
     top: 100%;
     left: 0;
-    z-index:99;
+    z-index:9999;
+    border-radius: 0 0 5px 5px;
+    border: 1px solid #E8E8E8;
 }
 .select .menue li{
     list-style: none;
-    padding: 5px 10px;
+    padding: 8px 10px;
+    border-top: 1px solid #E8E8E8;
+}
+.select .menue li:first-child {
+    border-top: 0;
 }
 .select .menue li:hover{
     background: #E5E5E5;
     cursor: pointer;
+}
+.dz-preview{margin-top: 10px;position: relative;}
+.dz-preview .close{
+    position: absolute;
+    left: 90%;
+    top: 10px;
+}
+.dz-preview .close:hover{color: red;cursor: pointer;}
+/*//赛事*/
+.competition{
+    margin: 30px auto;
+}
+.my_competition{
+    width: 70%;
+    margin: auto;
+    padding: 10px 0;
+    font-size: 16px;
+}
+.my_competition a{
+    float: right;
+    width: 110px;
+    background: #000;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    font-size: 14px;
+}
+.success a{color: #ffde00;}
+.sign a{background: #ffde00;color: #000;}
+.mobile{position: fixed;bottom: 0;left: 0;width: 100%;background: #fff;z-index: 99999;display: none;}
+.mobile td{width: 20%;text-align: center;line-height: 20px;padding-top: 5px}
+.mobile table{width: 100%}
+.mobile .yellow,.mobile .choose .black{display: none}
+.mobile .black,.mobile .choose .yellow{display: inline}
+#address input{width: 100% !important;}
+#address input:focus{border: none !important;}
+/*//mess*/
+#myform .change_message td input{background: none}
+#myform .change_message .select{display: none}
+#myform .change_message .ang_bottom{display: none}
+.my_mes{padding: 10px;display: block;color: #494949}
+/*pasw*/
+#change_pasw{
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+}
+#change_pasw label{padding-right: 15px;}
+#change_pasw input{width: 30%;height: 35px;
+    border: none;background: #fff;outline: none;
+}
+#change_pasw button{
+    width: 150px;
+    height: 35px;
+    background: #ffde00;
+    outline: none;
+    border: none;
+    color: #000;
+    font-size: 14px;
 }
 @media (max-width:1000px) {
     #myform table{
@@ -268,12 +347,19 @@ select{
     }
 }
 @media (max-width:768px) {
+    .pc{display: none}
+    .mobile{display: block;font-size: 10px !important;}
+    .content{padding-bottom: 50px;}
+    .right{width: 100%}
     body{
+        font-size: 12px;
+    }
+    input{
         font-size: 10px;
     }
     #myform table{
-        width: 95%;
-        margin-left: 1%;
+        width: 100%;
+        margin-left: 0;
     }
     .left .img{
         text-align: center;
@@ -295,6 +381,21 @@ select{
     .ang_bottom{
         width: 25px;
         font-size: 18px;
-        line-height: 30px;
+        line-height: 35px;
+    }
+    .left .img{
+        width: 33%;
+        padding-right: 0px;
+    }
+    .my_competition{font-size: 10px;width: 95%;}
+    /*.my_competition span{margin: 10px 0;display: block;width: 100%;}*/
+    /*button{font-size: 10px !important;}*/
+    #change_pasw input{width: 60%;}
+    .infolist .liststyle span{width: 28.4% !important;margin-bottom: 10px;font-size: 12px !important;}
+    #address{width: 87.3% !important;}
+    .my_competition a{
+        font-size: 12px;
+        position: relative;
+        top:-8px;
     }
 }
