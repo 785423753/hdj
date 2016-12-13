@@ -45,6 +45,9 @@ $(document).ready(function(){
    var vm= new Vue({
         el: '#md_price',
         data: {
+            event:{
+                intro:''
+            },
             new_price:'',
             new_venue:'',
             new_sponsor:'',
@@ -162,10 +165,40 @@ $(document).ready(function(){
             ],
             tag:[],
             image: [],
-            review_img:[]
+            review_img:[],
+            title_index:0,
+            event_content:[
+                {
+                    name:'会议介绍',
+                    tag: [
+                        {name:'关于大会',txt:'关于大会...',id:'notice_0'},
+                        {name:'大会亮点',txt:'大会亮点...',id:'notice_1'},
+                        {name:'大会背景',txt:'大会背景..',id:'notice_2'},
+                        {name:'主办方介绍',txt:'主办方介绍..',id:'notice_3'}
+                    ]
+                },
+                {
+                    name:'会议日程',
+                    tag: [
+                        {name:'2016.02.02',txt:'会议日程',id:'schedule_0'},
+                    ]
+                },
+                {
+                    name:'会议嘉宾',
+                    tag: [{txt:'会议嘉宾',id:'guests'}]
+                },
+                {
+                    name:'参会指南',
+                    tag: [
+                        {name:'关于大会',txt:'参会指南',id:'guide_0'},
+                        {name:'大会亮点',txt:'参会指南',id:'guide_1'}
+                    ]
+                }
+            ]
         },
         methods: {
             ready:function(){
+                console.log(this.event_content)
                 var tags=[
                     {
                         tag__id: 437,
@@ -229,6 +262,43 @@ $(document).ready(function(){
                     }
                 }
                 this.tag=tags
+
+                //编辑器
+                var id=[],Edtior=[],_index=0
+                for(var i in this.event_content){
+                    for(var j in this.event_content[i].tag){
+                        id.push(this.event_content[i].tag[j].id)
+                        Edtior.push('edtior'+_index)
+                        _index++
+                    }
+                }
+                console.log(Edtior+"  "+id)
+                for(var i in id){
+                    $('#'+id[i]).css({height:'400px'})
+                     Edtior[i] = new wangEditor(id[i]);
+                    Edtior[i].config.menus = $.map(wangEditor.config.menus, function(item, key) {
+                         if (item === 'location') {
+                             return null;
+                         }
+                        if (item === 'emotion') {
+                            return null;
+                        }
+                         return item;
+                     });
+
+                    Edtior[i].create();
+                }
+                //var editor = new wangEditor('editor-trigger');
+                // 上传图片
+                //editor.config.uploadImgUrl = '/upload';
+                //editor.config.uploadParams = {
+                    // token1: 'abcde',
+                    // token2: '12345'
+                //};
+                //editor.config.uploadHeaders = {
+                    // 'Accept' : 'text/x-json'
+                //}
+                //editor.create();
             },
             addNewTodo: function () {
                 var price=this.new_price.split('/')
@@ -334,10 +404,14 @@ $(document).ready(function(){
 
                 };
                 reader.readAsDataURL(file);
+            },
+            choose:function(index){
+
             }
         }
     })
     vm.ready()
+
 //分类
     $('ul.tabs').tabs();
     //时间
@@ -352,24 +426,6 @@ $(document).ready(function(){
         value:today+" 18:00"
     });
     $('select').material_select();
+    $('.chips').material_chip();
 
-    //编辑器
-    var editor = new wangEditor('editor-trigger');
-
-    // 上传图片
-    editor.config.uploadImgUrl = '/upload';
-    editor.config.uploadParams = {
-        // token1: 'abcde',
-        // token2: '12345'
-    };
-    editor.config.uploadHeaders = {
-        // 'Accept' : 'text/x-json'
-    }
-     editor.config.menus = $.map(wangEditor.config.menus, function(item, key) {
-         if (item === 'emotion') {
-             return null;
-         }
-         return item;
-     });
-    editor.create();
 })
