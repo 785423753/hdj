@@ -13,17 +13,28 @@
     <link rel="stylesheet" href="/static/css/admin.css">
 
 </head>
+<style>
+
+</style>
 <body>
 {% verbatim %}
-<div class="row main" id="md_price">
-    <button v-on:click="save()">提交</button>
-    <div class="col s12"><h1 class="title">增加活动管理 <span>文档/视频：<a href="">查看/编辑</a></span> <span>状态：编辑中</span>  <span>预览： <a href="">pc</a>&nbsp;&nbsp;<a href="">wap</a></span></h1></div>
+
+<div class="row main" id="md_price" v-on:click="search_sponsor=[],search_venue=[],search_guest=[]">
+    <!--<button v-on:click="save()">>aaa</button>-->
+    <div class="bg">
+        <svg  class="spinner save" width="40px" height="40px" viewBox="0 0 66 66">
+            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+        </svg>
+    </div>
+
+    <div class="col s12"><h1 class="title">增加活动管理 <span>文档/视频：<a href="">查看/编辑</a>
+    </span> <span>状态：<span v-if="event.isshow_id==5">编辑中</span><span v-if="event.isshow_id==1">已发布</span><span v-if="event.isshow_id==2">废弃</span></span>
+        <span>预览： <a href="">pc</a>&nbsp;&nbsp;<a href="">wap</a></span></h1></div>
     <div class="col s6 left">
-        <form action="" class="col s12">
+        <!--<form action="" class="col s12">-->
             <!--分类 -->
             <div class="input-field col s12">
                 <p class="label">分类  标签</p>
-                {{event.cat_id}}
                 <ul class="tabs">
                     <li class="tab col s1" v-for="(item,index) in cat"  v-bind:data-id="item.id" v-on:click="event.cat_id=item.id,tag=all_tags[item.id]">
                         <a v-on:click="choose_cat(index)" v-if="item.id==event.cat_id" class="active">{{item.name}}</a>
@@ -36,44 +47,44 @@
                         <!--<input type="checkbox" v-model="event.tags_id"  v-bind:id="'tag'+item.id" v-bind:value="item.id" v-bind:checked="item.isture" /><label v-bind:for="'tag'+item.id">{{item.name}}</label>-->
                     </span>
                 </div>
-                <div class="choosed_tag">
-                    <div class="chip"  v-for="(item,index) in choosed_tags">
-                        {{item}}
-                        <i class="close material-icons">close</i>
+                <div class="choosed_tag" v-if="event.tags.length>0">
+                    <div class="chip"  v-for="(item,index) in event.tags">
+                        {{item.name}}
+                        <i class="close material-icons" v-on:click.stop="event.tags.splice(index,1)">close</i>
                     </div>
                 </div>
             </div>
 
-            <div class="input-field col s6" style="margin-top: 20px">
-                {{event.title}}
-                <input  id="name" type="text" v-model="event.title"  class="validate">
+            <div class="input-field col s10" style="margin-top: 20px">
+                <input placeholder=""  id="name" type="text" v-model="event.name"  class="validate">
                 <label for="name">标题</label>
             </div>
-            <div class="input-field col s6" style="margin-top: 20px">
-                <input  id="scale" type="text" v-model="event.scale" class="validate">
+            <div class="input-field col s2" style="margin-top: 20px">
+                <input placeholder=""   id="scale" type="text" v-model="event.scale" class="validate">
                 <label for="scale">会议规模</label>
             </div>
             <div class="input-field col s6">
-                <input placeholder="" id="start_time" name="start_time" type="text" class="validate">
+                <input placeholder="" id="start_time" name="start_time" type="text" class="validate" v-model="event.begin_time">
                 <label for="start_time">开始时间</label><i class="material-icons time">schedule</i>
             </div>
             <div class="input-field col s6">
-                <input placeholder="" id="end_time" name="end_time" type="text" class="validate">
+                <input  placeholder="" id="end_time" name="end_time" type="text" class="validate" v-model="event.end_time">
                 <label for="end_time">结束时间</label><i class="material-icons time">schedule</i>
             </div>
 <!--票价 -->
                 <div class="input-field col s3">
-                    <select>
+                    <select >
                         <option value="1">人民币</option>
                         <option value="2">美元</option>
                         <option value="3">欧元</option>
                     </select>
                 </div>
                 <div class="input-field col s3">
-                    <select>
-                        <option value="1">标准</option>
-                        <option value="2">收费</option>
-                        <option value="3">免费</option>
+                    <select id="price_type"  class="browser-default">
+                        <option  value="4">免费</option>
+                        <option  value="5">收费</option>
+                        <option  value="7">待定</option>
+                        <option  value="6">标准</option>
                     </select>
                 </div>
                 <div class="input-field col s4">
@@ -91,11 +102,11 @@
 
                     <tr v-for="(title,index) in event.ticket_list" >
                         <td><span>{{title.price}}</span><input name="price" type="text" v-model="title.price"></td>
-                        <td><span>{{title.ticket_name}}</span><input  name="price" type="text" v-model="title.ticket_name"></td>
+                        <td><span>{{title.property}}</span><input  name="price" type="text" v-model="title.property"></td>
                         <td><span>{{title.begin_time}}</span><input v-on:blur="change_time(index,'start_time')" type="text" name="start_time" class="price_time start_time"  v-model="title.begin_time" ></td>
                         <td><span>{{title.end_time}}</span><input  v-on:blur="change_time(index,'end_time')" type="text" name="end_time" class="price_time end_time"  v-model="title.end_time" ></td>
-                        <td style="padding: 0 5px;max-width: 40%;"><span>{{title.description}}</span><div class="note"><textarea id="note" class="materialize-textarea" v-model="title.description"></textarea></div></td>
-                        <td><span>{{title.min_stock}}</span><input name="min_price" type="number" v-model="title.min_stock"></td>
+                        <td style="padding: 5px;width: 30%;"><span>{{title.content}}</span><div class="note"><textarea id="note" class="materialize-textarea" v-model="title.content"></textarea></div></td>
+                        <td><span>{{title.limit_people}}</span><input name="min_price" type="number" v-model="title.limit_people"></td>
                         <td><span>{{title.stock}}</span><input name="min_price" type="number" v-model="title.stock"></td>
                         <td><span v-if="title.status">有效</span><span v-else>无效</span><input type="checkbox" class="filled-in"  v-bind:id="index" v-model="title.status" /> <label v-bind:for="index"></label></td>
                         <td class="operate" style="width: 65px;"><div class="edit"><i class="material-icons" v-on:click="event.ticket_list.splice(index, 1)">delete</i> <i v-on:click="change(index,'ticket')" class="material-icons">mode_edit</i></div>
@@ -121,17 +132,24 @@
             </div>
 <!--场馆-->
             <div class="input-field col s6">
-                <input  id="listvenue_name" name="listvenue_name" type="text" class="validate" v-model="event.venue_title">
+                <input placeholder=""  v-on:keyup="search_auto(0)" id="listvenue_name" name="listvenue_name" type="text" class="validate autocomplete"  v-model="event.venue_title">
                 <label for="listvenue_name">场馆名称</label>
+                <ul class="autocomplete-content dropdown-content">
+                    <li v-for="(venue,index) in search_venue" v-on:click="event.venue_title=venue.title,event.venue_address=venue.address,search_venue=[],
+                    $('#listvenue_addr').focus()"><span>{{venue.title}}</span></li>
+                </ul>
             </div>
             <div class="input-field col s6">
-                <input  id="listvenue_addr" name="listvenue_addr" type="text" class="validate" v-model="event.venue_address">
+                <input placeholder=""   id="listvenue_addr" name="listvenue_addr" type="text" class="validate" v-model="event.venue_address">
                 <label for="listvenue_name">场馆地址</label>
             </div>
 <!--主办方-->
             <div class="input-field col s10" style="margin-top: 40px">
-                <input placeholder="多个主办方用'/'隔开" id="sponsor_name" name="listvenue_name" type="text" class="validate" v-model="new_sponsor">
+                <input v-on:keyup="search_auto(1)"  placeholder="" id="sponsor_name" name="listvenue_name" type="text" class="validate" v-model="new_sponsor">
                 <label for="sponsor_name">主办方名称</label>
+                <ul class="autocomplete-content dropdown-content">
+                    <li v-for="(spon,index) in search_sponsor" v-on:click="new_sponsor=spon,search_sponsor=[]"><span>{{spon}}</span></li>
+                </ul>
             </div>
             <div class="input-field col s2" style="text-align: right;margin-top: 40px">
                 <a class="waves-effect waves-light btn" v-on:click="event.sponsor_list.push({name:new_sponsor,id:0})">添加主办方</a>
@@ -150,12 +168,12 @@
                 </table>
             </div>
 
-        </form>
+        <!--</form>-->
     </div>
     <div class="col s6 right" >
         <!--会议简介-->
         <div class="input-field col s12">
-            <textarea  id="intro" class="materialize-textarea" v-model="event.introduction"></textarea>
+            <textarea  id="intro" placeholder=""  class="materialize-textarea" v-model="event.introduction"></textarea>
             <label for="intro">会议简介</label>
         </div>
         <!--信息来源-->
@@ -188,7 +206,7 @@
                     <td><span>{{title.contacts}}</span><input type="text" v-model="title.contacts"></td>
                     <td><span>{{title.telephone}}</span><input type="text" v-model="title.telephone"></td>
                     <td><span>{{title.email}}</span><input type="text" v-model="title.email"></td>
-                    <td><span><a href="">{{title.url}}</a></span><input type="text" v-model="title.url"></td>
+                    <td style="width: 30%"><span><a href="">{{title.url}}</a></span><input type="text" v-model="title.url"></td>
                     <td><span>{{title.content}}</span><div class="note"><textarea id="" class="materialize-textarea" v-model="title.content"></textarea></div></td>
                     <td class="operate" style="width: 65px;"><div class="edit"><i class="material-icons" v-on:click="event.from_info_list.splice(index, 1)">delete</i> <i v-on:click="change(index,'source')" class="material-icons">mode_edit</i></div>
                         <div class="sure">  <i class="material-icons" v-on:click="done(index,'source')">✔</i></div>
@@ -204,16 +222,17 @@
             <div class="file-field col">
                 <div class="btn">
                     <span>上传图片</span>
-                    <form name="fileinfo" action=""  enctype="multipart/form-data" method="post">
-                        <input name="img" id="banner" type="file"  @change="onFileChange">
-                    </form>
+                    <input name="img" id="banner" type="file"  @change="onFileChange">
                 </div>
-                <a class="waves-effect waves-light btn" style="float: left;margin-left: 20px">从图片库搜索图片</a>
+                <svg  class="spinner banner" width="40px" height="40px" viewBox="0 0 66 66">
+                    <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                </svg>
+                <!--<a class="waves-effect waves-light btn" style="float: left;margin-left: 20px">从图片库搜索图片</a>-->
             </div>
-            <div  v-show="event.imgs_id.length>0" class="col s12 file" >
-                <div v-for="(item,index) in event.imgs_id" class="img center col" style="margin-bottom: 10px">
+            <div  v-show="event.imgs.length>0" class="col s12 file" >
+                <div v-for="(item,index) in event.imgs" class="img center col" style="margin-bottom: 10px">
                     <img height="100" :src="item.url"><br>
-                    <a class="waves-effect waves-teal "  v-on:click="event.imgs_id.splice(index, 1)">Remove image</a>
+                    <a class="waves-effect waves-teal "  v-on:click="event.imgs.splice(index, 1)">Remove image</a>
                 </div>
             </div>
         </div>
@@ -225,9 +244,12 @@
                     <span>上传图片</span>
                     <input id="review" type="file"  @change="onFileChange">
                 </div>
-                <a class="waves-effect waves-light btn" style="float: left;margin-left: 20px">从资料库查看</a>
+                <svg  class="spinner review" width="40px" height="40px" viewBox="0 0 66 66">
+                    <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                </svg>
+                <!--<a class="waves-effect waves-light btn" style="float: left;margin-left: 20px">从资料库查看</a>-->
             </div>
-            <div v-show="event.review_list.length>0" class="col s12 file" >
+            <div v-show="event.imgs.length>0" class="col s12 file" >
                 <div v-for="(item,index) in event.review_list" class="img col s6" style="margin-bottom: 10px">
                     <div class="col s4 center" >
                         <img width="100%" :src="item.url"><br>
@@ -240,17 +262,20 @@
             </div>
         </div>
         <div class="input-field col s9" style="margin-top: 40px">
-            <input id="previous" type="text" class="validate">
+            <input placeholder="" id="previous" type="text" class="validate" v-model="previous_id" v-on:keyup="event.previous_id=previous_id.split(',')">
             <label for="previous">关联往届会议</label>
         </div>
         <div class="input-field col s3" style="text-align: right;margin-top: 40px">
-            <a class="waves-effect waves-light btn" >从活动库中查看</a>
+            <!--<a class="waves-effect waves-light btn" >从活动库中查看</a>-->
         </div>
     </div>
     <div class="col s12 bottom">
         <div class="input-field col s12">
             <label style="position:static;">会议编辑</label>
-            {{left}}    {{right}}
+            <!--<p v-for="i in event_content">-->
+                <!--{{i.name}}   {{i.id}}   {{i.value}}-->
+            <!--</p>-->
+            <!--{{left}}    {{right}}-->
             <div style="margin: 15px 0" class="event_content">
                 <a  v-for="(item,index) in event_content" v-if="item.level==1" v-on:click="choose_title(item.left,item.right,index)"
                     v-bind:data-select="item.left==left"  class="waves-effect waves-light btn">
@@ -259,7 +284,7 @@
             </div>
             <!--副标题-->
             <!--{{left_t}}    {{right_t}}-->
-            <div class="event_tag">
+            <div class="event_tag ">
                 <div class="chip" v-for="(item,index) in event_content" v-if="item.level==2" v-show="item.left>left&&item.right<right"
                      v-bind:data-select="item.left==left_t" v-on:click="left_t=item.left,right_t=item.right">
                     {{item.name}}
@@ -269,7 +294,7 @@
             </div>
 
             <div v-for="(item,index) in event_content">
-                <div v-if="item.type==1" class="tag_tag"  v-show="item.left==left_t&&item.right==right_t">
+                <div v-if="item.type!=2" class="tag_tag"  v-show="item.left==left_t&&item.right==right_t">
                     <div class="chip" v-for="(tag,index) in item.children" v-if="!tag.children">
                         <input type="text" v-model="tag.name" placeholder="名称">  <input type="text" v-model="tag.value"  placeholder="数值">
                         <i v-on:click.stop="item.children.splice(index,1)" class="close material-icons">close</i>
@@ -288,28 +313,35 @@
                 </div>
                 <!--嘉宾-->
                 <div v-if="item.type==2" class="tag_guest"  v-show="item.left==left_t&&item.right==right_t">
+
                     <div class="guest" v-for="(guest,index) in item.children" v-if="!guest.children">
                         <div class="guest_photo">
-                            <img  v-bind:src="guest.img" >
+                            <img v-if="guest.url"   v-bind:src="guest.url" >
+                            <img v-if="!guest.url"  src="http://pic.huodongjia.com/static/images/avatar.png" >
                         </div>
                         <p>{{guest.name}}</p>
                         <p>{{guest.company}}</p>
                         <p>{{guest.job}}</p>
                         <i class="delete_guest  close material-icons" v-on:click="item.children.splice(index,1)">close</i>
                     </div>
-                    <div class="search_guest">
-                        <input placeholder="Enter search">或
-                        <!--<div class="search-results"></div>-->
+                    <div class="col s12" style="padding: 0;margin: 20px 0;">
+                        <div class="col s3" style="position: relative;">
+                            <input placeholder="Enter search" v-on:keyup="search_auto(2)" v-model="add_guest.name">
+                            <ul class="autocomplete-content dropdown-content" style="max-height: 288px;position:absolute;width:100%;left: 10px;top: 100%;">
+                                <li v-for="(guest,index) in search_guest"
+                                    v-on:click="add_guest.name=guest.name,item.children.push({name:guest.name,job:guest.job,company:guest.company,url:guest.url,img_id:guest.img_id})">
+                                    <span>{{guest.name}}     {{guest.company}}</span></li>
+                            </ul>
+                        </div>
+                        或&nbsp;<a v-on:click="add_guest.name=''"  href="#modal1" class="waves-effect waves-light btn add_guest">上传新嘉宾</a>
                     </div>
-                    <a  href="#modal1" class="waves-effect waves-light btn add_guest">上传新嘉宾</a>
-
-
-
+                    <p style="clear: both"></p>
                     <div v-for="(guest,index) in item.children" v-if="guest.children">
                         <p class="guest_team"><input type="text" v-model="guest.name"><i v-on:click="delete_guest(index)" class="close material-icons" v-on:click="item.children.splice(index,1)">close</i></p>
                         <div class="guest" v-for="(gst,index) in guest.children">
                             <div class="guest_photo">
-                                <img  v-bind:src="gst.img" >
+                                <img v-if="gst.url"  v-bind:src="gst.url" >
+                                <img v-if="!gst.url"  src="http://pic.huodongjia.com/static/images/avatar.png" >
                             </div>
                             <p>{{gst.name}}</p>
                             <p>{{gst.company}}</p>
@@ -321,6 +353,7 @@
                         </div>
                         <a  href="#modal1" v-on:click="add_guest.type_name=guest.name" class="waves-effect waves-light btn add_guest">上传新嘉宾</a>
                     </div>
+
                 </div>
                 <!--嘉宾-->
             </div>
@@ -336,7 +369,7 @@
             <div id="modal1" class="modal">
                 <div class="modal-content">
                     <div class="head_photo col s4 center">
-                        <img width="100"  v-bind:src="add_guest.img" alt=""><br>
+                        <img width="100"  v-bind:src="add_guest.url" alt=""><br>
                         <a class="waves-effect waves-light btn">上传头像</a>
                         <input type="file" id="guest"  @change="onFileChange">
                     </div>
@@ -362,8 +395,13 @@
             <!--添加嘉宾-->
         </div>
     </div>
-
+    <div class="fixed_bottom">
+        <a class="waves-effect waves-light btn blue" v-on:click="save(5)">保存并继续编辑</a>
+        <a class="waves-effect waves-light btn blue" v-on:click="save(1)">保存并发布</a>
+        <a class="waves-effect waves-light btn red" v-on:click="save()">废弃</a>
+    </div>
 </div>
+
 {% endverbatim %}
 <!--Import jQuery before materialize.js-->
 <script src="http://pic.huodongjia.com/static/js/jquery-1.8.3.min.js"></script>
@@ -372,6 +410,7 @@
 <script src="/static/js/jquery.datetimepicker.full.js"></script>
 <script src="/static/dist/js/wangEditor.js"></script>
 <script src="http://cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+<!--<script src="/static/js/jQuery-Autocomplete.js"></script>-->
 <script src="/static/js/admin.js"></script>
 
 </body>

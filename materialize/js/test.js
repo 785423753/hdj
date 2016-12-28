@@ -1,25 +1,24 @@
 /**
+ * Created by Administrator on 2016/12/26 0026.
+ */
+/**
  * Created by Administrator on 2016/11/25 0025.
  */
 
 $(document).ready(function(){
     var myDate = new Date();
     var today=myDate.toLocaleDateString().replace('/','-').replace('/','-')
-    var reg = /^(?=.*\d.*\b)/,that=this,url=window.location.pathname
 //场馆
 
-
-   var vm= new Vue({
+    var vm= new Vue({
         el: '#md_price',
         data: {
-            previous_id:'',
             add_guest:{
                 type_name:'',
                 id:'',
                 url:'http://pic.huodongjia.com/static/images/avatar.png',
                 job:'',
-                company:'',
-                name:''
+                company:''
             },
             new_price:'',
             new_sponsor:'',
@@ -28,7 +27,7 @@ $(document).ready(function(){
             current_province:'',
             current_city:'',
             current_cat:6,
-            current_tag:[],
+            current_tag:[437,969,966],
             new_source:{
                 url:'',
                 name:'',
@@ -113,29 +112,37 @@ $(document).ready(function(){
             all_citys:[],
             choosed_tags:[],
             Editor_txt:[],
-            search_sponsor:[],
-            search_venue:[],
-            search_guest:[],
 
             event:{
                 id: '',
-                isshow_id:5,
                 introduction:'',
-                name: '',
-                scale: '',
-                begin_time: today+' 08:00',
-                end_time: today+' 18:00',
+                name: '测试标题烦心',
+                scale: '1001+',
+                begin_time: '2017-12-15 8:00',
+                end_time: '2017-11-17 18:00',
                 city_id: 101,
                 cat_id: 2,
                 province_id:600,
-                tags: [],
+                tags: [{id:437,name:'互联网'}],
                 // imgs_id: ['241029', '241027'],
-                venue_title: '',
-                venue_address: '',
-                sponsor_list: [],
-                ticket_list: [],
+                venue_title: '测试场馆',
+                venue_address: '测试场馆位置',
+                sponsor_list: [{id: '30121', name: 'update测试主办方000'}],
+                ticket_list: [
+                    {
+                        id: 69656,
+                        price: '23.3333',
+                        property: 'update会务费',
+                        begin_time: '2017-12-15 8:00',
+                        end_time: '2016-12-17 18:00',
+                        content: '不含早餐',
+                        limit_people: '2',
+                        stock: '880',
+                        status: 1,
+                    }
+                ],
                 price_type: '4',
-                previous_id: [],
+                previous_id: ['166259', '166260'],
                 from_info_list: [
                 ],
                 imgs:[
@@ -144,15 +151,33 @@ $(document).ready(function(){
                 ],
             },
             event_content:[
-                {name:'会议详情',left:1,right:10,level:0,value:'<p>会议详情</p>',id:1,type:0,children:[]},
-                    {name:'会议介绍',left:2,right:3,level:1,value:'<p>会议介绍</p>',id:2,type:0,children:[]},
-                    {name:'会议日程',left:4,right:5,level:1,value:'<p>会议日程</p>',id:3,type:1,children:[]},
-                    {name:'会议嘉宾',left:6,right:7,level:1,value:'<p>会议嘉宾</p>',id:4,type:2,
-                        children:[
-                        {name:'秦捷云',url:'http://pic.huodongjia.com/guest/2016-12-13/1481612241.24.jpg!hdj123',job:'创始合伙人',company:'天使基金',img_id:''},
-                            ]},
-                    {name:'参会指南',left:8,right:9,level:1,value:'<p>参会指南</p>',id:5 ,type:0,children:[]},
-
+                {name:'会议详情',left:1,right:22,level:0,value:'',id:1,type:0,children:[]},
+                {name:'会议介绍',left:2,right:11,level:1,value:'',id:2,type:0,children:[]},
+                {name:'关于大会',left:3,right:4,level:2,value:'<p>关于大会</p>',type:1,id:3,children:[
+                    {name:'与会嘉宾',value:'2200'},
+                    {name:'演讲嘉宾',value:'2200'},
+                    {name:'会议时间',value:'2200'},
+                    {name:'支持机构与媒体机构',value:'2200'},
+                    {name:'参会群体细分（按行业）',children:[
+                        {name:'小额借贷平台',value:'2200'},
+                        {name:'支付企业',value:'2200'},
+                        {name:'其他',value:'2200'},
+                    ]}
+                ]},
+                {name:'大会亮点',left:5,right:6,level:2,value:'<p>大会亮点</p>',id:4,type:0,children:[]},
+                {name:'大会背景',left:7,right:8,level:2,value:'<p>大会背景</p>',id:5,type:0,children:[]},
+                {name:'主办方介绍',left:9,right:10,level:2,value:'<p>主办方介绍</p>',id:6,type:0,children:[]},
+                {name:'会议日程',left:12,right:15,level:1,value:'',id:7,type:1,children:[]},
+                {name:'第一天',left:13,right:14,level:2,value:'<p>第一天</p>',id:8,type:0,children:[]},
+                {name:'会议嘉宾',left:16,right:17,level:1,value:'<p>会议嘉宾</p>',id:9,type:2,children:[
+                    {name:'秦捷云',url:'http://pic.huodongjia.com/guest/2016-12-13/1481612241.24.jpg!hdj123',job:'创始合伙人',company:'天使基金',img_id:''},
+                    // {name:'往届嘉宾',children:[
+                    //     {name:'秦捷云',url:'http://pic.huodongjia.com/guest/2016-12-13/1481612241.24.jpg!hdj123',job:'创始合伙人',company:'天使基金',img_id:''},
+                    //     {name:'秦捷云',url:'http://pic.huodongjia.com/guest/2016-12-13/1481612241.24.jpg!hdj123',job:'创始合伙人',company:'天使基金',img_id:''},
+                    // ]}
+                ]},
+                {name:'参会指南',left:18,right:21,level:1,value:'',id:10 ,type:0,children:[]},
+                {name:'交通指南',left:19,right:20,level:2,value:'<p>交通指南</p>',id:11,type:0,children:[]},
 
 
                 //{1: editor, 4:editor,  6:editor, 10: editor}
@@ -161,18 +186,14 @@ $(document).ready(function(){
         },
         methods: {
             ready:function(){
-                var that=this
+                var reg = /^(?=.*\d.*\b)/,that=this,url=window.location.pathname
                 if(reg.test(url)){
                     $.get(url,{},function (data) {
                         console.log(data)
                         that.event=data.event
                         that.event_content=data.event_content
-                        that.$nextTick(function () {
-                            // alert('1')
-                            $('.price_time').datetimepicker({ format:'Y-m-d H:i',})
-                        })
+                        console.log(that.event_content)
                         that.get_data()
-
                     })
                 }else{
                     that.get_data()
@@ -181,7 +202,6 @@ $(document).ready(function(){
             get_data:function () {
                 var tags={},current_tag=this.current_tag,i=this.title_index,key=this.event.cat_id,that=this
                 $('#price_type').val(that.event.price_type)
-                that.previous_id=that.event.previous_id.join(',')
                 $.get('/admin/event/neweventtable/show_tag_json_v2/',{},function (data) {
                     that.all_tags=data
                     that.tag=that.all_tags[key]
@@ -199,81 +219,60 @@ $(document).ready(function(){
                 this.id=this.event_content.length
                 this.left=this.event_content[1].left
                 this.right=this.event_content[1].right
-                if(this.right-this.left==1){
-                    this.left_t=this.left
-                    this.right_t=this.right
-                }else{
-                    this.left_t=this.event_content[1].left+1
-                    this.right_t=this.event_content[1].left+2
-                }
+                this.left_t=this.event_content[1].left+1
+                this.right_t=this.event_content[1].left+2
 
-                this.$nextTick(function () {
-                    that.create()
-                })
-
-            },
-            create:function () {
-
-                var id=[],content=this.event_content,_id=[],editor=[]
+                var id=[],content=this.event_content,_id=[],editor_dict={}
                 for(i in content){
                     // if(content[i].right-content[i].left==1){
                     id.push('edtor_'+content[i].id)
                     _id.push(content[i].id)
-                    editor.push('editor_'+content[i].id)
+                    editor_dict[content[i].id]=content[i].value
                     this.Editor_txt.push({id:content[i].id,value:content[i].value})
-
                     // }
                 }
                 console.log(this.Editor_txt)
-                //创建editor
                 var that=this
-                    for(var i in content){
-                        $('#'+id[i]).css({height:'600px'})
-
-                        var editor= new wangEditor(id[i]);
-                        editor.onchange=function () {
-                            var id=this.$txt[0].id.split('_')[1]
-                            for(i in that.Editor_txt){
-                                if(that.Editor_txt[i].id==id){
-                                    that.Editor_txt[i].value=this.$txt.html()
-                                }
-                            }
-                        }
-                        editor.config.menus = $.map(wangEditor.config.menus, function(item, key) {
-                            if (item === 'location') {
-                                return null;
-                            }
-                            if (item === 'emotion') {
-                                return null;
-                            }
-                            return item;
-                        });
-                        editor.config.uploadImgUrl = '/admin/event/neweventtable/save_img_json_v2/';
-                        editor.config.uploadImgFileName = 'img'
-                        editor.config.uploadImgFns.onload=function (resultText, xhr){
-                            var img=JSON.parse(resultText)
-                            this.command(null, 'insertHtml', '<img src="' +img.url + '" style="max-width:100%;"/>');
-                        }
-                        editor.create();
-                    }
-
-
+                // editor.destroy();
+                for(var i in content){
+                    $('#'+id[i]).css({height:'400px'})
+                    console.log($('#'+id[i]))
+                    // var editor= new wangEditor(id[i]);
+                    //
+                    // editor.onchange=function () {
+                    //     var id=this.$txt[0].id.split('_')[1]
+                    //     for(i in that.Editor_txt){
+                    //         if(that.Editor_txt[i].id==id){
+                    //             that.Editor_txt[i].value=this.$txt.html()
+                    //         }
+                    //     }
+                    // }
+                    // editor.config.menus = $.map(wangEditor.config.menus, function(item, key) {
+                    //     if (item === 'location') {
+                    //         return null;
+                    //     }
+                    //     if (item === 'emotion') {
+                    //         return null;
+                    //     }
+                    //     return item;
+                    // });
+                    // editor.create();
+                }
             },
             choose_pro:function (e) {
-                console.log(e.target.value)
-                if(e.target.id=='province'){
-                    this.event.province_id=e.target.value
+                if(e.path[0].id=='province'){
+                    this.event.province_id=e.path[0].value
                     for(i in this.all_citys){
                         if(this.event.province_id==this.all_citys[i].id){
                             this.city=this.all_citys[i].child
                         }
                     }
                     var that=this
-                    that.$nextTick(function () {
+                    setTimeout(function () {
                         that.event.city_id=$('#city').val()
-                    })
+                    },1000)
                 }else{
-                    this.event.city_id=e.target.value
+                    this.event.city_id=e.path[0].value
                 }
             },
             choosed_tag:function (name,id) {
@@ -305,12 +304,9 @@ $(document).ready(function(){
                     Materialize.toast('请填写票价!','3000')
                 }
                 this.new_price=''
-                this.$nextTick(function () {
-                    $('.price_time').datetimepicker({format:'Y-m-d H:i',})
-                })
             },
             addSource:function(){
-               var source=this.new_source
+                var source=this.new_source
                 console.log(JSON.stringify(source))
                 if(source.mark!=''||source.url!=''){
                     this.event.from_info_list.push({
@@ -336,15 +332,16 @@ $(document).ready(function(){
             },
             change_time: function (index,cs) {
                 var time=$('.'+cs+''),value=time[index].value
-                cs=='start_time' ? this.event.ticket_list[index].begin_time=value:this.event.ticket_list[index].end_time=value
+                $(time[index]).prev().text(value)
+                cs=='start_time' ? this.event.ticket_list[index].star_time=value:this.event.ticket_list[index].end_time=value
+//                   console.log(JSON.stringify(this.todos))
             },
             choose_cat: function (index) {
                 this.current_cat=$('.tabs li').eq(index).attr('data-id')
             },
             onFileChange:function(e) {
-                var files = e.target.files || e.dataTransfer.files,id=e.target.id,that=this
+                var files = e.target.files || e.dataTransfer.files,id=e.path[0].id,that=this
                 $('#'+id).prev().text('正在上传...')
-                $('.'+id).show()
                 if (!files.length)
                     return;
                 this.createImage(files[0],e.target.id);
@@ -360,11 +357,9 @@ $(document).ready(function(){
                         console.log(data)
                         that.createImage(data.url,data.id,id)
                         $('#'+id).prev().text('上传成功')
-                        $('.'+id).hide()
                     },
                     error:function () {
                         $('#'+id).prev().text('上传失败')
-                        $('.'+id).hide()
                     }
                 })
             },
@@ -372,17 +367,18 @@ $(document).ready(function(){
                 console.log(id)
                 var vm = this,pic='http://pic.huodongjia.com/';
                 if(id=='banner'){
-                    vm.event.imgs.push ({
+                    vm.event.imgs_id .push ({
                         id:img_id,
-                        url:url,
+                        url:pic+url,
                     });
                 }else if(id=='review'){
                     vm.event.review_list.push ({
-                        url:url,
+                        id:img_id,
+                        url:pic+url,
                         description:''
                     });
                 }else if(id=='guest'){
-                    vm.add_guest.url=url
+                    vm.add_guest.url=pic+url
                     vm.add_guest.id=img_id
                 }
             },
@@ -489,24 +485,12 @@ $(document).ready(function(){
                         this.right_t=r+1
                     }
                     content.push({name:this.new_tag,left:r,right:r+1,level:2,value:this.new_tag,id:this.id,type:0,children:[]})
-                    this.Editor_txt.push({id:this.id,value:this.new_tag})
-                    console.log(this.Editor_txt)
                     // content.splice(_index,0,{name:this.new_tag,left:r,right:r+1,level:2,value:this.new_tag,id:this.id})
                     this.new_tag=''
-                    var that=this
-                    this.$nextTick(function () {
+                    setTimeout(function () {
                         var last_id=content[content.length-1].id
                         var editor = new wangEditor('edtor_'+last_id);
                         $('#edtor_'+last_id).css({height:'400px'})
-                        editor.onchange=function () {
-                            var id=this.$txt[0].id.split('_')[1]
-                            for(i in that.Editor_txt){
-                                if(that.Editor_txt[i].id==id){
-                                    that.Editor_txt[i].value=this.$txt.html()
-                                    console.log(this.$txt.html())
-                                }
-                            }
-                        }
                         editor.config.menus = $.map(wangEditor.config.menus, function(item, key) {
                             if (item === 'location') {
                                 return null;
@@ -517,11 +501,12 @@ $(document).ready(function(){
                             return item;
                         });
                         editor.create();
-                    })
+                        editor.$txt.html(content[content.length-1].value);
+                    },2000)
                 }else {
                     // 添加嘉宾标签
                     content[g_i].children.push(
-                        // {name:this.new_tag,children:[]}
+                        {name:this.new_tag,children:[]}
                     )
                     this.new_tag=''
                 }
@@ -538,8 +523,7 @@ $(document).ready(function(){
                                     id:'',
                                     url:'http://pic.huodongjia.com/static/images/avatar.png',
                                     job:'',
-                                    company:'',
-                                    name:''
+                                    company:''
                                 }
                                 $('#modal1').modal('close');
                             }else{
@@ -551,8 +535,7 @@ $(document).ready(function(){
                                             id:'0',
                                             url:'http://pic.huodongjia.com/static/images/avatar.png',
                                             job:'',
-                                            company:'',
-                                            name:''
+                                            company:''
                                         }
                                         $('#modal1').modal('close');
                                     }
@@ -561,7 +544,7 @@ $(document).ready(function(){
                         }
                     }
                 }else{
-                  alert('填写嘉宾名字')
+                    alert('填写嘉宾名字')
                 }
 
             },
@@ -579,30 +562,9 @@ $(document).ready(function(){
 
 
             },
-            search_auto:function (type) {
-                var that=this
-               if(type==1&&that.new_sponsor!=''){    //主办方
-                   $.get('/admin/event/neweventtable/sponsor_suggest/',{token:that.new_sponsor},function (data) {
-                       that.search_sponsor=data
-                   })
-               }else if(type==0&&that.event.venue_title!=''){   //场馆
-                   $.get('/admin/event/neweventtable/addr_suggest_v2/',{token:that.event.venue_title},function (data) {
-                       that.search_venue=data
-                   })
-               }else if(type==2&&that.add_guest.name.length>=2){   //嘉宾
-                   $.get('/admin/event/neweventtable/guest_suggest_v2/',{token:that.add_guest.name},function (data) {
-                       that.search_guest=data
-                   })
-               }
-
-            },
-            save:function (isshow_id) {
-                $('.bg').show()
+            save:function () {
                 var content=this.event_content
-                this.event.begin_time=$('#start_time').val()
-                this.event.end_time=$('#end_time').val()
                 this.event.price_type=$('#price_type').val()
-                this.event.isshow_id=isshow_id
                 for(i in content){
                     for(j in this.Editor_txt){
                         if(this.Editor_txt[j].id==content[i].id){
@@ -611,63 +573,39 @@ $(document).ready(function(){
                     }
                 }
                 this.event.event_content=this.event_content
-                console.log(this.event)
-               $.ajax({
-                   url:'/admin/event/neweventtable/event/add/',
-                   data:{json_data: JSON.stringify(this.event)},
-                   type:'post',
-                   async:false,
-                   success:function (data) {
-                       if(data.code==1){
-                           $('.bg').hide()
-                           Materialize.toast('保存成功!','3000')
-                           if(isshow_id==5){
-                               if(reg.test(url)){
-                                   window.location.href=window.location.href
-                               }else{
-                                   window.location.pathname=url+data.event_id
-                               }
-                           }else if(isshow_id==1){
-                               window.location.pathname='/admin/event/neweventtable/'
-                           }
-                       }else{
-                           $('.bg').show()
-                           Materialize.toast('保存失败!','3000')
-                       }
+                $.ajax({
+                    url:'/admin/event/neweventtable/event/add/',
+                    data:{json_data: JSON.stringify(this.event)},
+                    type:'post',
+                    async:false,
+                    success:function () {
 
-                   },
-                   error:function () {
-                       $('.bg').hide()
-                       Materialize.toast('保存失败!','3000')
-                   }
-               })
-            },
-
+                    }
+                })
+            }
         }
     })
-
     vm.ready()
-
-
 
 //分类
     $('ul.tabs').tabs();
     //时间
     $.datetimepicker.setLocale('ch');
     $('select').material_select();
-    $('.price_time').datetimepicker({ format:'Y-m-d H:i',})
+    $('.price_time').datetimepicker({ minDate:'-1970-01-01',format:'Y-m-d h:i',})
     $('#start_time').datetimepicker({
-        format:'Y-m-d H:i',
-        onChangeDateTime:function(dp,$input){
-            vm.event.begin_time=$input.val()
-        }
+        minDate:'-1970-01-01', // yesterday is minimum date
+        value:today+" 08:00",
+        format:'Y-m-d h:i',
     });
     $('#end_time').datetimepicker({
-        format:'Y-m-d H:i',
-        onChangeDateTime:function(dp,$input){
-            vm.event.end_time=$input.val()
-        }
+        minDate:'-1970-01-01', // yesterday is minimum date
+        value:today+" 18:00",
+        format:'Y-m-d h:i',
     });
+
+
+
 
 })
 
