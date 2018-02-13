@@ -1,114 +1,124 @@
-{% extends 'base.html' %}
+﻿{% extends 'base.html' %}
     {% block addstyle %}
-    <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/venueList.min.css"/>
-<link rel="alternate" media="only screen and(max-width: 640px)" href="http://m.huodongjia.com{{request.get_full_path}}" >
-<meta name="mobile-agent" http-equiv="mobile-agent" content="format=html5;url=http://m.huodongjia.com{{request.get_full_path}}" />
+    <link rel="stylesheet" href="https://pic.huodongjia.com/static/css/venue_sponsor.css"/>
+<link rel="alternate" media="only screen and(max-width: 640px)" href="https://m.huodongjia.com{{request.get_full_path}}" >
+<meta name="mobile-agent" http-equiv="mobile-agent" content="format=html5;url=https://m.huodongjia.com{{request.get_full_path}}" />
 <!--[if lt IE 9]>
-<script src="http://pic.huodongjia.com/static/js/html5shiv.min.js"></script>
+<script src="https://pic.huodongjia.com/static/js/html5shiv.min.js"></script>
 <style>
     body{
         background: #f7f8fb;
     }
 </style>
 <![endif]-->
+<style>
+    .new_venue p{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+    .detail>p{
+        width: 12%;
+    }
+    .detail>div{
+        width: 88%;
+    }
+</style>
 {% endblock %}
 {% block banner %}
-<div class="banner">
-    <div class="banner_index">
-        {% for ad in img_ads %}
-        {% if forloop.first %}
-        <a class="banner_act" target="_blank" href="{{ad.url}}"><img width="1200" height="300" src="{{ad.pic__server__name}}{{ad.pic__urls}}" alt="{{ad.title}}"></a>
-        {% else %}
-        <a  target="_blank" href="{{ad.url}}"><img width="1200" height="300" src="{{ad.pic__server__name}}{{ad.pic__urls}}" alt="{{ad.title}}"></a>
-        {% endif %}
-        {% endfor %}
-    </div>
-    <ul>
-        {% for ad in img_ads %}
-        {% if forloop.first %}
-        <li class="banner_act"><img width="200" src="{{ad.pic__server__name}}{{ad.pic__urls}}" alt="{{ad.title}}"></li>
-        {% else %}
-        <li><img width="200" src="{{ad.pic__server__name}}{{ad.pic__urls}}" alt="{{ad.title}}"></li>
-        {%endif%}
-        {% endfor %}
-    </ul>
-</div>
 {% endblock %}
 {% block content %}
 <div class="container">
-    <div class="col-sm-9 col-xs-9 content_left">
-        <div class="bread_nav"><a href="/">首页</a>&gt;<h1 style="display: inline;font-size: 14px;margin: 0"><a href="/listvenue/{% if city_title %}{{ city_title }}/{% endif %}{% if venue_class %}{{ venue_class }}/{% endif %}" style="color: #858B9A">{{ city_now.0.district_name }}{{ venue_name }}会议场地</a></h1></div>
-        <div class="title_nav">
-            <div class="col-sm-4 col-xs-4 all_city">城市<input type="button" value="{% if city_now %}{{ city_now.0.district_name }}{% else %}不限{% endif %}"/>
-                <img class="img" src="http://pic.huodongjia.com/static/images/jiantou.png" alt=""/>
-                <ul class="cities">
-                    {% if city_title %}
-                    <li class="hot_city"><a  href="/listvenue/" >不限</a></li>
-                    {% else %}
-                    <li class="hot_city"><a class="choosed" href="/listvenue/" >不限</a></li>
-                    {% endif %}
-                    <li class="letter">
-                        {% for city in venue_cities %}
-                        <a lang="{{ city.title }}" href="/listvenue/{{ city.title }}/{% if venue_class %}{{ venue_class }}/{% endif %}">{{ city.district_name }}</a>
-                        {% endfor %}
-                    </li>
-                </ul>
-            </div>
-            <div class="col-sm-4 col-xs-4 venue">类型 <input type="button"  value="{% if venue_name %}{{ venue_name }}{% else %}不限{% endif %}"/>
-                <img style="left: 35%" class="img" src="http://pic.huodongjia.com/static/images/jiantou.png" alt=""/>
-                <ul class="venue_cat">
-                    {% if venue_class %}
-                    <li><a href="/listvenue/{% if city_title %}{{ city_title }}/{% endif %}">不限</a></li>
-                    {% else %}
-                    <li><a class="choosed" href="/listvenue/{% if city_title %}{{ city_title }}/{% endif %}">不限</a></li>
-                    {% endif %}
-                   <li><a lang="conference_center" href="/listvenue/{% if city_title %}{{ city_title }}/{% endif %}conference_center/">会展中心</a></li>
-                    <li><a lang="hotel" href="/listvenue/{% if city_title %}{{ city_title }}/{% endif %}hotel/">酒店</a></li>
-                    <li><a lang="university" href="/listvenue/{% if city_title %}{{ city_title }}/{% endif %}university/">高校</a></li>
-                </ul>
-            </div>
-        </div>
+    <div class="bread_nav"><a href="/">首页</a>&gt;<h1 style="display: inline;font-size: 14px;margin: 0">
+        {% if  is_search %}
+        <a style="color: #858B9A">会议场地搜索结果</a>
+        {% else %}
+        <a href="/listvenue/{% if city_title %}{{ city_title }}/{% endif %}{% if venue_class %}{{ venue_class }}/{% endif %}" style="color: #858B9A">{{ city_now.0.district_name }}{{ venue_name }}会议场地</a>
+        {% endif %}
+    </h1></div>
+
+    {% if  is_search %}
+    <form id="search_venue" action="/search_venue/" method="get" style="position: relative;margin: 20px 0;width: 230px;">
+        <input placeholder="输入关键字搜索" type="text" name="keyword">
+        <span class="search_venue m_iconfont">&#xe607;</span>
+    </form>
+    {% else %}
+    <div class="title_nav">
+        <ul>
+            <li><a>城市：</a></li>
+            <li>
+                <a {% if not city_now %}class="choosed" {% endif %}  href="/listvenue/" >不限</a>
+                {% for city in venue_cities %}
+                <a {% if city_now.0.title == city.title %}class="choosed" {% endif %}   href="/listvenue/{{ city.title }}/{% if venue_class %}{{ venue_class }}/{% endif %}">{{ city.district_name }}</a>
+                {% endfor %}
+            </li>
+        </ul>
+        <ul>
+            <li><a>类型：</a></li>
+            <li>
+                <a {% if not venue_class %}class="choosed" {% endif %}  href="/listvenue/{% if city_title %}{{ city_title }}/{% endif %}" >不限</a>
+                <a {% if venue_class == "conference_center" %}class="choosed" {% endif %}  href="/listvenue/{% if city_title %}{{ city_title }}/{% endif %}conference_center/">会展中心</a>
+                <a {% if venue_class == "hotel" %}class="choosed" {% endif %}  href="/listvenue/{% if city_title %}{{ city_title }}/{% endif %}hotel/">酒店</a>
+                <a {% if venue_class == "university" %}class="choosed" {% endif %}  href="/listvenue/{% if city_title %}{{ city_title }}/{% endif %}university/">高校</a>
+
+                <form id="search_venue" action="/search_venue/" method="get">
+                    <input placeholder="输入关键字搜索" type="text" name="keyword">
+                    <span class="search_venue m_iconfont">&#xe607;</span>
+                </form>
+            </li>
+        </ul>
+    </div>
+    {% endif %}
+    <div class="venue_left">
+        {% if venues %}
         {% for venue in venues %}
-        {% if venue.nv_name != 'None' %}
-        {% if venue.recent_events %}
-        <div class="col-sm-12 col-xs-12 venue_list">
-            <div class="col-sm-3 col-xs-4"><a href="/venue-{{ venue.id }}.html" target="_blank"><img width="100%" src="{% if venue.nv_img_urls %}{{ venue.nv_img_urls }}{%else%}http://pic.huodongjia.com/event/2015-06-17/event1434525054.73.jpg{% endif %}" alt="{{ venue.nv_name }}"/></a></div>
-            <div class="col-sm-9 col-xs-8 venue_mes">
-                <div style="margin-bottom: 10px"><a href='/venue-{{ venue.id }}.html' target="_blank"><h3>{{ venue.nv_name }}</h3></a><br/>地址：{{ venue.nv_addr }}</div>
-                {% if venue.nv_content %}
-                <p class="venue_des">{{ venue.nv_content|truncatechars:100 }}</p>
-                {% endif %}
-                <span style="float:left;color: #7C8396;">近期会议:</span>
-                <p class="recent_event">
-                    {% for event in venue.recent_events %}
-                    <a href="/event-{{ event.old_event_id }}.html" target="_blank">{{ event.name }}</a><br/>
-                    {% endfor %}
-                </p>
+        <div class="venue_list">
+            <div>
+                <a href="/venue-{{ venue.id }}.html" target="_blank">
+                    <img width="217" height="136" src="{% if venue.nv_img_urls %}{{ venue.nv_img_urls }}{%else%}https://pic.huodongjia.com/event/2015-06-17/event1434525054.73.jpg{% endif %}" alt="{{ venue.nv_name }}"/>
+                </a>
             </div>
-        </div>
-        {% endif %}
-        {% endif %}
-        {% endfor %}
-    </div>
-    <div class="col-sm-3 col-xs-3 content_right">
-        <div class="right_child" style="float: left;background: #F7F8FB">
-        <div class="post">
-            <img style="margin-bottom: 10px" src="http://pic.huodongjia.com/static/images/fubu.jpg" alt=""/><br/>
-            <span>不论你是个人还是活动组织方都可以在这里提交活动</span><br/>
-            <a target="_blank" href="/postevent/"><button>去发布</button></a>
-        </div>
-            <div class="app_down">
-                <div class="text-center">
-                    <p>下载活动家APP找会议更方便</p>
-                    <p style="color: #BCC2D2;font-size: 12px;margin-bottom:3px;">点击下载</p>
-                    <a style="margin-right: 8px" rel="nofollow" href="http://pic.huodongjia.com/app/hdj2015917.apk"><img src="http://pic.huodongjia.com/static/images/Android.png" alt="安卓版活动家APP下载"/></a>
-                    <a rel="nofollow" href="https://itunes.apple.com/cn/app/huo-dong-jia-hui-yi-zhan-hui/id731753448?mt=8"><img src="http://pic.huodongjia.com/static/images/ios.png" alt="ios版活动家APP下载"/></a>
+            <div class="info">
+                <div>
+                    <h3 style="margin: 0 0 8px;" class="venue_title"><a href='/venue-{{ venue.id }}.html' target="_blank">{{ venue.nv_name }}</a></h3>
+                    <p class="venue_addr"><a target="_blank" href="/{{venue.nv_city.title}}/">{{venue.nv_city.district_name}}</a>  {{ venue.nv_addr }}</p>
                 </div>
-                <div style="padding-top: 4px;"><img width="100%" src="http://pic.huodongjia.com/static/images/APP_erweima.png" alt="活动家APP二维码"/></div>
+                <div class="detail">
+                    <p>会场介绍：</p>
+                    <div style="color: #999;font-size: 14px;line-height: 26px;">{{ venue.nv_content|safe|truncatechars:99 }}</div>
+                    <p>近期会议：</p>
+                    <div class="jq">
+                        {% for event in venue.recent_events %}
+                        <a href="/event-{{ event.old_event_id }}.html" target="_blank">{{ event.name }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
-        </div>
+        {% endfor %}
+        {% else %}
+        <p style="text-align: center;font-size: 14px;color: #666;padding: 50px 0;">抱歉，没有符合要求的场馆！</p>
+        {% endif %}
     </div>
+    <div class="venue_right">
+        <a href="/postevent/" target="_blank"><img  src="http://pic.huodongjia.com/static/images/youhuima.png" alt=""></a>
+        <div class="related">
+            <p class="n_title">最新会场</p>
+            {% for venue in newest_venue %}
+            <div class="new_venue">
+                <a href="/venue-{{ venue.id }}.html" target="_blank">
+                    <img width="116" height="75" src="{% if venue.nv_img_urls %}{{ venue.nv_img_urls }}{%else%}https://pic.huodongjia.com/event/2015-06-17/event1434525054.73.jpg{% endif %}" alt="{{ venue.nv_name }}"/>
+                </a>
+                <div>
+                    <h3><a href="/venue-{{ venue.id }}.html">{{ venue.nv_name }}</a></h3>
+                    <p><a target="_blank" href="/{{venue.nv_city.title}}/">{{venue.nv_city.district_name}}</a>  {{ venue.nv_addr }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+     </div>
 </div>
 <div class="pagination">
     <ul>
@@ -132,17 +142,9 @@
 </div>
 {% endblock %}
 {% block js %}
-<script src="http://pic.huodongjia.com/static/js/venueList.min.js"></script>
 <script>
-    $(".letter a").each(function (i) {
-        if($(".letter a")[i].lang=="{{city_title}}"){
-            $(this).addClass("choosed")
-        }
-    })
-    $(".venue_cat li a").each(function (i) {
-        if($(".venue_cat li a")[i].lang=="{{venue_class}}"){
-            $(this).addClass("choosed")
-        }
+    $('.search_venue').click(function () {
+        $('#search_venue').submit();
     })
 </script>
 {% endblock %}

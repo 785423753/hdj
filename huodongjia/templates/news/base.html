@@ -2,11 +2,14 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    {% block seo %}
     <title>{% if seo %}{{ seo.title }}{% else %}{{head.title}}{% endif %}</title>
     <meta name="keywords" content="{% if seo %}{{ seo.keywords }}{% else %}{{head.keywords}}{% endif %}"/>
     <meta name="description" content="{% if seo %}{{ seo.description }}{% else %}{{head.description}}{% endif %}"/>
+    {% endblock %}
     <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
     <meta property="wb:webmaster" content="f8b759b681dff9f2" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" type="image/x-icon" href="http://www.huodongjia.com/favicon.ico" media="screen" />
     <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/hdj.min.css">
     <link rel="stylesheet" href="/ganhuo/static/css/news.css">
@@ -154,11 +157,7 @@
 <script src="http://pic.huodongjia.com/static/js/huodongjia.js"></script>
 <script src="/ganhuo/static/js/new.js"></script>
 <script>
-    $(".business").hover(function () {
-        business_menue.fadeIn(10)
-    }, function () {
-        business_menue.fadeOut(10)
-    })
+
 </script>
 {% block js %}
 {% endblock %}

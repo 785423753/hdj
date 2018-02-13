@@ -12,7 +12,8 @@ $(document).ready(function () {
         function(){time=setInterval(Next,3000)}
     )
     $('.upcoming_event li').on('mouseover', function () {
-        if($(this).index()!=parseInt($('.upcoming_event li').length)-1) $('.upcoming_event li').eq($(this).index()).addClass('choose').siblings().removeClass('choose')
+        //if($(this).index()!=parseInt($('.upcoming_event li').length)-1)
+        $('.upcoming_event li').eq($(this).index()).addClass('choose').siblings().removeClass('choose')
     })
 })
 var banner_index= 1,length=parseInt($('.review_box a').length)-1
@@ -54,22 +55,62 @@ function Prev(){
         },500)
     }
 }
-tags($('.information')),tags($('.report'))
-function tags(div){
-    div.find('.news_tag').mouseover(function () {
-        var tad_id=$(this).attr('data-id')
-        div.find('.news_tag').removeClass('choose')
-        $(this).addClass('choose')
+tags()
+function tags(){
+    $('.tags .news_tag').mouseover(function () {
+        var $this=$(this),tad_id=$this.attr('data-id')
+        $this.parent().parent().find('.news_tag').removeClass('choose')
+        $this.addClass('choose')
         $.get('/dj/get_news_by_cat.mpy',{cat_id:tad_id},function(data){
             var _html=''
             for(var i in data.data ){
                 if(i<3){
                      _html+='<div class="media"><a class="media-left" target="_blank" href="/'+data.data[i].id+'.html"><img width="180" height="112" src="'+data.data[i].img+'" alt="'+data.data[i].post_title+'"></a>' +
                         '<div class="media-body"><h4 class="media-heading"><a href="/'+data.data[i].id+'.html" target="_blank">'+data.data[i].post_title+'</a></h4>' +
-                        '<p>介绍...</p></div></div>'
+                        '<p>'+data.data[i].post_excerpt+'</p></div></div>'
                 }
             }
-            div.next().html(_html)
+            $this.parent().parent().next().html(_html)
         })
     })
+}
+
+$('.uploading_video,.uploading').click(function () {
+    $('.m_dialog').fadeIn()
+    $('#email').css({border:'1px solid #C1C1C1'})
+    $('.m_dialog .btn-info').click(function () {
+        if(!$("#email").val().match(/\w+((-w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+/)){
+            $('#email').css({border:'1px solid red'})
+        }else {
+            var csrf = document.getElementsByName('csrfmiddlewaretoken')[0];
+            $.post('/dj/collect_email.mpy',{email:$("#email").val(),csrfmiddlewaretoken: csrf.value}, function (data) {
+                if(data.code){
+                    $('.m_dialog').fadeOut()
+                    swal("success!", "", "success");
+                }else{
+                    swal("请重试!", "", "error");
+                }
+            })
+        }
+    })
+    $('.m_dialog .btn-default').click(function () {
+        $('.m_dialog').fadeOut()
+    })
+})
+$('.introduce .more').click(function () {
+    var $this=$(this)
+    $this.hide()
+    $('.pack_up').show()
+    $this.prev().css({lineClamp:'inherit'})
+})
+$('.pack_up').click(function () {
+    var $this=$(this)
+    $this.hide()
+    $('.introduce .more').show()
+    $this.next().css({lineClamp:'2'})
+})
+if($('.introduce p').height()<51){
+    $('.introduce .more').hide()
+}else {
+    $('.introduce p').css({lineClamp:'2'})
 }

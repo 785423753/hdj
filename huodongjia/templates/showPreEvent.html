@@ -1,254 +1,486 @@
 {% extends 'base.html' %}
+{% load page_nav %}
 {% block addstyle %}
-<link rel="stylesheet" type="text/css" href="/static/css/jquery.sinaEmotion.css" />
-<link rel="stylesheet" type="text/css" href="http://pic.huodongjia.com/static/css/sweet-alert.css">
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2d83d2138253787cb3768b8dd58d700f"></script>
-<link rel="stylesheet" href="/static/css/showEvent.css"/>
+<link rel="stylesheet" href="https://pic.huodongjia.com/static/css/event_2017.css">
 <style>
-    .bdsharebuttonbox{
-        bottom: 15px;
-        left: 10px;
-        position: absolute;
+    .s_tag{
+        display: none;
+    }
+    .s_tag.act{
+        display: block;
+    }
+    .companys{
+        max-height: 150px;
+        height: 150px \0;
+        overflow: hidden;
+    }
+    .company{
+        padding: 0 15px !important;
+        transition: all .3s linear;
+        position: relative;
+        top:0;
+    }
+    .more_message{display: none}
+    .guest p{font-size: 14px !important;}
+    .t_footer td .favorable{
+        font-weight: 500;font-size: 14px;float: left;padding-left: 10px;display: none;margin-top: 8px;
+    }
+    .event_name{
+        font-size: 18px;
+        font-weight: 600;
+        margin:5px 0 20px;
+    }
+    .event_name a{color: #000;}
+    .event_infomation{
+        width: 100%;
+        background: #fff;
+    }
+    .event_infomation td{
+        padding: 10px;
+        vertical-align: top;
+    }
+    .event_infomation p{
+        color: #000;
+        margin-bottom: 10px;
+    }
+    .invoice{
+        width: 100%;
+        border-top: 1px solid #f5f5f5;
+    }
+    .invoice td{
+        padding: 5px 0;
+        color: #999;
+        font-size: 12px;
+        line-height: 25px;
+        width:50%;
+    }
+    .wl>span{
+        position: relative;
+        top: -5px\9;
+    }
+    .t_footer td .zhima{
+        font-size: 14px;
+        color: #666;
+        display: none;
+        margin-right: 30px;
+        font-weight: 500;
+    }
+    .zhima a{
+        color: #f57f17;
+        text-decoration: underline;
+    }
+    .discount_code{
+        margin: 10px 0;
+    }
+    .discount_code font{
+        color: #1475D6;
+        cursor: pointer;
+    }
+    .discount_code div{
+        display: none;
+    }
+    .discount_code input{
+        border: 1px solid #d9d9d9;
+        outline: none;
+        height: 30px;
+        padding: 0 10px;
+        border-radius: 3px;
+    }
+    .discount_code button{
+        height: 30px;
+        border: none;
+        border-radius: 3px;
+        outline: none;
+        margin-left: 10px;
+        width: 45px;
+    }
+    .t_footer td .discount_code span{
+        display: none;
+        padding-right: 10px;
+        font-size: 14px;
+    }
+    .ensure{
+        background: #f57f17;
+        color: #fff;
+    }
+    .cancel{
+        background: #999;
+        color: #fff;
     }
 </style>
 {%endblock%}
-
 {% block banner %}
 {% endblock %}
-
 {% block content %}
-<div class="content">
+<div class="main">
     <div class="container">
         <p class="bread_nav">
-            <span><a href="/" target="_blank">首页</a>&gt;<a href="/business/" target="_blank">商务会议</a>&gt;<a target="_blank" href="/{{ event.cat.ename}}/">{{ event.cat.name }}</a>&gt;</span>
-            <a>{{event.theme}}</a>
+            <a href="/" target="_blank">首页</a>&gt;<a href="/business/" target="_blank">商务会议</a>&gt;<a target="_blank" href="/{{ event.cat.ename}}/">{{ event.cat.name}}</a>&gt;
+            {{event.theme}}
+            <span style="float: right">发布时间：{% if event.event_release_time %}{{ event.event_release_time}}{% else %}{{event.event_rel_time}}{% endif %}</span>
         </p>
-        <div class="event_detail">
-            <div class="col-sm-5 col-xs-5 main_img">
-                <!--<span class="collect"><span class="fa fa-star"></span>收藏</span>-->
-                <div id="carousel_top" class="carousel slide" data-ride="">
-                    <!-- Indicators -->
-                    {% if event.event_video %}
-                    <ol class="carousel-indicators" style="bottom: 37px;">
-                        {% if event.event_video %}
-                        <li data-target="#carousel_top" data-slide-to="0" class="active"></li>
-                        {% endif %}
-                        {% if event.event_img %}
-                        <li data-target="#carousel_top" data-slide-to="1" class=""></li>
-                        {% endif %}
-                    </ol>
-                    {% endif %}
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner" role="listbox">
-                        {% if event.event_video %}
-                        <div class="item active">
-                            <!--<object type="application/x-shockwave-flash" width="100%" height="288px" id="movie_player">-->
-                                <!--<param name="allowFullScreen" value="true">-->
-                                <!--<param name="allowscriptaccess" value="always">-->
-                                <!--<param name="allowFullScreenInteractive" value="true">-->
-                                <!--<param name="movie" value="http://player.youku.com/player.php/sid/XNjU4MzMxNDIw/v.swf">-->
-                            <!--</object>-->
-                            <embed src="{{event.event_video}}"
-                                   allowfullscreen="true" wmode="transparent" quality="high" width="100%" height="288" align="middle" allowscriptaccess="always" type="application/x-shockwave-flash">
-                        </div>
-                        {% endif %}
-
-                        {% if not event.event_video %}
-                        <div class="item active">
-                            {% if event.event_img.0.urls %}
-                            <img width="100%" src="{{event.event_img.0.server__name}}{{event.event_img.0.urls}}" alt="{{event.event_name}}"/>
-                            {% else %}
-                            <img width="100%" src="http://pic.huodongjia.com/static/images/event_default.jpg" alt="{{event.event_name}}"/>
-                            {% endif %}
-                        </div>
-                        {% else %}
-                        <div class="item">
-                            <img width="100%" src="{{event.event_img.0.server__name}}{{event.event_img.0.urls}}" alt="{{event.event_name}}"/>
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-                <p>
-                    {{event.event_intro}}
-                </p>
-            </div>
-            <div class="col-sm-7 col-xs-7 event_price">
-                <h1><a href="http://www.huodongjia.com{{request.path}}">{{event.theme}}</a></h1>
-                <p class="event_tags">
-                    {% for tag in event.tags_list %}
-                    <a href="/tag/{{tag.id}}/">{{tag.name}}</a>
-                    {% endfor %}
-                </p>
-                <p class="event_message">
-                    <span>时间：</span>{{event.start_day}}至 {{event.end_day}}结束
-                    <span class="dead">({{ event.event_price_unit.0.end_time|date:'Y-m-d' }}报名截止)</span><br/>
-                    <span>地点：</span>
-                    <font><a style="color: #535A6D;">{{event.city}}</a></font>
-                    <font>    {{event.address}}  {{event.event_venue_info.0.address}}</font>
-                    <span class="map"><span style="color: #E54C4F;" class="m_iconfont">&#xe609;</span>查看地图</span><br/>
-                    <span>会议规模：</span>{% if event.scale %}{{ event.scale }}人{% endif %} <br/>
-                    <span>价格：</span><b class="price">￥{{event.event_price_unit.0.price}}</b>
-                    <span style="padding-left: 8px;position:relative;">可获得 <span class='jifen'>{% widthratio event.event_price_unit.0.price 100 5 %}</span>个积分<font class="q_font">&#xe60c;</font>
-                    <span class="change"><i class="fa fa-caret-left"></i>积分可用于兑换全国会议/演唱会门票。<a rel="nofollow" href="/usercenter/index/">点击查看</a></span></span><br/>
-                    <span style="float: left;margin-top: 13px">票种：</span><span style="display: inline-block;width: 80%;min-height: 38px">
-                        {% for price in event.event_price_unit %}
-                        <span class="ticket" data-sign="{{price.Currency__sign}}" data-price="{{price.price}}" data-note="{{price.content}}">{{price.Fee_name}} <img src="http://pic.huodongjia.com/static/images/xuanzhong.png" alt=""/>
-                        </span>
-                        {% endfor %}</span>
-                    <br/>
-                    <span>数量：</span><input id="number" type="text" value="1"/>
-                    <span class="change_num"><span class="add fa fa-angle-up"></span><span class="sub fa fa-angle-down"></span></span><br/>
-                </p>
-                <p class="return">
-                    <span style="color: #BFC2D3">费用说明：</span>
-                        <span style="width: 89%;font-size: 15px;min-height: 63px;" class='explain'>
-                            {% if event.event_price_unit.0.serve %}
-                            {{event.event_price_unit.0.serve}}
-                            {% else %}
-                                无
-                            {% endif %}
-                        </span>
-                </p>
-                <form action="/signup/{{event.event_id}}/" method="post" name="signup_form">
-                    {% csrf_token %}
-                    <input type="hidden" value="{{event.event_price_unit.0.price}}" name="price" />
-                    <input type="hidden" value="{{event.event_price_unit.0.property}}" name="property" />
-                    <input type="hidden" value="1" name="amount" />
-                </form>
-                <button type="button" id="apply">立即报名</button>
-            </div>
-            <div class="bdsharebuttonbox">
-                <span style="line-height: 2.6;">分享:</span>
-                <a href="#" class="bds_tsina fa fa-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
-                <a href="#" class="bds_sqq fa fa-qq" data-cmd="sqq" title="分享到QQ好友"></a>
-                <a href="#" class="bds_weixin fa fa-weixin" data-cmd="weixin" title="分享到微信"></a></div>
+    </div>
+    <!--banner-->
+    <div class="banner">
+        <div>
+            <h1>{{event.theme}} </h1><p >地点：{{event.city}} <br>时间：{{event.start_day}}至 {{event.end_day}}</p>
         </div>
-        <div class="event_content">
-            <div class="col-sm-9 col-xs-9 event_left">
-                <ul class="title">
-                    {% for par in event.paragraph %}
-                    <li><span data-plne="meeting_{{forloop.counter}}">{{par.name}}</span></li>
-                    {% endfor %}
-                    {% if event.event_review %}
-                    <li><span data-plne="Passed">精彩回顾</span></li>
-                    {% endif %}
-                    <li class="app_down">
-                        <img  style="margin-top: -22px" src="/static/images/sjsm.png" alt="活动家app下载"/>
-                        <a href="/app/">
-                            <p class="text-left" style="margin-top: 7px;display: inline-block;color: #fff;">下载APP <br/>找会议更方便</p>
-                        </a>
-                    </li>
-                    <img class="app" src="http://pic.huodongjia.com/static/images/APP_erweima.png" alt="">
-                </ul>
-                <div class="event">
-                    <div class="invitation">
-                        尊敬的参会嘉宾：<br/>
-                        <p class="share_text"style="text-indent: 2em">{{ event.sponsor_name}}诚邀您参加{{ event.start|date:'Y' }}年{{ event.start|date:'m'}}月{{ event.start|date:'d'}}日在{{event.city }}举办的{{ event.theme }}。</p>
-                        <p class="text-right" style="margin: 15px 0 0">
-                            <a href="/download/invit?eventid={{event.event_id}}"><button class="download">下载邀请函</button></a>
-                            <!--<a href="{{ event.authorize_off }}" target="_blank" rel="nofollow" style="font-size: 14px"><span class="fa fa-file-text-o"></span>查看授权书</a></p>-->
-                            <a style="display:none;" href="{{ event.authorize_hdj }}" target="_blank" rel="nofollow" style="font-size: 14px"><span class="fa fa-file-text-o"></span>查看授权书</a></p>
-                    </div>
-                    {% for par in event.paragraph %}
-                    <div class="meetingBgs">
-                        <div class="meetingBgs_name" id="meeting_{{forloop.counter}}">
-                            <h3>{{par.name}}</h3>
-                        </div>
-                        {% if par.name == '会议嘉宾'%}
-                        {% if event.event_guest %}
-                        <div class="meeting_content">
-                            {% for guest in event.event_guest %}
-                            <div class="gues_mes">
-                                <div class="gues_pic"><img alt="{{ guest.job__name }}{{ guest.name }}" src={{ guest.img__server__name}}{{ guest.img__urls }} /></div>
-                                <p>{{ guest.name }}</p>
-                                <p class="gues_company">{{ guest.company__name }}</p>
-                                <p class="gues_job">{{ guest.job__name }}</p>
-                            </div>
-                            {% endfor %}
-                        </div>
-                        {% else %}
-                        <div class="meeting_content">{{par.para|safe}}</div>
-                        {% endif %}
-                        {% else %}
-                        <div class="meeting_content">{{par.para|safe}}</div>
-                        {% endif %}
-                    </div>
-                    {% endfor %}
-                    {% if event.event_review %}
-                    <div class="meetingBgs">
-                        <div class="meetingBgs_name" id="Passed">
-                            <h3>精彩回顾</h3>
-                        </div>
-                        <div class="meetingBgs_text">
-                            <div id="carousel_bottom"  style="width: 70%;position: static" class="carousel slide" data-ride="">
-                                <div class="carousel-inner" role="listbox">
-                                    {% for review in event.event_review %}
-                                    {% if forloop.first %}
-                                    <div class="item active">
-                                        <img width="100%" src="{{ review.doc_path }}" alt="{{event.event_name}}现场图片" />
-                                        <div class="carousel-caption">
-                                            {{ review.doc_desc }}
-                                        </div>
-                                    </div>
-                                    {% else %}
-                                    <div class="item">
-                                        <img width="100%" src="{{ review.doc_path }}" alt="{{event.event_name}}现场图片">
-                                        <div class="carousel-caption">
-                                            {{ review.doc_desc }}
-                                        </div>
-                                    </div>
-                                    {% endif %}
-                                    {% endfor %}
-                                </div>
-                                <div class="carousel_right" id="box">
-                                    <span class="fa fa-angle-up img_up"></span>
-                                    <span class="fa fa-angle-down img_down"></span>
-                                    <ol class="carousel-indicators">
-                                        {% for review in event.event_review %}
-                                        {% if forloop.first %}
-                                        <li class="active" data-target="#carousel_bottom" data-slide-to="0" >
-                                            <img width="100%"  src="{{ review.doc_path }}" alt="{{event.event_name}}现场图片">
-                                        </li>
-                                        {% else %}
-                                        <li data-target="#carousel_bottom" data-slide-to="{{ forloop.counter0 }}">
-                                            <img width="100%"   src="{{ review.doc_path }}" alt="{{event.event_name}}现场图片">
-                                        </li>
-                                        {% endif %}
-                                        {% endfor %}
-                                    </ol>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                </div>
-                <div class="related_event">
-                    <p>你可能会关注</p>
-                    {% for relate_event in relate_events %}
-                    <div class="col-sm-3 col-xs-3">
-                        <a href="{{ relate_event.event_url }}" rel="nofollow" target="_blank">
-                            {% if relate_event.event_img.0.urls %}
-                            <img width="100%" src="{{ relate_event.event_img.0.server__name }}{{ relate_event.event_img.0.urls }}" alt="{{ relate_event.event_name }}"/>
-                            {% else %}
-                            <img width="100%" src="http://pic.huodongjia.com/static/images/event_default.jpg" alt="{{ relate_event.event_name }}"/>
-                            {% endif %}
-                        </a>
-                        <p><a style="color: #5A6070;" href="{{ relate_event.event_url }}" target="_blank">{{ relate_event.event_name }}</a></p>
-                        <p><span><a href="/{{ relate_event.event_city_info.0.title }}/business/" target="_blank">{{ relate_event.event_city_info.0.district_name }}</a></span><span style="float: right">{{ relate_event.event_begin_time|date:'Y-m-d' }}</span></p>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
+        <img class="banner_img" width="100%" src="https://pic.huodongjia.com/static/images/hdj_bg/{{ event.cat.ename}}_6.jpg!hdj123" alt="{{event.event_name}}">
+    </div>
+    <!--nav-->
+    <div class="event_nav">
+        <div class="container">
+            <span class="t_line"></span>
+            <ul>
+                <li class="e_title blue_color" data-plne="meeting_0">参会报名</li>
 
+                <li class="e_title" data-plne="meeting_{{forloop.counter}}">{{event.paragraph.0.name}}</li>
+
+                <li class="e_title" data-plne="ly" style="position: absolute;right: 100px;top: 0;" >用户留言</li>
+                <li style="margin-right: 0 !important;position: absolute;right: 0;top: 0;"><a style="color: #555;" href="{% if event.invitation_off %}{{ event.invitation_off}}{% else %}{{event.invitation_hdj}}{% endif %}?_upd" rel="nofollow">邀请函下载</a></li>
+            </ul>
         </div>
     </div>
+    <!--main message -->
+
+    <!--detail message-->
+    <div class="container">
+        <div class="detail_message container">
+            <div class="left">
+                <table class="event_infomation">
+                    <tr>
+                        <td style="width: 308px">
+                            <a>
+                                {% if event.event_img %}
+                                <img width="288" height="180" class="media-object" src="event.event_img!hdj123" alt="{{event.theme}}">
+                                {% else %}
+                                <img width="288" height="180" class="media-object" src="https://pic.huodongjia.com/static/images/event_default.jpg!hdj123">
+                                {% endif %}
+                            </a>
+                            <div class="wl">
+                                <span class="collect" ><img src="https://pic.huodongjia.com/static/images/images/heart.png" width="22" height="22"> 收藏</span>
+                                <div class="bdsharebuttonbox">
+                                    <span>分享到：</span>
+                                    <a class="bds_weixin n_wx" data-cmd="" title="分享到微信"></a>
+                                    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+                                    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                                    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+                                    <!--<a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>-->
+                                </div>
+                            </div>
+                        </td>
+                        <td >
+                            <h1 class="event_name"><a href="https://www.huodongjia.com{{request.path}}">{{event.theme}}</a></h1>
+                            <p>会议时间：{{event.start_day}}至 {{event.end_day}}结束</p>
+                            <p>会议地点： {{event.city}} {{event.address}}  {{event.event_venue_info.0.address}} </p>
+                            <p>会议规模：{% if event.scale %}{{ event.scale }}人{% else %}暂无{% endif %}</p>
+                            {% if event.event_price_type == 6 %}
+                            <table class="invoice">
+                                <tr>
+                                    <!--<td style="color: #666;width: 60px;">发票开具：</td>-->
+                                    <td>
+                                        发票类型：
+                                        {% if not event.ticketandinvoice.invoice_type %}
+                                        增值税普通发票   增值税专用发票
+                                        {% else %}
+                                        {% for item in event.ticketandinvoice.invoice_type %}
+                                        {{item}}
+                                        {% endfor %}
+                                        {% endif %}
+                                        <br>
+                                        {% if event.ticketandinvoice.invoice_send_time %}
+                                        开具时间：
+                                        {% if event.ticketandinvoice.invoice_send_time.id == '0' %}
+                                        收到报名的{{event.ticketandinvoice.invoice_send_time.text}}天内
+                                        {% endif %}
+                                        {% if event.ticketandinvoice.invoice_send_time.id == '1' %}
+                                        会议结束的 {{event.ticketandinvoice.invoice_send_time.text}}天内
+                                        {% endif %}
+                                        {% if event.ticketandinvoice.invoice_send_time.id == '2' %}
+                                        每月固定时间{{event.ticketandinvoice.invoice_send_time.text}}
+                                        {% endif %}
+                                        {% endif %}
+                                    </td>
+                                    <td>{% if event.ticketandinvoice.invoice_content %}发票内容： {% for item in event.ticketandinvoice.invoice_content %}{{item}}&nbsp;{% endfor %}<br>{% endif %}
+                                        {% if event.ticketandinvoice.invoice_send_type %}领取方式：{% for item in event.ticketandinvoice.invoice_send_type %}{{item}}&nbsp;{% endfor %}{% endif %}</td>
+                                </tr>
+                                <tr>
+                                    <!--<td style="color: #666;width: 60px;">参会凭证：</td>-->
+                                    <td>{% if event.ticketandinvoice.ticket_type %}参会凭证： {% for item in event.ticketandinvoice.ticket_type %}{{item}}&nbsp;{% endfor %}{% endif %}</td>
+                                    <!--<td>{% if event.ticketandinvoice.attend_type %}发送方式：{% for item in event.ticketandinvoice.attend_type %}{{item}}&nbsp;{% endfor %}{% endif %}</td>-->
+                                </tr>
+                                {% if event.ticketandinvoice.refund %}
+                                <tr>
+                                    <!--<td style="color: #666;width: 60px;">退款说明：</td>-->
+                                    <td colspan="2">退款说明：{{event.ticketandinvoice.refund}}</td>
+                                </tr>
+                                {% endif %}
+                            </table>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+                <div style="width:100%;">
+                    {% ifequal event.event_price_type 6 %}
+                    {% if event.event_price_valid and event.event_price_unit %}
+                    {% else %}
+                    <span style="font-size:18px;color:red;" class="">推荐参加:</span><a style="font-size:18px;text-decoration:underline;color:red;" href="{{relate_events.0.event_url}}">{{relate_events.0.event_name}}</a>
+                    <span style="font-size:14px;color:#666666;">(时间:{{relate_events.0.event_begin_time}} 地点:{{relate_events.0.event_city_info.0.district_name}} {{relate_events.0.event_venue_info.0.title}})</span>
+                    {% endif %}
+                    {% endifequal %}
+                </div>
+                <p class="event_part" id="meeting_0"></p>
+                <div class="Registration ">
+                    <table>
+                        <tr class="t_head">
+                            <td style="text-align: center;width: 300px">门票名称</td><td style="width: 180px">单价</td><td style="width: 180px">截止时间</td><td style="width: 238px">数量</td><td style="width: 50px"></td>
+                        </tr>
+                        {% for price in event.event_price_unit %}
+                        <tr class="t_body">
+                            <td><span class="property">{{price.fee_name}}</span>
+                                <a class="text"><img src="https://pic.huodongjia.com/static/images/fee.png" width="13"><span>{% if price.content %}{{price.content}}{% else %}暂无说明{% endif %}</span></a></td>
+                            <td class="price">
+                                ￥{{price.price}}
+                            </td>
+                            <td>{{ price.end_date }}</td>
+                            <td class="change" >
+                                <!--<span class="sub forbid">&#xe609;</span>-->
+                                <img class="sub" src="https://pic.huodongjia.com/static/images/sub.png" width="20" height="20">
+                                <span class="count"><input class="number" type="text" value="{%if price.limit_people %}{{price.limit_people}}{% else %}1{% endif %}"></span>
+                                <!--<span class="add">&#xe608;</span>-->
+                                <img class="add" src="https://pic.huodongjia.com/static/images/add.png" width="20" height="20" >
+                            </td>
+                            <td style="position: relative;"><img class="choose_price" width="22" height="22" src="https://pic.huodongjia.com/static/images/checkprice.png"></td>
+                        </tr>
+                        {% endfor %}
+                        <tr class="t_footer">
+                            <!--标准-->
+
+                            <td colspan="5" style="padding: 0 10px 10px;">
+                                <span class="hj" style="font-size: 17px;color: #E64D4F;font-weight: bold;position: relative;top: -2px;display: none;">合计：</span><span id="all"></span><span class="preferential" style="font-size: 14px"></span>
+                                <button style="display: none" id="apply" class="apply">免费报名</button>
+                                <button style="margin-right: 0" id="bz_apply" class="apply">我要报名</button></td>
+
+                        </tr>
+                    </table>
+                </div>
+
+
+                <div class="event_content">
+                    <div class="meetingBgs event_part" id="meeting_{{forloop.counter}}">
+                        <!--<h3 class="first_title">-->
+                            <!--{{event.paragraph.0.name}}-->
+                        <!--</h3>-->
+                        <!--<hr>-->
+                        <div class="meeting_content">
+                            {{event.paragraph.0.para|safe}}
+                        </div>
+                    </div>
+
+
+                    <p class="tags">标签：
+                        {% for tag in event.tags_list %}
+                        <a href="/tag/{{tag.id}}/">{{tag.name}}</a>
+                        {% endfor %}
+                    </p>
+
+                    <!--留言-->
+                    <div class="user_message event_part meetingBgs" id="ly">
+                        <h3 class="first_title">用户留言 <span style="color: red!important;font-size: 14px">广告、无效信息等留言会被删除</span></h3>
+                        <hr>
+                        <!--<h3>用户留言<span style="float: right;color: #DEDEDE;">还可以输入<font id="info" style="font-size: 16px">120</font>个字</span></h3>-->
+                        <form class="publish" style="width: 95%;margin: auto">
+                            {% csrf_token %}
+                            <div id="result" style="display: none;"></div>
+                            <textarea class="emotion" rows="5" placeholder="说点什么..." ></textarea><br />
+                            <input type='hidden' id='event_id' value='{{event.event_id}}'/>
+                            <input class="analytic" type="button" value="提交" />
+                            <img  width="100" onclick="this.setAttribute('src','/get_check_code_image/?nocache='+Math.random());" src="/get_check_code_image/"  alt="CheckCode" id="cap_img">
+                            <input placeholder="填写验证码" type="text" id="code" data-captchaflag="false"/>
+                        </form>
+                        <p class="all_message" style="padding-top: 20px">全部留言（{{comments|length}}）</p>
+                        <div id="all_messages" style="padding: 0 5%;float: left;width: 100%;">
+                            <div class="more_comment" style="float: left;width: 100%;">
+                                {% for msg in comments|slice:'-1:-4:-1' %}
+                                <div class="message">
+                                    <div class="message1 col-sm-12 col-xs-12">
+                                        <div style="padding:0;" class="col-sm-1 col-xs-1">
+                                            {% if msg.user__avatar %}
+                                            <img width="50" class="img-rounded" src="{{msg.user__avatar}}" alt=""/>
+                                            {% else %}
+                                            <img width="50" class="img-rounded" src="/static/images/1.png" alt=""/>
+                                            {% endif %}
+                                        </div>
+                                        <div  class="col-sm-11 col-xs-11 words">
+                                            <p><span>{% if msg.user__name %}{{msg.user__name}}{% else %}匿名用户{% endif %}</span>{{msg.message_time}}</p>
+                                            <p style="width: 80%;">{{msg.message}}</p>
+                                            {% if msg.reply_content %}
+                                            <p style="background: #F6F9FB;padding: 10px 15px;">
+                                                <span>活动家回复</span><br> {{msg.reply_content}}
+                                            </p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                {% for msg in comments|slice:'-4::-1' %}
+                                <div class="more_message message">
+                                    <div class="message1 col-sm-12 col-xs-12">
+                                        <div style="padding:0;" class="col-sm-1 col-xs-1">
+                                            {% if msg.user__avatar %}
+                                            <img width="50" class="img-rounded" src="{{msg.user__avatar}}" alt=""/>
+                                            {% else %}
+                                            <img width="50" class="img-rounded" src="/static/images/1.png" alt=""/>
+                                            {% endif %}
+                                        </div>
+                                        <div  class="col-sm-11 col-xs-11 words">
+                                            <p><span>{% if msg.user__name %}{{msg.user__name}}{% else %}匿名用户{% endif %}</span>{{msg.message_time}}</p>
+                                            <p style="width: 80%;">{{msg.message}}</p>
+                                            {% if msg.reply_content %}
+                                            <p style="background: #F6F9FB;padding: 10px 15px;">
+                                                <span>活动家回复</span><br> {{msg.reply_content}}
+                                            </p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% if comments|length > 3 %}
+                            <p style="float: left;text-align: center;color: #666;font-size: 14px;width: 100%;margin: 10px 0 0;cursor:pointer;"><span class="m_comment">查看更多</span></p>
+                            {% endif %}
+                        </div>
+                        <br style="clear: both">
+                    </div>
+                    <p class="event_part"></p>
+                </div>
+            </div>
+            <div class="right">
+
+                <div class="event_share e_hide">
+                    <p><span>部分参会单位</span></p>
+                    {% if event.point_id == 2 or event.point_id == 7 %}
+                    {% if event.companies %}
+                    <div class="companys">
+                        <ul class="deserve_event company">
+                            {% for com in event.companies%}
+                            {% if com.invoice_head %}
+                            <li>{{com.invoice_head}}</li>
+                            {% endif %}
+                            {% endfor %}
+
+                            {% if event.companies|length > 5 %}
+                            {% for com in event.companies%}
+                            {% if com.invoice_head %}
+                            <li>{{com.invoice_head}}</li>
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+
+                        </ul>
+                    </div>
+                    {% else %}
+                    <div style="color:#333;font-size: 14px;line-height: 25px;padding: 20px 0 30px;text-align: center">主办方没有公开参会单位</div>
+                    {% endif %}
+                    {% else %}
+                    <div style="color:#333;font-size: 14px;line-height: 25px;padding: 20px 0 30px;text-align: center">主办方没有公开参会单位</div>
+                    {% endif %}
+                </div>
+                <div  class="event_share">
+                    <button style="background: #337ab7;width: 100%;margin: 0;height: 40px"  class="apply zanz">会议演讲赞助</button>
+                </div>
+                <div class="event_share">
+                    <p><span>邮件提醒通知</span></p>
+                    <div class="email_order">
+                        <input id="exampleInputAmount" name="email" type="text" placeholder="请输入邮箱地址">
+                        <button class="send_email"><img width="30" height="30" src="https://pic.huodongjia.com/static/images/icon-mail.png" alt=""></button>
+                    </div>
+                </div>
+                <!--<div class="event_share" style="text-align: center;padding: 10px;*padding: 0px">-->
+                <!--<div class="qrcode"></div>-->
+                <!--<span style="font-size: 14px;">扫一扫立即购票 <br>安全  方便  快捷</span>-->
+                <!--</div>-->
+                {% if event.news %}
+                <div class="event_share e_hide">
+                    <p><span>会议报道</span><a style="color: #999;font-size: 12px;float: right;*float: none" href="">更多&gt;&gt;</a></p>
+                    <ul class="deserve_event">
+                        {% for new in event.news %}
+                        <li><a target="_blank" href="http://news.huodongjia.com/{{new.id}}.html">{{new.post_title}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                <div class="event_share e_hide">
+                    <p><span>您可能还会关注</span><a style="color: #999;font-size: 12px;float: right;*float: none" target="_blank" href="/business/">更多&gt;&gt;</a></p>
+                    <ul class="deserve_event rel">
+                        {% for relate_event in relate_events %}
+                        <li><a target="_blank" href="{{ relate_event.event_url }}">
+                            {% if relate_event.event_img.0.urls %}<img width='224' height="140" src='{{relate_event.event_img.0.server__name}}{{relate_event.event_img.0.urls}}!hdj123' alt='{{relate_event.event_name}}'/>
+                            {% else %}<img width='224' height="140"   src='https://pic.huodongjia.com/static/images/event_default.jpg' alt='{{relate_event.event_name}}'/>{% endif %}</a>
+                            <p class="addr">
+                                {{ relate_event.event_begin_time}}
+                                <a style="color: #fff;" href="/{{ relate_event.event_city_info.0.title }}/" target="_blank">{{ relate_event.event_city_info.0.district_name }}</a></p>
+                            <p><a target="_blank" href="{{ relate_event.event_url }}">{{ relate_event.event_name }}</a></p>
+                        </li>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+                <div class="event_share weixin_share">
+                    <!--<p><span>扫码购票&nbsp;&nbsp;方便快捷</span></p>-->
+                    <div class="col-sm-6 col-xs-6" style="padding: 0;">
+                        <img height="48" width="92" src="https://pic.huodongjia.com/static/images/1min.png" alt="扫一扫立即购票"/>
+                        <p style="line-height: 22px;font-size: 14px;margin: 10px 0 0">扫一扫立即购票 <br/>安全·方便·快捷</p>
+                    </div>
+                    <div class="qrcode col-sm-6 col-xs-6" style="height: 102px"></div>
+                </div>
+                <div class="kf">
+                    <span  ><img  width="23" src="https://pic.huodongjia.com/static/images/icon-app.png" alt="活动家app"></span>
+                    <span><img  width="23" src="https://pic.huodongjia.com/static/images/iconfont-kefu.png" alt="活动家微信公众号"></span>
+                    <span><img  width="23" src="https://pic.huodongjia.com/static/images/icon-weixin.png" alt="活动家客服微信"></span>
+                    <span><img class="top_back" width="23" src="https://pic.huodongjia.com/static/images/backtop.png" alt="回到顶部"></span>
+                    <div><img width="150" height="150" src="https://pic.huodongjia.com/static/images/icon-app.jpg" alt="活动家app"><span style="color: #333;font-size: 12px;line-height: 20px;padding: 0">活动家app <br>随时随地查看国内商务会议 <br>了解行业动态</span></div>
+                    <div><img width="150" height="150" src="https://pic.huodongjia.com/static/images/icon-gzh.jpg" alt="活动家微信公众号"><span style="color: #333;font-size: 12px;line-height: 20px;padding: 0">关注活动家公众号 <br>了解更多会议资讯</span></div>
+                    <div><img width="150" height="150" src="https://pic.huodongjia.com/static/images/icon-kefe.jpg" alt="活动家客服微信"><span style="color: #333;font-size: 12px;line-height: 20px;padding: 0">更多会议问题 <br> 请联系活动家客服</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="share_qrcode">
+    <p>分享到微信 <span class="close">×</span></p>
+    <div style="margin:10px auto;width: 150px;height: 150px"></div>
+    <p style="color: #666">
+        打开微信，点击底部的“发现”，<br>
+        使用“扫一扫”即可将网页分享至朋友圈。
+    </p>
+</div>
+<p class="share_text" style="display: none;"></p>
+<div class="bottom_apply" style="position: fixed;width: 1200px;text-align: right;bottom: 5px;left: 0;display: none;right: 0;margin: auto">
+    {% ifequal event.event_price_type 6 %}
+    {% if event.event_price_valid and event.event_price_unit %}
+    <button onclick="aly()" class="apply" style="margin-right: 24%">我要报名</button>
+    {% endif %}
+    {% endifequal %}
+    {% ifequal event.event_price_type 4 %}
+    <button onclick="aly()"  class="apply"  style="margin-right: 24%">免费报名</button>
+    {% endifequal %}
+
 </div>
 {% endblock %}
 
 {% block js %}
-<script type="text/javascript" src="/static/js/showEvent.js"></script>
-<script type="text/javascript" src="/static/js/jquery.sinaEmotion.js"></script>
-<script src="http://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
-<script src="http://pic.huodongjia.com/static/js/sweet-alert.min.js"></script>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":$(".share_text").text(),"bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+<script src="https://pic.huodongjia.com/static/js/qcrode_lazyload.min.js"></script>
+
+<!--[if lt IE 9]>
+<script src="https://pic.huodongjia.com/static/js/html5shiv.min.js"></script>
+<![endif]-->
+
+<!--[if gte IE 9]>
+<script src="https://pic.huodongjia.com/static/js/event_2017.js?v={{now}}"></script>
+<![endif]-->
+<!--[if lte IE 8]>
+<script src="https://pic.huodongjia.com/static/js/event_ie_2017.js?v={{now}}"></script>
+<![endif]-->
+
 {% endblock %}

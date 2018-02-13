@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+﻿{% extends 'base.html' %}
 {% load page_nav %}
 {% block headseo %}
     <title>{{headseo.title}}</title>
@@ -31,20 +31,22 @@
 </style>
 {% endblock %}
 {% block banner %}
-<div class="banner">
-    <div class="big_box">
-        <div class="review_box">
-            {% for ad in advert_list %}
-            <a href="{{ ad.url }}" target="_blank" rel="nofollow"><img width="1200" height="300" src="{{ad.pic__server__name}}{{ad.pic__urls}}!hdj123" alt="{{ad.title}}"></a>
-            {% endfor %}
-            {% for ad in advert_list|slice:'0:2' %}
-            <a href="{{ ad.url }}" target="_blank" rel="nofollow"><img width="1200" height="300" src="{{ad.pic__server__name}}{{ad.pic__urls}}!hdj123" alt="{{ad.title}}"></a>
-            {% endfor %}
+<!--
+    <div class="banner">
+        <div class="big_box">
+            <div class="review_box">
+                {% for ad in advert_list %}
+                <a href="{{ ad.url }}" target="_blank" rel="nofollow"><img width="1200" height="300" src="{{ad.pic__server__name}}{{ad.pic__urls}}!hdj123" alt="{{ad.title}}"></a>
+                {% endfor %}
+                {% for ad in advert_list|slice:'0:2' %}
+                <a href="{{ ad.url }}" target="_blank" rel="nofollow"><img width="1200" height="300" src="{{ad.pic__server__name}}{{ad.pic__urls}}!hdj123" alt="{{ad.title}}"></a>
+                {% endfor %}
+            </div>
+            <div class="prev"><a></a></div>
+            <div class="next"><a></a></div>
         </div>
-        <div class="prev"><a></a></div>
-        <div class="next"><a></a></div>
     </div>
-</div>
+-->
 {% endblock %}
 {% block content %}
 <div class="content">
@@ -63,7 +65,7 @@
                     <div class='col-sm-12 col-xs-12 meeting_list' data-href="{{event.event_url}}">
                         <div class='col-sm-3 col-xs-3'>
                             <a href='{{event.event_url}}' target="_blank" >
-                                {% if event.event_img.0.urls %}<img width='223' height="139" src='{{event.event_img.0.server__name}}{{event.event_img.0.urls}}!hdj123' alt='{{event.event_name}}'/>
+                                {% if event.event_img.0.urls %}<img width='223' height="139" src='{{event.event_img.0.server__name}}{{event.event_img.0.urls}}!list223139' alt='{{event.event_name}}'/>
                                 {% else %}<img width='223' height="139"  src='http://pic.huodongjia.com/static/images/event_default.jpg' alt='{{event.event_name}}'/>{% endif %}
                             </a>
                         </div>
@@ -73,7 +75,7 @@
                             <p class='meeting_des'>概述:{{event.event_intro}}</p>
                             <p class='addr'>
                                 <span><a href='/{{event.event_city_info.0.title}}/' target="_blank"><font class='m_iconfont'>&#xe609;</font>{{event.event_city_info.0.district_name}}</a></span>
-                                <span><font style='color: #8C8C8C;font-size: 16px;' class='m_iconfont'>&#xe608;&nbsp;</font>{{event.event_begin_time|date:'Y-m-d'}}</span>
+                                <span><font style='color: #8C8C8C;font-size: 16px;' class='m_iconfont'>&#xe608;&nbsp;</font>{{event.event_begin_time}}</span>
                             </p>
                     </div>
                         {% ifequal event.event_price_type 6 %}  <!--标准-->
@@ -125,7 +127,7 @@
                 <div class='col-sm-12 col-xs-12 meeting_list' data-href="{{event.event_url}}">
                     <div class='col-sm-3 col-xs-3'>
                         <a href='{{event.event_url}}' target="_blank" >
-                            {% if event.event_img.0.urls %}<img width='223' height="139"  src='{{event.event_img.0.server__name}}{{event.event_img.0.urls}}!hdj123' alt='{{event.event_name}}'/>
+                            {% if event.event_img.0.urls %}<img width='223' height="139"  src='{{event.event_img.0.server__name}}{{event.event_img.0.urls}}!list223139' alt='{{event.event_name}}'/>
                             {% else %}<img width='223' height="139"  src='http://pic.huodongjia.com/static/images/event_default.jpg' alt='{{event.event_name}}'/>{% endif %}
                         </a>
                     </div>
@@ -139,7 +141,7 @@
                         <p class='meeting_des'>概述:{{event.event_intro}}</p>
                         <p class='addr'>
                             <span><a href='/{{event.event_city_info.0.title}}/' target="_blank"><font class='m_iconfont'>&#xe609;</font>{{event.event_city_info.0.district_name}}</a></span>
-                            <span><font style='color: #8C8C8C;font-size: 16px;' class='m_iconfont'>&#xe608;&nbsp;</font>{{event.event_begin_time|date:'Y-m-d'}}</span>
+                            <span><font style='color: #8C8C8C;font-size: 16px;' class='m_iconfont'>&#xe608;&nbsp;</font>{{event.event_begin_time}}</span>
                         </p>
                     </div>
                     {% ifequal event.event_price_type 6 %}  <!--标准-->
@@ -254,7 +256,7 @@
             </div>
             <div class="hot_theme">
                  <p>值得参加的会议</p>
-                <ul class="deserve_event">
+                    <ul class="deserve_event">
                     {% for recommen in recommend_for_list_seo %}
                     <li><a target='_blank' href='{{recommen.event_url}}'>{{recommen.event_name}}</a></li>
                     {% endfor %}

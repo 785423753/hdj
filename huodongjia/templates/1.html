@@ -15,6 +15,40 @@ iframe{
 }
 </style>
 <body>
+<div class="hot_theme">
+    <p class="dc_vd">
+        <a class="active">会议文档</a>
+        <a >会议视频</a>
+        <span class="line"></span>
+    </p>
+    <div class="dx">
+        <ul class="docs active deserve_event">
+            {% for doc in docs %}
+            <li><a target='_blank' href='{{doc.id}}'><img src="http://pic.huodongjia.com/static/images/images/ppt.png" width="20" height="20">{{doc.name}}</a></li>
+            {% endfor %}
+            <li style="text-align: right;"><a style="color: #999;" target='_blank' href=''>更多&gt;&gt; </a></li>
+        </ul>
+        <ul class="video deserve_event">
+            {% for vd in videos %}
+            <li><a target='_blank' href='{{vd.id}}'><img src="http://pic.huodongjia.com/static/images/images/video.png" width="20" height="20">{{vd.name}}</a></li>
+            {% endfor %}
+            <li style="text-align: right;"><a style="color: #999;" target='_blank' href=''>更多&gt;&gt; </a></li>
+        </ul>
+    </div>
+</div>
+<div style="display: none">
+    <p style="font-size: 16px;color: #000;">会议视频 <a style="color:#999;font-size: 12px;margin-left: 10px" href="">更多&gt;&gt;</a></p>
+    <div class="video">
+        <a href="">
+            <img width="100%" src="http://pic.huodongjia.com/event/2016-11-15/1479180508.18.jpg!hdj123" alt="">
+            <p>GMIC 2017 北京 全球移动互联网大会</p>
+        </a>
+    </div>
+    <p style="font-size: 16px;color: #000;">会议文档 <a style="color:#999;font-size: 12px;margin-left: 10px" href="">更多&gt;&gt;</a></p>
+    <div class="docs"><a href="">GMIC 2017 北京 全球移动互联网大会</a></div>
+</div>
+
+
 <div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare" data="{
 		'text':'您的自定义分享内容',		//'请参考自定义分享内容'
 		'pic':'您的自定义分享出去的图片',	//'请参考自定义分享出去的图片'

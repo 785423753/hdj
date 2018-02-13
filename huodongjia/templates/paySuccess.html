@@ -1,6 +1,6 @@
-{% extends 'base.html' %}
+﻿{% extends 'base.html' %}
 {% block content %}
-<link rel="stylesheet" href="http://pic.huodongjia.com/static/css/base.min.css?t={{now}}.css"/>
+<link rel="stylesheet" href="https://pic.huodongjia.com/static/css/base.min.css?t={{now}}.css"/>
 <style>
     body{
         background: #F0F0F0;
@@ -14,7 +14,7 @@
     }
     @font-face {
         font-family: "Font";
-        src: url("http://pic.huodongjia.com/static/css/pay_iconfont.ttf");
+        src: url("https://pic.huodongjia.com/static/css/pay_iconfont.ttf");
     }
     .myfont {
         font-family: "Font";
@@ -43,7 +43,7 @@
     .qrcode{
         width: 160px;
         height:160px;
-        background: url("http://www.huodongjia.com/static/images/waikuang.png") no-repeat;
+        background: url("https://www.huodongjia.com/static/images/waikuang.png") no-repeat;
         background-size: 100%;
         margin: 20px auto 10px;
         border:1px solid #FFF;
@@ -54,11 +54,19 @@
         width: 100%;
         top:0;
         left:0;
+    }
+    .saomiao{
         transform: translateY(0);
         -webkit-animation: floating-arrow 3s infinite ease-in-out 1s;
         -o-animation: floating-arrow 3s infinite ease-in-out 1s;
         -moz-animation: floating-arrow 3s infinite ease-in-out 1s;
         animation: floating-arrow 3s infinite ease-in-out 1s;
+    }
+    .qrcode .jiang{
+        width: 28px;
+        bottom:0;
+        right: 0;
+        margin: auto;
     }
     #qrcode{
         width: 130px;
@@ -96,25 +104,45 @@
         }
     }
 </style>
+{% if src == 'zhima' %}
 <div class="container content">
     <div class="text-center message">
         <span class="myfont">&#xe62e;</span>
-        <p class="success">报名成功</p>
-        <p class="order">您的订单号为：{{ order_num }}&nbsp;&nbsp;<a href='/searchorder/?order_search={{order_num}}' target='__blank'>查看订单</a></p>
-        <p class="tips">温馨提示：客服正在为您处理订单，将在一个工作日内与您确认参会者 <br>信息、告知参会凭证和发票事宜，请耐心等待。</p>
+        <p class="success">提交成功</p>
+        <p class="order">您的订单号为：{{ order_num }}</p>
+        <p class="tips">温馨提示：发票信息已提供，客服会在两小时内（工作日）与您确认发票和参会者信息</p>
         <div class="qrcode">
-            <img width="100%" src="http://www.huodongjia.com/static/images/saomiao.png" alt="">
+            <img width="100%" src="https://www.huodongjia.com/static/images/saomiao.png" alt="">
             <div id="qrcode"></div>
         </div>
         <p>独乐乐不如众乐乐，<br>扫一扫分享给好友吧。</p>
     </div>
-    <div style="width:100%;margin-top: 10px;text-align: center;padding: 10px 0"><a href="/member/" ><img width="1140" src="http://pic.huodongjia.com/static/images/huiyuan.png" alt=""></a></div>
+    <div style="width:100%;margin-top: 10px;text-align: center;padding: 10px 0"><a href="/forcompany.html" ><img width="1140" src="https://pic.huodongjia.com/static/images/huiyuan.png" alt=""></a></div>
 </div>
+{% else %}
+<div class="container content">
+    <div class="text-center message">
+        <img src="https:pic.huodongjia.com/static/images/images/hdj/icon_success.png" alt="">
+        <p class="success">报名成功</p>
+        <p class="order">您的订单号为：{{ order_num }}&nbsp;&nbsp;<a href='/searchorder/?order_search={{order_num}}' target='__blank'>查看订单</a></p>
+        <p class="tips">温馨提示：客服正在为您处理订单，将在一个工作日内与您确认参会者 <br>信息、告知参会凭证和发票事宜，请耐心等待。</p>
+        <div class="qrcode">
+            <img class="jiang" src="https://pic.huodongjia.com/static/images/share_jl.png" alt="奖">
+            <div id="qrcode"></div>
+            <!--<img class="saomiao" width="100%" src="https://www.huodongjia.com/static/images/saomiao.png" alt="">-->
+        </div>
+        <p>分享到朋友圈<br>最高可获得￥500现金奖励（返利5%）</p>
+        <p style="font-size: 14px;color: #666;">分享奖励说明：用户通过你分享的链接在活动家完成下单后，你可获得订单实付金额的5%作为奖励。下单越多可获得的现金越多。</p>
+    </div>
+
+    <div style="width:100%;margin-top: 10px;text-align: center;padding: 10px 0"><a href="/forcompany.html" ><img width="1140" src="https://pic.huodongjia.com/static/images/huiyuan.png" alt=""></a></div>
+</div>
+{% endif %}
 {% endblock %}
 {% block js %}
-<script src="http://pic.huodongjia.com/static/js/jquery.qrcode.min.js"></script>
+<script src="https://pic.huodongjia.com/static/js/jquery.qrcode.min.js"></script>
 <script>
-    var this_url="http://"+window.location.host+"/event-{{event_id}}.html?apply=1"
+    var this_url="https://m.huodongjia.com/event-{{event_id}}.html?order_from=pc_order&flag={{ flag }}"
     if ((navigator.userAgent.indexOf('MSIE') >= 0)
             && (navigator.userAgent.indexOf('Opera') < 0)){
         $('#qrcode').qrcode({width: 190, height: 190, text:this_url,render:"table"});

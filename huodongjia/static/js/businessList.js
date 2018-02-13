@@ -2,7 +2,7 @@
  * Created by Administrator on 2015/12/21 0021.
  */
 $(document).ready(function () {
-    function stopEvent(){ //阻止冒泡事件
+    function stopEvent(){
         //取消事件冒泡
         var e=arguments.callee.caller.arguments[0]||event; //若省略此句，下面的e改为event，IE运行可以，但是其他浏览器就不兼容
         if (e && e.stopPropagation) {

@@ -5,6 +5,28 @@ var editor1=CKEDITOR.replace("notice")
 var editor2=CKEDITOR.replace("meeting_date")
 var editor3=CKEDITOR.replace("guest")
 var editor4=CKEDITOR.replace("meeting_ticket")
+
+function getPreDay(s){
+    var y = parseInt(s.substr(0,4), 10);
+
+    var m = parseInt(s.substr(4,2), 10)-1;
+
+    var d = parseInt(s.substr(6,2), 10);
+
+    var dt = new Date(y, m, d-1);
+
+    y = dt.getFullYear();
+
+    m = dt.getMonth()+1;
+
+    d = dt.getDate();
+
+    m = (m>=10)?m:"0"+m;
+    d = (d>=10)?d:"0"+d;
+
+    return y + "-" + m + "-" + d;
+
+}
 var start_day = {
     elem: '#start_day',
     event: 'focus',
@@ -16,11 +38,14 @@ var start_day = {
     choose: function(datas){
         $("#start_day").attr("value",datas)
         $("#end_day").attr("value",datas)
-        $("#deadline").attr("value",datas)
+
         end_day.min = datas
         deadtime.max = datas
         var days=DateDiff(laydate.now().slice(0,10),datas.slice(0,10))
         if(days<7) swal('请在会议开始前一周提交')
+        var s=datas.split(' ')[0].replace(/-/g,'');
+        var time=getPreDay(s);
+        $("#deadline").attr("value",time+" 17:00")
     }
 };
 var end_day = {
@@ -154,10 +179,12 @@ function expurgate(obj){
     $(tr).remove()
 }
 $("#fee").focus(function () {
-    $(".ticket").show()
+    $(".ticket,.invoice_info").show()
+    $('#event_price_type').val(6)
 })
 $("#free").focus(function () {
-    $(".ticket").hide()
+    $(".ticket,.invoice_info").hide()
+    $('#event_price_type').val(4)
 })
 //城市/tag
 var cat_id=$("#event_cat").val()
@@ -199,27 +226,67 @@ function changecity(id,Value){
     })
 }
 //发送验证码
-$("#checkcode").on('blur', function () {
-    var csrf = document.getElementsByName('csrfmiddlewaretoken')[0];
-    var captcha = $("#checkcode").val();
-    $.ajax({
-        url: "/verify_captcha/",
-        dataType: "json",
-        type: "post",
-        async: false,
-        data: {
-            csrfmiddlewaretoken: csrf.value,
-            captcha: captcha
-        },
-        success: function (data) {
-            if (data.flag == 'false') {
-                $("#checkcode").attr({"data-captcha":false})
-                $("#cap_img").click()
-            }else{
-                $("#checkcode").attr({"data-captcha":true})
+$('.send_code').on('click',function () {
+    var dateObj,s="";
+    dateObj = new Date();
+    s+=dateObj.getFullYear();
+    s+=dateObj.getMonth()+1;
+    s+=dateObj.getDate();
+    s+=dateObj.getHours();
+    s+=dateObj.getMinutes();
+    s+=dateObj.getSeconds();
+    var set, i = 60;
+    var url = "/send_check_mesages/";
+    var tel = $.trim($("#phone").val());
+    if (tel != "" && (/^1[3-8]+\d{9}$/).test(tel)) {
+        $(".send_code").attr({disabled: "disabled"});
+        $.ajax({
+            url:url,
+            type:'get',
+            data:{
+                tel: tel,time:s
+            },
+            dataTyoe:'json',
+            success:function (data) {
+                console.log(data.flag)
+                // if(data.flag){
+                    set = setInterval(function () {
+                        $(".send_code").text("重发还有" + i + "秒").attr({disabled: "disabled"});
+                        i--;
+                        if (i < 0) {
+                            clearInterval(set);
+                            $(".send_code").text("重新发送").removeAttr("disabled")
+                        }
+                    }, 1000)
+                // }else{
+                //     $(".send_code").text("发送失败,重新发送").removeAttr("disabled")
+                // }
+            },
+            fail:function () {
+                $(".send_code").text("发送失败,重新发送").removeAttr("disabled")
             }
-        }
-    });
+        });
+    } else {
+        swal("请输入正确的手机号码")
+    }
+    return false
+});
+$("#checkcode").blur(function () {
+    var phone=$.trim($("#phone").val());
+    var captcha=$.trim($(this).val());
+    var url="/verify_tel_captcha/";
+    $.post(url,{mobilphone:phone,captcha:captcha}, function (data) {
+            var flag=jQuery.parseJSON(data).flag;
+            if(flag==true){
+                $("#checkcode").attr("data-captcha","true");
+                $("#checkcode").css({borderColor:'#ACB0BB'})
+            }else{
+                $("#checkcode").attr("data-captcha","false");
+                $("#checkcode").css({borderColor:'red'})
+            }
+        })
+
+
 })
 
 //检索关键字
@@ -235,7 +302,7 @@ $("#title").blur(function(){
             async:'false',
             success: function(data){
                 if(data.code==1){
-                    $('.error').css({width:'auto',top:'30px',left:'155px'}).text('该活动已存在，请无重复提交！').fadeIn(10)
+                    $('.error').css({width:'auto',top:'30px',left:'155px'}).text('该活动已存在，请勿重复提交！').fadeIn(10)
                     $('.arrow').fadeIn(10)
                 }else{
                     var key=['发布会','沙龙','旅游','路演','课程培训','评选会','展览','讲座']
@@ -262,28 +329,27 @@ $("#title").focus(function () {
     $('.error').hide()
     $('.arrow').fadeOut(0)
 })
-$("#free").focus(function () {
-    $(".proof").css({visibility:'hidden'})
-    $($(".proof")[0]).css({visibility:'visible'})
-    $(".invoice").hide()
-    $($(".invoice")[3]).show()
-})
-$("#fee").focus(function () {
-    $(".proof").css({visibility:'visible'})
-    $(".invoice").show()
-})
 //提交
 $("#post").click(function () {
     var Data={}
     var jsonArr = new Array();
     var jsontag = new Array();
-    var jsonroof = new Array();
     var jsonnav = new Array();
     var meeting=editor1.document.getBody().getHtml()
     var schedule=editor2.document.getBody().getHtml()
     var guest=editor3.document.getBody().getHtml()
     var ticket=editor4.document.getBody().getHtml()
-    var _html="<p><br></p>"
+    var _html="<p><br></p>";
+    var invoice= {
+       ticket_type:"",       //门票类型
+       ticket_other:'',        //门票-其他
+       attend_type:"",               //参会凭证
+       invoice_type:"",            //发票类型
+       invoice_content:'',         //发票内容
+       invoice_send_type:"",           //发票领取方式
+       invoice_send_time:{},        //开具时间
+       refund:''                           //退款说明
+   };
     $(".mes").each(function(i){
         Data[$(".mes")[i].id]=$(".mes")[i].value
     })      //基本信息
@@ -303,69 +369,92 @@ $("#post").click(function () {
         }
     })
     Data["event_tag"]=JSON.stringify(jsontag)           //会议标签
-    $("input[name=pathway]").each(function () {
+    var arry_1=[],arry_2=[],arry_3=[],arry_4=[];
+    $("input[name=invoice_type]").each(function () {
         if($(this).attr('checked')=='checked'){
-            Data["invoice"]=$(this).val()
-        }
-    })       //发票
-    $("input[name=evidence]").each(function (i) {
-        if($($("input[name=evidence]")[i]).attr("checked")=="checked"){
-            jsonroof.push($(this).val())
-        }
+            arry_1.push($(this).val());
+        };
+        Data["invoice_type"]=JSON.stringify(arry_1);
     })
+    $("input[name=invoice_send_type]").each(function () {
+        if($(this).attr('checked')=='checked'){
+            arry_2.push($(this).val());
+        };
+        Data["invoice_send_type"]=JSON.stringify(arry_2);
+    })
+    $("input[name=attend_type]").each(function () {
+        if($(this).attr('checked')=='checked'){
+            arry_3.push($(this).val());
+        };
+        Data["attend_type"]=JSON.stringify(arry_3);
+    })
+    $("input[name=ticket_type]").each(function () {
+        if($(this).attr('checked')=='checked'){
+            arry_4.push($(this).val());
+        };
+        Data["ticket_type"]=JSON.stringify(arry_4);
+    })
+    $("input[name=invoice_time]").each(function () {
+        if($(this).attr('checked')=='checked'){
+            var day=$(this).parent().find('.day').val();
+            Data.invoice_send_time={id:"",text:""}
+            Data.invoice_send_time.id=$(this).val();
+            Data.invoice_send_time.text=day;
+        };
+
+    })
+    Data["invoice_content"]=$("input[name=invoice_content]").val()
+    Data["refund"]=$("textarea[name=refund]").val()
+    Data["ticket_type_content"]=$("input[name=ticket_other]").val()
+    // Data["invoice"]=invoice;
     $(".nav-pills li").each(function (i) {
         jsonnav.push($($(".nav-pills li")[i]).text())
     })
-    if($("#charge").attr("checked")=="checked"){
-        $("#charge").attr('value','8')
-    }else{
-        $("#charge").attr('value','0')
-    }
-    Data["evidence"]=JSON.stringify(jsonroof)
-    Data["charge"]= $("#charge").val()
     Data["meeting"]=meeting
     Data["schedule"]=schedule
     Data["guest"]=guest
     Data["ticket"]=ticket
-    Data["meeting_title_name"]=JSON.stringify(jsonnav)
-    
-    if($("#title").val()==""){
-        swal("请填写会议标题")
-    }else  if($("#start_day").val()==""){
-        swal("请填写会议开始时间")
-    }else  if($("#address").val()==""){
-        swal("请填写场馆名称")
-    }else  if(meeting==_html&&schedule==_html&&guest==_html&&ticket==_html){
-        swal("请填写会议详情")
-    }else  if($("#fee").attr("checked")=="checked"&&$(".project").length==0){
-        swal("请保存票价")
-    }else  if($("#name").val()==""){
-        swal("请填写联系人")
-    }else  if($("#sponsor").val()==""){
-        swal("请填写主办单位名称")
-    }else  if(!$("#phone").val().replace(/[ ]/g,"").match(/0?(13|14|15|18|17)[0-9]{9}/)){
-        swal("请填写正确的手机号码")
-    }else  if($("#checkcode").attr("data-captcha")!="true"){
-         swal("验证码错误")
+    Data["meeting_title_name"]=JSON.stringify(jsonnav);
+    if($('.sposors span').length > 0){
+        var spon=[];
+        $('.sposors span').each(function () {
+            spon.push($(this).text())
+        })
+        Data.sponsor=spon.join(',')
     }
-    else if(!$("#email").val().match(/\w+((-w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+/)){
-        swal("请填写正确的邮箱地址")
-    } else if(!$('#rule').attr('checked')){
-        swal("请仔细阅读并勾选活动家服务条款")
-    }else if($(this).attr('data-sign')==0){
+    if(Data.title==""){swal("请填写会议标题");return false}
+    if(Data.start_day==""){swal("请填写会议开始时间");return false}
+    if(Data.address==""){swal("请填写场馆名称");return false}
+    //if(Data.img==""){swal("请上传会议主图");return false}
+    if(meeting==_html&&schedule==_html&&guest==_html&&ticket==_html){swal("请填写会议详情");return false}
+    if(Data.sponsor == ""){swal("请添加主办方");return false}
+    if(Data.event_price_type == "6"){
+        if($(".project").length==0){swal("请保存票价");return false};
+        if(Data.invoice_type == "[]"){swal("请选择发票类型");return false}
+        //if(Data.invoice_send_type == "[]"){swal("请选择发票领取方式");return false}
+        if(Data.invoice_time == ""){swal("请选择发票开具时间");return false}
+        if(Data.ticket_type == "[]"){swal("请选择参会凭证里的门票类型");return false}
+     
+    }
+    if(Data.name == ""){swal("请填写联系人");return false}
+    //if(!(/^1+\d{10}$/).test(Data.phone)){swal("请填写正确的手机号码");return false}
+    if($("#checkcode").attr("data-captcha")!="true"){swal("验证码错误");return false}
+    if(!Data.email.match(/\w+((-w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+/)){swal("请填写正确的邮箱地址");return false}
+    if(!$('#rule').attr('checked')){swal("请仔细阅读并勾选活动家服务条款");return false};
+    if($(this).attr('data-sign')==0){
         var str = JSON.stringify(Data);
         sessionStorage.obj = str;
         $('#login').show()
         $('.close').click(function(){
             $('#login').hide()
         })
-    } else{
+    }else{
         $.ajax({
-            url: "/postevent_act/",
+            url: "/testpostact/",
             type: "post",
             data: Data,
             dataType: "json",
-            async: false,
+            async: true,
             beforeSend: function () {
                 // 禁用按钮防止重复提交
                 $("#post").attr("value","正在提交...")

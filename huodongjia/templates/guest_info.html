@@ -1,15 +1,19 @@
 {% extends "base.html" %}
+    {%block miplink%}
+    {%endblock%}
 {% load page_nav %}
 {%block add_st%}
 {%endblock%}
 {% block addstyle %}
-<link rel="stylesheet" type='text/css' href='http://pic.huodongjia.com/static/css/guest_info.css'>
+<link rel="stylesheet" type='text/css' href='https://pic.huodongjia.com/static/css/guest_info.css'>
+<!--<meta name="mobile-agent" http-equiv="mobile-agent" content="format=html5;url=https://m.huodongjia.com{{request.get_full_path}}" />
+-->
 {% endblock %}
 {% block content %}
 <div class="banner">
 <div class="container">
     <a href="/jiabin/apply_guest/" target="_blank">
-        <img src="http://pic.huodongjia.com/static/images/guest.jpg" alt="找会议嘉宾，上活动家">
+        <img src="https://pic.huodongjia.com/static/images/guest.jpg" alt="找会议嘉宾，上活动家">
     </a>
 </div>
 </div>
@@ -19,8 +23,8 @@
             <ul class="col-lg-12 col-md-12 col-xs-12 col-sm-12 ul_left">
                 <li><a href="/" target="_blank">首页</a>&gt;</li>
                 <li><a href="/guest/">嘉宾列表</a>&gt;</li>
-                <li><span>{{ guest.name }}</span>&gt;</li>
-                <li><span style="color: #545C70;">邀请{{ guest.name }}出席会议</span></li>
+                <li><span><a href="/guest-{{guest.enc_id}}.html">{{ guest.name }}</a></span>&gt;</li>
+                <li><h1 style="color: #545C70;display:inline;font-weight:500;">邀请{{ guest.name }}出席会议</h1></li>
             </ul>
         </div>
         <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 content">
@@ -78,6 +82,6 @@
 {% endblock %}
 
 {% block js %}
-<script type="text/javascript" src="http://pic.huodongjia.com/static/js/guest_infos.js"></script>
+<script type="text/javascript" src="https://pic.huodongjia.com/static/js/guest_infos.js"></script>
 {% endblock %}
 

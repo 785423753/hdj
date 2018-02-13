@@ -1,101 +1,112 @@
 {% extends 'base.html' %}
+{% block addstyle %}
+<style>
+
+</style>
+{% endblock %}
 {% block banner%}
 {% endblock %}
 {% block content%}
 <div class="content container">
+    {% csrf_token %}
     <table class="main_video">
         <tr>
             <td rowspan="2" style="padding-right: 20px">
-                <a href="">
-                    <img width="800" height="500" src="http://news.huodongjia.com/wp-content/uploads/2016/09/2016环球旅讯峰会首页.jpg" alt="">
+                <a href="/dj/ganhuo_video_{{banner_videos.0.id}}.mpy" target="_blank">
+                    <img width="800" height="500" src="{{banner_videos.0.video_img}}" alt="{{banner_videos.0.name}}">
                     <div class="play"><span class="news_font">&#xe605;</span></div>
                 </a>
             </td>
             <td style="padding-bottom: 12px">
-                <a href="">
-                    <img width="380" height="238" src="http://news.huodongjia.com/wp-content/uploads/2016/09/2016年第三届责任消费高峰论坛首页.jpg" alt="">
+                <a href="/dj/ganhuo_video_{{banner_videos.1.id}}.mpy" target="_blank">
+                    <img width="380" height="238" src="{{banner_videos.1.video_img}}" alt="{{banner_videos.1.name}}">
                     <div class="play"><span class="news_font">&#xe605;</span></div>
                 </a>
             </td>
         </tr>
         <tr>
             <td style="padding-top: 12px">
-                <a href="">
-                    <img width="380" height="238" src="http://news.huodongjia.com/wp-content/uploads/2016/09/2016年第三届责任消费高峰论坛首页.jpg" alt="">
+                <a href="/dj/ganhuo_video_{{banner_videos.2.id}}.mpy" target="_blank">
+                    <img width="380" height="238" src="{{banner_videos.2.video_img}}" alt="{{banner_videos.2.name}}">
                     <div class="play"><span class="news_font">&#xe605;</span></div>
                 </a>
             </td>
         </tr>
     </table>
-    <div class="bread_nav"><a href="/">首页</a>&gt;<a href="/dj/ganhuo.mpy">会议干货</a>&gt;<h1>会议视频</h1><a class="uploading_video" href=""><span class="news_font">&#xe609;</span>我要上传视频</a></div>
+    <div class="bread_nav"><a href="http://www.huodongjia.com/">首页</a>&gt;<a href="/dj/ganhuo.mpy">会议干货</a>&gt;<h1>{{active_cat.name}}会议视频</h1><a class="uploading_video"><span class="news_font">&#xe609;</span>我要上传视频</a></div>
     <div class="left">
         <ul class="classify">
-            <li class="choose"><a href="/dj/ganhuo_listvideos.mpy">不限</a></li>
+            <li class="{% if not active_cat %}choose{% endif %}"><h3><a href="/dj/ganhuo_listvideos.mpy">不限</a></h3></li>
             {% for cat in main_cats %}
-            <li><a data="{{cat.id}}" href="/dj/ganhuo_listvideos_{{cat.id}}.mpy">{{cat.name}}</a></li>
+            {% if not cat.nourl %}
+            <li class="{% ifequal active_cat.ename cat.ename %}choose{% endifequal %}">
+                <h3><a data="{{cat.id}}" href="/dj/ganhuo_listvideos_{{cat.id}}.mpy">{{cat.name}}</a></h3></li>
+            {% endif %}
             {%endfor%}
         </ul>
         <ul class="video_list">
             {% for video in videos %}
             <li>
                 <a href="/dj/ganhuo_video_{{video.id}}.mpy" target="_blank">
-                    <img width="285" height="178" src="{{video.video_img}}" alt="{{video.name}}">
+                    <img width="285" height="178" src="{{video.video_img}}" alt="{{video.event_info.0.name}}">
                     <div class="play"><span class="news_font">&#xe605;</span></div>
                 </a>
-                <p class="des"><a href="/dj/ganhuo_video_{{video.id}}.mpy" target="_blank">{{video.name}}</a></p>
-                <p class="down"><span class="tag">{{video.cat_info.name}}</span><span class="download">{{video.visit}}次播放</span></p>
+                <p class="des"><a href="/dj/ganhuo_video_{{video.id}}.mpy" target="_blank">{{video.event_info.0.name}}</a></p>
+                <p class="down"><a style="width: 70px" class="tag" href="/dj/ganhuo_listvideos_{{video.cat_info.id}}.mpy">{{video.cat_info.name}}</a><span class="download">{{video.visit}}次播放</span></p>
             </li>
             {% endfor %}
         </ul>
         <ul class="ppt_pagination">
             {% if page_info.previous_page %}
-            <li><a href="/dj/ganhuo_listdocs_p{{page_info.previous_page}}.mpy">上一页</a></li>
+            {% ifequal page_info.previous_page 1 %}
+            <li><a href="/dj/ganhuo_listvideos{% if active_cat%}_{{active_cat.catid}}{%endif%}.mpy">上一页</a></li>
+            {% else %}
+            <li><a href="/dj/ganhuo_listvideos{% if active_cat%}_{{active_cat.catid}}{%endif%}_p{{page_info.previous_page}}.mpy">上一页</a></li>
+            {% endifequal %}
             {% endif %}
             {% for page in page_info.pages_url %}
             {% ifequal page_info.this_page page.page %}
-            <li class="page_active"><a href="{{page.url}}">{{page.page}}</a></li>
+            {% ifequal page.page 1 %}
+            <li class="{% ifequal page_info.this_page page.page %}page_active{% endifequal %}"><a href="{% if active_cat %}/dj/ganhuo_listvideos_{{active_cat.catid}}.mpy{% else %}/dj/ganhuo_listvideos.mpy{% endif %}">
+                {{page.page}}
+            </a></li>
+            {% else %}
+            <li class="{% ifequal page_info.this_page page.page %}page_active{% endifequal %}"><a href="{{page.url}}">{{page.page}}</a></li>
+            {% endifequal %}
             {% else %}
             <li><a href="{{page.url}}">{{page.page}}</a></li>
             {% endifequal %}
             {% endfor %}
             {% if page_info.next_page %}
-            <li><a href="/dj/ganhuo_listdocs_p{{page_info.next_page}}.mpy">下一页</a></li>
+            <li><a href="/dj/ganhuo_listvideos{% if active_cat%}_{{active_cat.catid}}{%endif%}_p{{page_info.next_page}}.mpy">下一页</a></li>
             {% endif %}
         </ul>
     </div>
     <div class="right">
         <h2 style="margin-top: 0;">即将举办的会议</h2>
         <ul class="upcoming upcoming_event">
-            <li class="choose">
-                <a href="">2016第六届产品创新高峰论坛</a>
-                <div class="detail"><a class="event_img" href=""><img width="85" height="55" src="http://pic.huodongjia.com/event/2016-09-19/1474252969.88.jpg!list223139" alt=""></a>
-                    <span><a href="">成都</a><br>2016-09-15</span></div>
+            {% for event in relevant_events %}
+            {% if event %}
+            <li class="{% if forloop.first %}choose{% endif %}">
+                <a href="http://www.huodongjia.com{{event.event_url}}" target="_blank">{{event.event_name}}</a>
+                <div class="detail"><a class="event_img" href="http://www.huodongjia.com{{event.event_url}}" target="_blank">
+                    <img width="85" height="55" src="{{event.event_img.0.server__name}}{{event.event_img.0.urls}}" alt="{{event.event_name}}"></a>
+                    <span><a target="_blank" href="http://www.huodongjia.com/{{event.event_city_info.0.title}}/">{{event.event_city_info.0.district_name}}</a><br>{{event.event_begin_time}}</span></div>
             </li>
-            <li>
-                <a href="">2016第六届产品创新高峰论坛</a>
-                <div class="detail"><a class="event_img" href=""><img width="85" height="55" src="http://pic.huodongjia.com/event/2016-09-19/1474252969.88.jpg!list223139" alt=""></a>
-                    <span><a href="">成都</a><br>2016-09-15</span></div>
-            </li>
-            <li>
-                <a href="">2016第六届产品创新高峰论坛</a>
-                <div class="detail"><a class="event_img" href=""><img width="85" height="55" src="http://pic.huodongjia.com/event/2016-09-19/1474252969.88.jpg!list223139" alt=""></a>
-                    <span><a href="">成都</a><br>2016-09-15</span></div>
-            </li>
-            <li>
-                <a href="">2016第六届产品创新高峰论坛</a>
-                <div class="detail"><a class="event_img" href=""><img width="85" height="55" src="http://pic.huodongjia.com/event/2016-09-19/1474252969.88.jpg!list223139" alt=""></a>
-                    <span><a href="">成都</a><br>2016-09-15</span></div>
-            </li>
-            <li class="more"><a href="">更多互联网IT会议</a></li>
+            {% endif %}
+            {% endfor %}
         </ul>
-        <h2>相关文档推荐 <a target="_blank" href="/dj/ganhuo_listdocs.mpy">更多</a></h2>
+        <div class="h2_title">
+            <h2><a href='/dj/ganhuo_listdocs.mpy'  target="_blank">相关文档推荐</a></h2>
+            <a target="_blank" href="/dj/ganhuo_listdocs.mpy">更多</a>
+        </div>
         <ul class="upcoming">
             {% for zx in hot_docs|slice:'6' %}
             <li><a href="/dj/ganhuo_doc_{{zx.id}}.mpy" target="_blank">
                 {% ifequal zx.suffix ".docx" %}
                 <span class="news_font docx">&#xe602;</span>
                 {% endifequal %}
-                {% ifequal zx.suffix ".ppt" %}
+                {% ifequal zx.suffix ".pptx" %}
                 <span class="news_font ppt">&#xe600;</span>
                 {% endifequal %}
                 {% ifequal zx.suffix ".pdf" %}
@@ -106,5 +117,12 @@
         </ul>
     </div>
 </div>
+<div class="m_dialog">
+    <p>您想要使用这个功能吗？告诉我您的邮箱地址，上线后我们第一时间通知您。</p>
+    <input type="text" id="email" placeholder="请输入您的邮箱"><br>
+    <button type="button" class="btn btn-info">确认</button>
+    <button type="button" class="btn btn-default">取消</button>
+</div>
 {% endblock %}
-
+{% block js %}
+{% endblock %}

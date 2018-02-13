@@ -2,52 +2,58 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    {% block seo %}
     <title>{% if seo %}{{ seo.title }}{% else %}{{head.title}}{% endif %}</title>
     <meta name="keywords" content="{% if seo %}{{ seo.keywords }}{% else %}{{head.keywords}}{% endif %}"/>
     <meta name="description" content="{% if seo %}{{ seo.description }}{% else %}{{head.description}}{% endif %}"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% endblock %}
     <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
     <meta property="wb:webmaster" content="f8b759b681dff9f2" />
-    <link rel="shortcut icon" type="image/x-icon" href="http://www.huodongjia.com/favicon.ico" media="screen" />
-    <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/hdj.min.css">
-    {%block add_st%}<link rel="alternate" media="only screen and(max-width: 640px)" href="http://m.huodongjia.com{{request.get_full_path}}" >{%endblock%}
+    <meta name="msvalidate.01" content="53CCC647FAE063A9E8727E74CEA325CB" />
+    <meta name="google-site-verification" content="kMWxRBMMk5O18S397N1QFgF4WTS-xutUYIWKR0ZxWos" />
+    <meta name="baidu-site-verification" content="Vg8jQKGwMf" />
+
+
+ <base href="https://www.huodongjia.com/" />
+	<meta name="copyright" content="本页版权归活动家（huodongjia.com）所有。All Rights Reserved">
+    <link rel="shortcut icon" type="image/x-icon" href="https://www.huodongjia.com/favicon.ico" media="screen" />
+    <link rel="stylesheet" href="https://pic.huodongjia.com/static/css/hdj.min.css">
+    {%block miplink%}
+    <link rel="miphtml" href="https://mip.huodongjia.com{{request.get_full_path}}"/>
+    {%endblock%}
+    {%block add_st%}<link rel="alternate" media="only screen and(max-width: 640px)" href="https://m.huodongjia.com{{request.get_full_path}}" >{%endblock%}
     {% block addstyle %}{% endblock %}
-    <!--[if !IE]><!-->
-    <script type='text/javascript'>
-        var _vds = _vds || [];
-        window._vds = _vds;
-        (function(){
-            _vds.push(['setAccountId', 'bfcde55a34679bc9']);
-            (function() {
-                var vds = document.createElement('script');
-                vds.type='text/javascript';
-                vds.async = true;
-                vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(vds, s);
-            })();
-        })();
-    </script>
-    <!--<![endif]-->
-    <!--[if gte IE 8]>
-    <script type='text/javascript'>
-        var _vds = _vds || [];
-        window._vds = _vds;
-        (function(){
-            _vds.push(['setAccountId', 'bfcde55a34679bc9']);
-            (function() {
-                var vds = document.createElement('script');
-                vds.type='text/javascript';
-                vds.async = true;
-                vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(vds, s);
-            })();
-        })();
-    </script>
-    <![endif]-->
 </head>
+<style>
+    .login ol{
+        width: 120px;
+    }
+    .nav ul li{
+        width: auto;
+        padding: 0 10px;
+    }
+    .nav ul .menue{
+        padding: 0 25px;
+		width: initial;
+    }
+    .business .tb_font {
+        right: -9px;
+    }
+    .m-search {
+        right: 19px;
+        top: -2px;
+    }
+ 
+</style>
 <body>
+<script>
+    if(top.location !== self.location){
+        top.location=self.location
+    }
+    if(self.location.host != "www.huodongjia.com"){
+        window.location.href="https://www.huodongjia.com/"
+    }
+</script>
 <div class="nav">
     <div class="container" >
        <div class="col-sm-3 col-xs-3">
@@ -56,20 +62,29 @@
        </div>
         <div class="col-sm-9 col-xs-9 menus">
             <ul>
-                <li style="width:30px;"></li>
+                <!--<li style="width:20px;"></li>-->
                 <li class="menue  business"><a target="_blank" href="/business/">商务会议 <span class="tb_font">&#xe606;</span></a><div class="business_menue"></div></li>
-                <li class="menue"><a href="http://news.huodongjia.com/" target="_blank">会议资讯</a></li>
+                <li class="menue"><a href="https://doc.huodongjia.com/" target="_blank">会议PPT</a></li>
+              
                 <li class="menue"><a href="/guest/" target="_blank" >演讲经纪</a></li>
-                <li class="postevent"><a href="/postevent/"  target="_blank">免费发布活动</a></li>
-                <li class="search" ><form action="/search/"><input name="keyword" type="text" placeholder="输入您要找的会议"/><span class="m-search m_iconfont">&#xe607;</span></form></li>
-                <li class="ordersearch"><a href="/searchorder/" target="_blank" style="font-size: 14px">订单查询</a></li>
-                <li class="login">
-                    <a href="/usercenter/login/" rel="nofollow">{% if request.session.usercenter_user %}<img style="border-radius: 16px;" width="32px" height="32px" src='{{  request.session.usercenter_user.avatar }}' />{% else %}<span class="Login" style="font-size: 14px">登录</span>{% endif %}</a>
+                <li class="menue"><a href="/forcompany.html" target="_blank" >会员特权</a></li>
+                <li class="menue"><a href="https://www.huodongjia.com/postevent/"  target="_blank">发布活动</a></li>
+                <li class="search" style="width: 19% !important;" ><form action="https://www.huodongjia.com/search/"><input name="keyword" type="text" placeholder="输入您要找的会议"/>
+                    <span class="m-search m_iconfont">&#xe607;</span></form></li>
+                <li class="ordersearch" style="padding: 0"><a href="https://www.huodongjia.com/searchorder/" target="_blank" style="font-size: 14px">订单查询</a></li>
+                <li class="login" style="padding-right: 0;width: 64px;">
+                    {% if request.session.usercenter_user %}
+                    <a href="https://www.huodongjia.com/usercenter/index/" rel="nofollow"><img style="border-radius: 16px;" width="32px" height="32px" src='{{  request.session.usercenter_user.avatar }}' /></a>
+                    {% else %}
+                    <a href="https://www.huodongjia.com/usercenter/login/" rel="nofollow"><span class="Login" style="font-size: 14px">登录</span></a>
+                    {% endif %}
                     <ol>
-                        <li><a href="/usercenter/index/" rel="nofollow">我的积分</a></li>
-                        <li><a href="/usercenter/index/?ind=showorder" rel="nofollow">我的订单</a></li>
-                        <li><a href="/usercenter/index/?ind=myevent" rel="nofollow">我的发布</a></li>
-                        <li><a href="/usercenter/index/?ind=showcollection" rel="nofollow">我的收藏</a></li>{% if request.session.usercenter_user %}<li class="exit"><a href="/usercenter/logout/"  rel="nofollow">退出</a></li>{% endif %}
+                        <li><a href="https://www.huodongjia.com/usercenter/index/" rel="nofollow">个人资料</a></li>
+                        <li><a href="https://www.huodongjia.com/usercenter/index/?ind=invoice" rel="nofollow">发票信息管理</a></li>
+                        <li><a href="https://www.huodongjia.com/usercenter/index/?ind=showorder" rel="nofollow">我的订单</a></li>
+                        <li><a href="https://www.huodongjia.com/usercenter/index/?ind=showcollection" rel="nofollow">收藏的活动</a></li>
+                        <li><a href="https://www.huodongjia.com/usercenter/index/?ind=myevent" rel="nofollow">发布的活动</a></li>
+                        {% if request.session.usercenter_user %}<li class="exit"><a href="https://www.huodongjia.com/usercenter/logout/"  rel="nofollow">退出</a></li>{% endif %}
                     </ol>
                 </li>
             </ul>
@@ -82,14 +97,13 @@
 {% endblock %}
 <div class="footer">
     <div class="container">
-        <br style="clear: both">
        <div class="col-sm-2 col-xs-2 footer1">
            <ul style="padding: 0">
                <li class="title">关于我们</li>
                <li><a href="/contactus/" rel="nofollow">关于活动家</a></li>
                <li><a href="/mediareport/" rel="nofollow">媒体报道</a></li>
-               <li><a href="/friendLinks/" rel="nofollow">友情链接</a></li>
-               <li><a href="/app/" target="_blank" rel="nofollow">APP下载</a></li>
+               <li><a href="/friendLinks/" rel="nofollow">合作平台</a></li>
+               <li><a href="/app/" target="_blank" rel="nofollow">活动家APP</a></li>
                <li><a href="/law/" target="_blank" rel="nofollow">免责声明</a></li>
            </ul>
        </div>
@@ -100,6 +114,7 @@
                 <li><a href="/guest/" target="_blank" rel="nofollow">出席嘉宾</a></li>
                 <li><a href="/listsponsor/" target="_blank" rel="nofollow">会议主办方</a></li>
                 <li><a href="/listvenue/" target="_blank" rel="nofollow">会议场地</a></li>
+				  <li><a href="http://news.huodongjia.com/" target="_blank" rel="nofollow">会议资讯</a></li>
             </ul>
         </div>
         <div class="col-sm-4 col-xs-4 footer1 contact">
@@ -108,7 +123,7 @@
                 <li class="call_serve"></li>
                 <li style="line-height: 17px;position: relative;">
                     <div class="kefu"></div>
-                    <span class="erweima"></span><a style="font-size: 14px;display: inline-block;">活动家微信客服 <br/>（微信号：hdjkefu）</a></li>
+                    <span class="erweima"></span><a style="font-size: 14px;display: inline-block;">活动家微信客服 <br/>（微信号：hdjzixun）</a></li>
             </ul>
         </div>
         <div class="col-sm-2 col-xs-2 footer1 weixin">
@@ -116,17 +131,17 @@
             <span class="wxchat"></span>
             <p style="color: #A0A8B7;font-size: 12px;padding: 5px">优质会议及时推荐，查 <br/>询会议更方便</p>
         </div>
-        <div class="col-sm-2 col-xs-2 footer1 weixin">
-            <p>APP下载</p>
+        <div  class="col-sm-2 col-xs-2 footer1 weixin">
+            <p>活动家APP</p>
             <span class="APP_erweima"></span>
-            <p style="color: #A0A8B7;font-size: 12px;padding: 5px">下载活动家APP，随 <br/>时随地方便报名参会</p>
+            <p style="color: #A0A8B7;font-size: 12px;padding: 5px">活动家app，随 <br/>时随地方便报名参会</p>
         </div>
         <div class="introduce">
             <p>活动家介绍：<br/>
             {{ seo.intro }}
             </p>
             <p>热门关键词：<br/>
-            <a href="/tag/2561/">互联网金融</a>  <a href="/tag/969/">大数据</a>  <a href="/tag/805/">创业</a>  <a href="/tag/4710/">智能硬件</a>  <a href="/tag/902/">投融资</a>  <a href="/tag/3758/">金融创新</a>  <a href="/tag/2379/">移动医疗</a>  <a href="/tag/4341/">健康产业</a>  <a href="/tag/459/">医疗器械</a>  <a href="/tag/1018/">环保</a>  <a href="/tag/4070/">石墨烯</a>  <a href="/tag/3189/">幼教</a>  <a href="/tag/4331/">养猪</a>  <a href="/tag/4765/">苗木</a>  <a href="/tag/2676/">无人机</a>  <a href="/tag/5512/">商业地产</a>  <a href="/tag/2610/">新媒体</a>  <a href="/tag/3363/">零售业</a>  <a href="/tag/980/">物流</a>  <a href="/tag/3372/">企业家</a></p>
+            <a href="/tag/1610/">运维</a>  <a href="/tag/17374/">区块链</a>  <a href="/tag/966/">移动互联网</a>  <a href="/tag/970/">云计算</a>  <a href="/tag/1464/">人工智能</a>  <a href="/tag/26322/">消费金融</a>  <a href="/tag/902/">投融资</a>  <a href="/tag/27543/">FinTech</a>  <a href="/tag/3372/">企业家</a>  <a href="/tag/5170/">虚拟现实</a>  <a href="/tag/969/">大数据</a>  <a href="/tag/967/">游戏</a>  <a href="/tag/16284/">创业创新</a>  <a href="/tag/4863/">架构</a>  <a href="/tag/4575/">跨境电商</a>  <a href="/tag/1486/">3D打印</a>  <a href="/tag/715/">物联网</a>  <a href="/tag/4671/">智慧医疗</a>  <a href="/tag/1018/">环保</a>  <a href="/tag/3153/">生物技术</a>  <a href="/tag/4997/">智能制造</a>  <a href="/tag/3363/">零售业</a>  <a href="/tag/1352/">新能源汽车</a></p>
             {% block seo_fridendly_link %}
             {% if site_links %}
             <p>友情链接：<br/>
@@ -136,52 +151,75 @@
             {% endif %}
             {% endblock %}
             <hr style="border-top: 1px solid #4B4F52;"/>
-            <p class="text-center">CopyRight <a rel="nofollow" target="_blank" href="http://www.huodongjia.com/">活动家</a> huodongjia.com <a rel="nofollow" target="_blank" href="http://www.miibeian.gov.cn/">蜀ICP备13006805号-5</a>,增值电信业务经营许可证编号川B2-20130143</p>
+            <p class="text-center">CopyRight <a rel="nofollow" target="_blank" href="https://www.huodongjia.com/">活动家</a> huodongjia.com ,蜀ICP备17005018号-1 增值电信业务经营许可证编号川B2-20130143</p>
         </div>
     </div>
 </div>
+{% block adv %}
+<style>
+    .adv{
+        position: fixed;
+        bottom:-200px;
+        left:0;
+        width: 100%;
+        height: 150px;
+        z-index:999;
+        background: url("https://pic.huodongjia.com/static/images/images/hdj/bg.png") no-repeat;
+        background-size: auto 100%;
+        background-position: center;
+        animation:slide .8s 1 ease-out forwards;
+    }
+    .adv div{
+        width: 1200px;
+        max-width: 100%;
+        position: absolute;
+        left:0;
+        right: 0;
+        margin: auto;
+        text-align: right;
+        padding-top: 20px;
+        padding-right: 10px;
+    }
+    .footer{
+        margin-bottom: 150px;
+    }
+    @keyframes slide {
+        form{
+            bottom:-200px;
+        }
+        to{
+            bottom:0px;
+            box-shadow: 0px 0 30px 1px rgba(169, 167, 167, 0.51);
+        }
+    }
+</style>
+<div class="adv">
+    <div><img src="https://pic.huodongjia.com/static/images/images/hdj/icon_close(1).png" alt=""></div>
+</div>
+{% endblock %}
 </body>
 <!--百度统计代码-->
+    <!--<script type='text/javascript'>-->
+        <!--var _vds = _vds || [];-->
+        <!--window._vds = _vds;-->
+        <!--(function(){-->
+            <!--_vds.push(['setAccountId', 'bfcde55a34679bc9']);-->
+            <!--(function() {-->
+                <!--var vds = document.createElement('script');-->
+                <!--vds.type='text/javascript';-->
+                <!--vds.async = true;-->
+                <!--vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';-->
+                <!--var s = document.getElementsByTagName('script')[0];-->
+                <!--s.parentNode.insertBefore(vds, s);-->
+            <!--})();-->
+        <!--})();-->
+    <!--</script>-->
+
+<script src="https://pic.huodongjia.com/static/js/huodongjia.js"></script>
+<script src="https://pic.huodongjia.com/static/js/index.min.js"></script>
 <script>
-    var host = "www.huodongjia.com";if(window.location.host==host){
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "//hm.baidu.com/hm.js?388950f5fe8dce1409ec7843101f9730";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    }
-</script>
-{% block baiduautopush %}
-<!--百度页面访问自动推送-->
-<script>
-    var host = "www.huodongjia.com";
-    if(window.location.host==host){
-        (function(){
-            var bp = document.createElement('script');
-            bp.src = '//push.zhanzhang.baidu.com/push.js';
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(bp, s);
-        })();
-        <!---->
-        (function(){
-            var src = document.location.protocol +'//js.passport.qihucdn.com/11.0.1.js?bc6e333c247b87d154a2b11caf40aa0a';
-            document.write('<script src="' + src + '" id="sozz"><\/script>');
-        })();
-    }
-</script>
-<!---->
-{% endblock %}
-<script src="http://pic.huodongjia.com/static/js/huodongjia.js"></script>
-<script src="http://pic.huodongjia.com/static/js/index.min.js"></script>
-<script>
-    var _menue="<div class='col-sm-12 col-xs-12 industry'>按行业</div>{% for cat in main_cats %}" +
-            "<div class='col-sm-3 col-xs-3 '><a target='_blank' href='/{{ cat.ename }}/'>{{ cat.name }}</a></div>{% endfor %}" +
-            "<div class='col-sm-12 col-xs-12 time'><span class='col-sm-3 col-xs-3'>按时间</span><span class='col-sm-3 col-xs-3'><a target='_blank'href='/business/13/'>最近一周</a></span>" +
-            " <span class='col-sm-3 col-xs-3'><a target='_blank' href='/business/14/'>最近一月</a></span><span class='col-sm-3 col-xs-3'><a target='_blank' href='/business/15/'>最近三月</a></span></div>" +
-            "<div class='col-sm-12 col-xs-12 city'>按城市</div>{% for city in main_cities %}" +
-            "<div class='col-sm-2 col-xs-2 '><a target='_blank' href='/{{ city.title }}/'>{{ city.district_name }}</a></div>{% endfor %}"
+    // var _menue="<div class='col-sm-12 col-xs-12 industry'>按行业</div>{% for cat in main_cats %}<div class='col-sm-3 col-xs-3 '><a target='_blank' href='/{{ cat.ename }}/'>{{ cat.name }}</a></div>{% endfor %}<div class='col-sm-12 col-xs-12 time'><span class='col-sm-3 col-xs-3'>按时间</span><span class='col-sm-3 col-xs-3'><a target='_blank'href='/business/13/'>最近一周</a></span><span class='col-sm-3 col-xs-3'><a target='_blank' href='/business/14/'>最近一月</a></span><span class='col-sm-3 col-xs-3'><a target='_blank' href='/business/15/'>最近三月</a></span></div><div class='col-sm-12 col-xs-12 city'>按城市</div>{% for city in main_cities %}<div class='col-sm-2 col-xs-2 '><a target='_blank' href='/{{ city.title }}/'>{{ city.district_name }}</a></div>{% endfor %}"
+    var _menue="<div class='col-sm-12 col-xs-12 industry'>按行业</div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/it/'>IT互联网</a></div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/finance/'>金融财经</a></div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/medical/'>医疗医学</a></div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/energy/'>能源化工</a></div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/agricultur/'>农林牧渔</a></div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/edutrain/'>教育培训</a></div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/manufact/'>加工制造</a></div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/realestate/'>地产建筑</a></div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/culmedia/'>文化传媒</a></div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/servindust/'>服务行业</a></div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/tralogist/'>交通物流</a></div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/trade/'>其它行业</a></div><div class='col-sm-12 col-xs-12 time'><span class='col-sm-3 col-xs-3'>按时间</span><span class='col-sm-3 col-xs-3'><a target='_blank'href='/business/13/'>最近一周</a></span><span class='col-sm-3 col-xs-3'><a target='_blank' href='/business/14/'>最近一月</a></span><span class='col-sm-3 col-xs-3'><a target='_blank' href='/business/15/'>最近三月</a></span></div><div class='col-sm-12 col-xs-12 city'>按城市</div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/beijing/'>北京</a></div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/shanghai/'>上海</a></div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/guangzhou/'>广州</a></div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/shenzhen/'>深圳</a></div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/hangzhou/'>杭州</a></div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/chengdu/'>成都</a></div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/xian/'>西安</a></div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/xiamen/'>厦门</a></div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/nanjing/'>南京</a></div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/wuhan/'>武汉</a></div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/chongqing/'>重庆</a></div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/tianjin/'>天津</a></div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/changsha/'>长沙</a></div><div class='col-sm-3 col-xs-3 '><a target='_blank' href='/qingdao/'>青岛</a></div>"
     var business_menue=$(".business_menue")
         business_menue.html(_menue)
     $(".business").hover(function () {
@@ -189,7 +227,42 @@
     }, function () {
         business_menue.fadeOut(10)
     })
+
+    if(window.location.host=="www.huodongjia.com"){
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?388950f5fe8dce1409ec7843101f9730";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+
+        })();
+    }
 </script>
+{% block push %}
+<script>
+//    360
+    (function(){
+        var src = (document.location.protocol == "http:") ? "http://js.passport.qihucdn.com/11.0.1.js?bc6e333c247b87d154a2b11caf40aa0a":"https://jspassport.ssl.qhimg.com/11.0.1.js?bc6e333c247b87d154a2b11caf40aa0a";
+        document.write('<script src="' + src + '" id="sozz"><\/script>');
+    })();
+</script>
+<script>
+//    百度
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+{% endblock %}
 {% block js %}
 {% endblock %}
 </html>

@@ -5,9 +5,9 @@
     goog.require('goog.ui.ac.Remote');
   </script>
   -->
-  <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/acdemo.css">
-  <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/autocomplete.css">
-<link rel="stylesheet" type='text/css' href='http://pic.huodongjia.com/static/css/postEvent.css?t={{now}}.js' />
+  <link rel="stylesheet" href="https://pic.huodongjia.com/static/css/acdemo.css">
+  <link rel="stylesheet" href="https://pic.huodongjia.com/static/css/autocomplete.css">
+<link rel="stylesheet" type='text/css' href='https://pic.huodongjia.com/static/css/postEvent.css?t={{now}}.js' />
 <style>
 .autocomplete-suggestions { border: 1px solid #999; background: #FFF; cursor: default; overflow: auto; -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); -moz-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); }
 .autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
@@ -99,7 +99,15 @@
     font-size: 16px;
 }
 #login a.weixin{margin: 0 15px}
-
+.send_code{
+    background: #2E83DD;
+    color: #fff;
+    border: none;
+    height: 35px;
+    width: 130px;
+    position: relative;
+    top: -5px;
+}
 </style>
 {% endblock %}
 {% block content %}
@@ -127,12 +135,11 @@
             </div>
             <div class="media">
                 <div class="media-left">
-                    <a><img class="media-object" src="/static/images/lanren.png" alt=""></a>
+                    <a><img class="media-object" src="https://pic.huodongjia.com/static/images/post.png" alt=""></a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading">生活方式类活动</h4>
-                    如：同城活动、美食、周边游、运动、度假、演唱会、话剧、音乐会、读书会、展览、户外、酒吧、购物、电影、公益、商业等，
-                    请绕道<a target="_blank" rel="nofollow" href="http://ba.lanrenzhoumo.com/account/common/register">懒人周末发布平台</a>
+                    <h4 class="media-heading">发布并同意在活动家销售门票</h4>
+                    在活动家平台发布的活动，由编辑审核通过后将默认在活动家平台进行销售。
                 </div>
             </div>
         </div>
@@ -141,7 +148,7 @@
             <span class="error"></span><div class="arrow"></div>
             <p class="info_title"><span>会议基本信息</span></p>
             <label for="title"><font>*</font>会议标题</label><input class="mes" id="title" type="text"/>
-            <label for="scale" style="width: 50px">规模</label><input placeholder="如：500人" class="mes" id="scale" type="text"/><br/>
+            <label for="scale" style="width: 50px">规模</label><input placeholder="如：500" class="mes" id="scale" type="text"/><br/>
             <label for="start_day"><font>*</font>会议时间</label><input class="mes" id="start_day"  value="{{now|date:'Y-m-d'}} 00:00" type="text"/>
             <span class="zhi"></span>
             <input id="end_day" class="mes" value="{{now|date:'Y-m-d'}} 00:00"  type="text"/>
@@ -240,11 +247,12 @@
         {% csrf_token %}
         <div class="spon_info">
             <p class="info_title"><span>主办方信息</span></p>
-            <label for="name"><font>*</font>联系人</label><input class="mes" id="name" type="text"/><br/>
-            <label for="sponsor"><font>*</font>主办单位</label><input class="mes" id="sponsor" type="text"/><span>多个主办方请用逗号"，"隔开</span><br/>
+            <label for="name"><font>*</font>联系人及单位名称</label><input class="mes" id="name" type="text"/><br/>
+            <label for="sponsor"><font>*</font>主办单位</label><input class="mes" id="sponsor" type="text"/><span>多个主办方请用逗号","隔开</span><br/>
             <label for="phone"><font>*</font>手机号码</label><input class="mes" id="phone" type="text"/><span>用于接受活动审核通知和用户报名通知</span><br/>
             <label for="checkcode"><font>*</font>验证码</label><input class="mes" id="checkcode" data-captcha="false" type="text"/>
-            <img id="cap_img" style="position: relative;top: -8px" width="125" onclick="this.setAttribute('src','/get_check_code_image/?nocache='+Math.random());" src="/get_check_code_image/"/>
+            <!--<img id="cap_img" style="position: relative;top: -8px" width="125" onclick="this.setAttribute('src','/get_check_code_image/?nocache='+Math.random());" src="/get_check_code_image/"/>-->
+            <button class="send_code">发送验证码</button>
             <br/>
             <label for="email"><font>*</font>邮箱地址</label><input class="mes" id="email" type="text"/><span>用于接受活动审核通知和用户报名通知</span><br/>
             <label for="url">活动来源网址</label><input class="mes" id="url" type="text"/><br/>
@@ -256,15 +264,18 @@
         <div>
             <p style="text-align: left;padding-left: 15px">活跃主办方</p>
             <ul>
-                {% for new_event in new_events %}
+                {% for new_event in new_events|slice:':5' %}
                 <li>
-                    <span><font style="color: #53596F;">{{new_event.event_sponsor.0.ns_name}}</font><span style="position:relative;top: -4px;">发布了</span></span><br>
+                    <span><font style="color: #53596F;">{{new_event.event_sponsors.0.0}}</font><span style="position:relative;top: -4px;">发布了</span></span><br>
                 <!--&lt;!&ndash;<span>1个小时前主办方发布了</span>&ndash;&gt;<br/>-->
                     <a href="{{ new_event.event_url }}">{{ new_event.event_name }}</a><br/>
                 <span><a href="/{{new_event.event_city_info.0.title}}/">{{new_event.event_city_info.0.district_name}}</a></span><span style="float: right;position: relative;top: 7px;">{{ new_event.event_begin_time|date:'Y-m-d'}}</span>
                 </li>
                 {% endfor %}
             </ul>
+            <a style="display:block;padding: 10px 15px;" target="_blank" href="http://shangzhibo.tv/?utm=huodongjia">
+                <img width="100%" src="https://pic.huodongjia.com/static/images/huoodngjia-guanggao.png" alt="">
+            </a>
         </div>
     </div>
 </div>
@@ -287,10 +298,10 @@
 {% endif %}
 {% endblock %}
 {% block js %}
-<script src="http://pic.huodongjia.com/static/laydate/laydate.js"></script>
-<script src="http://pic.huodongjia.com/static/js/ckeditor1/ckeditor.js"></script>
-<script src="http://pic.huodongjia.com/static/js/postEvent.js?t={{now}}.js"></script>
-<script type="text/javascript" src="http://pic.huodongjia.com/static/js/jquery.autocomplete.js"></script>
+<script src="https://pic.huodongjia.com/static/laydate/laydate.js"></script>
+<script src="https://pic.huodongjia.com/static/js/ckeditor1/ckeditor.js"></script>
+<script src="https://pic.huodongjia.com/static/js/postEvent.js?t={{now}}.js"></script>
+<script type="text/javascript" src="https://pic.huodongjia.com/static/js/jquery.autocomplete.js"></script>
 <script>
     //ac
     //var title_input = document.getElementById('title');

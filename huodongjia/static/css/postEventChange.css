@@ -1,6 +1,6 @@
 @font-face {
     font-family: "myiconfont";
-    src: url("http://pic.huodongjia.com/static/css/iconfont/iconfont_post.ttf");
+    src: url("https://pic.huodongjia.com/static/css/iconfont/iconfont_post.ttf");
 }
 .content{
     padding: 0;
@@ -326,7 +326,7 @@ label[for="serve"]{
     width: 50% !important;
 }
 #start_day,#end_day,#deadline{
-    background: url("http://pic.huodongjia.com/static/images/rili1.png") no-repeat;
+    background: url("https://pic.huodongjia.com/static/images/rili1.png") no-repeat;
     background-position: 97% 48%;
 }
 .start_time,.end_time{
@@ -462,7 +462,7 @@ label[for="serve"]{
 .head_photo{
     width: 80px;
     height: 80px;
-    background:url("http://pic.huodongjia.com/static/images/bj.jpg") no-repeat;
+    background:url("https://pic.huodongjia.com/static/images/bj.jpg") no-repeat;
     float: left;
 }
 .file{

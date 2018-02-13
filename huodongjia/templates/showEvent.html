@@ -1,10 +1,12 @@
 ﻿{% extends 'base.html' %}
 {% load page_nav %}
 {% block addstyle %}
-<link rel="stylesheet" href="http://pic.huodongjia.com/static/css/hdj.min.css">
 <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/new_showevent.min.css">
-<link rel="stylesheet" href="http://pic.huodongjia.com/static/css/sweet-alert.min.css">
 <meta name="mobile-agent" http-equiv="mobile-agent" content="format=html5;url=http://m.huodongjia.com{{request.get_full_path}}" />
+<meta property="og:type" content="product"/>
+<meta property="og:image" content="{{event.event_img.0.server__name}}{{event.event_img.0.urls}}"/>
+<meta property="og:title" content="{{ seo.title }}"/>
+<meta property="og:description" content="{{ seo.description }}"/>
 <!--倒计时-->
 <!--<link rel="stylesheet" href="http://pic.huodongjia.com/static/countdown/styles.css" />-->
 <!--<link rel="stylesheet" href="http://pic.huodongjia.com/static/countdown/jquery.countdown.css" />-->
@@ -62,7 +64,7 @@
             <ul>
                 {% for par in event.event_paragraph_info %}
                 {% if par.txt %}
-                {% if par.txt != ' ' %}
+                {% if par.txt != ' ' and par.txt != '<p><br></p>' %}
                 <li class="e_title" data-plne="meeting_{{forloop.counter}}">{{par.name}}</li>
                 {% endif %}
                 {% endif %}
@@ -253,34 +255,13 @@
             <div class="event_content">
                 {% for par in event.event_paragraph_info %}
                 {% if par.txt  %}
-                {% if par.txt != ' ' %}
+                {% if par.txt != ' ' and par.txt != '<p><br></p>' %}
                 <div class="meetingBgs event_part" id="meeting_{{forloop.counter}}">
-                    {% if par.name == '会议通知'%}
-                    <h3>{{par.name}}<br><span>Meeting notice</span></h3>
-                    {% endif %}
-                    {% if par.name == '会议日程'%}
-                    <h3>{{par.name}}<br><span>Meeting schedule</span></h3>
-                    {% endif %}
-                    {% if par.name == '会议门票'%}
-                    <h3>{{par.name}}<br><span>Meeting ticket</span></h3>
-                    {% endif %}
-                    {% if par.name == '会议内容'%}
-                    <h3>{{par.name}}<br><span>Meeting content</span></h3>
-                    {% endif %}
-                    {% if par.name == '会议地址'%}
-                    <h3>{{par.name}}<br><span>Meeting address</span></h3>
-                    {% endif %}
-                    {% if par.name == '交通指南'%}
-                    <h3>{{par.name}}<br><span>Transportation guide</span></h3>
-                    {% endif %}
-                    {% if par.name == '周边信息'%}
-                    <h3>{{par.name}}<br><span>Transportation guide</span></h3>
-                    {% endif %}
-                    {% if par.name == '拟邀嘉宾'%}
-                    <h3>{{par.name}}<br><span>Invite guest</span></h3>
-                    {% endif %}
+                   
+                    <h3>{{par.name}}</h3>
+                 
                     {% if par.name == '会议嘉宾'%}
-                    <h3>{{par.name}}<br><span>Meeting guest</span></h3>
+               
                     {% if event.event_guest %}
                     <div class="meeting_content">
                         {% for guest in event.event_guest %}
@@ -387,7 +368,7 @@
                         <img width="100%" class="lazy" src="http://pic.huodongjia.com/static/images/event_default.jpg"  data-original="{{ relate_event.event_img.0.server__name }}{{ relate_event.event_img.0.urls }}!hdj123" alt="{{ relate_event.event_name }}"/>
                     </a>
                     <p><a style="color: #5A6070;" href="{{ relate_event.event_url }}" target="_blank">{{ relate_event.event_name }}</a></p>
-                    <p><span><a href="/{{ relate_event.event_city_info.0.title }}/" target="_blank">{{ relate_event.event_city_info.0.district_name }}</a></span><span style="float: right">{{ relate_event.event_begin_time|date:'Y-m-d' }}</span></p>
+                    <p style="display:block;"><span><a href="/{{ relate_event.event_city_info.0.title }}/" target="_blank">{{ relate_event.event_city_info.0.district_name }}</a></span><span style="float: right">{{ relate_event.event_begin_time|date:'Y-m-d' }}</span></p>
                 </div>
                 {% endfor %}
             </div>
@@ -504,7 +485,6 @@
 {% endblock %}
 {% block js %}
 <script src="http://pic.huodongjia.com/static/js/qcrode_lazyload.min.js"></script>
-<script src="http://pic.huodongjia.com/static/js/sweet-alert.min.js"></script>
 {% ifequal event.event_price_type 4 %}
 <script src="/static/js/ieFree.js"></script>
 {% endifequal %}
@@ -527,8 +507,6 @@
 <![endif]-->
 <script>
     $('.sponsor').click(function () {$('.donate').submit()})
-    $($(".meeting_content")[0]).find("p").find("img").attr("alt","{{event.event_name}}")
-    $($(".meeting_content")[1]).find("p").find("img").attr("alt","{{event.event_name}}日程安排")
     if($('.lazy').length>0){
         $(".lazy").lazyload({threshold : 0 , effect:"show", placeholder : "http://pic.huodongjia.com/static/images/event_default.jpg", event:"scroll"});
     }

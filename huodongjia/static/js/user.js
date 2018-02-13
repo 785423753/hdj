@@ -52,7 +52,7 @@ $(".form-horizontal").submit(function () {
                             tips:"恭喜你获得<span style='color: #e65052;'>20</span>积分。<a target='myframe' href='/usercenter/exchange/'>去看看</a>",
                             fromView:false
                         }
-                        top.frames.userPopup(option)
+                        // top.frames.userPopup(option)
                         history.go(0)
                     }else{
                         top.frames.swal("更新成功")

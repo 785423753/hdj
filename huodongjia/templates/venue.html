@@ -1,9 +1,15 @@
-{% extends 'base.html' %}
+﻿{% extends 'base.html' %}
 {% load page_nav %}
 {% block addstyle %}
-<link rel="stylesheet" href="http://pic.huodongjia.com/static/css/venue.css"/>
+<!--<link rel="stylesheet" href="http://pic.huodongjia.com/static/css/venue.css"/>-->
+<link rel="stylesheet" href="https://pic.huodongjia.com/static/css/venue_sponsor.css"/>
 <link rel="alternate" media="only screen and(max-width: 640px)" href="http://m.huodongjia.com{{request.get_full_path}}" >
 <meta name="mobile-agent" http-equiv="mobile-agent" content="format=html5;url=http://m.huodongjia.com{{request.get_full_path}}" />
+<meta property="og:type" content="article"/>
+<meta property="og:image" content="{% if venue.nv_img_urls %}{{ venue.nv_img_urls }}{% else %}http://pic.huodongjia.com/event/2015-06-17/event1434525054.73.jpg{% endif %}"/>
+<meta property="og:title" content="{{ seo.title }}"/>
+<meta property="og:description" content="{{ seo.description }},{{ venue.nv_content|slice:':100' }}"/>
+<meta property="og:release_date" content="{{ venue.nv_events.0.event_rel_time }}"/>
 <!--[if lt IE 9]>
 <script src="http://pic.huodongjia.com/static/js/html5shiv.min.js"></script>
 <style>
@@ -12,137 +18,319 @@
     }
 </style>
 <![endif]-->
-<script type="text/javascript">
-    var browser = {
-        versions: function() {
-            var u = navigator.userAgent, app = navigator.appVersion;
-            return {//移动终端浏览器版本信息
-                trident: u.indexOf('Trident') > -1, //IE内核
-                presto: u.indexOf('Presto') > -1, //opera内核
-                webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
-                gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
-                mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端
-                ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
-                //<!-- android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器 -->
-                android: u.indexOf('Android') > -1, //android终端或者uc浏览器 -->
-                iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
-                iPad: u.indexOf('iPad') > -1, //是否iPad
-                webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
-            };
-        }(),
-        language: (navigator.browserLanguage || navigator.language).toLowerCase()
+<style>
+    .venue_left{background: none}
+    .venue_info{
+        background: #fff;
+        display: flex;
+        display: -webkit-flex;
+        padding: 20px;
+        margin-bottom: 15px;
     }
-    if (browser.versions.iPhone || browser.versions.iPad || browser.versions.android) {
-        var url =  location.href
-        url=url.replace("http://www.huodongjia","http://m.huodongjia")
+    .venuetitle{padding-left: 20px}
+    .venuetitle h2{
+        font-size: 18px;
+        margin: 0;
+        font-weight: 600;
+    }
+    .venuetitle p,.venuetitle div{
+        font-size: 14px;
+        color: #999;
+        line-height: 26px;
+        margin: 0 0 5px;
+    }
+    .venuetitle .addr{
+        font-size: 14px;
+        color: #000;
+        margin: 20px 0;
+    }
+    .venue_event{
+        background: #fff;
+    }
+    .detail p{
+        font-size: 14px;
+        margin-top: 5px;
+    }
+    .detail p:nth-child(odd) {
+        width: 12%;
+    }
+    .detail p:nth-child(even) {
+        width: 88%;
+    }
+    .venue_info{
+        min-height: 200px;
+    }
+    .count{
+        font-size: 18px;
+        font-weight: 600;
+        padding:20px;
+        margin: 0;
+    }
+    .venue_list{
+        border-bottom: none;
+        border-top: 1px solid #D9D9D9;
+    }
+    .apply{
+        position: absolute;
+        right: 0px;
+        top:0px;
+        background: #1474d8;
+        color: #fff;
+        line-height: 35px;
+        padding: 0 10px;
+        font-size: 14px;
+    }
+    .stop{
+        color: #fff;
+        background: #999;
+    }
+    .new_venue{
+        display: block;
+        padding: 0;
+        margin-bottom: 10px;
+    }
+    .new_venue h3{
+        margin: 5px 0;
+    }
 
-        window.location=url;
+    .related{margin: 0;}
+    .more_text{
+        display: none;
     }
-</script>
+    .more{
+        text-align: center;
+        position: relative;
+        top: 10px;
+        color: #333 !important;
+        cursor: pointer;
+    }
+    .apply:hover{color: #fff}
+    .venue_intro{
+        height: 180px;
+        overflow: hidden;
+        transition: all .2s linear;
+    }
+    .venue_intro div span{
+        color: #999 !important;
+        font-size: 14px !important;
+    }
+</style>
 {%endblock%}
 {% block content %}
 <div class="container">
-    {% if venue %}
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 spon_header" style="padding: 0">
-            <ul class="col-lg-12 col-md-12 col-xs-12 col-sm-12 ul_left">
-                <li ><a href="/" target="_blank">活动家</a>&gt;</li>
-                <li><a href="/listvenue/" target="_blank">会议场地</a>&gt;</li>
-                <li><a href="" class="venue_url"><h1>{{ venue.nv_name }}</h1></a></li>
-                <span style="float: right;">更新时间：{{ venue.nv_events.0.event_release_time|date:"Y-m-d" }}</span>
-            </ul>
-
-            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12  spon_info">
+    <div class="bread_nav"><a href="/">首页</a> &gt; <a href="/listvenue/">会议场地</a> &gt; <h1 style="display: inline;font-size: 14px;margin: 0">{{ venue.nv_name }}</h1></div>
+    <div class="venue_left">
+        <div class="venue_info">
+            <div>
                 {% if venue.nv_img_urls %}
-                <img src="{{ venue.nv_img_urls }}"   class="spon_info_img" alt="{{ venue.nv_name  }}">
+                <img width="223" height="160" src="{{ venue.nv_img_urls }}" alt="{{ venue.nv_name  }}">
                 {% else %}
-                <img src="http://pic.huodongjia.com/event/2015-06-17/event1434525054.73.jpg" class="spon_info_img" alt="{{event.sponsor_name}}">
+                <img width="223" height="160" src="http://pic.huodongjia.com/event/2015-06-17/event1434525054.73.jpg" alt="{{event.sponsor_name}}">
                 {% endif %}
-                    {% autoescape off %}
-                {{ venue.nv_content }}
-                {% endautoescape %}
-                </br><p style="margin-top:25px"><b>会场地址:</b>{{ venue.nv_addr }}</p>
             </div>
+            <div class="venuetitle">
+                <h2>{{venue.nv_name }}</h2>
+                <p class="addr">会场地址: <a style="color: #000;" target="_blank" href="/{{venue.nv_city.title}}/">{{venue.nv_city.district_name}}</a> {{ venue.nv_addr }}</p>
+                <div class="venue_intro">
+                    {% if venue.traffic_guide %}
+                    <span>交通指南</span>
+                    <div>{{ venue.traffic_guide|safe }}</div>
+                    {% endif %}
+                    <span>场馆介绍</span>
+                    <div>{{ venue.nv_content|safe }}</div>
+                </div>
+                <p class="more">查看全部</p>
             </div>
         </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 spon_content">
-            <p class="active">正在报名会议</p>
-            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 hr"></div>
-            {% if venue.nv_events %}
-            <div class="active-div">
-            {% for event in venue.nv_events %}
-            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 active_info">
-                <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12 active_img">
-                    <a href="/event-{{ event.event_id }}.html" target="_blank">
-                        <img src="{{event.event_img.0.server__name}}{{ event.event_img.0.urls }}" alt="{{event.event_name}}">
-                        </a>
-                </div>
-                <div class="col-lg-9 col-md-9 col-xs-12 col-sm-12 active_info_text">
-                    <div class="active_div">
-
-                        <a href="/event-{{ event.event_id }}.html" target="_blank"> <p class="active_info_title"  {% if event.cat_name or event.event_venue.venue_title %}{% endif %}>{{event.event_name}}</p></a>
-
-                    <p class="active_info_intro">简介：{{ event.event_intro }}</p>
-                        <span class="foot_time">时间：{{ event.event_begin_time|date:'Y-m-d' }}</span>
-                        <span class="foot_city">主办方：
-                            {% if event.event_sponsor %}
-                                <a href="/sponsor-{{ event.event_sponsor.0.id }}.html" target="_blank" style="color: #656666;">{{ event.event_sponsor.0.ns_name }}</a>
+        <div class="venue_event">
+            <h3 class="count">主办会议共 {{venue.event_count}} 场</h3>
+            <div class="all">
+                {% for item in venue.nv_events %}
+                <div class="venue_list">
+                    <div>
+                        <a href="{{item.event_url}}" target="_blank">
+                            {% if item.event_img %}
+                            <img width="244" height="146" src="{{item.event_img.0.server__name}}{{item.event_img.0.urls}}" alt="{{ item.event_name }}"/>
                             {% else %}
-                            <a style="color: #656666;">暂无</a>
+                            <img width="244" height="146" src="https://pic.huodongjia.com/static/images/event_default.jpg" alt="{{ item.event_name }}"/>
                             {% endif %}
-                       </span><span class="join"><a href="/event-{{ event.event_id }}.html" target="_blank">我要报名>></a></span>
+                        </a>
                     </div>
+                    <div class="info">
+                        <div>
+                            <h3 class="venue_title"><a href='{{item.event_url}}' target="_blank">{{ item.event_name }}</a></h3>
+
+                            {% if item.event_invalid %}
+                            <a class="apply stop">会议结束</a>
+                            {% else %}
+                            {% ifequal item.event_price_type 6 %}  <!--标准-->
+                            {% if item.event_price_unit|length == 0 or not item.event_price_valid %}
+                            <a class="apply stop">报名截止</a>
+                            {% else %}
+                            <a class="apply" href="{{item.event_url}}" target="_blank">立即参会</a>
+                            {% endif %}
+                            {% endifequal %}
+                            {% ifequal item.event_price_type 5 %}  <!--待定-->
+                            <a class="apply" href="{{item.event_url}}" target="_blank">立即咨询</a>
+                            {% endifequal %}
+                            {% ifequal item.event_price_type 7 %}  <!--待定-->
+                            <a class="apply" href="{{item.event_url}}" target="_blank">立即咨询</a>
+                            {% endifequal %}
+                            {% endif %}
+                        </div>
+                        <div class="detail">
+                            <p>会议时间：</p>
+                            <p>{{ item.event_begin_time }}</p>
+                            <p>会议简介：</p>
+                            <p>{{item.event_intro|slice:'70'}}...</p>
+                            <p>主办方：</p>
+                            <p>{% for s in item.event_sponsor %}<a target="_blank" href="/sponsor-{{s.id}}.html">{{s.ns_name}}</a>{% endfor %}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% if venue.nextPage %}
+            <p style="text-align: center;line-height: 45px;color: #333;font-size: 14px;"><span style="cursor:pointer;top: 0;" data-page={{venue.nextPage}} class="v_more">查看更多</span></p>
+            {% endif %}
+        </div>
+
+    </div>
+    <div class="venue_right">
+        <div class="related">
+            <p class="n_title">相关会场</p>
+            {% for venue in venue.relevant_venues %}
+            <div class="new_venue">
+                <a href="/venue-{{ venue.id }}.html" target="_blank">
+                    <img width="225" height="121" src="{% if venue.nv_img_urls %}{{ venue.nv_img_urls }}{%else%}https://pic.huodongjia.com/event/2015-06-17/event1434525054.73.jpg{% endif %}" alt="{{ venue.nv_name }}"/>
+                </a>
+                <div>
+                    <h3><a href="/venue-{{ venue.id }}.html">{{ venue.nv_name }}</a></h3>
+                    <p><a target="_blank" href="/{{venue.nv_city.title}}/">{{venue.nv_city.district_name}}</a>  {{ venue.nv_addr }}</p>
                 </div>
             </div>
             {% endfor %}
         </div>
-            {% else %}
-            <p style="color: #868586;margin-top:12%;font-size: 16px;text-align: center;">暂时没有会议或我有会议<a href="/postevent/" target="_blank">提交给活动家</a>。</p>
-            {% endif %}
-    </div>
+        <div class="setting">
+            <a><img src="http://pic.huodongjia.com/static/images/venue_app.png" alt="app">
+                <div>
+                    <img width="150" height="150" src="https://pic.huodongjia.com/static/images/icon-app.jpg" alt="活动家app下载">
+                    <span>下载活动家app<br>随时随地查看国内商务会议 <br>了解行业动态</span>
+                </div>
+            </a>
+            <a><img src="http://pic.huodongjia.com/static/images/gongzhonghao.png" alt="公众号">
+                <div>
+                    <img width="150" height="150" src="https://pic.huodongjia.com/static/images/icon-gzh.jpg" alt="活动家app下载">
+                    <span>关注活动家公众号<br>了解更多会议资讯</span>
+                </div>
+            </a>
+            <a><img src="http://pic.huodongjia.com/static/images/shoujichakan.png" alt="用手机查看">
+                <div>
+                    <div class="qcrode"></div>
+                    <span>扫一扫  在手机上查看</span>
+                </div>
+            </a>
+        </div>
+
     </div>
 
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 spon_foot">
-            <p class="active">往期会议回顾</p>
-            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 hr"></div>
-            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 spon_foot_info">
-                <ul>
-                    {% for event in venue.nv_hold_events %}
-                    <li> <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12 spon_foot_div">
-                        <a href="/event-{{ event.old_event_id }}.html" target="_blank">
-                        <p class="spon_foot_title">{{event.name}}</p></a>
-                        <span
-                            class="foot_time">时间：{{ event.begin_time|date:'Y-m-d' }}</span><span
-                            class="foot_city">主办方：
-                        {% if event.sponsor__name %}
-                        <a href="/sponsor-{{ event.sponsor__id|encodeid }}.html" target="_blank" style="color: #656666;">{{event.sponsor__name}}</a>
-                        {% else %}
-                        <a style="color: #656666;">暂无</a>
-                        {% endif %}
-                    </span>
-                    </div></li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-    </div>
-    {% else %}
-    <div class="noinfo">
-        <div class="noinfo_div">
-            <img src="http://pic.huodongjia.com/static/images/noinfo.gif">
-            <span>指定的场馆不存在</span >
-        </div>
-    </div>
-    {% endif %}
 </div>
 {% endblock %}
 
 {% block js %}
-<script type="text/javascript" src="http://pic.huodongjia.com/static/js/sponsor_list.js"></script>
+<script type="text/javascript" src="https://pic.huodongjia.com/static/js/jquery.qrcode.min.js"></script>
 <script type="text/javascript">
-    var hrefs = window.location.href;
-    $(".venue_url").attr("href",hrefs);
+    $('.more').click(function () {
+        if($(this).text()== '查看全部'){
+            $('.venue_intro').css({height:'auto'})
+            $(this).text('收起')
+        }else {
+            $('.venue_intro').css({height:'180px'})
+            $(this).text('查看全部')
+        }
+
+
+    })
+    $('.v_more').click(function () {
+        var url=$(this).attr('data-page')
+        if(url){
+            $('.v_more').text('正在加载...')
+            $.ajax({
+                url:url,
+                type:'get',
+                data:{json:1},
+                dataType:'json',
+                async:false,
+                success:function (data) {
+                    var _html=''
+                    var Data=data.nv_events,img,price
+                    for(var i=0;i<Data.length;i++){
+                        var intro=Data[i].event_intro.substring(0,70)
+                        if(Data[i].event_img.length > 0){
+                            img=Data[i].event_img[0].server__name + Data[i].event_img[0].urls
+                        }else{
+                            img="http://pic.huodongjia.com/static/images/event_default.jpg"
+                        }
+                        if(Data[i].event_invalid){
+                            price='<a  class="apply stop">会议结束</a>'
+                        }else {
+                            if(Data[i].event_price_type == 6 && Data[i].event_price_unit.length == 0){
+                                price='<a class="apply stop">报名截止</a>'
+                            }else{
+                                price='<a href="'+Data[i].event_url+'" target="_blank" class="apply stop">立即参会</a>'
+                            }
+                            if(Data[i].event_price_type == 5){
+                                price='<a href="'+Data[i].event_url+'" target="_blank" class="apply stop">立即咨询</a>'
+                            }
+                        }
+                        _html+=`
+                    <div class="venue_list">
+                <div>
+                    <a href=${Data[i].event_url} target="_blank">
+                        <img width="244" height="146" src=${img} alt=${Data[i].event_name}>
+                    </a>
+                </div>
+                <div class="info">
+                    <div>
+                        <h3 class="venue_title"><a href=${Data[i].event_url} target="_blank">${Data[i].event_name}</a></h3>
+                    ${price}
+                </div>
+                <div class="detail">
+                <p>会议时间：</p>
+                <p>${Data[i].event_begin_time}</p>
+                <p>会议地点：</p>
+                <p><a href="/${Data[i].event_city_info[0].title}/" target="_blank">${Data[i].event_city_info[0].district_name}</a></p>
+                <p>会议简介：</p>
+                <p>${intro}...</p>
+                </div>
+                </div>
+                </div>
+            `
+                    }
+                    $('.all').append(_html)
+                    if(data.nextPage && data.nextPage != 'false'){
+                        $('.v_more').attr('data-page',data.nextPage)
+                        $('.v_more').text('查看更多')
+                    }else{
+                        $('.v_more').attr('data-page','')
+                        $('.v_more').text('加载完成！')
+                    }
+                },
+                fail:function (error) {
+                    $('.v_more').text('加载失败！')
+                }
+            })
+        }
+
+
+    })
+    $('.qcrode').qrcode({
+        width: 150,
+        height: 150,
+        text:window.location.href,
+        render:"table",
+        foreground:'#000'
+    });
+
 </script>
 {% endblock %}

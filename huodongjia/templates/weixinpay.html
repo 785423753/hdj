@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+﻿{% extends 'base.html' %}
 {% block addstyle %}
 <style type="text/css" xmlns="http://www.w3.org/1999/html">
     /*全局设置*/
@@ -45,7 +45,7 @@
 <div class="container" id="container_body">
     <div class="row">
         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 col-lg-offset-1" style="margin-top: 5em">
-            <p style="font-size: 15px">你好，你预定的<a href="{{event_url}}" style="color:#3366cc">{{event_name}}</a>,请尽快完成付款。</p>
+            <p style="font-size: 15px">你好，你预定的<a href="/event-{{event_id}}.html" style="color:#3366cc">{{event_name}}</a>,请尽快完成付款。</p>
             <p style="font-size: 15px">应付金额:<label style="font-size:22px;font-weight:inherit">{{order_price}}元</label></p>
             <p style="font-size: 15px;">二维码url:<label style="font-size:22px;font-weight:inherit" id="qrcode_url">{{qrcode_url}}</label></p>
             <p style="font-size: 22px;display: none;" class="url_info" >提示:<label style="font-size:15px;" id="qrcode_info"></label></p>
@@ -63,22 +63,23 @@
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-lg-offset-2 erwei">
                     <div id="code" style="width: 225px;
         height: 225px; margin-top: 5em;"></div><br/>
-                    <img src="http://pic.huodongjia.com/static/images/alipy_weixin_03.jpg" style="  margin-left: -23px;
+                    <img src="https://pic.huodongjia.com/static/images/alipy_weixin_03.jpg" style="  margin-left: -23px;
   margin-top: 2em;">
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 info">
-                    <img src="http://pic.huodongjia.com/static/images/weixin_erwei.png" style="margin-top:4.9em">
+                    <img src="https://pic.huodongjia.com/static/images/weixin_erwei.png" style="margin-top:4.9em">
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 col-lg-offset-2" style="  margin-top: 2.5em;">
-                    <p>如果您在支付中遇到问题欢迎拨打服务热线400-003-3879咨询。 报名成功后，将会发送电子票到您的手机和邮箱，请注意查收。</p>
+                    <p>如果您在支付中遇到问题欢迎拨打服务热线028-69761252咨询。 报名成功后，将会发送电子票到您的手机和邮箱，请注意查收。</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<script src="http://pic.huodongjia.com/static/js/jquery-1.8.3.min.js"></script>
-<script src="http://pic.huodongjia.com/static/js/jquery.qrcode.min.js"></script>
+{% endblock %}
+{% block script %}
+<script src="https://pic.huodongjia.com/static/js/jquery-1.8.3.min.js"></script>
+<script src="https://pic.huodongjia.com/static/js/jquery.qrcode.min.js"></script>
 <script type="text/javascript">
     function toUtf8(str) {
         var out, i, len, c;
@@ -104,9 +105,15 @@
         $("#qrcode_info").text("您的订单异常,请拨打服务热线400-003-3879咨询。");
         $(".url_info").css({display:"block"})
     }
-    var str = toUtf8(qrcode_url);
+    var str = toUtf8(qrcode_url),_type='';
+    if ((navigator.userAgent.indexOf('MSIE') >= 0)
+        && (navigator.userAgent.indexOf('Opera') < 0)){
+        _type='table'
+    }else{
+        _type='canvas'
+    }
     $('#code').qrcode({
-        render: "table", // 渲染方式有table方式（IE兼容）和canvas方式
+        render: _type, // 渲染方式有table方式（IE兼容）和canvas方式
         width: 225, //宽度
         height:225, //高度
         text: str, //内容
@@ -119,12 +126,57 @@
     $('#code').find("canvas").css({
         width:"225px",
         height:"225px"
-    })
+    });
+    //支付成功后跳转到支付成功页面
+    var ws = new WebSocket('wss://www.huodongjia.com/callback/pc/wechat/?topic={{o_sign}}');
+    var heartbeat_msg = '--heartbeat--', heartbeat_interval = null, missed_heartbeats = 0;
+    ws.onopen = function() {
 
-    $.ajax({
-        url:''
-    })
+
+        if (heartbeat_interval === null) {
+            missed_heartbeats = 0;
+            heartbeat_interval = setInterval(function() {
+                try {
+                    missed_heartbeats++;
+                    if (missed_heartbeats >= 3)
+                        throw new Error("Too many missed heartbeats.");
+                    ws.send(heartbeat_msg);
+                } catch(e) {
+                    clearInterval(heartbeat_interval);
+                    heartbeat_interval = null;
+                    ws.close();
+                }
+            }, 20000);
+        }
+
+    };
+
+
+    ws.onmessage = function(e) {
+        if (e.data === heartbeat_msg) {
+            missed_heartbeats = 0;
+            return;
+        }
+        var out_trade_no=e.data.split(' ')[1]
+        window.location.href = 'https://www.huodongjia.com/return_url/?source=wechat&out_trade_no='+out_trade_no;
+    };
+
+
+    ws.onerror = function(e) {
+    };
+
+
+    ws.onclose = function(e) {
+        a = new Date();
+    }
+
+
+    function send_message(msg) {
+        ws.send(msg);
+    }
+
 </script>
-<script src="http://pic.huodongjia.com/static/js/times.js"></script>
+<script src="https://pic.huodongjia.com/static/js/times.js"></script>
 {% endblock %}
+
 

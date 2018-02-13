@@ -1,9 +1,9 @@
-{% extends 'base.html' %}
+﻿{% extends 'base.html' %}
 {% load page_nav %}
 {% block addstyle %}
-<link rel="stylesheet" href="http://pic.huodongjia.com/static/css/searchOrder.css"/>
+<link rel="stylesheet" href="https://pic.huodongjia.com/static/css/searchOrder.css"/>
 {% if showorder %}
-<link rel="stylesheet" href="http://pic.huodongjia.com/static/css/orderList.css"/>
+<link rel="stylesheet" href="https://pic.huodongjia.com/static/css/orderList.css"/>
 {% endif %}
 {%endblock%}
 {% block content %}
@@ -66,7 +66,7 @@
                 <td>{% if order.order_paytime %}{{order.order_paytime}}{% endif %}</td>
                 <td>
                     {% ifequal order.order_pay_status 0 %}
-                    <a target="_blank" style="color: #fff;"{% if  order.order_valid %} href="/signup/{{order.event__old_event_id}}/?orderno={{order.order_number}}"{%endif%}><button {% if not order.order_valid %}disabled="disabled" style="background: #DDDDDD" {% endif %}  class="pay">去支付</button></a>
+                    <a target="_blank" style="color: #fff;" href="/signup/{{order.event__old_event_id}}/?orderno={{order.order_number}}"><button class="pay">去支付</button></a>
                     {% endifequal %}
                     {% ifequal order.order_pay_status 10 %}
                         待财务确认
@@ -130,7 +130,7 @@
             async: false,
             data: {
                 csrfmiddlewaretoken: csrf.value,
-                captcha: captcha,
+                captcha: captcha
             },
             success: function (data) {
                 if (data.flag == 'false') {
@@ -165,7 +165,7 @@
         s+=dateObj.getMinutes();
         s+=dateObj.getSeconds();
         var set, i = 60;
-        var url = "/send_check_mesage/";
+        var url = "/send_check_mesages/";
         var tel = $.trim($("#phone").val());
         if (tel != "" && (/^1[3-8]+\d{9}$/).test(tel)) {
             $("#code").attr({disabled: "disabled"});
@@ -184,7 +184,7 @@
         }
         return false
     });
-    $("#checkcode").blur(function () {
+    $("#checkcode").keyup(function () {
         var phone=$.trim($("#phone").val());
         var captcha=$.trim($("#checkcode").val());
         var url="/verify_tel_captcha/";

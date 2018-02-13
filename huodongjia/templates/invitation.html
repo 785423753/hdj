@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>邀请函</title>
+    <title>{{event.event_name}}邀请函</title>
 </head>
 <style>
     body{
@@ -26,7 +26,7 @@
     .iv{
         float: left;
     }
-    .title{
+    .h_title{
         display: inline-block;
         width: 65%;
         height: 60px;
@@ -39,37 +39,36 @@
         padding-left: 20px;
         text-align: center;
     }
-    .content{
+    .m_content{
         clear: both;
         padding:40px 80px;
         color: #000;
         font-size: 16px;
         line-height: 25px;
     }
-    .meeting_content{
-        padding:0px  0px;
-    }
-    .meeting_content p{
-        /*text-indent: 2em;*/
-    }
-    .meeting_content img{
-        display: block;
-        margin: 0 auto;
-    }
-    .meeting{
-        width: 100%;
-        background: #FCF6EA;
-        border-radius: 3px;
-    }
-    .meeting h3{
-        color: #fff;
-        display: inline-block;
-        background: #1C50A3;
-        border-radius: 3px;
-        margin: 0;
-        font-weight: normal;
+    /*.meeting_content{*/
+        /*padding:0px  0px;*/
+    /*}*/
+    /*.meeting_content p{*/
+        /*!*text-indent: 2em;*!*/
+    /*}*/
+    /*.meeting_content img{*/
+        /*display: block;*/
+        /*margin: 0 auto;*/
+    /*}*/
+    /*.meeting{*/
+        /*width: 100%;*/
+        /*background: #FCF6EA;*/
+        /*border-radius: 3px;*/
+    /*}*/
+    .meetingBgs_name h3{
+        color: #0099ff;
+        /*border-bottom:2px solid #1C50A3;*/
+        /*font-weight: normal;*/
         font-size: 23px;
-        padding: 7px 10px;
+        padding: 7px 0px;
+        margin: 2em 0;
+        text-align: center;
     }
     .guest{
         width: 100%;
@@ -132,19 +131,25 @@
     table {
         width:100% !important;
     }
+    a:hover{
+        cursor: pointer;
+    }
 </style>
 <body>
 <div class="main">
     <img class="head_img" width="100%" src="http://pic.huodongjia.com/static/images/dingbu.png" alt=""/>
    <div class="content_top">
     <img class="iv" src="http://pic.huodongjia.com/static/images/yaoqing.png" alt=""/>
-    <h1 class="title">{{event.event_name}}</h1>
+    <h1 class="h_title"><a style="color:#1B52A5" href="/event-{{event.event_id}}.html">{{event.event_name}}</a></h1>
    </div>
-    <div class="content">
-       <p>尊敬的<span class="usn">&nbsp;</span>先生/女士，您好！</p>
-       <div class="meeting_content">{{event.event_name}}将于{{ event.event_begin_time|date:'Y'}}年{{ event.event_begin_time|date:'m'}}月在{{event.event_city_info.0.district_name}}召开。</div>
-       {% for par in event.event_paragraph_info %}
-       {% if par.txt != '' %}
+
+    <div class="m_content">
+        <div style="clear: both;">
+            <p>尊敬的<span class="usn">&nbsp;</span>先生/女士，您好！</p>
+            <div class="meeting_content"><a href="/event-{{event.event_id}}.html">{{event.event_name}}</a>将于{{ event.event_begin_time|slice:':4'}}年{{ event.event_begin_time|slice:'5:7'}}月在{{event.event_city_info.0.district_name}}召开。</div>
+        </div>
+            {% for par in event.event_paragraph_info %}
+       {% if par.txt %}
         {% if par.name %}
         <div class="meetingBgs">
             <div class="meetingBgs_name" id="meeting_{{forloop.counter}}">

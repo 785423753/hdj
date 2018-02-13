@@ -1,7 +1,15 @@
-{% extends 'base.html' %}
+﻿{% extends 'base.html' %}
 {% load page_nav %}
+{% block add_st %}
+{% endblock %}
 {% block addstyle %}
-<link rel="stylesheet" type='text/css' href='http://pic.huodongjia.com/static/css/guest.css' />
+<!--<link rel="stylesheet" type='text/css' href='https://pic.huodongjia.com/static/css/guest.css' />-->
+<link rel="alternate" media="only screen and(max-width: 640px)" href="https://m.huodongjia.com{{request.get_full_path}}">
+<meta name="mobile-agent" http-equiv="mobile-agent" content="format=html5;url=https://m.huodongjia.com{{request.get_full_path}}" />
+<meta property="og:type" content="article"/>
+<meta property="og:image" content="{{ guest.img__server__name }}{{ guest.img__urls }}"/>
+<meta property="og:title" content="{{ seo.title }}"/>
+<meta property="og:description" content="{{ seo.description }}"/>
 <style>
     .like{
         position: absolute;
@@ -14,112 +22,514 @@
     color: #E74E51;
     font-size: 18px;
 }
+    .banner{
+        width: 100%;
+        background: #1B548B;
+        text-align: center;
+        position: relative;
+        padding: 10px 0;
+    }
+    .banner span{
+        color: #fff;
+        line-height: 25px;
+    }
+    .invite{
+        width: 100px;
+        height: 30px;
+        border: none;
+        border-radius: 4px;
+        background: #EA4C4B;
+        color: #fff;
+        margin-top: 10px;
+    }
+    .gues_pic{
+        width: 110px;
+        border-radius: 110px;
+        height: 110px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+    .bread_nav{
+        color: #CACFDD;
+        margin: 10px 0;
+    }
+    .bread_nav a{
+        color: #CACFDD !important;
+    }
+    .content_left,.content_right{
+        float: left;
+    }
+    .content_left{
+        width: 920px;
+        padding-right: 15px;
+    }
+    .content_right{
+        width: 280px;
+    }
+    .guest_info{
+        background: #fff;
+        padding: 15px;
+        color: #999;
+        font-size: 14px;
+        line-height: 28px;
+        margin: 10px 0;
+        /*min-height: 180px;*/
+    }
+    .guest_info p{display: inline;}
+    p{
+        margin: 0;
+    }
+    .guest_info div{
+        /*float: left;*/
+        margin-right: 10px;
+        overflow: hidden;
+        position: relative;
+    }
+    .guest_info h1{
+        display: inherit;
+        text-align: center;
+        font-size: 20px;
+        color: #000;
+        margin: 0 0 15px;
+    }
+
+    li{list-style: none}
+    .event li{
+        margin-bottom: 20px;
+        position: relative;
+        border: 1px solid #fff;
+    }
+    .event li h2{
+        font-weight: 600;
+        color: #000;
+        font-size: 18px;
+        margin: 5px 0 0;
+	width: 90%;
+    }
+    .event .addr{
+        font-size: 14px;
+        margin: 20px 0;
+    }
+    .event{padding-right: 15px;
+        width: 731px;
+        float: left;
+    }
+    .event .intro{
+        height: 73px;overflow: hidden;
+        color: #999;
+        font-size: 14px;
+        line-height: 26px;
+    }
+    .event a{ color: #000;}
+    .course_title{
+        font-weight: 600;
+        color: #000;
+        font-size: 18px;
+        padding: 10px 35px;
+        border-bottom: 1px solid #F9F9F9;
+        margin-bottom: 15px;
+        position: relative;
+    }
+    .course_title:before{
+        content: '';
+        width: 5px;
+        height: 20px;
+        background: #1373DA;
+        position: absolute;
+        top: 12px;
+        left: 15px;
+    }
+    .event .application{
+        display: inline-block;
+        color: #fff;
+        width: 85px;
+        line-height: 36px;
+        text-align: center;
+        background: #1474d8;
+        margin: 20px 0;
+        font-size: 16px;
+        font-weight: 600;
+        position: absolute;
+        top: -23px;
+        right: 0;
+    }
+    .event .jz{
+        color: #999;
+        background: none;
+    }
+    .rel_guest{
+        background: #fff;
+        clear: both;
+        margin: 15px 0;
+        width: 100%;
+    }
+    .rel_guest div{
+        text-align: center;
+        font-size: 14px;
+        display: inline-block;
+    }
+    .rel_guest img{display: block;margin: 10px auto;}
+    .rel_event img{
+        margin: 5px;
+    }
+    .rel_event{
+        clear: both;
+        background: #fff;
+    }
+    .rel_event li{
+        float: left;
+        width: 25%;
+        padding: 5px;
+    }
+    .rel_event img{
+        width: 100%;
+    }
+    .rel_event li a{color: #000;}
+    .rel_event li div{position: relative}
+    .rel_event li p{
+        color: #999;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+    .rel_event li p a{ color: #999;}
+    .hot_guest{
+        background: #fff;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+    }
+    #search_guest{
+        text-align: center;
+        position: relative;
+    }
+    #search_guest input{
+        border: 1px solid #d9d9d9;
+        height: 50px;
+        width: 100%;
+        border-radius: 5px;
+        padding: 0 20px;
+        margin: 15px 0;
+    }
+    .search_guest{
+        font-size: 25px;
+        color: #999;
+        font-weight: 600;
+        position: absolute;
+        right: 5px;
+        top: 20px;
+        cursor: pointer;
+    }
+    .guest_hot{
+        display: flex;
+        display: -webkit-flex;
+        align-items: center;
+        padding: 10px 15px;
+    }
+    .guest_hot img{border-radius: 100%;}
+    .guest_hot p{
+        font-size: 14px;
+        color: #999;
+        padding-left: 15px;
+    }
+    .guest_hot p a{
+        color: #000;
+        font-size: 16px;
+        font-weight: 600;
+        display: block;
+    }
+    .new_guest{
+        display: block;
+        margin-top: 20px;
+        color: #000;
+        font-size: 14px;
+        padding: 0 15px;
+    }
+    .new_guest:hover{
+        text-decoration: underline !important;
+        color: #1474d8;
+    }
+    .guest_info{color:#000;}
+    .filter{position: relative;}
+    .filter span{
+        font-size: 16px;
+        color: #999;
+        display: inline-block;
+        padding: 5px 0;
+        margin-right: 20px;
+        cursor: pointer;
+    }
+    .filter .act{
+        color: #1474d8;
+        border-bottom:2px solid #1474d8;
+    }
+    .jiabin{
+        background: #fff;text-align: center;padding: 15px 0;margin: 10px 0 15px;
+        position: relative;
+        height: 357px;
+    }
+    .ewm_icon{
+        width: 0;
+        height: 0;
+        border-bottom: 60px solid #EBEBEB;
+        border-left: 60px solid transparent;
+        display: inline-block;
+        position: absolute;
+        bottom:0;
+        right: 0;
+    }
+    .ewm_icon font{
+        font-size: 12px;
+        color: #666;
+        position: absolute;
+        width: 40px;
+        top: 31px;
+        right: -1px;
+        transform: rotate(-46deg);
+        cursor: pointer;
+    }
+    .photo,.e_wm{
+        position: absolute;
+        width: 100%;
+        top:15px;
+        left: 0;
+    }
+    .e_wm,.ewm_2{
+        display: none;
+    }
+    .all{display: none}
+    .more{
+        text-align: center;
+        color: #999;
+        font-size: 14px;
+        margin: 15px 0 0;
+        cursor: pointer;
+    }
+    .guests{position: relative;height: 275px;}
+    .guests .rel_guest{
+        padding:5px 15px 15px;width: 100%;display: flex;justify-content:space-between;
+        display: none;
+        position: absolute;
+        width: 100%;
+        top:0;
+        left: 0;
+    }
+    .guests .active{
+        display: flex;
+    }
+    .refresh{
+        position: absolute;
+        right: 0;
+        top:7px;
+        cursor: pointer;
+    }
+    .info{
+        padding: 5px 0;width:138px;
+    }
+    .info a{
+        color: #000;font-weight: 600
+    }
+    .info p{
+        margin-top: 5px;
+        color: #666;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
 </style>
 {% endblock %}
 {% block content %}
 <div class="container content">
     <p class="bread_nav">
         <span><a href="/" target="_blank">首页</a>&gt;<a href="/jiabin/" target="_blank">演讲嘉宾</a>&gt;</span>
-        <a style="color: #858B9A !important;">{{guest.name}}</a><span style="float: right;">更新时间：{{ events.0.event_begin_time|date:"Y-m-d" }}</span>
+        <a style="color: #858B9A !important;">{{guest.name}}</a><span style="float: right;">更新时间：{{ events.0.event_begin_time }}</span>
     </p>
-    <div class="banner">
-        <!-- <p class="like"><span class="fa fa-heart"></span><br/>200人喜欢</p> -->
-        <div class="gues_pic">
-            {% if guest.img__urls %}
-            <img width="100%" src="{{ guest.img__server__name }}{{ guest.img__urls }}" alt="{{guest.company__name}}{{guest.job__name}}{{ guest.name }}照片"/>
-            {% else %}
-            <img width="100%" src="/static/images/guest_default(1).jpg" alt="{{ guest.name }}照片"/>
-            {% endif %}
-        </div>
-        <br/><h1 style="font-size: 18px;display: inline;color: #fff;">{{ guest.name }}</h1><br/><span>{% if guest.company__name %}{{ guest.company__name }}{% endif %}</span><br/><span>{% if guest.job__name %}{{ guest.job__name }}{% endif %}</span></br>
-        <a href='/guest/guest-{{ guest.id|encodeid }}/' target="_blank"><button class="invite">邀请出席</button></a>
-    </div>
     <div class="content_left">
-        {% if guest.intro %}
-        <div class="guest_des"><p style="margin: 0">{{ guest.intro }} <span class="more">...</span></p></div>
-        {% endif %}
-        <div class="col-sm-2 col-xs-2 schedule">
-            {% for event in events %}
-            <div class="date"><span>{{ event.event_begin_time|date:"Y-m-d" }}</span></div>
-            {%if not forloop.last %}
-            <div class="line"></div>
-            {% endif %}
-            {% endfor %}
+        <div class="guest_info">
+                <h1>{{ guest.name }}简历<a style="font-size: 14px;color: #666;" href='/guest/guest-{{ guest.id|encodeid }}/' target="_blank">邀请出席</a></h1>
+                <span style="font-size: 20px;padding: 0 3px;">{{ guest.name }}</span>{{guest.intro|safe}}
         </div>
-        <div class="col-sm-10 col-xs-10 event">
-            {% for event in events %}
-            <div class="event_detail">
-                <span class="fa fa-caret-left"></span>
-                <h3 class="event_name"><a href="{{ event.event_url }}">{{ event.event_name }}</a></h3>
-                <span>时间：{{ event.event_begin_time|date:"Y-m-d" }}</span><span>地点：<a target="_blank" href="/{{ event.event_city_info.0.title }}/">{{ event.event_city_info.0.district_name }}</a></span>
-                <p class="event_des">
-                    {% if event.event_intro %}
-                    {{ event.event_intro }}
-                    {% else %}
-                    <!--{{event.event_paragraph_info.0.txt}}-->
-                    {% endif %}
-                </p>
-                <ul class="event_guest">
-                {% for e_guest in event.event_guest|slice:':6' %}
-                <li>
-                    <a href="/guest-{{ e_guest.id|encodeid }}.html" target="_blank">
-                        <div class='event_pic'>
-                            {% if e_guest.img__urls  %}
-                            <img width="100%" src="{{ e_guest.img__server__name }}{{ e_guest.img__urls }}" alt="{{ e_guest.name }}照片"/>
-                            {% else %}
-                            <img width="100%"  src="/static/images/guest_default(1).jpg" alt="{{ e_guest.name }}照片"/>
-                            {% endif %}
+        <div class="filter">
+            <span class="act">{% if interest_guests.flag == 0 %}您可能感兴趣的嘉宾{% else %}该公司其他嘉宾{% endif %}</span>
+            <span>{% if same_job_guests.flag == 0 %}热门嘉宾推荐{% else %}同职位嘉宾推荐{% endif %}</span><span>最新入驻</span>
+            <div class="refresh"><img width="20" src="https://pic.huodongjia.com/static/images/refresh.png" alt="">  换一批</div>
+            <input type="hidden" class="type" value="1">
+            <input type="hidden" class="id" value="{{guest.id}}">
+        </div>
+        <div class="guests">
+            <div class="rel_guest active">
+                    {% for guest in interest_guests.inter_or_company|slice:':5' %}
+                    <div>
+                        <a target="_blank" href="/guest-{{guest.id|encodeid}}.html" style="width: 138px;height: 138px;position: relative;overflow: hidden;display: block;">
+                            <img class="lazy" width="92%" data-original="{{ guest.img__server__name }}{{ guest.img__urls }}"  src="/static/images/guest_default(1).jpg" alt="{{guest.company__name}}{{guest.job__name}}{{ guest.name }}照片"/>
+                        </a>
+                        <div class="info">
+                            <a  target="_blank" href="/guest-{{guest.id|encodeid}}.html">{{guest.name}}</a>
+                            <p>{{guest.company__name}}</p>
+                            <p>{{guest.job__name}}</p>
                         </div>
-                    {{ e_guest.name }}</a>
+                    </div>
+                    {% endfor %}
+            </div>
+            <div class="rel_guest">
+                {% for guest in same_job_guests.hot_or_job|slice:':5' %}
+                <div>
+                    <a target="_blank" href="/guest-{{guest.id|encodeid}}.html" style="width: 138px;height: 138px;position: relative;overflow: hidden;display: block;">
+                        <img  width="92%" src="{{ guest.img__server__name }}{{ guest.img__urls }}" alt="{{guest.company__name}}{{guest.job__name}}{{ guest.name }}照片"/>
+                    </a>
+                    <div class="info">
+                        <a  target="_blank" href="/guest-{{guest.id|encodeid}}.html">{{guest.name}}</a>
+                        <p>{{guest.company__name}}</p>
+                        <p>{{guest.job__name}}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="rel_guest">
+                {% for guest in newest_guest|slice:':5' %}
+                <div>
+                    <a target="_blank" href="/guest-{{guest.id|encodeid}}.html" style="width: 138px;height: 138px;position: relative;overflow: hidden;display: block;">
+                        <img  width="92%" src="{{ guest.img__server__name }}{{ guest.img__urls }}" alt="{{guest.company__name}}{{guest.job__name}}{{ guest.name }}照片"/>
+                    </a>
+                    <div class="info">
+                        <a  target="_blank" href="/guest-{{guest.id|encodeid}}.html">{{guest.name}}</a>
+                        <p>{{guest.company__name}}</p>
+                        <p>{{guest.job__name}}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <form id="search_guest" action="/search_guest/" method="get"><input required placeholder="10万个嘉宾任您搜" type="text" name="keyword"><span class="search_guest m_iconfont">&#xe607;</span></form>
+
+        <div class="rel_event">
+            <p class="course_title">你想参加</p>
+            <ul style="padding:5px 15px 15px;height: 220px">
+                {% for item in relate_events %}
+                <li>
+                    <div>
+                        <a target="_blank" href="{{item.event_url}}">
+                            <img height="122" class="lazy"  data-original="{{ item.event_img.0.server__name }}{{ item.event_img.0.urls }}"
+                                 src="http://pic.huodongjia.com/static/images/event_default.jpg" alt="{{item.event_name}}"/>
+                        </a>
+                    </div>
+                    <a style="width: 100%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;display: block" target="_blank" href="{{item.event_url}}">{{item.event_name}}</a>
+                    <p>时间：{{item.event_begin_time}}</p>
+                    <p>地点：<a href="/{{item.event_city_info.0.title}}/">{{item.event_city_info.0.district_name}}</a></p>
                 </li>
                 {% endfor %}
-                </ul>
-                <br style="clear: both"/>
-            </div>
-            {% endfor %}
-        </div>
+        </ul>
+    </div>
     </div>
     <div class="content_right">
-        <div class="hot_guest">
-            <p>热门嘉宾</p>
-            {% for hot_guest in hot_guests %}
-            <a href="/guest-{{ hot_guest.guest__id|encodeid }}.html" target="_blank">
-                 <div style="padding: 10px;min-height: 97px">
-                    {% if hot_guest.guest__img__urls  %}
-                    <img width="30%" src="{{ hot_guest.guest__img__server__name }}{{ hot_guest.guest__img__urls }}" alt="{{ hot_guest.guest__name }}照片"/>
+        <div class="jiabin">
+            <div class="photo">
+                <div style="height: 238px;overflow: hidden">
+                    {% if guest.img__urls %}
+                    <img  title="{{guest.name}}简历照片"  width="238"  src="{{ guest.img__server__name }}{{ guest.img__urls }}" alt="{{guest.company__name}}{{guest.job__name}}{{ guest.name }}照片"/>
                     {% else %}
-                    <img width="30%"  src="/static/images/guest_default(1).jpg" alt="{{ hot_guest.guest__name }}照片"/>
+                    <img  title="{{guest.name}}简历照片"  width="238"   src="/static/images/guest_default(1).jpg" alt="{{guest.company__name}}{{guest.job__name}}{{ guest.name }}照片"/>
                     {% endif %}
-                <p class="hot">{{ hot_guest.guest__name }}<span>{{hot_guest.guest__company__name}}</span><span>{{ hot_guest.guest__job__name }}</span></p>
+                </div>
+                <div style="color: #666;padding: 0 47px;" itemscope itemtype="http://schema.org/Person">
+                    <h1  itemprop="name" style="font-size: 18px;color: #000;margin-top: 10px">{{ guest.name }}</h1>
+                    <span itemprop="affiliation">{% if guest.company__name %}{{ guest.company__name }}{% endif %}</span><br>
+                    <span itemprop="jobTitle">{% if guest.job__name %}{{ guest.job__name }}{% endif %}</span>
+                </div>
             </div>
-            </a>
-            {% endfor %}
+            <div class="e_wm">
+                <div class="qcrode" style="width: 230px;height: 230px;margin:20px auto 15px"></div>
+                <p>扫描二维码在手机上查看</p>
+            </div>
+            <div class="ewm_icon"><font class="ewm_1">二维码</font><font class="ewm_2">信息</font></div>
         </div>
-        <div class="recent_event">
-            <p>相关会议</p>
-            {% for event in relate_events %}
-            <div style="padding: 10px;min-height: 55px">
-                <a href="{{ event.event_url }}" target="_blank">
-                    {% if event.event_img.0.urls %}
-                    <img width="40%" src="{{ event.event_img.0.server__name }}{{ event.event_img.0.urls }}" alt="{{ event.event_name }}"/>
-                    {% else %}
-                    <img  width="40%" src="http://pic.huodongjia.com/static/images/event_default.jpg" alt="{{ event.event_name }}"/>
-                    {% endif %}
-                </a>
-                <p class="e_name"><a style="color: #525A6D;" href="{{ event.event_url }}">{{ event.event_name }}</a><span class="citys" style="float: left">
-                    <a href="/{{ event.event_city_info.0.title }}/" target="_blank" style="color:#525A6D">{{ event.event_city_info.0.district_name }}</a></span><span style="float: right">{{ event.event_begin_time|date:'Y-m-d' }}</span></p>
-            </div>
+        <div class="hot_guest">
+            <p class="course_title">{{ guest.name }}出席会议历程</p>
+            {% for item in events|slice:':6' %}
+            <a class="new_guest" target="_blank" href="{{item.event_url}}">{{item.event_name}}</a>
             {% endfor %}
+            <div class="all">
+                {% for item in events|slice:'6:' %}
+                <a class="new_guest" target="_blank" href="{{item.event_url}}">{{item.event_name}}</a>
+                {% endfor %}
+            </div>
+            {% if events|length > 6 %}
+            <p class="more">更多 ︾</p>
+            {% endif %}
         </div>
     </div>
 </div>
+
 {% endblock %}
 {% block js %}
+<script src="https://pic.huodongjia.com/static/js/jquery.lazyload.min.js"></script>
+<script type="text/javascript" src="https://pic.huodongjia.com/static/js/jquery.qrcode.min.js"></script>
 <script>
     var H=$(".guest_des p").height()
     $(".guest_des").click(function () {
         $(this).find("p").css({"maxHeight":"none","lineClamp":"inherit"})
         $(".more").hide()
+    })
+    $(".lazy").lazyload({threshold:0,effect:"show",placeholder:"http://pic.huodongjia.com/static/images/event_default.jpg",event:"scroll"})
+    $('.qcrode').qrcode({
+        width: 230,
+        height: 230,
+        text:window.location.href,
+        render:"canvas",
+        foreground:'#000'
+    });
+    $('.ewm_1').click(function () {
+        $('.ewm_2,.e_wm').fadeIn();
+        $(this).fadeOut(0);
+        $('.photo').fadeOut(0)
+    })
+    $('.ewm_2').click(function () {
+        $('.ewm_1,.photo').fadeIn();
+        $(this).fadeOut(0)
+        $('.e_wm').fadeOut(0)
+    })
+    $('.search_guest').click(function () {
+        $('#search_guest').submit();
+    })
+    $('.filter span').click(function () {
+        var _index=$(this).index();
+        $('.filter span').eq(_index).addClass('act').siblings().removeClass('act');
+        $('.guests .rel_guest').eq(_index).addClass('active').siblings().removeClass('active');
+        $('.type').val(parseFloat(_index+1))
+    })
+    $('.more').click(function () {
+        var text=$(this).text();
+        if(text == "更多 ︾"){
+            $('.all').fadeIn();
+            $(this).text("收起 ︽")
+        }else{
+            $('.all').fadeOut();
+            $(this).text("更多 ︾")
+        }
+    })
+    $('.refresh').click(function () {
+        var id=$('.id').val(),position=$(".type").val(),_index=parseFloat(position)-1;
+        $('.guests .rel_guest').eq(_index).html('')
+        $.get('/change/guest/',{guest_id:id,position:position},function (data) {
+            var _html='';
+            for(let i=0;i<data.length;i++){
+                if(i<5){
+                    _html+=`
+                    <div>
+                        <a target="_blank" href="/guest-${data[i].guest_id}.html" style="width: 138px;height: 138px;position: relative;overflow: hidden;display: block;">
+                            <img width="92%" src="${data[i].img__server__name}${data[i].img__urls}" alt="${data[i].company__name}${data[i].job__name}${data[i].name}照片"/>
+                        </a>
+                        <div class="info">
+                            <a target="_blank" href="/guest-${data[i].guest_id}.html">${data[i].name}</a>
+                            <p>${data[i].company__name}</p><p>${data[i].job__name}</p>
+                        </div>
+                    </div>
+                `
+                }
+            }
+            $('.guests .rel_guest').eq(_index).html(_html)
+        })
     })
 </script>
 {% endblock %}

@@ -95,15 +95,15 @@
 }
 .gues_info{
     width: 100%;
-    height: 86px;
+    /*height: 86px;*/
     color: #7C8393;
     font-size: 15px;
     line-height: 22px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp:4;
-    -webkit-box-orient: vertical;
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+    /*display: -webkit-box;*/
+    /*-webkit-line-clamp:4;*/
+    /*-webkit-box-orient: vertical;*/
 }
 .theme{
     color: #7C8393; font-size: 16px;

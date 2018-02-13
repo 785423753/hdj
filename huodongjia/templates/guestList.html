@@ -1,33 +1,64 @@
 {% extends 'base.html' %}
 {% load page_nav %}
+{%block add_st%}<link rel="alternate" media="only screen and(max-width: 640px)" href="https://m.huodongjia.com{{request.get_full_path}}" >{%endblock%}
 {% block addstyle %}
-<link rel="stylesheet" href="http://pic.huodongjia.com/static/css/guestlist.css"/>
+<link rel="stylesheet" href="https://pic.huodongjia.com/static/css/guestlist.css"/>
+<meta name="mobile-agent" http-equiv="mobile-agent" content="format=html5;url=https://m.huodongjia.com/guest/{% if active_cat != 'no_restrict'%}{{active_cat}}/{%endif%}" />
+<style>
+    #search_guest{
+        float: right;
+        position: relative;
+        top: 13px;
+    }
+    #search_guest input{
+        border: 1px solid #d9d9d9;
+        height: 35px;
+        width: 230px;
+        border-radius: 5px;
+        padding: 0 22px 0 10px;
+    }
+    .search_guest{
+        font-size: 20px;
+        color: #999;
+        font-weight: 600;
+        position: absolute;
+        right: 4px;
+        top: 2px;
+        cursor: pointer;
+    }
+</style>
 {% endblock %}
 {% block content %}
 <div class="banner">
         <div class="container">
-        <a href="/guest/apply_guest/" target="_blank"><img width="100%" src="http://pic.huodongjia.com/static/images/guest.jpg" alt="邀请会议嘉宾，上活动家"/></a>
+        <a href="/guest/apply_guest/" target="_blank"><img width="100%" src="https://pic.huodongjia.com/static/images/guest.jpg" alt="邀请会议嘉宾，上活动家"/></a>
         </div>
     </div>
 <!--list-->
 <div class="container guest_list">
-    <div class="bread_nav" style="margin-bottom: 10px"><a href="/">首页</a>&gt;<a href="/guest/">演讲嘉宾</a>&gt;
+    <form id="search_guest" action="/search_guest/" method="get"><input placeholder="输入关键字搜索嘉宾" type="text" name="keyword"><span class="search_guest m_iconfont">&#xe607;</span></form>
+    <div class="bread_nav" style="margin: 20px 0 30px;"><a href="/">首页</a>&gt;<a href="/guest/">演讲嘉宾</a>&gt;
+        {% if active_cat %}
         {% if active_cat == 'no_restrict' %}
-        <h1 style="display: inline;font-size: 14px"><a href="/guest/" style="color: #7F8796;">不限</a></h1>
+        <h1 style="display: inline;font-size: 14px;"><a href="/guest/" style="color: #666;">不限</a></h1>
         {% endif %}
-        {% for cat in cats %}
+        {% for cat in main_cats %}
         {% if cat.ename == active_cat %}
-        <h1 style="display: inline;font-size: 14px"><a href="/guest/{{ active_cat }}/" style="color: #7F8796;">{{ cat.name }}</a></h1>
+        <h1 style="display: inline;font-size: 14px"><a href="/guest/{{ active_cat }}/" style="color: #666;">{{ cat.name }}</a></h1>
         {% endif %}
         {% endfor %}
+        {% else %}
+        <h1 style="display: inline;font-size: 14px;color: #666;">搜索结果</h1>
+        {% endif %}
     </div>
+    {% if main_cats %}
     <ul class="guest_cat row">
         {% if active_cat == 'no_restrict' %}
         <li class="col-sm-2 col-xs-2"><h3 class="choosed"><a href="/guest/">不限</a></h3></li>
         {% else %}
         <li class="col-sm-2 col-xs-2"><h3 ><a href="/guest/">不限</a></h3></li>
         {% endif %}
-    {% for cat in cats %}
+    {% for cat in main_cats %}
         {% if cat.ename == active_cat %}
         <li class="col-sm-2 col-xs-2"><h3 class="choosed"><a href="/guest/{{ cat.ename }}/">{{ cat.name }}</a></h3></li>
         {% else %}
@@ -35,26 +66,27 @@
         {% endif %}
     {% endfor %}
     </ul>
-    {% for guest in guests %}
-    <div class="guest row">
-        <div class="col-sm-3 col-xs-3">
-            <div class="gues_pic"><a target="_blank" href="/guest-{{ guest.id|encodeid }}.html">
-                {% if guest.img__urls %}
-                <img width="100%"  src="{{ guest.img__server__name }}{{ guest.img__urls }}" alt="{{ guest.company__name }}{{ guest.job__name }}{{ guest.name }}"/>
-                {% else %}
-                <img width="100%"  src="http://pic.huodongjia.com/static/images/guest_default(1).jpg" alt="{{ guest.company__name }}{{ guest.job__name }}{{ guest.name }}"/>
-                {% endif %}
-            </a></div></div>
-       <div class="col-sm-9 col-xs-9 gues_des">
-           <a href="/guest-{{ guest.id|encodeid }}.html" target="_blank"><p class="gue_name">{{ guest.name }}</p></a>
-        <span style="width: 62%">{% if guest.company__name %}{{guest.company__name}}<br/>{% endif %}{% if guest.job__name %}{{ guest.job__name }}{% endif %}</span><span style="text-align: right">参与会议<font>{{ guest.event_cnt }}场</font></span>
-        <p class="gues_info">{{ guest.intro }}</p>
-        <!-- <p class="theme">演讲主题：<a>数据搜集到海量处理和实时处理</a></p> -->
+    {% endif %}
+    <div style="display: flex;flex-wrap: wrap;">
+        {% for guest in guests %}
+        <div class="guest row">
+            <div class="col-sm-3 col-xs-3">
+                <div class="gues_pic"><a target="_blank" href="/guest-{{ guest.id|encodeid }}.html">
+                    <img class="lazy" width="135" height="135"   data-original="{{guest.img__server__name}}{{guest.img__urls}}"  src="/static/images/guest_default(1).jpg" alt="{{guest.company__name}}{{guest.job__name}}{{ guest.name }}照片"/>
+                </a></div></div>
+            <div class="col-sm-9 col-xs-9 gues_des">
+                <a href="/guest-{{ guest.id|encodeid }}.html" target="_blank"><p class="gue_name">{{ guest.name }}</p></a>
+                <span style="width: 62%">{% if guest.company__name %}{{guest.company__name}}<br/>{% endif %}{% if guest.job__name %}{{ guest.job__name }}{% endif %}</span><span style="text-align: right">参与会议<font>{{ guest.event_cnt }}场</font></span>
+                <p class="gues_info">{{ guest.intro|slice:'102' }}   <a target="_blank" href="/guest-{{ guest.id|encodeid }}.html">详情&gt;&gt;</a></p>
+                <!-- <p class="theme">演讲主题：<a>数据搜集到海量处理和实时处理</a></p> -->
+            </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
+
 </div>
 <div class="pagination">
+   {% if pageList|length > 1 %}
     <ul>
         {% ifnotequal firstPage 'false'%} 
             <li><a href="{{firstPage}}">首页</a></li>
@@ -70,8 +102,19 @@
 
         {% ifnotequal nextPage 'false'%}                      
              <li><a  href="{{nextPage}}">下一页</a></li>
-             <!--<li><a  href="{{lastPage}}">最后一页</a></li>-->
         {% endifnotequal %} 
     </ul>
+    {% endif %}
 </div>
+{% endblock %}
+{% block gg %}
+{% endblock %}
+{% block js %}
+<script src="https://pic.huodongjia.com/static/js/jquery.lazyload.min.js"></script>
+<script>
+    $(".lazy").lazyload({threshold:0,effect:"show",placeholder:"http://pic.huodongjia.com/static/images/event_default.jpg",event:"scroll"})
+    $('.search_guest').click(function () {
+        $('#search_guest').submit();
+    })
+</script>
 {% endblock %}

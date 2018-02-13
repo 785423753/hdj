@@ -1,6 +1,6 @@
-@font-face {
+﻿@font-face {
     font-family: "myiconfont";
-    src: url("http://pic.huodongjia.com/static/css/iconfont/iconfont_post.ttf");
+    src: url("https://pic.huodongjia.com/static/css/iconfont/iconfont_post.ttf");
 }
 .content{
     padding: 0;
@@ -147,8 +147,8 @@ textarea{
 }
 .meeting_des .nav{
     height: auto;
-    width: 736px !important;
-    min-width: 736px !important;
+    width: 763px !important;
+    min-width: 763px !important;
 }
 .event_detail{
     float: left;
@@ -295,6 +295,7 @@ label[for="serve"]{
 }
 .content_right>div{
     background: #FFF;
+    +padding-right:20px;
 }
 .content_right p{
     height: 60px;
@@ -330,7 +331,7 @@ label[for="serve"]{
     width: 50% !important;
 }
 #start_day,#end_day,#deadline{
-    background: url("http://pic.huodongjia.com/static/images/rili1.png") no-repeat;
+    background: url("https://pic.huodongjia.com/static/images/rili1.png") no-repeat;
     background-position: 97% 48%;
 }
 .start_time,.end_time{
@@ -506,7 +507,7 @@ option{
     width: 295px;
 }
 .bgIcon3{
-    background: url("http://pic.huodongjia.com/static/usercenter/images/douzhi.png") no-repeat;
+    background: url("https://pic.huodongjia.com/static/usercenter/images/douzhi.png") no-repeat;
     display: inline-block;
     width: 16px;
     height:16px;
@@ -514,3 +515,5 @@ option{
     background-size: auto 100%;
 }
 #rule{margin: 0 0 3px}
+.media-left{+float:left}
+.media-body{+float:left;+width:80%}

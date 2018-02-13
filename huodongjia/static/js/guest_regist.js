@@ -113,6 +113,14 @@ $("#captcha").focus(function(){
     $(this).css({border:"1px solid #ddd"})
 });
 
+$('#file1').change(function(e){
+    var files = e.target.files || e.dataTransfer.files,id=e.target.id,that=this
+    var url=URL.createObjectURL(files[0]);
+    $('#imgView').attr('src',url)
+})
+
+
+
 
 function PreviewImage(obj, imgPreviewId, divPreviewId) {
     var allowExtention = ".jpg,.bmp,.gif,.png"; //,允许上传文件的后缀名

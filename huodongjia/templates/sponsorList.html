@@ -1,12 +1,12 @@
 ﻿{% extends 'base.html' %}
     {% block addstyle %}
-<link rel="stylesheet" href="http://pic.huodongjia.com/static/css/all.min.css">
-    <link rel="stylesheet" href="http://pic.huodongjia.com/static/css/sponsorList.css"/>
-<link href="http://pic.huodongjia.com/static/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-<link rel="alternate" media="only screen and(max-width: 640px)" href="http://m.huodongjia.com{{request.get_full_path}}" >
-<meta name="mobile-agent" http-equiv="mobile-agent" content="format=html5;url=http://m.huodongjia.com{{request.get_full_path}}" />
+<link rel="stylesheet" href="https://pic.huodongjia.com/static/css/all.min.css">
+    <!--<link rel="stylesheet" href="https://pic.huodongjia.com/static/css/sponsorList.css"/>-->
+<link rel="stylesheet" href="https://pic.huodongjia.com/static/css/venue_sponsor.css"/>
+<link rel="alternate" media="only screen and(max-width: 640px)" href="https://m.huodongjia.com{{request.get_full_path}}" >
+<meta name="mobile-agent" http-equiv="mobile-agent" content="format=html5;url=https://m.huodongjia.com{{request.get_full_path}}" />
 <!--[if lt IE 9]>
-<script src="http://pic.huodongjia.com/static/js/html5shiv.min.js"></script>
+<script src="https://pic.huodongjia.com/static/js/html5shiv.min.js"></script>
 <style>
     body{
         background: #f7f8fb;
@@ -14,101 +14,142 @@
 </style>
 <![endif]-->
 <style>
-    label{
-        width: 85px;
-        text-align: right;
+    .info{
+        padding-left: 0;
+        padding-right: 20px;
     }
+    .venue_list>div{position: relative}
+    .like{
+        position: absolute;
+        background: #1474d8;
+        color: #fff;
+        right: 0;
+        top:0;
+        padding: 0 5px;
+        line-height: 30px;
+        border-radius: 4px;
+        display: none;
+    }
+    .venue_list:hover .like{
+        display: block;
+    }
+    .venue_list{
+        align-items: center;
+    }
+    .detail p:nth-child(odd) {
+        width: 14%;
+    }
+    .detail p:nth-child(even) {
+        width: 86%;
+    }
+    .venue_list{
+        border-bottom: none;
+        border-top: 1px solid #D9D9D9;
+    }
+    .venue_list .venue_title{font-size: 16px;}
+    .sponsor{
+        font-size: 18px;
+        font-weight:600;
+        color: #000;
+        margin: 0;
+        padding: 20px 0 30px 20px;
+    }
+    .venue_left{position: relative;}
+    #search_venue {
+        top: 17px;
+        right: 15px;
+    }
+    .new_sponsor{
+        margin-top: 20px;
+        color: #000;
+        font-size: 1px;
+        display: block;
+    }
+    .new_sponsor:hover{
+        color: #1474d8;
+    }
+    .img{
+        position: relative;
+        width: 224px;
+    }
+    .img p a{color: #fff;}
+    .img p{
+        color: #fff;
+        font-size: 12px;
+        text-align: right;
+        width: 100%;
+        line-height: 30px;
+        background: rgba(0, 0, 0, 0.28);
+        position: absolute;
+        bottom:0;
+        left:0;
+        margin: 0;
+        padding-right: 10px;
+    }
+    .hot_event h3{
+        font-size: 14px;
+        margin: 0;
+        padding: 10px;
+    }
+    .hot_event h3 a{ color: #000;}
 </style>
 {% endblock %}
 {% block content %}
 <div class="container content">
     <div class="bread_nav"><a href="/">首页</a>&gt;<h1 style="display: inline;font-size: 14px;margin: 0"><a href="" style="color: #858B9A">会议主办方</a></h1></div>
-    <div class="col-sm-9 col-xs-9 content_left">
-        <h3>合作主办方</h3>
-        <form id="searchForm" style="float: right" action="/searchsponsor/"> <input name="keyword" id="search" type="text" placeholder="请输入主办方名称"/><span id="post" class="m_iconfont">&#xe607;</span></form>
+    <div class="venue_left">
+        <h3 class="sponsor">合作主办方</h3>
+        <form id="search_venue" action="/searchsponsor/" method="get">
+            <input placeholder="输入关键字搜索" type="text" name="keyword">
+            <span class="search_venue m_iconfont">&#xe607;</span></form>
+        {% if sponsors %}
         {% for sponsor in sponsors %}
-        {% if sponsor.events %}
-        <div class="sponsor_list" data-href="/sponsor-{{sponsor.id}}.html">
-            <div class="col-sm-8 col-xs-8" style="+width:60%">
-            <h3><a class="spo_name" target="_blank" href="/sponsor-{{sponsor.id}}.html">{{ sponsor.ns_name }}<span ></span></a></h3>
-            <p class="spo_des">{{ sponsor.ns_intro }}</p>
-             <span style="float:left;color: #7C8396;">近期会议:</span>
-                <p class="recent">
-                    {% for event in sponsor.events|slice:":3" %}
-                        <a target="_blank" href="/event-{{event.old_event_id}}.html">{{event.name}}</a><br/>
-                    {% endfor %}
-                </p>
+        <div class="venue_list">
+            <div class="info">
+                <h3 class="venue_title"><a href='/sponsor-{{ sponsor.id }}.html' target="_blank">{{ sponsor.ns_name }}</a></h3>
+                <div class="detail">
+                    <p>主办方介绍：</p>
+                    <p>{{ sponsor.ns_intro|slice:'150' }}...</p>
+                    <p>近期会议：</p>
+                    <p>
+                        {% for event in sponsor.events %}
+                        <a target="_blank" href="/event-{{event.event_id}}.html">{{event.event_name}}</a>
+                        {% endfor %}
+                    </p>
+                </div>
             </div>
-            <div class="col-sm-4 col-xs-4" style="+width:30%">
-                <div class="attention"><span class="fa fa-heart"></span>{% if sponsor.ns_like_count %}{{sponsor.ns_like_count}}{% else %}0{% endif %}人已关注</div>
-                <a href="/sponsor-{{sponsor.id}}.html" target="_blank">
-                    {% if sponsor.ns_pic_urls %}
-                    <img  width="100%" src="{{sponsor.ns_pic_urls}}" alt="{{ sponsor.ns_name }}"/>
-                    {% else %}
-                    <img  width="100%" src="http://pic.huodongjia.com/static/images/spon_default.jpg" alt="{{ sponsor.ns_name }}"/>
-                    {% endif %}
+            <div>
+                <!--<span class="like">{{sponsor.ns_like_count}}人已关注</span>-->
+                <a href="/sponsor-{{ sponsor.id }}.html" target="_blank">
+                    <img width="185" height="70" src="{% if sponsor.ns_pic_urls %}{{ sponsor.ns_pic_urls }}{%else%}https://pic.huodongjia.com/static/images/spon_default.jpg{% endif %}" alt="{{ sponsor.ns_name }}"/>
                 </a>
             </div>
         </div>
-        {% endif %}
         {% endfor %}
+        {% else %}
+        <p style="text-align: center;font-size: 14px;color: #666;padding: 50px 0;">抱歉，没有符合要求的主办方！</p>
+        {% endif %}
     </div>
-    <div class="col-sm-3 col-xs-3 content_right">
-        <div class="postevent">
-            <span>1、发布成功将获得20积分，赞积分换全国演唱会门票。</span>
-            <span>2、审核通过后将同步显示在活动家官网、APP、手机网站。</span>
-            <span>3、收费的高质量会议将获得活动家免费网络推广服务，为你的会议宣传造势。</span>
-            <span>4、欢迎所有优质会议主办方发布会议！</span>
-            <a target="_blank" href="/postevent/"><button>快速发布我的会议</button></a>
-        </div>
-        <div class="hot_spon">
-            <p style="font-size: 16px">热门主办方</p>
-            {% for sponsor in hot_sponsors %}
-            <div class="row sponsor">
-                <div class="col-sm-5 col-xs-5"><a target="_blank" href="/sponsor-{{ sponsor.id }}.html"><img width="100%" src="{{sponsor.ns_pic_urls}}" alt="{{sponsor.ns_name}}"/></a></div>
-                <div class="col-sm-7 col-xs-7" style="padding: 0 5px;+width:55%"><p><a target="_blank" style="color: #282828;" href="/sponsor-{{ sponsor.id }}.html">{{sponsor.ns_name}}</a></p><span>已有<font>{{sponsor.ns_like_count}}</font>人关注 <br/>已主办<font>{{sponsor.ns_count}}场会议</font></span></div>
+    <div class="venue_right">
+        <a href="/postevent/" target="_blank"><img  src="http://pic.huodongjia.com/static/images/youhuima.png" alt=""></a>
+        <div class="related">
+            <p class="n_title">热门会议</p>
+            {% for item in hot_events %}
+            <div class="hot_event">
+                <div class="img">
+                    <a href="{{item.event_url}}"><img width="224" height="140" src="{{item.event_img.0.server__name}}{{item.event_img.0.urls}}" alt="{{item.event_name}}"></a>
+                    <p>{{item.event_begin_time}}   <a href="/{{item.event_city_info.0.title}}/" target="_blank">{{item.event_city_info.0.district_name}}</a></p>
+                </div>
+                <h3><a href="{{item.event_url}}">{{item.event_name}}</a></h3>
             </div>
+
             {% endfor %}
         </div>
-        <div class="unautherize">
-            <p style="font-size: 16px">未认证主办方</p>
-            {% for unauth in unauth_sponsors %}
-            <div class="unautherize_spon">
-                <p><a style="color: #282828;" target="_blank" href="/sponsor-{{unauth.id}}.html">{{ unauth.ns_name }}</a></p>
-                <span style="width: 62%">已有{{ unauth.ns_like_count }}人关注</span> <span class="ren" lang="{{unauth.id}}">马上认领</span>
-            </div>
-            {% endfor %}
-        </div>
-        <div class="new_spon">
-            <p style="font-size: 16px">新入驻主办方 <a href="" target="_blank" style="float: right;color: #7C8395;font-size: 14px">更多</a></p>
-            <p style="border: none;height: auto;line-height: 25px;padding:15px " class="new_sponsor">
+        <div class="related">
+            <p class="n_title">新入驻主办方</p>
             {% for new_sponsor in new_sponsors %}
-            <a target="_blank" href="/sponsor-{{ new_sponsor.id }}.html" style="color: #282828;">{{ new_sponsor.name }}</a><br/>
+            <a class="new_sponsor" target="_blank" href="/sponsor-{{ new_sponsor.id }}.html">{{ new_sponsor.ns_name }}</a>
             {% endfor %}
-            </p>
-        </div>
-    </div>
-    <div class="message_popup" style="left: 35%; top:20%;">
-        <h4>主办方认领<span class="fa fa-close clearDiv"></span></h4>
-        <div>
-            <form method="post">
-                {% csrf_token %}
-                <input type="hidden" value="" class="thisId"/>
-                <ul>
-                    <li><label for="username"><span class="xing">∗</span>认&nbsp;领&nbsp;人&nbsp;：</label><input type="text" name="name" id="username" class=""></li>
-                    <li><label for="tel"><span class="xing">∗</span>手机号码：</label><div style="display: inline-table;">
-                        <input type="text" name="phone" id="tel">
-                    </div>
-                    </li>
-                    <li><label for="email"><span class="xing">∗</span>验证码：</label><input data-captcha="" type="text" id="captcha" name="captcha">
-                        <img id="cap_img" width="110"  onclick="this.setAttribute('src','/get_check_code_image/?nocache='+Math.random());" src="/get_check_code_image/"/>
-                    </li>
-                    <li><label for="email"><span class="xing">∗</span>电子邮箱：</label><input name="email" type="text" id="email"></li>
-                    <li><label style="position: relative;top: -6.6em;" for="email">&nbsp;&nbsp;&nbsp;我有话说：</label><textarea name="content" id="content" cols="40" rows="5"></textarea></li>
-                </ul>
-                <button type="button" id="messageSubmit">我要认领</button>
-                <input type="hidden" name="csrfmiddlewaretoken" value="YaCJLmzn4Ws4cMWxgBCsk1lBDDuMa2kc">
-            </form>
         </div>
     </div>
 </div>
@@ -117,7 +158,10 @@
         {% ifnotequal firstPage 'false'%} 
             <li><a href="{{firstPage}}">首页</a></li>
         {% endifnotequal %}
-
+        {% ifnotequal prePage 'false'%}
+        <li><a  href="{{prePage}}">上一页</a></li>
+        <!--<li><a  href="{{lastPage}}">最后一页</a></li>-->
+        {% endifnotequal %}
         {% for page in pageList%}
             {% if page.flag == 'true' %}
              <li class="page_active"><a href="{{page.pageurl}}">{{page.page}}</a></li>
@@ -134,6 +178,9 @@
 </div>
 {% endblock %}
 {% block js %}
-<script src="http://pic.huodongjia.com/static/js/all.js"></script>
-<script src="http://pic.huodongjia.com/static/js/sponsorList.js"></script>
+<script>
+    $('.search_venue').click(function () {
+        $('#search_venue').submit();
+    })
+</script>
 {% endblock %}

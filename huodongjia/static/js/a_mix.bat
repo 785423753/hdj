@@ -1,1 +1,1 @@
-copy jquery-1.8.3.min.js+bootstrap.js+jquery.placeholder.min.js+sweet-alert.min.js huodongjia.js /b
+copy jquery.js+bootstrap.js+jquery.placeholder.min.js+sweet-alert.min.js huodongjia.js /b

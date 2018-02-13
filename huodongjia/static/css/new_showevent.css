@@ -1093,3 +1093,390 @@ body{
     font-weight: normal;
     letter-spacing: 1px;
 }
+/*//修改*/
+
+.main{
+    background: #F8F8F8;
+}
+.detail_message .right{width: 19%}
+.detail_message .left{width: 80%}
+.loginContent{height: 290px;padding-top: 10px}
+#login a {
+    display: inline-block;
+    width: 60px;
+    float: none;
+}
+#login h3{
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+.loginBtn span{
+    display: inline-block;
+    width: 45px;
+    color: #000;
+    font-size: 16px;
+}
+#login a.weixin{margin: 0 15px}
+.Registration td{
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.change{position: relative}
+.choose_price{
+    position: absolute;
+    right: 5px;
+    top:13px;
+    display: none;
+}
+.bread_nav{margin: 10px 0}
+.event_nav{
+    border: none;
+    background: none;
+}
+.event_nav>.container{
+    border-bottom: 1px solid #E2E2E2
+}
+.event_nav ul li{
+    margin-right: 15px !important;
+    width: 100px;
+    text-align: center;
+}
+.e_message{
+    width: 100%;
+    background: #FFF;
+    padding: 15px;
+}
+.e_message .media-heading{
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 600;
+}
+.e_message .media-heading a{
+    color: #333;
+}
+.e_message .media-body span{
+    color: #000;
+    line-height: 30px;
+}
+.container{position: relative}
+.t_line{
+    position: absolute;
+    width: 100px;
+    left: 0;
+    bottom:0;
+    height: 5px;
+    background: #1475D6;
+    z-index:999;
+    transition: all .2s ease-out;
+}
+.Registration .t_head{
+    background: #1475D6;
+    color: #fff;
+    font-size: 16px;
+}
+.t_body td:first-child a{
+    color: #1475D6;
+    border:1px solid #1475D6;
+}
+.apply{
+    background: #1475D6;
+}
+.Registration tr td:first-child{
+    width: 35%;
+    text-align: center;
+}
+.event_content .meetingBgs .first_title{
+    color: #333;
+    border-left: 5px solid #1475D6;
+    margin-bottom: 15px;
+    margin-left: 15px;
+    margin-top: 0;
+}
+.event_content .meetingBgs hr{
+    border-color: #D9D9D9;
+    margin: 10px 0;
+}
+.event_content{
+    border:1px solid rgba(255, 255, 255, 0);
+}
+.event_content .meetingBgs{padding: 0;background: #fff;padding-top: 15px;margin-top: 15px}
+.event_content .meetingBgs .meeting_content{padding: 0 10% 15px}
+.meeting_content p{
+    color: #333;
+    font-size: 14px;
+}
+.second_title{
+    color: #666;
+    margin-left: 10px;
+    transition: all .2s linear;
+    cursor: pointer;
+    padding: 0 5px;
+}
+.second_title:hover{
+    color: #1475D6;
+}
+.second_title.act_s{
+    color: #1475D6;
+    text-decoration: underline;
+}
+.Registration table{  background: #FFF;}
+.guest_photo{
+    width: 100px;
+    height: 100px;
+}
+.gues_name{
+    color: #333;
+}
+.next, .prev{
+    width: 70px;
+    background: #474747;
+}
+.video,.docs,.hg li{
+    width: 30%;
+    float: left;
+    margin-right: 3%;
+    list-style: none;
+    margin-bottom: 10px;
+}
+.video p,.docs a{
+    line-height: 18px;
+    margin: 10px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 13px;
+    color: #333;
+}
+.tags{
+    width: 100%;
+    padding: 0 10%;
+    border-color: #D9D9D9;
+    margin: 0;
+    background: #fff;
+    color: #000;
+}
+.tags a{
+    background: none;
+    border:1px solid #666;
+    color: #333;
+    border-radius: 5px;
+}
+.hg li{margin-bottom: 10px}
+.hg li a{
+    line-height: 18px;
+    margin: 10px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 13px;
+    color: #333;
+}
+.event_part a:hover{
+    color: #1475D6;
+}
+.related_event, .user_message{border: none;padding-bottom: 15px !important;}
+.emotion, .reply_emotion{border-color: #666}
+#replyAnalytic, .analytic{
+    border-radius: 0;
+    background: #1475D6;
+}
+.all_message{
+    width: 90%;
+    margin: auto;
+}
+.qrcode{
+    width: 150px;
+    height: 150px;
+    margin:10px auto;
+}
+.event_share{
+    border-radius: 0;
+    border: none;
+}
+.event_share p{line-height: 40px}
+.event_share p span {
+    color: #000;
+    padding-left: 8px;
+    border-left: 6px solid #1373DA;
+}
+.email_order {
+    width: 90%;
+    margin: 15px auto;
+    position: relative;
+}
+.email_order input {
+    width: 100%;
+    height: 40px;
+    border: 1px solid #989697;
+    border-radius: 8px;
+    outline: none;
+    padding-left: 10px;
+}
+.email_order button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 40px;
+    width: 60px;
+    background: #1274D9;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+}
+.deserve_event {
+    padding: 10px 15px;
+}
+.deserve_event li {
+    list-style: none;
+    padding: 5px 0;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.deserve_event li a {
+    font-size: 12px;
+    color: #333;
+}
+.deserve_event li a:hover{
+    color: #1475D6;
+    text-decoration: underline !important;
+}
+.event_share .rel li p{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 13px;
+    color: #333 !important;
+    line-height: 30px;
+    margin: 0;
+}
+.event_share .rel li{  position: relative;}
+.event_share .rel .addr{
+    position: absolute;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.35);
+    color: #fff !important;
+    bottom:35px;
+    left:0;
+    text-align: right;
+    padding-right: 10px;
+}
+.choose_price{
+    right: 10px;
+    top:15px;
+}
+.collect a,.collection a,.share,.m_share{
+    width: 30px;
+    height: 26px;
+    background: url("http://pic.huodongjia.com/static/images/W3Cfuns_allbgs.png");
+    background-size: 100%;
+    background-position-y: -30px;
+    display: inline-block;
+    position: relative;
+    top: 7px;
+    margin-right: 5px;
+}
+.collection .collected{
+    height: 28px;
+    background-position-y: 0px;
+}
+.share{
+    background-position-y: -78px;
+    background-size: 26px;
+    width: 26px;
+    height: 25px;
+}
+.m_share{ margin-right: 10px;}
+.wl>span{
+    margin-right: 8px;
+}
+.n_wx{
+    background-position-y: -208px;
+    height: 30px;
+}
+.n_qq{
+    background-position-y: -59px;
+    height: 30px;
+}
+.n_sina{
+    background-position-y: -119px;
+    height: 30px;
+}
+.n_tb{
+    background-position-y: -149px;
+    height: 30px;
+}
+.n_db{
+    background-position-y: -185px;
+    height: 30px;
+    background-size: 31px;
+}
+.kf{
+    width: 33px;
+    height: 100px;
+    background: #eee;
+    position: relative;
+    float: right;
+}
+.kf img{
+    display: block;
+    margin: 4px auto;
+}
+.kf span{
+    display: none;
+    position: absolute;
+    right: 107%;
+    top: 0;
+}
+.meeting_content .guest {
+    display: inline-block;
+    vertical-align: top;
+    padding: 0 20px;
+    width: 24%;
+    margin-bottom: 10px;
+}
+.guests{
+    max-height: 400px;
+    overflow: hidden;
+    transition: all .3s linear;
+}
+.m_more{
+    text-align: center;
+    color: #999 !important;
+    margin: 0;
+}
+.prev img,.next img{margin-top: 120px;cursor: pointer;}
+.share_qrcode{
+    position: fixed;
+    width: 280px;
+    background: #fff;
+    font-size: 14px;
+    text-align: center;
+    padding: 10px 0;
+    top: 30%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 999;
+    border: 1px solid #A7A3A3;
+    border-radius: 4px;
+    display: none;
+}
+.share_qrcode .close{top: 10px}
+.liangdian{
+    width: 100%;
+    padding: 10px 0;
+}
+.liangdian li{
+    display: inline-block;
+    width: 24%;
+    float: left \9;
+    text-align: center;
+    color: #333;
+    font-size: 14px;
+    line-height: 25px;
+}

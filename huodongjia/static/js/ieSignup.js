@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Created by Administrator on 2016/1/29 0029.
  */
 $('input,textarea').placeholder();
@@ -50,7 +50,6 @@ $("#checkcode").on('blur', function () {
 })
 //    表单
 $("#save").click(function () {
-    var filter = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
     $('#ways').val($('.active').parent().attr('lang'))
     $('.footer').css({clear:'both'})
     if ($.trim($("#name").val())=="") {
@@ -137,7 +136,7 @@ $("#save").click(function () {
         $(".pay").attr("value",$.trim($("#payway").val()))
         $('#ways').val($('.active').parent().attr('lang'))
     })
-    $("#cap_img").click()
+   
 })
 $(".change").click(function () {
     $("#ApplyForm").show(100)
@@ -151,7 +150,7 @@ $(".wangyin").click(function(){
     $("#bank").attr("value",$(".choosed").find("img").attr("lang"));
 })
 $(".way").click(function(){
-    $('.ways').css({height:'135'})
+    $('.ways').css({height:'0'})
     $(".card").slideUp(200)
 })
 $(".card ul li img").click(function () {

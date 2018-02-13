@@ -87,8 +87,35 @@
                     <font>    {{event.address}}  {{event.event_venue_info.0.address}}</font>
                     <span class="map"><span style="color: #E54C4F;" class="m_iconfont">&#xe609;</span>查看地图</span><br/>
                     <span>会议规模：</span>{% if event.scale %}{{ event.scale }}人{% endif %} <br/>
-                    <span>价格：</span><b class="price">免费</b><br/>
-                <button type="button" id="apply">免费报名</button>
+                    <span>价格：</span><b class="price">￥{{event.event_price_unit.0.price}}</b>
+                    <span style="padding-left: 8px;position:relative;">可获得 <span class='jifen'>{% widthratio event.event_price_unit.0.price 100 5 %}</span>个积分<font class="q_font">&#xe60c;</font>
+                    <span class="change"><i class="fa fa-caret-left"></i>积分可用于兑换全国会议/演唱会门票。<a rel="nofollow" href="/usercenter/index/">点击查看</a></span></span><br/>
+                    <span style="float: left;margin-top: 13px">票种：</span><span style="display: inline-block;width: 80%;min-height: 38px">
+                        {% for price in event.event_price_unit %}
+                        <span class="ticket" data-sign="{{price.Currency__sign}}" data-price="{{price.price}}" data-note="{{price.content}}">{{price.Fee_name}} <img src="http://pic.huodongjia.com/static/images/xuanzhong.png" alt=""/>
+                        </span>
+                        {% endfor %}</span>
+                    <br/>
+                    <span>数量：</span><input id="number" type="text" value="1"/>
+                    <span class="change_num"><span class="add fa fa-angle-up"></span><span class="sub fa fa-angle-down"></span></span><br/>
+                </p>
+                <p class="return">
+                    <span style="color: #BFC2D3">费用说明：</span>
+                    <span style="width: 89%;font-size: 15px;min-height: 63px;" class='explain'>
+                            {% if event.event_price_unit.0.serve %}
+                            {{event.event_price_unit.0.serve}}
+                            {% else %}
+                                无
+                            {% endif %}
+                        </span>
+                </p>
+                <form action="/signup/{{event.event_id}}/" method="post" name="signup_form">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{event.event_price_unit.0.price}}" name="price" />
+                    <input type="hidden" value="{{event.event_price_unit.0.property}}" name="property" />
+                    <input type="hidden" value="1" name="amount" />
+                </form>
+                <button type="button" id="apply">立即报名</button>
             </div>
             <div class="bdsharebuttonbox">
                 <span style="line-height: 2.6;">分享:</span>
